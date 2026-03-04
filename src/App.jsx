@@ -76,6 +76,10 @@ export default function App() {
         <MarkerModal
           marker={selectedMarker}
           onClose={() => setSelectedMarker(null)}
+          onSave={(updated) => {
+            setMarkers(prev => prev.map(m => m.id === updated.id ? updated : m))
+            setSelectedMarker(updated)
+          }}
         />
       )}
     </div>
