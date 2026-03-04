@@ -1,104 +1,131 @@
 export const VEHICLE_TYPES = ['Jeepney', 'Bus', 'UV Express', 'Tricycle', 'MRT/LRT', 'Ferry']
 
 export const TYPE_COLORS = {
-  Jeepney:  '#FF6B35',
-  Bus:      '#4A90D9',
+  Jeepney:      '#FF6B35',
+  Bus:          '#4A90D9',
   'UV Express': '#27AE60',
-  Tricycle: '#F39C12',
-  'MRT/LRT': '#8E44AD',
-  Ferry:    '#2980B9',
+  Tricycle:     '#F39C12',
+  'MRT/LRT':    '#8E44AD',
+  Ferry:        '#2980B9',
 }
 
+// All sample stops clustered in Metro Manila
 export const INITIAL_MARKERS = [
   {
     id: 1,
-    lat: 14.5995,
-    lng: 120.9842,
+    lat: 14.5998,
+    lng: 120.9843,
     type: 'Jeepney',
-    name: 'Quiapo to Cubao — Route 1',
+    name: 'Quiapo Terminal',
     images: [
-      'https://placehold.co/480x240/FF6B35/white?text=Jeepney+Route+1',
       'https://placehold.co/480x240/FF6B35/white?text=Quiapo+Terminal',
-      'https://placehold.co/480x240/FF6B35/white?text=Cubao+Stop',
+      'https://placehold.co/480x240/FF6B35/white?text=Jeepney+Stop',
+      'https://placehold.co/480x240/FF6B35/white?text=Quiapo+Route',
     ],
   },
   {
     id: 2,
-    lat: 10.3157,
-    lng: 123.8854,
+    lat: 14.6188,
+    lng: 121.0509,
     type: 'Bus',
-    name: 'Cebu South Bus Terminal',
+    name: 'Cubao Bus Terminal',
     images: [
-      'https://placehold.co/480x240/4A90D9/white?text=South+Bus+Terminal',
-      'https://placehold.co/480x240/4A90D9/white?text=Cebu+Bus+1',
-      'https://placehold.co/480x240/4A90D9/white?text=Cebu+Bus+2',
+      'https://placehold.co/480x240/4A90D9/white?text=Cubao+Bus+Terminal',
+      'https://placehold.co/480x240/4A90D9/white?text=Cubao+Stop+1',
+      'https://placehold.co/480x240/4A90D9/white?text=Cubao+Stop+2',
     ],
   },
   {
     id: 3,
-    lat: 7.1907,
-    lng: 125.4553,
+    lat: 14.5535,
+    lng: 121.0197,
     type: 'UV Express',
-    name: 'Davao UV Express Hub',
+    name: 'Makati Ayala UV Terminal',
     images: [
-      'https://placehold.co/480x240/27AE60/white?text=UV+Express+Hub',
-      'https://placehold.co/480x240/27AE60/white?text=Davao+Van+1',
-      'https://placehold.co/480x240/27AE60/white?text=Davao+Van+2',
+      'https://placehold.co/480x240/27AE60/white?text=Ayala+UV+Terminal',
+      'https://placehold.co/480x240/27AE60/white?text=Makati+Van+1',
+      'https://placehold.co/480x240/27AE60/white?text=Makati+Van+2',
     ],
   },
   {
     id: 4,
-    lat: 16.4023,
-    lng: 120.5960,
-    type: 'Bus',
-    name: 'Baguio Bus Terminal — Victory Liner',
+    lat: 14.5499,
+    lng: 121.0508,
+    type: 'UV Express',
+    name: 'BGC Stopover Terminal',
     images: [
-      'https://placehold.co/480x240/4A90D9/white?text=Victory+Liner+Baguio',
-      'https://placehold.co/480x240/4A90D9/white?text=Baguio+Terminal',
-      'https://placehold.co/480x240/4A90D9/white?text=Cordillera+Route',
+      'https://placehold.co/480x240/27AE60/white?text=BGC+Stopover',
+      'https://placehold.co/480x240/27AE60/white?text=BGC+Van+1',
+      'https://placehold.co/480x240/27AE60/white?text=BGC+Van+2',
     ],
   },
   {
     id: 5,
-    lat: 14.5547,
-    lng: 121.0244,
+    lat: 14.5860,
+    lng: 121.0569,
     type: 'MRT/LRT',
-    name: 'MRT-3 Guadalupe Station',
+    name: 'MRT-3 Ortigas Station',
     images: [
-      'https://placehold.co/480x240/8E44AD/white?text=MRT-3+Guadalupe',
-      'https://placehold.co/480x240/8E44AD/white?text=Station+Platform',
-      'https://placehold.co/480x240/8E44AD/white?text=Metro+Rail',
+      'https://placehold.co/480x240/8E44AD/white?text=MRT+Ortigas',
+      'https://placehold.co/480x240/8E44AD/white?text=MRT+Platform',
+      'https://placehold.co/480x240/8E44AD/white?text=EDSA+Line',
+    ],
+  },
+  {
+    id: 6,
+    lat: 14.6029,
+    lng: 120.9826,
+    type: 'MRT/LRT',
+    name: 'LRT-1 Doroteo Jose Station',
+    images: [
+      'https://placehold.co/480x240/8E44AD/white?text=LRT+Doroteo+Jose',
+      'https://placehold.co/480x240/8E44AD/white?text=LRT+Platform',
+      'https://placehold.co/480x240/8E44AD/white?text=LRT-1+Line',
+    ],
+  },
+  {
+    id: 7,
+    lat: 14.6024,
+    lng: 120.9730,
+    type: 'Jeepney',
+    name: 'Divisoria Jeepney Stop',
+    images: [
+      'https://placehold.co/480x240/FF6B35/white?text=Divisoria+Jeepney',
+      'https://placehold.co/480x240/FF6B35/white?text=Divisoria+Stop',
+      'https://placehold.co/480x240/FF6B35/white?text=Tondo+Route',
     ],
   },
 ]
 
+// Routes defined as waypoints — RoadRoute fetches real road geometry from OSRM
 export const SAMPLE_ROUTES = [
   {
     id: 'r1',
-    positions: [
-      [14.5995, 120.9842],
-      [13.9764, 121.5797],
-      [13.4125, 121.9800],
-      [12.3797, 121.7740],
-      [11.5016, 122.5736],
-      [10.7202, 122.5621],
-      [10.3157, 123.8854],
+    waypoints: [
+      [14.5998, 120.9843], // Quiapo
+      [14.6049, 121.0090], // España / Sampaloc
+      [14.6188, 121.0509], // Cubao
     ],
-    label: 'Bus — Manila to Cebu (via RORO)',
-    color: '#E74C3C',
-    weight: 3,
-    dash: '8 4',
+    label: 'Jeepney — Quiapo to Cubao',
+    color: '#FF6B35',
   },
   {
     id: 'r2',
-    positions: [
-      [14.5995, 120.9842],
-      [15.1480, 120.5960],
-      [16.4023, 120.5960],
+    waypoints: [
+      [14.6024, 120.9730], // Divisoria
+      [14.5790, 120.9830], // Ermita
+      [14.5535, 121.0197], // Makati Ayala
     ],
-    label: 'Bus — Manila to Baguio',
+    label: 'Bus — Divisoria to Makati',
     color: '#4A90D9',
-    weight: 3,
-    dash: '8 4',
+  },
+  {
+    id: 'r3',
+    waypoints: [
+      [14.5535, 121.0197], // Makati Ayala
+      [14.5499, 121.0508], // BGC
+    ],
+    label: 'UV Express — Makati to BGC',
+    color: '#27AE60',
   },
 ]
