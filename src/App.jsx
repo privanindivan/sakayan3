@@ -10,18 +10,20 @@ export default function App() {
   const [selectedMarker, setSelectedMarker] = useState(null)
   const [pendingLatLng,  setPendingLatLng]  = useState(null)
   const [showForm,       setShowForm]       = useState(false)
-  const [flyTo,          setFlyTo]          = useState(null)
+  const [fromPoint,      setFromPoint]      = useState(null)
+  const [toPoint,        setToPoint]        = useState(null)
+  const [userLocation,   setUserLocation]   = useState(null)
+  const [locating,       setLocating]       = useState(false)
 
-  // Always include a nonce so searching the same place twice still fires the effect
-  const handleSearchResult = useCallback((latlng) => {
-    setFlyTo({ ...latlng, nonce: Date.now() })
+  const handleRoute = useCallback((from, to) => {
+    setFromPoint(from)
+    setToPoint(to)
   }, [])
 
   const handleMapClick = useCallback((latlng) => {
     if (showForm) setPendingLatLng(latlng)
   }, [showForm])
 
-  // While form is open, don't open the marker modal — tap sets the pin instead
   const handleMarkerClick = useCallback((marker) => {
     if (showForm) return
     setSelectedMarker(marker)
@@ -38,31 +40,55 @@ export default function App() {
     setPendingLatLng(null)
   }
 
-  const toggleForm = () => {
-    if (showForm) handleCancelForm()
-    else { setShowForm(true); setPendingLatLng(null) }
+  const handleLocate = () => {
+    if (!navigator.geolocation) return
+    setLocating(true)
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setUserLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude })
+        setLocating(false)
+      },
+      () => setLocating(false),
+      { enableHighAccuracy: true, timeout: 8000 }
+    )
   }
 
   return (
     <div className="app">
-      <SearchBar onResult={handleSearchResult} />
+      <SearchBar onRoute={handleRoute} />
 
       <MapView
         markers={markers}
         onMarkerClick={handleMarkerClick}
         onMapClick={handleMapClick}
-        flyTo={flyTo}
+        fromPoint={fromPoint}
+        toPoint={toPoint}
+        userLocation={userLocation}
         addingMode={showForm}
         pendingLatLng={pendingLatLng}
       />
 
-      <button
-        className={`fab ${showForm ? 'fab-cancel' : ''}`}
-        onClick={toggleForm}
-        aria-label={showForm ? 'Cancel' : 'Add stop or route'}
-      >
-        {showForm ? '✕' : '+'}
-      </button>
+      {/* Corner buttons */}
+      <div className="corner-btns">
+        <button
+          className="icon-btn locate-btn"
+          onClick={handleLocate}
+          aria-label="My location"
+          title="My location"
+        >
+          {locating ? '…' : '◎'}
+        </button>
+        <button
+          className={`icon-btn fab-btn ${showForm ? 'fab-cancel' : ''}`}
+          onClick={() => {
+            if (showForm) handleCancelForm()
+            else { setShowForm(true); setPendingLatLng(null) }
+          }}
+          aria-label={showForm ? 'Cancel' : 'Add stop'}
+        >
+          {showForm ? '✕' : '+'}
+        </button>
+      </div>
 
       {showForm && (
         <AddMarkerForm

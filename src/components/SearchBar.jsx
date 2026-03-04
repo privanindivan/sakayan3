@@ -1,26 +1,19 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
-export default function SearchBar({ onResult }) {
+function useNominatim(onSelect, inputRef) {
   const [query,   setQuery]   = useState('')
   const [results, setResults] = useState([])
-  const [loading, setLoading] = useState(false)
-  const debounce  = useRef(null)
-  const inputRef  = useRef(null)
+  const debounce = useRef(null)
 
   const search = async (q) => {
     if (!q.trim()) { setResults([]); return }
-    setLoading(true)
     try {
-      const res  = await fetch(
+      const res = await fetch(
         `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&countrycodes=ph&limit=5`,
         { headers: { 'Accept-Language': 'en' } }
       )
       setResults(await res.json())
-    } catch {
-      // silent — no results shown on error
-    } finally {
-      setLoading(false)
-    }
+    } catch { /* silent */ }
   }
 
   const handleChange = (e) => {
@@ -30,50 +23,101 @@ export default function SearchBar({ onResult }) {
   }
 
   const handleSelect = (r) => {
-    onResult({ lat: parseFloat(r.lat), lng: parseFloat(r.lon), nonce: Date.now() })
-    setQuery(r.display_name.split(',')[0])
+    const name = r.display_name.split(',')[0]
+    setQuery(name)
     setResults([])
-    // dismiss keyboard on mobile
     inputRef.current?.blur()
+    onSelect({ lat: parseFloat(r.lat), lng: parseFloat(r.lon), name })
   }
 
-  const handleClear = () => {
-    setQuery('')
-    setResults([])
-    inputRef.current?.focus()
+  const handleBlur = () => setTimeout(() => setResults([]), 150)
+
+  const clear = () => { setQuery(''); setResults([]) }
+
+  return { query, setQuery, results, handleChange, handleSelect, handleBlur, clear }
+}
+
+export default function SearchBar({ onRoute }) {
+  const fromRef = useRef(null)
+  const toRef   = useRef(null)
+
+  const [fromPoint, setFromPoint] = useState(null)
+  const [toPoint,   setToPoint]   = useState(null)
+
+  const from = useNominatim((pt) => setFromPoint(pt), fromRef)
+  const to   = useNominatim((pt) => setToPoint(pt),   toRef)
+
+  // Fire route when both points are ready
+  useEffect(() => {
+    if (fromPoint && toPoint) onRoute(fromPoint, toPoint)
+  }, [fromPoint, toPoint]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleSwap = () => {
+    const tmpPoint = fromPoint
+    const tmpQuery = from.query
+    from.setQuery(to.query)
+    to.setQuery(tmpQuery)
+    setFromPoint(toPoint)
+    setToPoint(tmpPoint)
   }
 
-  // Close dropdown when input loses focus — delay lets result clicks register first
-  const handleBlur = () => {
-    setTimeout(() => setResults([]), 150)
-  }
+  const activeResults = from.results.length ? from.results
+    : to.results.length   ? to.results
+    : []
+  const activeSelect = from.results.length ? from.handleSelect : to.handleSelect
 
   return (
     <div className="search-bar">
-      <div className="search-input-wrap">
-        <span className="search-icon">&#128269;</span>
-        <input
-          ref={inputRef}
-          type="search"
-          placeholder="Search places in Philippines..."
-          value={query}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          autoComplete="off"
-          autoCorrect="off"
-          spellCheck={false}
-        />
-        {query && (
-          <button className="search-clear" onClick={handleClear} aria-label="Clear">&#x2715;</button>
-        )}
+      <div className="search-card">
+        {/* FROM */}
+        <div className="search-row">
+          <span className="route-dot from-dot" />
+          <input
+            ref={fromRef}
+            type="search"
+            placeholder="Where from?"
+            value={from.query}
+            onChange={from.handleChange}
+            onBlur={from.handleBlur}
+            autoComplete="off"
+            autoCorrect="off"
+            spellCheck={false}
+          />
+          {from.query && (
+            <button className="search-clear" onClick={from.clear} aria-label="Clear">&#x2715;</button>
+          )}
+        </div>
+
+        <div className="search-divider">
+          <div className="route-line" />
+          <button className="swap-btn" onClick={handleSwap} aria-label="Swap">&#8645;</button>
+        </div>
+
+        {/* TO */}
+        <div className="search-row">
+          <span className="route-dot to-dot" />
+          <input
+            ref={toRef}
+            type="search"
+            placeholder="Where to?"
+            value={to.query}
+            onChange={to.handleChange}
+            onBlur={to.handleBlur}
+            autoComplete="off"
+            autoCorrect="off"
+            spellCheck={false}
+          />
+          {to.query && (
+            <button className="search-clear" onClick={to.clear} aria-label="Clear">&#x2715;</button>
+          )}
+        </div>
       </div>
 
-      {loading && <div className="search-loading">Searching...</div>}
-
-      {results.length > 0 && (
+      {/* Shared dropdown */}
+      {activeResults.length > 0 && (
         <ul className="search-results" role="listbox">
-          {results.map(r => (
-            <li key={r.place_id} onMouseDown={() => handleSelect(r)} role="option">
+          {activeResults.map(r => (
+            <li key={r.place_id} onMouseDown={() => activeSelect(r)} role="option">
               <span className="result-icon">&#128205;</span>
               <span className="result-text">{r.display_name}</span>
             </li>
