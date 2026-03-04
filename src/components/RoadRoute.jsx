@@ -2,10 +2,9 @@ import { useState, useEffect } from 'react'
 import { Polyline, Tooltip } from 'react-leaflet'
 
 export default function RoadRoute({ route }) {
-  const [positions, setPositions] = useState(null)
+  const [positions, setPositions] = useState(null) // null = loading
 
   useEffect(() => {
-    // OSRM uses lng,lat order
     const coords = route.waypoints
       .map(([lat, lng]) => `${lng},${lat}`)
       .join(';')
@@ -17,17 +16,28 @@ export default function RoadRoute({ route }) {
       .then(data => {
         const geom = data.routes?.[0]?.geometry?.coordinates
         if (geom) {
-          // GeoJSON gives [lng, lat] — Leaflet needs [lat, lng]
           setPositions(geom.map(([lng, lat]) => [lat, lng]))
+        } else {
+          setPositions(route.waypoints) // fallback
         }
       })
-      .catch(() => {
-        // Fallback to straight waypoints if OSRM is unreachable
-        setPositions(route.waypoints)
-      })
+      .catch(() => setPositions(route.waypoints)) // fallback on network error
   }, [route.id]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (!positions) return null
+  // While loading: show a faint dashed line between waypoints so the route area is visible
+  if (!positions) {
+    return (
+      <Polyline
+        positions={route.waypoints}
+        color={route.color}
+        weight={3}
+        opacity={0.3}
+        dashArray="6 8"
+      >
+        <Tooltip sticky>{route.label}</Tooltip>
+      </Polyline>
+    )
+  }
 
   return (
     <Polyline
@@ -36,9 +46,7 @@ export default function RoadRoute({ route }) {
       weight={5}
       opacity={0.85}
     >
-      <Tooltip sticky direction="top" className="route-tooltip">
-        {route.label}
-      </Tooltip>
+      <Tooltip sticky>{route.label}</Tooltip>
     </Polyline>
   )
 }

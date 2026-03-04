@@ -1,8 +1,8 @@
 import { useState, useCallback } from 'react'
-import MapView      from './components/MapView'
-import SearchBar    from './components/SearchBar'
+import MapView       from './components/MapView'
+import SearchBar     from './components/SearchBar'
 import AddMarkerForm from './components/AddMarkerForm'
-import MarkerModal  from './components/MarkerModal'
+import MarkerModal   from './components/MarkerModal'
 import { INITIAL_MARKERS } from './data/sampleData'
 
 export default function App() {
@@ -12,8 +12,19 @@ export default function App() {
   const [showForm,       setShowForm]       = useState(false)
   const [flyTo,          setFlyTo]          = useState(null)
 
+  // Always include a nonce so searching the same place twice still fires the effect
+  const handleSearchResult = useCallback((latlng) => {
+    setFlyTo({ ...latlng, nonce: Date.now() })
+  }, [])
+
   const handleMapClick = useCallback((latlng) => {
     if (showForm) setPendingLatLng(latlng)
+  }, [showForm])
+
+  // While form is open, don't open the marker modal — tap sets the pin instead
+  const handleMarkerClick = useCallback((marker) => {
+    if (showForm) return
+    setSelectedMarker(marker)
   }, [showForm])
 
   const handleAddMarker = (data) => {
@@ -28,33 +39,27 @@ export default function App() {
   }
 
   const toggleForm = () => {
-    if (showForm) {
-      handleCancelForm()
-    } else {
-      setShowForm(true)
-      setPendingLatLng(null)
-    }
+    if (showForm) handleCancelForm()
+    else { setShowForm(true); setPendingLatLng(null) }
   }
 
   return (
     <div className="app">
-      <SearchBar onResult={setFlyTo} />
+      <SearchBar onResult={handleSearchResult} />
 
       <MapView
         markers={markers}
-        onMarkerClick={setSelectedMarker}
+        onMarkerClick={handleMarkerClick}
         onMapClick={handleMapClick}
         flyTo={flyTo}
         addingMode={showForm}
         pendingLatLng={pendingLatLng}
       />
 
-      {/* Floating Action Button */}
       <button
         className={`fab ${showForm ? 'fab-cancel' : ''}`}
         onClick={toggleForm}
         aria-label={showForm ? 'Cancel' : 'Add stop or route'}
-        title={showForm ? 'Cancel' : 'Add stop or route'}
       >
         {showForm ? '✕' : '+'}
       </button>
