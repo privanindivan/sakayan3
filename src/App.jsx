@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react'
 import MapView         from './components/MapView'
 import SearchBar       from './components/SearchBar'
+import MapSearch       from './components/MapSearch'
 import AddMarkerForm   from './components/AddMarkerForm'
 import MarkerModal     from './components/MarkerModal'
 import DirectionPanel  from './components/DirectionPanel'
@@ -28,6 +29,7 @@ export default function App() {
   const [userLocation,   setUserLocation]   = useState(null)
   const [locating,       setLocating]       = useState(false)
   const [connectingFrom, setConnectingFrom] = useState(null)
+  const [flyTarget,      setFlyTarget]      = useState(null)
 
   // Auto-save whenever data changes
   useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
@@ -122,12 +124,14 @@ export default function App() {
         fromPoint={fromPoint}
         toPoint={toPoint}
         userLocation={userLocation}
+        flyTarget={flyTarget}
         addingMode={showForm}
         pendingLatLng={pendingLatLng}
       />
 
       {/* Corner buttons */}
       <div className="corner-btns">
+        <MapSearch onFlyTo={(target) => { setFlyTarget(target) }} />
         <button
           className="icon-btn locate-btn"
           onClick={handleLocate}

@@ -833,6 +833,94 @@ html, body, #root {
 }
 
 /* ============================================================
+   MAP SEARCH — standalone place search in corner
+   ============================================================ */
+.map-search {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.map-search-toggle {
+  background: white;
+  color: #6366F1;
+  font-size: 18px;
+}
+.map-search-toggle:active { background: #f0f0ff; }
+.map-search-toggle-active {
+  background: #6366F1 !important;
+  color: white !important;
+}
+
+.map-search-card {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  width: min(88vw, 320px);
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  animation: sheet-up 0.2s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.map-search-row {
+  display: flex;
+  align-items: center;
+  padding: 4px 4px 4px 14px;
+  gap: 6px;
+}
+
+.map-search-row input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 10px 0;
+  background: transparent;
+  min-width: 0;
+}
+
+.map-search-btn {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: #6366F1;
+  color: white;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.map-search-btn:active { background: #4f51d8; }
+
+.map-search-results {
+  list-style: none;
+  border-top: 1px solid #f0f0f0;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.map-search-results li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid #f7f7f7;
+  font-size: 13px;
+  color: #333;
+}
+.map-search-results li:last-child { border-bottom: none; }
+.map-search-results li:active     { background: #f0f5ff; }
+
+/* ============================================================
    LEAFLET OVERRIDES — mobile-friendly controls
    ============================================================ */
 .leaflet-control-attribution {

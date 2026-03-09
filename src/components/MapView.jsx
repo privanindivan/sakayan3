@@ -61,6 +61,15 @@ const userIcon = L.divIcon({
   className: '', iconSize: [20, 20], iconAnchor: [10, 10],
 })
 
+// Map search result pin (purple)
+const searchIcon = L.divIcon({
+  html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 41" width="25" height="41">
+    <path d="M12.5 0C5.6 0 0 5.6 0 12.5c0 9.4 12.5 28.5 12.5 28.5S25 21.9 25 12.5C25 5.6 19.4 0 12.5 0z" fill="#6366F1" stroke="white" stroke-width="1.5"/>
+    <circle cx="12.5" cy="12.5" r="4.5" fill="white"/>
+  </svg>`,
+  className: '', iconSize: [25, 41], iconAnchor: [12, 41],
+})
+
 // Pending pin while adding
 const pendingIcon = L.divIcon({
   html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 41" width="25" height="41">
@@ -75,8 +84,8 @@ function ClickHandler({ onMapClick }) {
   return null
 }
 
-// Fits map to show both from+to, or flies to userLocation
-function MapController({ fromPoint, toPoint, userLocation }) {
+// Fits map to show both from+to, or flies to userLocation/flyTarget
+function MapController({ fromPoint, toPoint, userLocation, flyTarget }) {
   const map = useMap()
 
   useEffect(() => {
@@ -93,6 +102,12 @@ function MapController({ fromPoint, toPoint, userLocation }) {
       map.flyTo([userLocation.lat, userLocation.lng], 16, { duration: 1.2 })
     }
   }, [userLocation]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (flyTarget) {
+      map.flyTo([flyTarget.lat, flyTarget.lng], 16, { duration: 1.2 })
+    }
+  }, [flyTarget]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return null
 }
@@ -136,7 +151,7 @@ function UserRoute({ fromPoint, toPoint }) {
 export default function MapView({
   markers, connections, connectingFrom,
   onMarkerClick, onMapClick, onRemoveConnection, onCancelConnect,
-  fromPoint, toPoint, userLocation,
+  fromPoint, toPoint, userLocation, flyTarget,
   addingMode, pendingLatLng,
 }) {
   const connectingMarker = connectingFrom ? markers.find(m => m.id === connectingFrom) : null
@@ -213,8 +228,13 @@ export default function MapView({
           <Marker position={[pendingLatLng.lat, pendingLatLng.lng]} icon={pendingIcon} />
         )}
 
+        {/* Map search result pin */}
+        {flyTarget && (
+          <Marker position={[flyTarget.lat, flyTarget.lng]} icon={searchIcon} />
+        )}
+
         <ClickHandler onMapClick={onMapClick} />
-        <MapController fromPoint={fromPoint} toPoint={toPoint} userLocation={userLocation} />
+        <MapController fromPoint={fromPoint} toPoint={toPoint} userLocation={userLocation} flyTarget={flyTarget} />
       </MapContainer>
     </div>
   )
