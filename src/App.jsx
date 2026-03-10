@@ -1,7 +1,6 @@
 import { useState, useCallback, useEffect } from 'react'
 import MapView         from './components/MapView'
 import SearchBar       from './components/SearchBar'
-import MapSearch       from './components/MapSearch'
 import AddMarkerForm   from './components/AddMarkerForm'
 import MarkerModal     from './components/MarkerModal'
 import DirectionPanel  from './components/DirectionPanel'
@@ -111,7 +110,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <SearchBar onRoute={handleRoute} markers={markers} />
+      <SearchBar onRoute={handleRoute} onFlyTo={(t) => setFlyTarget(t)} markers={markers} />
 
       <MapView
         markers={markers}
@@ -131,7 +130,6 @@ export default function App() {
 
       {/* Corner buttons */}
       <div className="corner-btns">
-        <MapSearch onFlyTo={(target) => { setFlyTarget(target) }} />
         <button
           className="icon-btn locate-btn"
           onClick={handleLocate}

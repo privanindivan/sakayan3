@@ -30,7 +30,7 @@ function matchMarkers(markers, query) {
   return markers.filter(m => m.name.toLowerCase().includes(q))
 }
 
-export default function SearchBar({ onRoute, markers = [] }) {
+export default function SearchBar({ onRoute, onFlyTo, markers = [] }) {
   const fromRef = useRef(null)
   const toRef   = useRef(null)
 
@@ -70,6 +70,7 @@ export default function SearchBar({ onRoute, markers = [] }) {
     setToFocused(false)
     ref.current?.blur()
     setPoint(point)
+    onFlyTo?.({ lat: point.lat, lng: point.lng })
   }
 
   const handleFromChange = (e) => {
