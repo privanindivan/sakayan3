@@ -23,9 +23,9 @@ function getMyLocation() {
   })
 }
 
-// Empty query shows all markers; typed query filters by name
+// Only shows markers when user has typed something
 function matchMarkers(markers, query) {
-  if (!query.trim()) return markers
+  if (!query.trim()) return []
   const q = query.toLowerCase()
   return markers.filter(m => m.name.toLowerCase().includes(q))
 }
@@ -71,7 +71,7 @@ export default function SearchBar({ onRoute, onFlyTo, markers = [], resetKey = 0
 
   function buildDropdown(query, nominatimResults, isFrom) {
     const items = []
-    if (isFrom) items.push({ kind: 'myloc' })
+    if (isFrom && query.trim()) items.push({ kind: 'myloc' })
     matchMarkers(markers, query).forEach(m => items.push({ kind: 'marker', marker: m }))
     nominatimResults.forEach(r => items.push({ kind: 'place', result: r }))
     return items
