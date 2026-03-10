@@ -23,9 +23,9 @@ function getMyLocation() {
   })
 }
 
-// Filter custom markers by name query (case-insensitive)
+// Filter custom markers by name query (case-insensitive); empty query returns all
 function matchMarkers(markers, query) {
-  if (!query.trim()) return []
+  if (!query.trim()) return markers
   const q = query.toLowerCase()
   return markers.filter(m => m.name.toLowerCase().includes(q))
 }
