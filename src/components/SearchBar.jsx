@@ -164,7 +164,7 @@ export default function SearchBar({ onRoute, onFlyTo, markers = [], resetKey = 0
           <input
             ref={fromRef}
             type="search"
-            placeholder="Where from?"
+            placeholder="Start point…"
             value={fromQuery}
             onChange={handleFromChange}
             onFocus={() => setActiveField('from')}
