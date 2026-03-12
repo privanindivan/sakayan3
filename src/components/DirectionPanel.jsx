@@ -118,6 +118,15 @@ export default function DirectionPanel({ fromPoint, toPoint, markers, connection
         <button className="dir-close" onClick={onClose} aria-label="Close">&#x2715;</button>
       </div>
 
+      {/* Route count label — always shown when routes exist */}
+      {paths && (
+        <div className="route-count-label">
+          {paths.length === 1
+            ? '1 route via connected stops'
+            : `${paths.length} routes found — tap to switch`}
+        </div>
+      )}
+
       {/* Route option cards — only shown when 2+ routes found */}
       {paths && paths.length > 1 && (
         <div className="route-options-row">
