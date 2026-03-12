@@ -1,4 +1,4 @@
-export const VEHICLE_TYPES = ['Jeepney', 'Bus', 'UV Express', 'Tricycle', 'Train', 'Ferry']
+export const VEHICLE_TYPES = ['Jeepney', 'Bus', 'UV Express', 'Tricycle', 'Train']
 
 export const TYPE_COLORS = {
   Jeepney:      '#FF6B35',
@@ -6,7 +6,6 @@ export const TYPE_COLORS = {
   'UV Express': '#27AE60',
   Tricycle:     '#F39C12',
   Train:        '#8E44AD',
-  Ferry:        '#2980B9',
 }
 
 // All sample stops clustered in Metro Manila

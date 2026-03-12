@@ -39,7 +39,6 @@ function vehicleLabel(type) {
 
 function vehicleEmoji(type) {
   if (type === 'Train')    return '🚆'
-  if (type === 'Ferry')    return '⛴'
   if (type === 'Bus')      return '🚌'
   if (type === 'Tricycle') return '🛺'
   return '🚐'
