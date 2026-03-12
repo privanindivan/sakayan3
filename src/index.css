@@ -502,6 +502,13 @@ html, body, #root {
 
 .edit-btn:active { background: #dce8ff; }
 
+.marker-schedule {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 12px;
+  white-space: pre-wrap;
+}
+
 .marker-details {
   font-size: 14px;
   color: #555;

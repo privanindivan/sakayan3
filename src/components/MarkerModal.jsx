@@ -2,24 +2,23 @@ import { useEffect, useState, useRef } from 'react'
 import ImageCarousel from './ImageCarousel'
 import { TYPE_COLORS, VEHICLE_TYPES } from '../data/sampleData'
 
-const FB_PAGE = 'https://www.facebook.com/sakayan'
-
 export default function MarkerModal({
   marker, allMarkers, connections,
   onClose, onSave, onDisconnect, onStartConnect,
 }) {
-  const [editing, setEditing] = useState(false)
-  const [name,    setName]    = useState(marker.name)
-  const [type,    setType]    = useState(marker.type)
-  const [details, setDetails] = useState(marker.details || '')
-  const [images,  setImages]  = useState(marker.images)
+  const [editing,  setEditing]  = useState(false)
+  const [name,     setName]     = useState(marker.name)
+  const [type,     setType]     = useState(marker.type)
+  const [details,  setDetails]  = useState(marker.details || '')
+  const [schedule, setSchedule] = useState(marker.schedule || '')
+  const [images,   setImages]   = useState(marker.images)
   const fileInputRef = useRef(null)
 
   // Compute connected markers
-  const connectedIds = connections
+  const connectedMarkers = connections
     .filter(c => c.fromId === marker.id || c.toId === marker.id)
-    .map(c => c.fromId === marker.id ? c.toId : c.fromId)
-  const connectedMarkers = allMarkers.filter(m => connectedIds.includes(m.id))
+    .map(c => allMarkers.find(m => m.id === (c.fromId === marker.id ? c.toId : c.fromId)))
+    .filter(Boolean)
 
   useEffect(() => {
     const onKey = (e) => { if (e.key === 'Escape') onClose() }
@@ -31,9 +30,7 @@ export default function MarkerModal({
     const files = Array.from(e.target.files)
     files.forEach(file => {
       const reader = new FileReader()
-      reader.onload = (ev) => {
-        setImages(prev => [...prev, ev.target.result])
-      }
+      reader.onload = (ev) => setImages(prev => [...prev, ev.target.result])
       reader.readAsDataURL(file)
     })
     e.target.value = ''
@@ -45,7 +42,7 @@ export default function MarkerModal({
 
   const handleSave = () => {
     if (!name.trim()) return
-    onSave({ ...marker, name: name.trim(), type, details: details.trim(), images })
+    onSave({ ...marker, name: name.trim(), type, details: details.trim(), schedule: schedule.trim(), images })
     setEditing(false)
   }
 
@@ -53,6 +50,7 @@ export default function MarkerModal({
     setName(marker.name)
     setType(marker.type)
     setDetails(marker.details || '')
+    setSchedule(marker.schedule || '')
     setImages(marker.images)
     setEditing(false)
   }
@@ -92,7 +90,16 @@ export default function MarkerModal({
                 className="edit-field edit-textarea"
                 value={details}
                 onChange={e => setDetails(e.target.value)}
-                placeholder="Routes, schedule, fare, notes…"
+                placeholder="Routes, notes…"
+                rows={3}
+              />
+
+              <label className="edit-label">Schedule</label>
+              <textarea
+                className="edit-field edit-textarea"
+                value={schedule}
+                onChange={e => setSchedule(e.target.value)}
+                placeholder="e.g. Mon–Sat 5:00 AM – 10:00 PM"
                 rows={3}
               />
 
@@ -148,6 +155,9 @@ export default function MarkerModal({
               {details && (
                 <p className="marker-details">{details}</p>
               )}
+              {marker.schedule && (
+                <p className="marker-schedule">🕐 {marker.schedule}</p>
+              )}
 
               {/* Action row: Edit + Connect */}
               <div className="modal-actions">
@@ -176,17 +186,6 @@ export default function MarkerModal({
                           {m.type}
                         </span>
                         <span className="connect-name">{m.name}</span>
-                        {/* Suggest in-between stop → FB */}
-                        <a
-                          className="suggest-btn"
-                          href={`${FB_PAGE}?text=${encodeURIComponent(
-                            `Suggest stop between ${marker.name} and ${m.name}`
-                          )}`}
-                          target="_blank"
-                          rel="noreferrer"
-                          title="Suggest in-between stop"
-                          aria-label="Suggest stop"
-                        >&#x1F4AC;</a>
                         <button
                           className="connect-remove"
                           onClick={() => onDisconnect(marker.id, m.id)}
