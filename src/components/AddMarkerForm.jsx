@@ -32,7 +32,7 @@ export default function AddMarkerForm({ pendingLatLng, onSubmit, onCancel }) {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Name (e.g. Quiapo Terminal)"
+          placeholder="Name"
           value={name}
           onChange={e => setName(e.target.value)}
           autoComplete="off"
@@ -44,7 +44,7 @@ export default function AddMarkerForm({ pendingLatLng, onSubmit, onCancel }) {
         </select>
 
         <textarea
-          placeholder="Details — routes, schedule, fare, notes… (optional)"
+          placeholder="Details"
           value={details}
           onChange={e => setDetails(e.target.value)}
           rows={2}
