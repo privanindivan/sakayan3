@@ -55,14 +55,10 @@ export default function App() {
 
   const handleConnect = useCallback((fromId, toId) => {
     if (fromId === toId) return
-    setConnections(prev => {
-      const exists = prev.some(c =>
-        (c.fromId === fromId && c.toId === toId) ||
-        (c.fromId === toId   && c.toId === fromId)
-      )
-      if (exists) return prev
-      return [...prev, { id: `${fromId}-${toId}-${Date.now()}`, fromId, toId }]
-    })
+    setConnections(prev => [
+      ...prev,
+      { id: `${fromId}-${toId}-${Date.now()}`, fromId, toId },
+    ])
   }, [])
 
   const handleRemoveConnection = useCallback((connId) => {

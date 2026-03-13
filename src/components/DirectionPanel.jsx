@@ -12,23 +12,26 @@ function findNearest(point, markers) {
   return markers.reduce((best, m) => dist(m, point) < dist(best, point) ? m : best)
 }
 
-// Build adjacency map: stopId → Set of connected stopIds
+// Build adjacency map: stopId → array of { connId, neighborId }
+// Multiple connections between the same pair = multiple entries
 function buildAdjacency(connections) {
   const adj = {}
   for (const c of connections) {
-    if (!adj[c.fromId]) adj[c.fromId] = new Set()
-    if (!adj[c.toId])   adj[c.toId]   = new Set()
-    adj[c.fromId].add(c.toId)
-    adj[c.toId].add(c.fromId)
+    if (!adj[c.fromId]) adj[c.fromId] = []
+    if (!adj[c.toId])   adj[c.toId]   = []
+    adj[c.fromId].push({ connId: c.id, neighborId: c.toId })
+    adj[c.toId].push(  { connId: c.id, neighborId: c.fromId })
   }
   return adj
 }
 
-// DFS to find ALL simple paths from startId to endId
-// Returns array of stopId arrays (each is a path)
+// DFS finding ALL paths, tracking used connection IDs to allow
+// the same stop pair via different connections as different routes.
+// Each result is an array of stopIds.
 function findAllPaths(startId, endId, adj, maxDepth = 10) {
   const results = []
-  const visited = new Set()
+  const visitedStops = new Set()
+  const usedConns    = new Set()
 
   function dfs(current, path) {
     if (path.length > maxDepth) return
@@ -36,22 +39,23 @@ function findAllPaths(startId, endId, adj, maxDepth = 10) {
       results.push([...path])
       return
     }
-    const neighbors = adj[current]
-    if (!neighbors) return
-    for (const next of neighbors) {
-      if (!visited.has(next)) {
-        visited.add(next)
-        path.push(next)
-        dfs(next, path)
+    const edges = adj[current]
+    if (!edges) return
+    for (const { connId, neighborId } of edges) {
+      if (!usedConns.has(connId) && !visitedStops.has(neighborId)) {
+        visitedStops.add(neighborId)
+        usedConns.add(connId)
+        path.push(neighborId)
+        dfs(neighborId, path)
         path.pop()
-        visited.delete(next)
+        usedConns.delete(connId)
+        visitedStops.delete(neighborId)
       }
     }
   }
 
-  visited.add(startId)
+  visitedStops.add(startId)
   dfs(startId, [startId])
-  // Sort by path length (shortest first)
   results.sort((a, b) => a.length - b.length)
   return results
 }

@@ -280,17 +280,24 @@ export default function MarkerModal({
                 )}
                 {stopConns.length > 0 && (
                   <div className="connect-list">
-                    {stopConns.map(c => {
-                      const otherId = c.fromId === marker.id ? c.toId : c.fromId
-                      const other   = markers.find(m => m.id === otherId)
+                    {stopConns.map((c, idx) => {
+                      const otherId  = c.fromId === marker.id ? c.toId : c.fromId
+                      const other    = markers.find(m => m.id === otherId)
                       if (!other) return null
+                      // Count how many connections exist to the same stop to label duplicates
+                      const sameStopConns = stopConns.filter(x =>
+                        (x.fromId === marker.id ? x.toId : x.fromId) === otherId
+                      )
+                      const routeNum = sameStopConns.length > 1
+                        ? ` (Route ${sameStopConns.indexOf(c) + 1})`
+                        : ''
                       return (
                         <div key={c.id} className="connect-item">
                           <span
                             className="line-color-dot"
                             style={{ background: TYPE_COLORS[other.type] || '#888' }}
                           />
-                          <span className="connect-name">{other.name}</span>
+                          <span className="connect-name">{other.name}{routeNum}</span>
                           <span className="connect-stop-count">{other.type}</span>
                           {isAdmin && (
                             <button
