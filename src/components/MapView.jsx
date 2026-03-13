@@ -139,13 +139,12 @@ function getRouteColor(routeName, allRouteNames) {
 }
 
 export default function MapView({
-  markers, connections, connectingFrom,
+  markers, connections, pendingAlternatives,
+  connectingFrom,
   onMarkerClick, onMapClick,
   fromPoint, toPoint, userLocation, flyTarget,
   addingMode, pendingLatLng,
 }) {
-  const allRouteNames = [...new Set(connections.map(c => c.routeName).filter(Boolean))]
-
   return (
     <div style={{ position: 'relative', height: '100%', width: '100%' }}>
       <MapContainer
@@ -161,25 +160,35 @@ export default function MapView({
           maxZoom={19}
         />
 
-        {/* Each connection colored by its route name */}
+        {/* Saved connections — use stored geometry if available, else fetch via RoadRoute */}
         {connections.map(conn => {
           const from = markers.find(m => m.id === conn.fromId)
           const to   = markers.find(m => m.id === conn.toId)
           if (!from || !to) return null
-          const color = conn.routeName
-            ? getRouteColor(conn.routeName, allRouteNames)
-            : (TYPE_COLORS[from.type] || '#4A90D9')
+          const color = conn.color || TYPE_COLORS[from.type] || '#4A90D9'
+          if (conn.geometry) {
+            return (
+              <Polyline key={conn.id} positions={conn.geometry}
+                color={color} weight={5} opacity={1} interactive={false} />
+            )
+          }
           return (
-            <RoadRoute
-              key={conn.id}
-              route={{
-                id:        conn.id,
-                waypoints: [[from.lat, from.lng], [to.lat, to.lng]],
-                color,
-              }}
-            />
+            <RoadRoute key={conn.id} route={{ id: conn.id, waypoints: [[from.lat, from.lng], [to.lat, to.lng]], color }} />
           )
         })}
+
+        {/* Pending alternatives — translucent so user can compare */}
+        {pendingAlternatives.map(alt => (
+          <Polyline
+            key={`alt-${alt.id}`}
+            positions={alt.positions}
+            color={alt.color}
+            weight={6}
+            opacity={0.45}
+            dashArray="1 0"
+            interactive={false}
+          />
+        ))}
 
         <UserRoute fromPoint={fromPoint} toPoint={toPoint} />
 

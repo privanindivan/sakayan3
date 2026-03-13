@@ -3,12 +3,6 @@ import { TYPE_COLORS } from '../data/sampleData'
 
 const ROUTE_COLORS = ['#4A90D9', '#FF6B35', '#27AE60', '#F39C12', '#8E44AD', '#E74C3C', '#1ABC9C']
 
-// Consistent color for a route name based on its position among all unique names
-function routeColor(routeName, allRouteNames) {
-  const idx = allRouteNames.indexOf(routeName)
-  return ROUTE_COLORS[(idx >= 0 ? idx : 0) % ROUTE_COLORS.length]
-}
-
 function dist(a, b) {
   return Math.hypot(a.lat - b.lat, a.lng - b.lng)
 }
@@ -18,43 +12,42 @@ function findNearest(point, markers) {
   return markers.reduce((best, m) => dist(m, point) < dist(best, point) ? m : best)
 }
 
-// Build adjacency: stopId → [{ connId, neighborId, routeName }]
+// Build adjacency: stopId → [{ connId, neighborId, color }]
 function buildAdjacency(connections) {
   const adj = {}
   for (const c of connections) {
-    const name = c.routeName || ''
     if (!adj[c.fromId]) adj[c.fromId] = []
     if (!adj[c.toId])   adj[c.toId]   = []
-    adj[c.fromId].push({ connId: c.id, neighborId: c.toId,   routeName: name })
-    adj[c.toId].push(  { connId: c.id, neighborId: c.fromId, routeName: name })
+    adj[c.fromId].push({ connId: c.id, neighborId: c.toId,   color: c.color || '' })
+    adj[c.toId].push(  { connId: c.id, neighborId: c.fromId, color: c.color || '' })
   }
   return adj
 }
 
-// DFS — returns array of { stopIds, connNames[] }
-// Two A→B connections with different routeNames → two distinct results
+// DFS — returns array of { stopIds, colors[] }
+// Two A→B connections with different colors → two distinct route options
 function findAllPaths(startId, endId, adj, maxDepth = 10) {
   const results      = []
   const visitedStops = new Set()
   const usedConns    = new Set()
 
-  function dfs(current, stopPath, connNames) {
+  function dfs(current, stopPath, colors) {
     if (stopPath.length > maxDepth) return
     if (current === endId) {
-      results.push({ stopIds: [...stopPath], connNames: [...connNames] })
+      results.push({ stopIds: [...stopPath], colors: [...colors] })
       return
     }
     const edges = adj[current]
     if (!edges) return
-    for (const { connId, neighborId, routeName } of edges) {
+    for (const { connId, neighborId, color } of edges) {
       if (!usedConns.has(connId) && !visitedStops.has(neighborId)) {
         visitedStops.add(neighborId)
         usedConns.add(connId)
         stopPath.push(neighborId)
-        connNames.push(routeName)
-        dfs(neighborId, stopPath, connNames)
+        colors.push(color)
+        dfs(neighborId, stopPath, colors)
         stopPath.pop()
-        connNames.pop()
+        colors.pop()
         usedConns.delete(connId)
         visitedStops.delete(neighborId)
       }
@@ -67,19 +60,15 @@ function findAllPaths(startId, endId, adj, maxDepth = 10) {
   return results
 }
 
+function pathColor(colors, idx) {
+  return colors[idx] || ROUTE_COLORS[idx % ROUTE_COLORS.length]
+}
+
 function vehicleEmoji(type) {
   if (type === 'Train')    return '🚆'
   if (type === 'Bus')      return '🚌'
   if (type === 'Tricycle') return '🛺'
   return '🚐'
-}
-
-function pathLabel(connNames) {
-  // If all connections on this path share a name, use that name
-  const unique = [...new Set(connNames.filter(Boolean))]
-  if (unique.length === 1) return unique[0]
-  if (unique.length > 1)   return unique.join(' + ')
-  return 'Route'
 }
 
 function pathFare(stops) {
@@ -99,16 +88,13 @@ export default function DirectionPanel({ fromPoint, toPoint, markers, connection
     ? findAllPaths(nearFrom.id, nearTo.id, adj)
     : []
 
-  // All unique route names across all connections (for consistent colors)
-  const allRouteNames = [...new Set(connections.map(c => c.routeName).filter(Boolean))]
-
-  // Build route objects
-  const routes = allPaths.map(({ stopIds, connNames }) => {
-    const label     = pathLabel(connNames)
-    const firstName = connNames.find(Boolean) || ''
-    const color     = routeColor(firstName, allRouteNames) || ROUTE_COLORS[0]
-    return { stopIds, connNames, label, color }
-  })
+  // Build route objects — each path gets its primary color from the first connection's color
+  const routes = allPaths.map(({ stopIds, colors }, i) => ({
+    stopIds,
+    colors,
+    color: colors[0] || ROUTE_COLORS[i % ROUTE_COLORS.length],
+    label: `Route ${i + 1}`,
+  }))
 
   const safeIdx = routes.length > 0 ? Math.min(selectedIdx, routes.length - 1) : 0
   const route   = routes[safeIdx] ?? null
@@ -118,8 +104,7 @@ export default function DirectionPanel({ fromPoint, toPoint, markers, connection
     const stops = route.stopIds.map(id => markers.find(m => m.id === id)).filter(Boolean)
     steps.push({ kind: 'walk', label: `Walk to ${stops[0].name}` })
     for (let i = 0; i < stops.length - 1; i++) {
-      const segColor = routeColor(route.connNames[i] || '', allRouteNames) || route.color
-      steps.push({ kind: 'ride', from: stops[i], to: stops[i + 1], segColor, segName: route.connNames[i] })
+      steps.push({ kind: 'ride', from: stops[i], to: stops[i + 1], segColor: pathColor(route.colors, i) })
     }
     steps.push({ kind: 'walk', label: `Walk to ${toPoint.name || 'destination'}` })
   }
@@ -203,7 +188,7 @@ export default function DirectionPanel({ fromPoint, toPoint, markers, connection
               </span>
               <div className="dir-step-body">
                 <span className="dir-ride-label" style={{ color: step.segColor }}>
-                  {step.segName || step.from.type}
+                  {step.from.type}
                   {step.from.fare != null && <span className="dir-step-fare"> · ₱{step.from.fare}</span>}
                 </span>
                 <span className="dir-ride-route">{step.from.name} → {step.to.name}</span>

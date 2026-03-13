@@ -1,13 +1,13 @@
 import { useState, useCallback, useEffect } from 'react'
-import MapView           from './components/MapView'
-import SearchBar         from './components/SearchBar'
-import AddMarkerForm     from './components/AddMarkerForm'
-import MarkerModal       from './components/MarkerModal'
-import DirectionPanel    from './components/DirectionPanel'
-import PinModal          from './components/PinModal'
-import RoutePickerSheet  from './components/RoutePickerSheet'
-import { useAdminAuth }  from './hooks/useAdminAuth'
-import { INITIAL_MARKERS } from './data/sampleData'
+import MapView                from './components/MapView'
+import SearchBar              from './components/SearchBar'
+import AddMarkerForm          from './components/AddMarkerForm'
+import MarkerModal            from './components/MarkerModal'
+import DirectionPanel         from './components/DirectionPanel'
+import PinModal               from './components/PinModal'
+import RouteAlternativesSheet from './components/RouteAlternativesSheet'
+import { useAdminAuth }       from './hooks/useAdminAuth'
+import { INITIAL_MARKERS }    from './data/sampleData'
 
 function load(key, fallback) {
   try {
@@ -20,6 +20,8 @@ function save(key, value) {
   try { localStorage.setItem(key, JSON.stringify(value)) } catch { /* quota exceeded */ }
 }
 
+const ALT_COLORS = ['#4A90D9', '#FF6B35', '#27AE60', '#F39C12', '#8E44AD']
+
 export default function App() {
   const [markers,        setMarkers]        = useState(() => load('sakayan_markers',     INITIAL_MARKERS))
   const [connections,    setConnections]    = useState(() => load('sakayan_connections', []))
@@ -31,7 +33,8 @@ export default function App() {
   const [userLocation,   setUserLocation]   = useState(null)
   const [locating,       setLocating]       = useState(false)
   const [connectingFrom, setConnectingFrom] = useState(null)
-  const [pendingConnect, setPendingConnect] = useState(null) // { fromId, toId }
+  // { fromId, toId, alternatives: [{id, positions, color}], loading }
+  const [pendingConnect, setPendingConnect] = useState(null)
   const [flyTarget,      setFlyTarget]      = useState(null)
   const [searchResetKey, setSearchResetKey] = useState(0)
 
@@ -55,7 +58,6 @@ export default function App() {
     if (showForm) setPendingLatLng(latlng)
   }, [showForm])
 
-  // Step 1: tap second stop → open route picker
   const handleStartConnect = useCallback((markerId) => {
     setConnectingFrom(markerId)
     setSelectedMarker(null)
@@ -63,22 +65,96 @@ export default function App() {
 
   const handleCancelConnect = useCallback(() => setConnectingFrom(null), [])
 
-  // Step 2: user picks a route name → save connection
-  const handleConfirmConnect = useCallback((routeName) => {
+  const handleMarkerClick = useCallback((marker) => {
+    if (showForm) return
+    if (connectingFrom !== null) {
+      if (connectingFrom !== marker.id) {
+        const fromM = markers.find(m => m.id === connectingFrom)
+        if (!fromM) { setConnectingFrom(null); return }
+
+        const snap = { fromId: connectingFrom, toId: marker.id, alternatives: [], loading: true }
+        setPendingConnect(snap)
+        setConnectingFrom(null)
+
+        // Fetch OSRM alternatives between the two stops
+        const coords = `${fromM.lng},${fromM.lat};${marker.lng},${marker.lat}`
+        fetch(
+          `https://router.project-osrm.org/route/v1/driving/${coords}` +
+          `?overview=full&geometries=geojson&alternatives=3`
+        )
+          .then(r => r.json())
+          .then(data => {
+            const routes = data.routes || []
+            const alternatives = routes.length > 0
+              ? routes.map((route, i) => ({
+                  id: i,
+                  positions: route.geometry.coordinates.map(([lng, lat]) => [lat, lng]),
+                  color: ALT_COLORS[i % ALT_COLORS.length],
+                }))
+              : [{ // fallback: straight line if OSRM returns nothing
+                  id: 0,
+                  positions: [[fromM.lat, fromM.lng], [marker.lat, marker.lng]],
+                  color: ALT_COLORS[0],
+                }]
+            setPendingConnect(prev =>
+              prev && prev.fromId === snap.fromId && prev.toId === snap.toId
+                ? { ...prev, alternatives, loading: false }
+                : prev
+            )
+          })
+          .catch(() => {
+            // Fallback straight line on network error
+            setPendingConnect(prev =>
+              prev && prev.fromId === snap.fromId && prev.toId === snap.toId
+                ? { ...prev, alternatives: [{
+                    id: 0,
+                    positions: [[fromM.lat, fromM.lng], [marker.lat, marker.lng]],
+                    color: ALT_COLORS[0],
+                  }], loading: false }
+                : prev
+            )
+          })
+      } else {
+        setConnectingFrom(null)
+      }
+      return
+    }
+    setSelectedMarker(marker)
+  }, [showForm, connectingFrom, markers])
+
+  // ✓ Keep this alternative → save as a connection
+  const handleConfirmAlt = useCallback((altId) => {
     if (!pendingConnect) return
-    const { fromId, toId } = pendingConnect
+    const alt = pendingConnect.alternatives.find(a => a.id === altId)
+    if (!alt) return
     setConnections(prev => [
       ...prev,
-      { id: `${fromId}-${toId}-${Date.now()}`, fromId, toId, routeName },
+      {
+        id:       `${pendingConnect.fromId}-${pendingConnect.toId}-${Date.now()}`,
+        fromId:   pendingConnect.fromId,
+        toId:     pendingConnect.toId,
+        geometry: alt.positions,
+        color:    alt.color,
+      },
     ])
-    setPendingConnect(null)
-    setConnectingFrom(null)
+    // Remove confirmed alt; close sheet if none left
+    setPendingConnect(prev => {
+      if (!prev) return null
+      const remaining = prev.alternatives.filter(a => a.id !== altId)
+      return remaining.length === 0 ? null : { ...prev, alternatives: remaining }
+    })
   }, [pendingConnect])
 
-  const handleCancelPicker = useCallback(() => {
-    setPendingConnect(null)
-    setConnectingFrom(null)
+  // ✗ Discard this alternative
+  const handleRejectAlt = useCallback((altId) => {
+    setPendingConnect(prev => {
+      if (!prev) return null
+      const remaining = prev.alternatives.filter(a => a.id !== altId)
+      return remaining.length === 0 ? null : { ...prev, alternatives: remaining }
+    })
   }, [])
+
+  const handleCancelPendingConnect = useCallback(() => setPendingConnect(null), [])
 
   const handleRemoveConnection = useCallback((connId) => {
     setConnections(prev => prev.filter(c => c.id !== connId))
@@ -89,20 +165,6 @@ export default function App() {
     setConnections(prev => prev.filter(c => c.fromId !== markerId && c.toId !== markerId))
     setSelectedMarker(null)
   }, [])
-
-  const handleMarkerClick = useCallback((marker) => {
-    if (showForm) return
-    if (connectingFrom !== null) {
-      if (connectingFrom !== marker.id) {
-        // Show picker instead of connecting immediately
-        setPendingConnect({ fromId: connectingFrom, toId: marker.id })
-      } else {
-        setConnectingFrom(null)
-      }
-      return
-    }
-    setSelectedMarker(marker)
-  }, [showForm, connectingFrom])
 
   const handleAddMarker = (data) => {
     setMarkers(prev => [...prev, { id: Date.now(), ...data }])
@@ -128,9 +190,6 @@ export default function App() {
     )
   }
 
-  // Collect existing unique route names for quick-pick
-  const existingRouteNames = [...new Set(connections.map(c => c.routeName).filter(Boolean))]
-
   return (
     <div className="app">
       <SearchBar onRoute={handleRoute} onFlyTo={(t) => setFlyTarget(t)} markers={markers} resetKey={searchResetKey} />
@@ -138,6 +197,7 @@ export default function App() {
       <MapView
         markers={markers}
         connections={connections}
+        pendingAlternatives={pendingConnect?.alternatives ?? []}
         connectingFrom={connectingFrom}
         onMarkerClick={handleMarkerClick}
         onMapClick={handleMapClick}
@@ -191,14 +251,16 @@ export default function App() {
         />
       )}
 
-      {/* Route name picker — appears after tapping second stop */}
+      {/* Route alternatives confirmation sheet */}
       {pendingConnect && (
-        <RoutePickerSheet
+        <RouteAlternativesSheet
           fromStop={markers.find(m => m.id === pendingConnect.fromId)}
           toStop={markers.find(m => m.id === pendingConnect.toId)}
-          existingRouteNames={existingRouteNames}
-          onConfirm={handleConfirmConnect}
-          onCancel={handleCancelPicker}
+          alternatives={pendingConnect.alternatives}
+          loading={pendingConnect.loading}
+          onConfirm={handleConfirmAlt}
+          onReject={handleRejectAlt}
+          onCancel={handleCancelPendingConnect}
         />
       )}
 
