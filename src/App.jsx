@@ -157,6 +157,7 @@ export default function App() {
       const remaining = prev.alternatives.filter(a => a.id !== altId)
       return remaining.length === 0 ? null : { ...prev, alternatives: remaining }
     })
+    setFocusedSegment(null)
   }, [pendingConnect])
 
   // ✗ Discard this alternative
@@ -168,7 +169,10 @@ export default function App() {
     })
   }, [])
 
-  const handleCancelPendingConnect = useCallback(() => setPendingConnect(null), [])
+  const handleCancelPendingConnect = useCallback(() => {
+    setPendingConnect(null)
+    setFocusedSegment(null)
+  }, [])
 
   const handleRemoveConnection = useCallback((connId) => {
     setConnections(prev => prev.filter(c => c.id !== connId))
@@ -318,7 +322,10 @@ export default function App() {
           onDelete={handleDeleteMarker}
           onRemoveConnection={handleRemoveConnection}
           onStartConnect={handleStartConnect}
-          onConnClick={(fromId, toId) => setFocusedSegment({ fromId, toId })}
+          onConnClick={(fromId, toId) => {
+            setSelectedMarker(null)
+            setFocusedSegment({ fromId, toId })
+          }}
         />
       )}
 
