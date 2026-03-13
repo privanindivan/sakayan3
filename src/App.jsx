@@ -4,9 +4,7 @@ import SearchBar              from './components/SearchBar'
 import AddMarkerForm          from './components/AddMarkerForm'
 import MarkerModal            from './components/MarkerModal'
 import DirectionPanel         from './components/DirectionPanel'
-import PinModal               from './components/PinModal'
 import RouteAlternativesSheet from './components/RouteAlternativesSheet'
-import { useAdminAuth }       from './hooks/useAdminAuth'
 import { INITIAL_MARKERS, TYPE_COLORS } from './data/sampleData'
 
 function load(key, fallback) {
@@ -42,9 +40,10 @@ export default function App() {
   const [activeConnIds,  setActiveConnIds]  = useState([])
   const [focusedSegment, setFocusedSegment] = useState(null)
 
-  const { isAdmin, requireAdmin, showPinModal, onPinSuccess, onPinCancel } = useAdminAuth()
+  const isAdmin = true
+  const requireAdmin = (cb) => cb()
 
-  useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
+useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
   useEffect(() => { save('sakayan_connections', connections) }, [connections])
 
   useEffect(() => {
@@ -245,11 +244,7 @@ export default function App() {
           className={`icon-btn fab-btn ${showForm ? 'fab-cancel' : ''}`}
           onClick={() => {
             if (showForm) handleCancelForm()
-            else requireAdmin(() => {
-              setShowForm(true)
-              setPendingLatLng(null)
-              setConnectingFrom(null)
-            })
+            else { setShowForm(true); setPendingLatLng(null); setConnectingFrom(null) }
           }}
           aria-label={showForm ? 'Cancel' : 'Add stop'}
         >
@@ -329,9 +324,6 @@ export default function App() {
         />
       )}
 
-      {showPinModal && (
-        <PinModal onSuccess={onPinSuccess} onCancel={onPinCancel} />
-      )}
     </div>
   )
 }
