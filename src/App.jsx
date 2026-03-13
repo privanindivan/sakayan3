@@ -36,6 +36,7 @@ export default function App() {
   // { fromId, toId, alternatives: [{id, positions, color}], loading }
   const [pendingConnect, setPendingConnect] = useState(null)
   const [flyTarget,      setFlyTarget]      = useState(null)
+  const [fitBoundsPoints,setFitBoundsPoints] = useState(null)
   const [searchResetKey, setSearchResetKey] = useState(0)
   const [activeStopIds,  setActiveStopIds]  = useState([])
   const [activeConnIds,  setActiveConnIds]  = useState([])
@@ -125,7 +126,14 @@ export default function App() {
       return
     }
     setSelectedMarker(marker)
-  }, [showForm, connectingFrom, markers])
+    // Fit map to show the marker + all its connected stops
+    const connectedIds = connections
+      .filter(c => c.fromId === marker.id || c.toId === marker.id)
+      .map(c => c.fromId === marker.id ? c.toId : c.fromId)
+    const allPts = [marker, ...connectedIds.map(id => markers.find(m => m.id === id)).filter(Boolean)]
+    if (allPts.length > 1) setFitBoundsPoints(allPts.map(p => [p.lat, p.lng]))
+    else setFitBoundsPoints(null)
+  }, [showForm, connectingFrom, markers, connections])
 
   // ✓ Keep this alternative → save as a connection
   const handleConfirmAlt = useCallback((altId, fare) => {
@@ -216,6 +224,7 @@ export default function App() {
         activeStopIds={activeStopIds}
         activeConnIds={activeConnIds}
         focusedSegment={focusedSegment}
+        fitBoundsPoints={fitBoundsPoints}
       />
 
       {/* Corner buttons */}

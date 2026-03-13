@@ -75,7 +75,7 @@ function ClickHandler({ onMapClick }) {
   return null
 }
 
-function MapController({ fromPoint, toPoint, userLocation, flyTarget, focusedSegment, markers }) {
+function MapController({ fromPoint, toPoint, userLocation, flyTarget, focusedSegment, markers, fitBoundsPoints }) {
   const map = useMap()
 
   useEffect(() => {
@@ -106,6 +106,11 @@ function MapController({ fromPoint, toPoint, userLocation, flyTarget, focusedSeg
       )
     }
   }, [focusedSegment]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (!fitBoundsPoints || fitBoundsPoints.length < 2) return
+    map.fitBounds(fitBoundsPoints, { padding: [80, 80], maxZoom: 16, animate: true })
+  }, [fitBoundsPoints]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return null
 }
@@ -152,6 +157,7 @@ export default function MapView({
   activeStopIds,
   activeConnIds,
   focusedSegment,
+  fitBoundsPoints,
 }) {
   const hasActiveRoute = activeStopIds && activeStopIds.length > 0
 
@@ -264,6 +270,7 @@ export default function MapView({
           userLocation={userLocation}
           flyTarget={flyTarget}
           focusedSegment={focusedSegment}
+          fitBoundsPoints={fitBoundsPoints}
           markers={markers}
         />
       </MapContainer>
