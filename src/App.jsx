@@ -19,11 +19,9 @@ function save(key, value) {
   try { localStorage.setItem(key, JSON.stringify(value)) } catch { /* quota exceeded */ }
 }
 
-const LINE_PALETTE = ['#FF6B35', '#4A90D9', '#27AE60', '#F39C12', '#8E44AD', '#E74C3C', '#1ABC9C', '#16A085']
-
 export default function App() {
-  const [markers,        setMarkers]        = useState(() => load('sakayan_markers', INITIAL_MARKERS))
-  const [lines,          setLines]          = useState(() => load('sakayan_lines',   []))
+  const [markers,        setMarkers]        = useState(() => load('sakayan_markers',     INITIAL_MARKERS))
+  const [connections,    setConnections]    = useState(() => load('sakayan_connections', []))
   const [selectedMarker, setSelectedMarker] = useState(null)
   const [pendingLatLng,  setPendingLatLng]  = useState(null)
   const [showForm,       setShowForm]       = useState(false)
@@ -31,14 +29,14 @@ export default function App() {
   const [toPoint,        setToPoint]        = useState(null)
   const [userLocation,   setUserLocation]   = useState(null)
   const [locating,       setLocating]       = useState(false)
-  const [buildingLine,   setBuildingLine]   = useState(null)  // { name, color, stopIds } | null
+  const [connectingFrom, setConnectingFrom] = useState(null)
   const [flyTarget,      setFlyTarget]      = useState(null)
   const [searchResetKey, setSearchResetKey] = useState(0)
 
   const { isAdmin, requireAdmin, showPinModal, onPinSuccess, onPinCancel } = useAdminAuth()
 
-  useEffect(() => { save('sakayan_markers', markers) }, [markers])
-  useEffect(() => { save('sakayan_lines',   lines)   }, [lines])
+  useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
+  useEffect(() => { save('sakayan_connections', connections) }, [connections])
 
   useEffect(() => {
     if (!flyTarget) return
@@ -55,68 +53,44 @@ export default function App() {
     if (showForm) setPendingLatLng(latlng)
   }, [showForm])
 
+  const handleConnect = useCallback((fromId, toId) => {
+    if (fromId === toId) return
+    setConnections(prev => {
+      const exists = prev.some(c =>
+        (c.fromId === fromId && c.toId === toId) ||
+        (c.fromId === toId   && c.toId === fromId)
+      )
+      if (exists) return prev
+      return [...prev, { id: `${fromId}-${toId}-${Date.now()}`, fromId, toId }]
+    })
+  }, [])
+
+  const handleRemoveConnection = useCallback((connId) => {
+    setConnections(prev => prev.filter(c => c.id !== connId))
+  }, [])
+
   const handleDeleteMarker = useCallback((markerId) => {
     setMarkers(prev => prev.filter(m => m.id !== markerId))
-    // Remove stop from all lines; drop lines that fall below 2 stops
-    setLines(prev =>
-      prev
-        .map(l => ({ ...l, stopIds: l.stopIds.filter(id => id !== markerId) }))
-        .filter(l => l.stopIds.length >= 2)
-    )
+    setConnections(prev => prev.filter(c => c.fromId !== markerId && c.toId !== markerId))
     setSelectedMarker(null)
   }, [])
 
-  // ── Line building ──────────────────────────────────────────────────
-  const handleStartNewLine = useCallback((linesCount) => {
-    const color = LINE_PALETTE[linesCount % LINE_PALETTE.length]
-    setBuildingLine({ name: `Line ${linesCount + 1}`, color, stopIds: [] })
+  const handleStartConnect = useCallback((markerId) => {
+    setConnectingFrom(markerId)
     setSelectedMarker(null)
   }, [])
 
-  const handleAddStopToLine = useCallback((markerId) => {
-    setBuildingLine(prev => {
-      if (!prev) return prev
-      if (prev.stopIds.includes(markerId)) return prev   // no duplicates
-      return { ...prev, stopIds: [...prev.stopIds, markerId] }
-    })
-  }, [])
-
-  const handleUndoLastStop = useCallback(() => {
-    setBuildingLine(prev => {
-      if (!prev || prev.stopIds.length === 0) return prev
-      return { ...prev, stopIds: prev.stopIds.slice(0, -1) }
-    })
-  }, [])
-
-  const handleFinishLine = useCallback(() => {
-    if (!buildingLine || buildingLine.stopIds.length < 2) {
-      setBuildingLine(null)
-      return
-    }
-    setLines(prev => [...prev, {
-      id:      Date.now(),
-      name:    buildingLine.name.trim() || `Line ${prev.length + 1}`,
-      color:   buildingLine.color,
-      stopIds: buildingLine.stopIds,
-    }])
-    setBuildingLine(null)
-  }, [buildingLine])
-
-  const handleCancelLine = useCallback(() => setBuildingLine(null), [])
-
-  const handleDeleteLine = useCallback((lineId) => {
-    setLines(prev => prev.filter(l => l.id !== lineId))
-  }, [])
-  // ───────────────────────────────────────────────────────────────────
+  const handleCancelConnect = useCallback(() => setConnectingFrom(null), [])
 
   const handleMarkerClick = useCallback((marker) => {
     if (showForm) return
-    if (buildingLine !== null) {
-      handleAddStopToLine(marker.id)
+    if (connectingFrom !== null) {
+      if (connectingFrom !== marker.id) handleConnect(connectingFrom, marker.id)
+      setConnectingFrom(null)
       return
     }
     setSelectedMarker(marker)
-  }, [showForm, buildingLine, handleAddStopToLine])
+  }, [showForm, connectingFrom, handleConnect])
 
   const handleAddMarker = (data) => {
     setMarkers(prev => [...prev, { id: Date.now(), ...data }])
@@ -148,8 +122,8 @@ export default function App() {
 
       <MapView
         markers={markers}
-        lines={lines}
-        buildingLine={buildingLine}
+        connections={connections}
+        connectingFrom={connectingFrom}
         onMarkerClick={handleMarkerClick}
         onMapClick={handleMapClick}
         fromPoint={fromPoint}
@@ -177,7 +151,7 @@ export default function App() {
             else requireAdmin(() => {
               setShowForm(true)
               setPendingLatLng(null)
-              setBuildingLine(null)
+              setConnectingFrom(null)
             })
           }}
           aria-label={showForm ? 'Cancel' : 'Add stop'}
@@ -186,45 +160,14 @@ export default function App() {
         </button>
       </div>
 
-      {/* Line-building banner */}
-      {buildingLine && (
+      {/* Connect-mode banner */}
+      {connectingFrom && (
         <div className="line-build-banner">
-          <div
-            className="line-build-swatch"
-            style={{ background: buildingLine.color }}
-          />
-          <input
-            className="line-build-name"
-            value={buildingLine.name}
-            onChange={e => setBuildingLine(prev => ({ ...prev, name: e.target.value }))}
-            placeholder="Line name…"
-          />
           <span className="line-build-count">
-            {buildingLine.stopIds.length} stop{buildingLine.stopIds.length !== 1 ? 's' : ''}
+            Tap another stop to connect
           </span>
-          {buildingLine.stopIds.length > 0 && (
-            <button className="line-build-undo" onClick={handleUndoLastStop} title="Undo last stop">↩</button>
-          )}
-          <button
-            className="line-build-done"
-            onClick={handleFinishLine}
-            disabled={buildingLine.stopIds.length < 2}
-          >
-            ✓ Done
-          </button>
-          <button className="line-build-cancel" onClick={handleCancelLine}>✕</button>
+          <button className="line-build-cancel" onClick={handleCancelConnect}>✕ Cancel</button>
         </div>
-      )}
-
-      {/* New Route Line button — admin only, not while building */}
-      {isAdmin && !buildingLine && !showForm && (
-        <button
-          className="new-line-fab"
-          onClick={() => handleStartNewLine(lines.length)}
-          title="New route line"
-        >
-          🛤 New Line
-        </button>
       )}
 
       {showForm && (
@@ -240,7 +183,7 @@ export default function App() {
           fromPoint={fromPoint}
           toPoint={toPoint}
           markers={markers}
-          lines={lines}
+          connections={connections}
           onClose={() => { setFromPoint(null); setToPoint(null); setSearchResetKey(k => k + 1) }}
           onMarkerSelect={(m) => setSelectedMarker(m)}
         />
@@ -249,7 +192,8 @@ export default function App() {
       {selectedMarker && (
         <MarkerModal
           marker={selectedMarker}
-          lines={lines}
+          connections={connections}
+          markers={markers}
           isAdmin={isAdmin}
           requireAdmin={requireAdmin}
           onClose={() => setSelectedMarker(null)}
@@ -258,7 +202,8 @@ export default function App() {
             setSelectedMarker(updated)
           }}
           onDelete={handleDeleteMarker}
-          onDeleteLine={handleDeleteLine}
+          onRemoveConnection={handleRemoveConnection}
+          onStartConnect={handleStartConnect}
         />
       )}
 

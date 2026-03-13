@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { TYPE_COLORS } from '../data/sampleData'
 
+const ROUTE_COLORS = ['#4A90D9', '#FF6B35', '#27AE60', '#F39C12', '#8E44AD', '#E74C3C', '#1ABC9C']
+
 function dist(a, b) {
   return Math.hypot(a.lat - b.lat, a.lng - b.lng)
 }
@@ -10,27 +12,50 @@ function findNearest(point, markers) {
   return markers.reduce((best, m) => dist(m, point) < dist(best, point) ? m : best)
 }
 
-// Find all named lines that contain both fromId and toId.
-// Returns array of { lineName, lineColor, stopIds } or null.
-function findRoutesByLines(fromId, toId, lines) {
-  if (fromId === toId) return null
-  const results = []
-
-  for (const line of lines) {
-    const i = line.stopIds.indexOf(fromId)
-    const j = line.stopIds.indexOf(toId)
-    if (i === -1 || j === -1 || i === j) continue
-    // Slice in the correct direction (lines are bidirectional)
-    const stopIds = i < j
-      ? line.stopIds.slice(i, j + 1)
-      : line.stopIds.slice(j, i + 1).reverse()
-    results.push({ lineName: line.name, lineColor: line.color, stopIds })
+// Build adjacency map: stopId → Set of connected stopIds
+function buildAdjacency(connections) {
+  const adj = {}
+  for (const c of connections) {
+    if (!adj[c.fromId]) adj[c.fromId] = new Set()
+    if (!adj[c.toId])   adj[c.toId]   = new Set()
+    adj[c.fromId].add(c.toId)
+    adj[c.toId].add(c.fromId)
   }
-
-  return results.length > 0 ? results : null
+  return adj
 }
 
-// Short vehicle label
+// DFS to find ALL simple paths from startId to endId
+// Returns array of stopId arrays (each is a path)
+function findAllPaths(startId, endId, adj, maxDepth = 10) {
+  const results = []
+  const visited = new Set()
+
+  function dfs(current, path) {
+    if (path.length > maxDepth) return
+    if (current === endId) {
+      results.push([...path])
+      return
+    }
+    const neighbors = adj[current]
+    if (!neighbors) return
+    for (const next of neighbors) {
+      if (!visited.has(next)) {
+        visited.add(next)
+        path.push(next)
+        dfs(next, path)
+        path.pop()
+        visited.delete(next)
+      }
+    }
+  }
+
+  visited.add(startId)
+  dfs(startId, [startId])
+  // Sort by path length (shortest first)
+  results.sort((a, b) => a.length - b.length)
+  return results
+}
+
 function vehicleLabel(type) {
   if (type === 'UV Express') return 'UV'
   if (type === 'Jeepney')    return 'Jeep'
@@ -44,32 +69,39 @@ function vehicleEmoji(type) {
   return '🚐'
 }
 
-// Total base fare across a path
 function pathFare(stops) {
   const fares = stops.slice(0, -1).map(s => s.fare).filter(f => f != null)
   if (!fares.length) return null
   return fares.reduce((a, b) => a + b, 0)
 }
 
-export default function DirectionPanel({ fromPoint, toPoint, markers, lines, onClose, onMarkerSelect }) {
+export default function DirectionPanel({ fromPoint, toPoint, markers, connections, onClose, onMarkerSelect }) {
   const [selectedIdx, setSelectedIdx] = useState(0)
 
   const nearFrom = findNearest(fromPoint, markers)
   const nearTo   = findNearest(toPoint,   markers)
 
-  const routes = nearFrom && nearTo
-    ? findRoutesByLines(nearFrom.id, nearTo.id, lines)
-    : null
+  const adj = buildAdjacency(connections)
+  const allPaths = nearFrom && nearTo && nearFrom.id !== nearTo.id
+    ? findAllPaths(nearFrom.id, nearTo.id, adj)
+    : []
 
-  const safeIdx = routes ? Math.min(selectedIdx, routes.length - 1) : 0
-  const route   = routes?.[safeIdx] ?? null
+  // Build route objects: assign a color to each path
+  const routes = allPaths.map((stopIds, i) => ({
+    stopIds,
+    color: ROUTE_COLORS[i % ROUTE_COLORS.length],
+    label: `Route ${i + 1}`,
+  }))
+
+  const safeIdx = routes.length > 0 ? Math.min(selectedIdx, routes.length - 1) : 0
+  const route   = routes[safeIdx] ?? null
 
   const steps = []
   if (route) {
     const stops = route.stopIds.map(id => markers.find(m => m.id === id)).filter(Boolean)
     steps.push({ kind: 'walk', label: `Walk to ${stops[0].name}` })
     for (let i = 0; i < stops.length - 1; i++) {
-      steps.push({ kind: 'ride', from: stops[i], to: stops[i + 1], lineColor: route.lineColor })
+      steps.push({ kind: 'ride', from: stops[i], to: stops[i + 1], lineColor: route.color })
     }
     steps.push({ kind: 'walk', label: `Walk to ${toPoint.name || 'destination'}` })
   }
@@ -109,8 +141,8 @@ export default function DirectionPanel({ fromPoint, toPoint, markers, lines, onC
         </div>
       )}
 
-      {/* Route count label */}
-      {routes && (
+      {/* Route count */}
+      {routes.length > 0 && (
         <div className="route-count-label">
           {routes.length === 1
             ? '1 route found'
@@ -119,7 +151,7 @@ export default function DirectionPanel({ fromPoint, toPoint, markers, lines, onC
       )}
 
       {/* Route option cards — shown when 2+ routes */}
-      {routes && routes.length > 1 && (
+      {routes.length > 1 && (
         <div className="route-options-row">
           {routes.map((r, i) => {
             const stops  = r.stopIds.map(id => markers.find(m => m.id === id)).filter(Boolean)
@@ -129,14 +161,11 @@ export default function DirectionPanel({ fromPoint, toPoint, markers, lines, onC
               <button
                 key={i}
                 className={`route-option-card${active ? ' route-option-active' : ''}`}
-                style={active ? { borderColor: r.lineColor, background: r.lineColor + '18' } : {}}
+                style={active ? { borderColor: r.color, background: r.color + '18' } : {}}
                 onClick={() => setSelectedIdx(i)}
               >
-                <span
-                  className="route-option-line-dot"
-                  style={{ background: r.lineColor }}
-                />
-                <span className="route-option-num">{r.lineName || `Route ${i + 1}`}</span>
+                <span className="route-option-line-dot" style={{ background: r.color }} />
+                <span className="route-option-num">{r.label}</span>
                 <span className="route-option-stops">{r.stopIds.length - 1} stop{r.stopIds.length - 1 !== 1 ? 's' : ''}</span>
                 {fare != null && <span className="route-option-fare">₱{Math.round(fare)}</span>}
               </button>
@@ -145,11 +174,11 @@ export default function DirectionPanel({ fromPoint, toPoint, markers, lines, onC
         </div>
       )}
 
-      {/* Steps for selected route */}
+      {/* Steps */}
       <div className="dir-steps">
-        {routes === null && (
+        {routes.length === 0 && (
           <p className="dir-no-route">
-            No route found. Make sure a route line passes through both stops.
+            No route found. Connect the stops to create a route.
           </p>
         )}
 

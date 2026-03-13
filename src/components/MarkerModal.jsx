@@ -33,9 +33,10 @@ function formatSchedule(s) {
 }
 
 export default function MarkerModal({
-  marker, lines,
+  marker, connections, markers,
   isAdmin, requireAdmin,
-  onClose, onSave, onDelete, onDeleteLine,
+  onClose, onSave, onDelete,
+  onRemoveConnection, onStartConnect,
 }) {
   const [editing,  setEditing]  = useState(false)
   const [name,     setName]     = useState(marker.name)
@@ -46,8 +47,8 @@ export default function MarkerModal({
   const [images,   setImages]   = useState(marker.images)
   const fileInputRef = useRef(null)
 
-  // Lines that include this stop
-  const stopLines = lines.filter(l => l.stopIds.includes(marker.id))
+  // Connections involving this stop
+  const stopConns = connections.filter(c => c.fromId === marker.id || c.toId === marker.id)
 
   useEffect(() => {
     const onKey = (e) => { if (e.key === 'Escape') onClose() }
@@ -256,42 +257,53 @@ export default function MarkerModal({
                 )}
               </div>
 
-              {/* Action row: Edit (admin-gated) */}
+              {/* Action row */}
               <div className="modal-actions">
                 <button className="edit-btn" onClick={() => requireAdmin(() => setEditing(true))}>
                   &#9998; Edit{!isAdmin && ' 🔒'}
                 </button>
+                {isAdmin && (
+                  <button
+                    className="edit-btn connect-btn"
+                    onClick={() => { onStartConnect(marker.id); onClose() }}
+                  >
+                    🔗 Connect
+                  </button>
+                )}
               </div>
 
-              {/* Route lines this stop belongs to */}
+              {/* Connected stops */}
               <div className="connect-section">
-                <span className="connect-label">Route lines</span>
-                {stopLines.length === 0 && (
-                  <p className="connect-empty">Not on any route line yet</p>
+                <span className="connect-label">Connected stops</span>
+                {stopConns.length === 0 && (
+                  <p className="connect-empty">No connections yet</p>
                 )}
-                {stopLines.length > 0 && (
+                {stopConns.length > 0 && (
                   <div className="connect-list">
-                    {stopLines.map(l => (
-                      <div key={l.id} className="connect-item">
-                        <span
-                          className="line-color-dot"
-                          style={{ background: l.color }}
-                        />
-                        <span className="connect-name">{l.name}</span>
-                        <span className="connect-stop-count">{l.stopIds.length} stops</span>
-                        {isAdmin && (
-                          <button
-                            className="connect-remove"
-                            onClick={() => {
-                              if (window.confirm(`Delete line "${l.name}"?`)) onDeleteLine(l.id)
-                            }}
-                            aria-label="Delete line"
-                          >
-                            &#x2715;
-                          </button>
-                        )}
-                      </div>
-                    ))}
+                    {stopConns.map(c => {
+                      const otherId = c.fromId === marker.id ? c.toId : c.fromId
+                      const other   = markers.find(m => m.id === otherId)
+                      if (!other) return null
+                      return (
+                        <div key={c.id} className="connect-item">
+                          <span
+                            className="line-color-dot"
+                            style={{ background: TYPE_COLORS[other.type] || '#888' }}
+                          />
+                          <span className="connect-name">{other.name}</span>
+                          <span className="connect-stop-count">{other.type}</span>
+                          {isAdmin && (
+                            <button
+                              className="connect-remove"
+                              onClick={() => onRemoveConnection(c.id)}
+                              aria-label="Remove connection"
+                            >
+                              &#x2715;
+                            </button>
+                          )}
+                        </div>
+                      )
+                    })}
                   </div>
                 )}
               </div>
