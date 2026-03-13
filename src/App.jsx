@@ -7,6 +7,31 @@ import DirectionPanel         from './components/DirectionPanel'
 import RouteAlternativesSheet from './components/RouteAlternativesSheet'
 import { INITIAL_MARKERS, TYPE_COLORS } from './data/sampleData'
 
+function WaypointNameForm({ onSave, onRetap, onCancel }) {
+  const [name, setName] = useState('')
+  return (
+    <div className="waypoint-name-form">
+      <p className="waypoint-form-hint">Name this intermediate stop</p>
+      <input
+        className="edit-field"
+        value={name}
+        onChange={e => setName(e.target.value)}
+        placeholder="e.g. Crossing, Poblacion, Market…"
+        autoFocus
+        onKeyDown={e => {
+          if (e.key === 'Enter' && name.trim()) onSave(name)
+          if (e.key === 'Escape') onRetap()
+        }}
+      />
+      <div className="waypoint-form-actions">
+        <button className="btn-save" onClick={() => onSave(name)} disabled={!name.trim()}>Save stop</button>
+        <button className="btn-cancel-edit" onClick={onRetap}>Re-tap</button>
+        <button className="btn-cancel-edit" onClick={onCancel}>Cancel</button>
+      </div>
+    </div>
+  )
+}
+
 function load(key, fallback) {
   try {
     const raw = localStorage.getItem(key)
@@ -39,6 +64,8 @@ export default function App() {
   const [activeStopIds,  setActiveStopIds]  = useState([])
   const [activeConnIds,  setActiveConnIds]  = useState([])
   const [focusedSegment, setFocusedSegment] = useState(null)
+  const [addingWaypoint, setAddingWaypoint] = useState(null)  // { connId } | null
+  const [pendingWpLatLng, setPendingWpLatLng] = useState(null)
 
   const isAdmin = true
   const requireAdmin = (cb) => cb()
@@ -58,8 +85,9 @@ useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
   }, [])
 
   const handleMapClick = useCallback((latlng) => {
-    if (showForm) setPendingLatLng(latlng)
-  }, [showForm])
+    if (showForm) { setPendingLatLng(latlng); return }
+    if (addingWaypoint && !pendingWpLatLng) { setPendingWpLatLng(latlng) }
+  }, [showForm, addingWaypoint, pendingWpLatLng])
 
   const handleStartConnect = useCallback((markerId) => {
     setConnectingFrom(markerId)
@@ -67,6 +95,36 @@ useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
   }, [])
 
   const handleCancelConnect = useCallback(() => setConnectingFrom(null), [])
+
+  const handleStartAddWaypoint = useCallback((connId) => {
+    setAddingWaypoint({ connId })
+    setSelectedMarker(null)
+    setPendingWpLatLng(null)
+  }, [])
+
+  const handleSaveWaypoint = useCallback((name) => {
+    if (!addingWaypoint || !pendingWpLatLng || !name.trim()) return
+    setConnections(prev => prev.map(c =>
+      c.id === addingWaypoint.connId
+        ? { ...c, waypoints: [...(c.waypoints || []), { id: String(Date.now()), lat: pendingWpLatLng.lat, lng: pendingWpLatLng.lng, name: name.trim() }] }
+        : c
+    ))
+    setAddingWaypoint(null)
+    setPendingWpLatLng(null)
+  }, [addingWaypoint, pendingWpLatLng])
+
+  const handleCancelWaypoint = useCallback(() => {
+    setAddingWaypoint(null)
+    setPendingWpLatLng(null)
+  }, [])
+
+  const handleRemoveWaypoint = useCallback((connId, wpId) => {
+    setConnections(prev => prev.map(c =>
+      c.id === connId
+        ? { ...c, waypoints: (c.waypoints || []).filter(w => w.id !== wpId) }
+        : c
+    ))
+  }, [])
 
   const handleMarkerClick = useCallback((marker) => {
     if (showForm) return
@@ -228,6 +286,8 @@ useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
         activeConnIds={activeConnIds}
         focusedSegment={focusedSegment}
         fitBoundsPoints={fitBoundsPoints}
+        addingWaypointMode={!!addingWaypoint}
+        pendingWpLatLng={pendingWpLatLng}
       />
 
       {/* Corner buttons */}
@@ -258,6 +318,23 @@ useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
           <span className="line-build-count">Tap another stop to connect</span>
           <button className="line-build-cancel" onClick={handleCancelConnect}>✕ Cancel</button>
         </div>
+      )}
+
+      {/* Add-waypoint banner */}
+      {addingWaypoint && !pendingWpLatLng && (
+        <div className="line-build-banner">
+          <span className="line-build-count">Tap map to place an intermediate stop</span>
+          <button className="line-build-cancel" onClick={handleCancelWaypoint}>✕ Cancel</button>
+        </div>
+      )}
+
+      {/* Waypoint name form */}
+      {addingWaypoint && pendingWpLatLng && (
+        <WaypointNameForm
+          onSave={handleSaveWaypoint}
+          onRetap={() => setPendingWpLatLng(null)}
+          onCancel={handleCancelWaypoint}
+        />
       )}
 
       {showForm && (
@@ -317,6 +394,8 @@ useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
           onDelete={handleDeleteMarker}
           onRemoveConnection={handleRemoveConnection}
           onStartConnect={handleStartConnect}
+          onAddWaypoint={handleStartAddWaypoint}
+          onRemoveWaypoint={handleRemoveWaypoint}
           onConnClick={(fromId, toId) => {
             setSelectedMarker(null)
             setFocusedSegment({ fromId, toId })

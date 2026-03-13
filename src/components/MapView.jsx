@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import {
-  MapContainer, TileLayer, Marker, Polyline,
+  MapContainer, TileLayer, Marker, Polyline, Tooltip,
   useMapEvents, useMap,
 } from 'react-leaflet'
 import L from 'leaflet'
@@ -61,6 +61,15 @@ const searchIcon = L.divIcon({
   </svg>`,
   className: '', iconSize: [25, 41], iconAnchor: [12, 41],
 })
+
+function buildWaypointIcon(color) {
+  return L.divIcon({
+    html: `<div style="width:14px;height:14px;background:white;border:3px solid ${color};border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,.4)"></div>`,
+    className: '',
+    iconSize: [14, 14],
+    iconAnchor: [7, 7],
+  })
+}
 
 const pendingIcon = L.divIcon({
   html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 41" width="25" height="41">
@@ -158,6 +167,8 @@ export default function MapView({
   activeConnIds,
   focusedSegment,
   fitBoundsPoints,
+  addingWaypointMode,
+  pendingWpLatLng,
 }) {
   const hasActiveRoute = activeStopIds && activeStopIds.length > 0
 
@@ -207,6 +218,28 @@ export default function MapView({
             />
           )
         })}
+
+        {/* Intermediate stops (waypoints) along each connection */}
+        {connections.flatMap(conn => {
+          const wps = conn.waypoints || []
+          const wpColor = conn.color || GREY
+          return wps.map(wp => (
+            <Marker
+              key={`wp-${wp.id}`}
+              position={[wp.lat, wp.lng]}
+              icon={buildWaypointIcon(wpColor)}
+            >
+              <Tooltip direction="top" offset={[0, -10]} opacity={1}>
+                <span style={{ fontSize: 12, fontWeight: 600 }}>{wp.name}</span>
+              </Tooltip>
+            </Marker>
+          ))
+        })}
+
+        {/* Pending waypoint pin */}
+        {addingWaypointMode && pendingWpLatLng && (
+          <Marker position={[pendingWpLatLng.lat, pendingWpLatLng.lng]} icon={pendingIcon} />
+        )}
 
         {/* Pending alternatives — distinct colors so user can match Option N to map line */}
         {pendingAlternatives.map(alt => (

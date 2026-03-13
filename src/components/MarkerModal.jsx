@@ -37,6 +37,7 @@ export default function MarkerModal({
   isAdmin, requireAdmin,
   onClose, onSave, onDelete,
   onRemoveConnection, onStartConnect, onConnClick,
+  onAddWaypoint, onRemoveWaypoint,
 }) {
   const [editing,  setEditing]  = useState(false)
   const [name,     setName]     = useState(marker.name)
@@ -270,32 +271,66 @@ export default function MarkerModal({
                         ? ` (Route ${sameStopConns.indexOf(c) + 1})`
                         : ''
                       const connFare = c.fare != null ? `₱${c.fare}` : null
+                      const waypoints = c.waypoints || []
+                      const connColor = TYPE_COLORS[other.type] || '#888'
                       return (
-                        <div
-                          key={c.id}
-                          className="connect-item connect-item-clickable"
-                          onClick={() => onConnClick?.(marker.id, other.id)}
-                          role="button"
-                          tabIndex={0}
-                          onKeyDown={e => e.key === 'Enter' && onConnClick?.(marker.id, other.id)}
-                        >
-                          <span
-                            className="line-color-dot"
-                            style={{ background: TYPE_COLORS[other.type] || '#888' }}
-                          />
-                          <div className="connect-item-body">
-                            <span className="connect-name">{other.name}{routeNum}</span>
-                            <span className="connect-stop-meta">
-                              {other.type}{connFare ? ` · ${connFare}` : ''}
-                            </span>
+                        <div key={c.id} className="connect-group">
+                          <div
+                            className="connect-item connect-item-clickable"
+                            onClick={() => onConnClick?.(marker.id, other.id)}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={e => e.key === 'Enter' && onConnClick?.(marker.id, other.id)}
+                          >
+                            <span
+                              className="line-color-dot"
+                              style={{ background: connColor }}
+                            />
+                            <div className="connect-item-body">
+                              <span className="connect-name">{other.name}{routeNum}</span>
+                              <span className="connect-stop-meta">
+                                {other.type}{connFare ? ` · ${connFare}` : ''}
+                                {waypoints.length > 0 ? ` · ${waypoints.length} stop${waypoints.length > 1 ? 's' : ''}` : ''}
+                              </span>
+                            </div>
+                            {isAdmin && (
+                              <button
+                                className="connect-remove"
+                                onClick={e => { e.stopPropagation(); onRemoveConnection(c.id) }}
+                                aria-label="Remove connection"
+                              >
+                                &#x2715;
+                              </button>
+                            )}
                           </div>
+
+                          {/* Intermediate stops along this route */}
+                          {waypoints.length > 0 && (
+                            <div className="waypoints-list">
+                              {waypoints.map(wp => (
+                                <div key={wp.id} className="waypoint-item">
+                                  <span className="waypoint-dot" style={{ background: connColor }} />
+                                  <span className="waypoint-name">{wp.name}</span>
+                                  {isAdmin && (
+                                    <button
+                                      className="connect-remove"
+                                      onClick={() => onRemoveWaypoint?.(c.id, wp.id)}
+                                      aria-label="Remove stop"
+                                    >
+                                      &#x2715;
+                                    </button>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          )}
+
                           {isAdmin && (
                             <button
-                              className="connect-remove"
-                              onClick={e => { e.stopPropagation(); onRemoveConnection(c.id) }}
-                              aria-label="Remove connection"
+                              className="waypoint-add-btn"
+                              onClick={() => { onAddWaypoint?.(c.id); onClose() }}
                             >
-                              &#x2715;
+                              + Add stop along this route
                             </button>
                           )}
                         </div>
