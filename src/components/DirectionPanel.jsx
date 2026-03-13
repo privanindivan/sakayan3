@@ -10,36 +10,21 @@ function findNearest(point, markers) {
   return markers.reduce((best, m) => dist(m, point) < dist(best, point) ? m : best)
 }
 
-// Find up to maxPaths distinct paths; returns array of id-arrays, or null if none found
-function findTopPaths(startId, endId, connections, maxPaths = 3) {
-  if (startId === endId) return [[startId]]
+// Find all named lines that contain both fromId and toId.
+// Returns array of { lineName, lineColor, stopIds } or null.
+function findRoutesByLines(fromId, toId, lines) {
+  if (fromId === toId) return null
   const results = []
-  const queue   = [[startId]]
-  let minLen    = Infinity
 
-  while (queue.length > 0 && results.length < maxPaths) {
-    const path    = queue.shift()
-    const pathLen = path.length
-
-    // Don't chase paths longer than shortest-found + 3 extra hops
-    if (pathLen > Math.min(minLen + 3, 15)) continue
-
-    const current   = path[pathLen - 1]
-    const neighbors = connections
-      .filter(c => c.fromId === current || c.toId === current)
-      .map(c => c.fromId === current ? c.toId : c.fromId)
-      .filter(n => !path.includes(n))
-
-    for (const n of neighbors) {
-      const next = [...path, n]
-      if (n === endId) {
-        results.push(next)
-        if (next.length < minLen) minLen = next.length
-        if (results.length >= maxPaths) break
-      } else {
-        queue.push(next)
-      }
-    }
+  for (const line of lines) {
+    const i = line.stopIds.indexOf(fromId)
+    const j = line.stopIds.indexOf(toId)
+    if (i === -1 || j === -1 || i === j) continue
+    // Slice in the correct direction (lines are bidirectional)
+    const stopIds = i < j
+      ? line.stopIds.slice(i, j + 1)
+      : line.stopIds.slice(j, i + 1).reverse()
+    results.push({ lineName: line.name, lineColor: line.color, stopIds })
   }
 
   return results.length > 0 ? results : null
@@ -59,41 +44,32 @@ function vehicleEmoji(type) {
   return '🚐'
 }
 
-// Summarise unique vehicle types in a path
-function pathTypeChips(stops) {
-  const seen = new Set()
-  return stops
-    .filter(s => { if (seen.has(s.type)) return false; seen.add(s.type); return true })
-    .map(s => ({ type: s.type, color: TYPE_COLORS[s.type] || '#888' }))
-}
-
-// Total base fare across a path (stops that have a fare field)
+// Total base fare across a path
 function pathFare(stops) {
   const fares = stops.slice(0, -1).map(s => s.fare).filter(f => f != null)
   if (!fares.length) return null
   return fares.reduce((a, b) => a + b, 0)
 }
 
-export default function DirectionPanel({ fromPoint, toPoint, markers, connections, onClose, onMarkerSelect }) {
+export default function DirectionPanel({ fromPoint, toPoint, markers, lines, onClose, onMarkerSelect }) {
   const [selectedIdx, setSelectedIdx] = useState(0)
 
   const nearFrom = findNearest(fromPoint, markers)
   const nearTo   = findNearest(toPoint,   markers)
 
-  const paths = nearFrom && nearTo
-    ? findTopPaths(nearFrom.id, nearTo.id, connections)
+  const routes = nearFrom && nearTo
+    ? findRoutesByLines(nearFrom.id, nearTo.id, lines)
     : null
 
-  // Guard: if selected index is out of bounds (e.g. paths changed), clamp to 0
-  const safeIdx = paths ? Math.min(selectedIdx, paths.length - 1) : 0
-  const path    = paths?.[safeIdx] ?? null
+  const safeIdx = routes ? Math.min(selectedIdx, routes.length - 1) : 0
+  const route   = routes?.[safeIdx] ?? null
 
   const steps = []
-  if (path?.length) {
-    const stops = path.map(id => markers.find(m => m.id === id)).filter(Boolean)
+  if (route) {
+    const stops = route.stopIds.map(id => markers.find(m => m.id === id)).filter(Boolean)
     steps.push({ kind: 'walk', label: `Walk to ${stops[0].name}` })
     for (let i = 0; i < stops.length - 1; i++) {
-      steps.push({ kind: 'ride', from: stops[i], to: stops[i + 1] })
+      steps.push({ kind: 'ride', from: stops[i], to: stops[i + 1], lineColor: route.lineColor })
     }
     steps.push({ kind: 'walk', label: `Walk to ${toPoint.name || 'destination'}` })
   }
@@ -118,7 +94,7 @@ export default function DirectionPanel({ fromPoint, toPoint, markers, connection
         <button className="dir-close" onClick={onClose} aria-label="Close">&#x2715;</button>
       </div>
 
-      {/* Snapped stops + route count */}
+      {/* Snapped stops */}
       {nearFrom && nearTo && (
         <div className="dir-snap-row">
           <span className="dir-snap-stop"
@@ -132,37 +108,36 @@ export default function DirectionPanel({ fromPoint, toPoint, markers, connection
           </span>
         </div>
       )}
-      {paths && (
+
+      {/* Route count label */}
+      {routes && (
         <div className="route-count-label">
-          {paths.length === 1
-            ? '1 route via connected stops'
-            : `${paths.length} routes found — tap to switch`}
+          {routes.length === 1
+            ? '1 route found'
+            : `${routes.length} routes found — tap to switch`}
         </div>
       )}
 
-      {/* Route option cards — only shown when 2+ routes found */}
-      {paths && paths.length > 1 && (
+      {/* Route option cards — shown when 2+ routes */}
+      {routes && routes.length > 1 && (
         <div className="route-options-row">
-          {paths.map((p, i) => {
-            const stops = p.map(id => markers.find(m => m.id === id)).filter(Boolean)
-            const chips  = pathTypeChips(stops)
+          {routes.map((r, i) => {
+            const stops  = r.stopIds.map(id => markers.find(m => m.id === id)).filter(Boolean)
             const fare   = pathFare(stops)
             const active = safeIdx === i
             return (
               <button
                 key={i}
                 className={`route-option-card${active ? ' route-option-active' : ''}`}
+                style={active ? { borderColor: r.lineColor, background: r.lineColor + '18' } : {}}
                 onClick={() => setSelectedIdx(i)}
               >
-                <span className="route-option-num">Route {i + 1}</span>
-                <span className="route-option-stops">{p.length - 1} stop{p.length - 1 !== 1 ? 's' : ''}</span>
-                <div className="route-option-chips">
-                  {chips.map(c => (
-                    <span key={c.type} className="rt-chip" style={{ background: c.color }}>
-                      {vehicleLabel(c.type)}
-                    </span>
-                  ))}
-                </div>
+                <span
+                  className="route-option-line-dot"
+                  style={{ background: r.lineColor }}
+                />
+                <span className="route-option-num">{r.lineName || `Route ${i + 1}`}</span>
+                <span className="route-option-stops">{r.stopIds.length - 1} stop{r.stopIds.length - 1 !== 1 ? 's' : ''}</span>
                 {fare != null && <span className="route-option-fare">₱{Math.round(fare)}</span>}
               </button>
             )
@@ -172,11 +147,13 @@ export default function DirectionPanel({ fromPoint, toPoint, markers, connection
 
       {/* Steps for selected route */}
       <div className="dir-steps">
-        {paths === null && (
-          <p className="dir-no-route">No route found via connected stops.</p>
+        {routes === null && (
+          <p className="dir-no-route">
+            No route found. Make sure a route line passes through both stops.
+          </p>
         )}
 
-        {path !== null && steps.map((step, i) =>
+        {route !== null && steps.map((step, i) =>
           step.kind === 'walk' ? (
             <div key={i} className="dir-step walk-step">
               <span className="dir-step-ico">🚶</span>
@@ -190,12 +167,12 @@ export default function DirectionPanel({ fromPoint, toPoint, markers, connection
             >
               <span
                 className="dir-step-ico ride-ico"
-                style={{ background: TYPE_COLORS[step.from.type] || '#6366F1' }}
+                style={{ background: step.lineColor || TYPE_COLORS[step.from.type] || '#6366F1' }}
               >
                 {vehicleEmoji(step.from.type)}
               </span>
               <div className="dir-step-body">
-                <span className="dir-ride-label" style={{ color: TYPE_COLORS[step.from.type] || '#6366F1' }}>
+                <span className="dir-ride-label" style={{ color: step.lineColor || TYPE_COLORS[step.from.type] || '#6366F1' }}>
                   {vehicleLabel(step.from.type)}
                   {step.from.fare != null && (
                     <span className="dir-step-fare"> · ₱{step.from.fare}</span>

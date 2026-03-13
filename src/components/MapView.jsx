@@ -21,7 +21,7 @@ function buildIcon(type) {
   })
 }
 
-function buildConnectIcon(type) {
+function buildLineIcon(type, order) {
   const color = TYPE_COLORS[type] || '#E74C3C'
   return L.divIcon({
     html: `<div style="position:relative;width:25px;height:41px">
@@ -29,6 +29,7 @@ function buildConnectIcon(type) {
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 41" width="25" height="41">
         <path d="M12.5 0C5.6 0 0 5.6 0 12.5c0 9.4 12.5 28.5 12.5 28.5S25 21.9 25 12.5C25 5.6 19.4 0 12.5 0z" fill="${color}" stroke="white" stroke-width="2.5"/>
         <circle cx="12.5" cy="12.5" r="4.5" fill="white"/>
+        ${order > 0 ? `<text x="12.5" y="16" text-anchor="middle" font-size="8" font-weight="bold" fill="${color}">${order}</text>` : ''}
       </svg>
     </div>`,
     className: '', iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34],
@@ -134,22 +135,27 @@ function UserRoute({ fromPoint, toPoint }) {
 }
 
 export default function MapView({
-  markers, connections, connectingFrom,
-  onMarkerClick, onMapClick, onRemoveConnection, onCancelConnect,
+  markers, lines, buildingLine,
+  onMarkerClick, onMapClick,
   fromPoint, toPoint, userLocation, flyTarget,
   addingMode, pendingLatLng,
 }) {
-  const connectingMarker = connectingFrom ? markers.find(m => m.id === connectingFrom) : null
+  // Map: stopId → order in building line (1-based), 0 if not in building line
+  const buildingOrderMap = {}
+  if (buildingLine) {
+    buildingLine.stopIds.forEach((id, i) => { buildingOrderMap[id] = i + 1 })
+  }
+
+  // Building preview: dashed polyline connecting tapped stops in sequence
+  const buildingPreviewPositions = buildingLine?.stopIds.length >= 2
+    ? buildingLine.stopIds
+        .map(id => markers.find(m => m.id === id))
+        .filter(Boolean)
+        .map(m => [m.lat, m.lng])
+    : null
 
   return (
     <div style={{ position: 'relative', height: '100%', width: '100%' }}>
-      {connectingFrom && (
-        <div className="connect-mode-banner">
-          <span>Tap a stop to connect{connectingMarker ? ` to ${connectingMarker.name}` : ''}</span>
-          <button onClick={onCancelConnect}>✕ Cancel</button>
-        </div>
-      )}
-
       <MapContainer
         center={METRO_MANILA}
         zoom={DEFAULT_ZOOM}
@@ -163,37 +169,54 @@ export default function MapView({
           maxZoom={19}
         />
 
-        {connections.map(conn => {
-          const from = markers.find(m => m.id === conn.fromId)
-          const to   = markers.find(m => m.id === conn.toId)
-          if (!from || !to) return null
-          return (
-            <RoadRoute
-              key={conn.id}
-              route={{
-                id:        conn.id,
-                waypoints: [[from.lat, from.lng], [to.lat, to.lng]],
-                color:     TYPE_COLORS[from.type] || '#6366F1',
-                label:     `${from.name} → ${to.name}`,
-              }}
-              onRemove={() => onRemoveConnection(conn.id)}
-            />
-          )
-        })}
+        {/* Render each saved line as road-snapped segments */}
+        {lines.map(line =>
+          line.stopIds.slice(0, -1).map((fromId, i) => {
+            const toId  = line.stopIds[i + 1]
+            const from  = markers.find(m => m.id === fromId)
+            const to    = markers.find(m => m.id === toId)
+            if (!from || !to) return null
+            return (
+              <RoadRoute
+                key={`${line.id}-${i}`}
+                route={{
+                  id:        `${line.id}-${i}`,
+                  waypoints: [[from.lat, from.lng], [to.lat, to.lng]],
+                  color:     line.color,
+                }}
+              />
+            )
+          })
+        )}
+
+        {/* Building preview — dashed straight line */}
+        {buildingPreviewPositions && (
+          <Polyline
+            positions={buildingPreviewPositions}
+            color={buildingLine.color}
+            weight={3}
+            opacity={0.7}
+            dashArray="8 6"
+            interactive={false}
+          />
+        )}
 
         <UserRoute fromPoint={fromPoint} toPoint={toPoint} />
 
-        {markers.map(marker => (
-          <Marker
-            key={marker.id}
-            position={[marker.lat, marker.lng]}
-            icon={connectingFrom && marker.id !== connectingFrom
-              ? buildConnectIcon(marker.type)
-              : buildIcon(marker.type)
-            }
-            eventHandlers={{ click: () => onMarkerClick(marker) }}
-          />
-        ))}
+        {markers.map(marker => {
+          const order = buildingOrderMap[marker.id] ?? 0
+          const icon  = buildingLine
+            ? buildLineIcon(marker.type, order)
+            : buildIcon(marker.type)
+          return (
+            <Marker
+              key={marker.id}
+              position={[marker.lat, marker.lng]}
+              icon={icon}
+              eventHandlers={{ click: () => onMarkerClick(marker) }}
+            />
+          )
+        })}
 
         {fromPoint   && <Marker position={[fromPoint.lat,   fromPoint.lng]}   icon={fromIcon}   />}
         {toPoint     && <Marker position={[toPoint.lat,     toPoint.lng]}     icon={toIcon}     />}

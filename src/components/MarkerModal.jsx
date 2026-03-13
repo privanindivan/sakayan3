@@ -33,9 +33,9 @@ function formatSchedule(s) {
 }
 
 export default function MarkerModal({
-  marker, allMarkers, connections,
+  marker, lines,
   isAdmin, requireAdmin,
-  onClose, onSave, onDelete, onDisconnect, onStartConnect,
+  onClose, onSave, onDelete, onDeleteLine,
 }) {
   const [editing,  setEditing]  = useState(false)
   const [name,     setName]     = useState(marker.name)
@@ -46,10 +46,8 @@ export default function MarkerModal({
   const [images,   setImages]   = useState(marker.images)
   const fileInputRef = useRef(null)
 
-  const connectedMarkers = connections
-    .filter(c => c.fromId === marker.id || c.toId === marker.id)
-    .map(c => allMarkers.find(m => m.id === (c.fromId === marker.id ? c.toId : c.fromId)))
-    .filter(Boolean)
+  // Lines that include this stop
+  const stopLines = lines.filter(l => l.stopIds.includes(marker.id))
 
   useEffect(() => {
     const onKey = (e) => { if (e.key === 'Escape') onClose() }
@@ -258,29 +256,40 @@ export default function MarkerModal({
                 )}
               </div>
 
-              {/* Action row: Edit + Connect (admin-gated) */}
+              {/* Action row: Edit (admin-gated) */}
               <div className="modal-actions">
                 <button className="edit-btn" onClick={() => requireAdmin(() => setEditing(true))}>
                   &#9998; Edit{!isAdmin && ' 🔒'}
                 </button>
-                <button className="modal-connect-btn" onClick={() => requireAdmin(() => onStartConnect(marker.id))}>
-                  + Connect{!isAdmin && ' 🔒'}
-                </button>
               </div>
 
-              {/* Connections list */}
+              {/* Route lines this stop belongs to */}
               <div className="connect-section">
-                <span className="connect-label">Connected stops</span>
-                {connectedMarkers.length === 0 && (
-                  <p className="connect-empty">No connections yet</p>
+                <span className="connect-label">Route lines</span>
+                {stopLines.length === 0 && (
+                  <p className="connect-empty">Not on any route line yet</p>
                 )}
-                {connectedMarkers.length > 0 && (
+                {stopLines.length > 0 && (
                   <div className="connect-list">
-                    {connectedMarkers.map(m => (
-                      <div key={m.id} className="connect-item">
-                        <span className="vehicle-badge-sm" style={{ background: TYPE_COLORS[m.type] || '#888' }}>{m.type}</span>
-                        <span className="connect-name">{m.name}</span>
-                        <button className="connect-remove" onClick={() => onDisconnect(marker.id, m.id)} aria-label="Disconnect">&#x2715;</button>
+                    {stopLines.map(l => (
+                      <div key={l.id} className="connect-item">
+                        <span
+                          className="line-color-dot"
+                          style={{ background: l.color }}
+                        />
+                        <span className="connect-name">{l.name}</span>
+                        <span className="connect-stop-count">{l.stopIds.length} stops</span>
+                        {isAdmin && (
+                          <button
+                            className="connect-remove"
+                            onClick={() => {
+                              if (window.confirm(`Delete line "${l.name}"?`)) onDeleteLine(l.id)
+                            }}
+                            aria-label="Delete line"
+                          >
+                            &#x2715;
+                          </button>
+                        )}
                       </div>
                     ))}
                   </div>
