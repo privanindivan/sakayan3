@@ -26,7 +26,7 @@ function buildAdjacency(connections) {
 
 // DFS — returns array of { stopIds, colors[] }
 // Two A→B connections with different colors → two distinct route options
-function findAllPaths(startId, endId, adj, maxDepth = 10) {
+function findAllPaths(startId, endId, adj, maxDepth = 40) {
   const results      = []
   const visitedStops = new Set()
   const usedConns    = new Set()
