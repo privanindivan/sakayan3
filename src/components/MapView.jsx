@@ -131,13 +131,6 @@ function UserRoute({ fromPoint, toPoint }) {
   )
 }
 
-const MAP_ROUTE_COLORS = ['#4A90D9', '#FF6B35', '#27AE60', '#F39C12', '#8E44AD', '#E74C3C', '#1ABC9C']
-
-function getRouteColor(routeName, allRouteNames) {
-  const idx = allRouteNames.indexOf(routeName)
-  return MAP_ROUTE_COLORS[(idx >= 0 ? idx : 0) % MAP_ROUTE_COLORS.length]
-}
-
 export default function MapView({
   markers, connections, pendingAlternatives,
   connectingFrom,

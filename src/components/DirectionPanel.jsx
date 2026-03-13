@@ -102,11 +102,13 @@ export default function DirectionPanel({ fromPoint, toPoint, markers, connection
   const steps = []
   if (route) {
     const stops = route.stopIds.map(id => markers.find(m => m.id === id)).filter(Boolean)
-    steps.push({ kind: 'walk', label: `Walk to ${stops[0].name}` })
-    for (let i = 0; i < stops.length - 1; i++) {
-      steps.push({ kind: 'ride', from: stops[i], to: stops[i + 1], segColor: pathColor(route.colors, i) })
+    if (stops.length > 0) {
+      steps.push({ kind: 'walk', label: `Walk to ${stops[0].name}` })
+      for (let i = 0; i < stops.length - 1; i++) {
+        steps.push({ kind: 'ride', from: stops[i], to: stops[i + 1], segColor: pathColor(route.colors, i) })
+      }
+      steps.push({ kind: 'walk', label: `Walk to ${toPoint.name || 'destination'}` })
     }
-    steps.push({ kind: 'walk', label: `Walk to ${toPoint.name || 'destination'}` })
   }
 
   return (
@@ -140,9 +142,9 @@ export default function DirectionPanel({ fromPoint, toPoint, markers, connection
         </div>
       )}
 
-      {routes.length > 0 && (
+      {routes.length > 1 && (
         <div className="route-count-label">
-          {routes.length === 1 ? '1 route found' : `${routes.length} routes — tap to choose`}
+          {`${routes.length} routes — tap to choose`}
         </div>
       )}
 
