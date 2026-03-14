@@ -1341,6 +1341,31 @@ html, body, #root {
   text-align: center;
 }
 
+/* ── Sort pills ─────────────────────────────────── */
+.dir-sort-row {
+  display: flex;
+  gap: 8px;
+  padding: 8px 16px 4px;
+}
+.dir-sort-pill {
+  flex: 1;
+  padding: 6px 0;
+  border-radius: 20px;
+  border: 1.5px solid #ddd;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.dir-sort-pill:active { opacity: 0.75; }
+.dir-sort-pill-active {
+  background: #1a73e8;
+  border-color: #1a73e8;
+  color: #fff;
+}
+
 /* ── Multiple route option cards ────────────────── */
 .route-options-row {
   display: flex;

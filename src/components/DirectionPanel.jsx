@@ -211,8 +211,8 @@ export default function DirectionPanel({
   const sheetRef  = useRef(null)
   const { snap, snapTo, onPointerDown, onPointerMove, onPointerUp } = useSwipeSheet(sheetRef)
 
-  // Track which routes are expanded (all open by default)
   const [expanded, setExpanded] = useState({})
+  const [sortBy, setSortBy]     = useState('best')
 
   const nearFrom = findNearest(fromPoint, markers)
   const nearTo   = findNearest(toPoint,   markers)
@@ -222,11 +222,42 @@ export default function DirectionPanel({
     ? findAllPaths(nearFrom.id, nearTo.id, adj)
     : []
 
-  const routes = allPaths.map(({ stopIds, connIds, colors }, i) => ({
-    stopIds, connIds, colors,
-    color: colors[0] || ROUTE_COLORS[i % ROUTE_COLORS.length],
-    label: `Route ${i + 1}`,
-  }))
+  const walkInSecs  = nearFrom ? walkSecs(fromPoint, nearFrom) : 0
+  const walkOutSecs = nearTo   ? walkSecs(nearTo,   toPoint)   : 0
+
+  const routes = allPaths.map(({ stopIds, connIds, colors }, i) => {
+    const fare    = pathFare(connIds ?? [], connections)
+    const rideDur = pathDuration(connIds ?? [], connections, markers)
+    const duration = rideDur != null ? rideDur + walkInSecs + walkOutSecs : null
+    return {
+      stopIds, connIds, colors,
+      color: colors[0] || ROUTE_COLORS[i % ROUTE_COLORS.length],
+      label: `Route ${i + 1}`,
+      fare, duration,
+    }
+  })
+
+  const sortedRoutes = [...routes].sort((a, b) => {
+    if (sortBy === 'cheapest') {
+      if (a.fare == null && b.fare == null) return 0
+      if (a.fare == null) return 1
+      if (b.fare == null) return -1
+      return a.fare - b.fare
+    }
+    if (sortBy === 'fastest') {
+      if (a.duration == null && b.duration == null) return 0
+      if (a.duration == null) return 1
+      if (b.duration == null) return -1
+      return a.duration - b.duration
+    }
+    // 'best': fewest transfers (hops), tiebreak by duration
+    const hopsA = a.stopIds.length - 1
+    const hopsB = b.stopIds.length - 1
+    if (hopsA !== hopsB) return hopsA - hopsB
+    if (a.duration == null) return 1
+    if (b.duration == null) return -1
+    return a.duration - b.duration
+  })
 
   // On mount, tell parent which route is active (first one) and expand it
   useEffect(() => {
@@ -311,14 +342,29 @@ export default function DirectionPanel({
           <p className="dir-no-route">No route found. Connect the stops to create one.</p>
         )}
 
+        {/* Sort pills — only show when there are multiple routes */}
+        {routes.length > 1 && (
+          <div className="dir-sort-row">
+            {[
+              { key: 'best',     label: 'Best' },
+              { key: 'fastest',  label: '⚡ Fastest' },
+              { key: 'cheapest', label: '₱ Cheapest' },
+            ].map(({ key, label }) => (
+              <button
+                key={key}
+                className={`dir-sort-pill${sortBy === key ? ' dir-sort-pill-active' : ''}`}
+                onClick={() => setSortBy(key)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        )}
+
         {/* All routes shown as accordion */}
-        {routes.map((route, i) => {
-          const fare        = pathFare(route.connIds ?? [], connections)
-          const rideDur     = pathDuration(route.connIds ?? [], connections, markers)
-          const walkInSecs  = nearFrom ? walkSecs(fromPoint, nearFrom) : 0
-          const walkOutSecs = nearTo   ? walkSecs(nearTo,   toPoint)   : 0
-          const duration    = rideDur != null ? rideDur + walkInSecs + walkOutSecs : null
-          const steps       = buildSteps(route)
+        {sortedRoutes.map((route, i) => {
+          const { fare, duration } = route
+          const steps = buildSteps(route)
           const open     = !!expanded[i]
           return (
             <div key={i} className="dir-route-block">
