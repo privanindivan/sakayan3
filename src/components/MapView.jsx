@@ -1,4 +1,4 @@
-import { useEffect, useState, Fragment } from 'react'
+import { useEffect, useState } from 'react'
 import {
   MapContainer, TileLayer, Marker, Polyline, Tooltip,
   useMapEvents, useMap,
@@ -220,31 +220,22 @@ export default function MapView({
             const lineColor   = (isActiveRoute || isFocused)
               ? (conn.color || TYPE_COLORS[from.type] || '#4A90D9')
               : GREY
-            const lineWeight  = isFocused ? 9 : 5
-            const lineOpacity = isFocused ? 1 : (isActiveRoute ? 1 : 0.45)
+            const lineWeight  = 5
+            const lineOpacity = (isActiveRoute || isFocused) ? 1 : 0.45
 
             const positions = conn.geometry
 
             if (positions) {
               return (
-                <Fragment key={conn.id}>
-                  {isFocused && (
-                    <Polyline positions={positions} color="#FFD700" weight={17} opacity={0.55} interactive={false} />
-                  )}
-                  <Polyline positions={positions}
-                    color={lineColor} weight={lineWeight} opacity={lineOpacity} interactive={false} />
-                </Fragment>
+                <Polyline key={conn.id} positions={positions}
+                  color={lineColor} weight={lineWeight} opacity={lineOpacity} interactive={false} />
               )
             }
             return (
-              <Fragment key={conn.id}>
-                {isFocused && (
-                  <RoadRoute route={{ id: `${conn.id}-glow`, waypoints: [[from.lat, from.lng], [to.lat, to.lng]], color: '#FFD700', weight: 17, opacity: 0.55 }} />
-                )}
-                <RoadRoute
-                  route={{ id: conn.id, waypoints: [[from.lat, from.lng], [to.lat, to.lng]], color: lineColor, weight: lineWeight, opacity: lineOpacity }}
-                />
-              </Fragment>
+              <RoadRoute
+                key={conn.id}
+                route={{ id: conn.id, waypoints: [[from.lat, from.lng], [to.lat, to.lng]], color: lineColor, weight: lineWeight, opacity: lineOpacity }}
+              />
             )
           })}
 
