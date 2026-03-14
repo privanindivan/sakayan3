@@ -415,9 +415,9 @@ useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
           onStartConnect={handleStartConnect}
           onAddWaypoint={handleStartAddWaypoint}
           onRemoveWaypoint={handleRemoveWaypoint}
-          onConnClick={(fromId, toId) => {
+          onConnClick={(connId, fromId, toId) => {
             setSelectedMarker(null)
-            setFocusedSegment({ fromId, toId })
+            setFocusedSegment({ connId, fromId, toId })
           }}
         />
       )}

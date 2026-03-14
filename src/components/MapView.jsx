@@ -12,6 +12,19 @@ const DEFAULT_ZOOM = 6
 const PH_BOUNDS = [[4.5, 116.0], [21.5, 127.0]]
 const GREY = '#9CA3AF'
 
+// Check whether a connection matches the current focused segment.
+// Prefers matching by connId (set when clicking from MarkerModal) so
+// the comparison is always exact, with a fromId/toId fallback for
+// focus set from DirectionPanel or waypoint clicks.
+function isConnFocused(conn, focusedSegment) {
+  if (!focusedSegment) return false
+  if (focusedSegment.connId != null) return conn.id === focusedSegment.connId
+  return (
+    (conn.fromId === focusedSegment.fromId && conn.toId === focusedSegment.toId) ||
+    (conn.fromId === focusedSegment.toId   && conn.toId === focusedSegment.fromId)
+  )
+}
+
 function buildIcon(color, pulse = false) {
   if (pulse) {
     return L.divIcon({
@@ -196,14 +209,8 @@ export default function MapView({
             Sorted so focused connection renders last (on top of all others). */}
         {[...connections]
           .sort((a, b) => {
-            const af = focusedSegment && (
-              (a.fromId === focusedSegment.fromId && a.toId === focusedSegment.toId) ||
-              (a.fromId === focusedSegment.toId   && a.toId === focusedSegment.fromId)
-            )
-            const bf = focusedSegment && (
-              (b.fromId === focusedSegment.fromId && b.toId === focusedSegment.toId) ||
-              (b.fromId === focusedSegment.toId   && b.toId === focusedSegment.fromId)
-            )
+            const af = isConnFocused(a, focusedSegment)
+            const bf = isConnFocused(b, focusedSegment)
             return af ? 1 : bf ? -1 : 0
           })
           .map(conn => {
@@ -212,10 +219,7 @@ export default function MapView({
             if (!from || !to) return null
 
             const isActiveRoute = activeConnIds?.includes(conn.id)
-            const isFocused = focusedSegment && (
-              (conn.fromId === focusedSegment.fromId && conn.toId === focusedSegment.toId) ||
-              (conn.fromId === focusedSegment.toId   && conn.toId === focusedSegment.fromId)
-            )
+            const isFocused = isConnFocused(conn, focusedSegment)
 
             const lineColor   = (isActiveRoute || isFocused)
               ? (conn.color || TYPE_COLORS[from.type] || '#4A90D9')
@@ -243,10 +247,7 @@ export default function MapView({
         {connections.flatMap(conn => {
           const wps = conn.waypoints || []
           const isActiveRoute = activeConnIds?.includes(conn.id)
-          const isFocused = focusedSegment && (
-            (conn.fromId === focusedSegment.fromId && conn.toId === focusedSegment.toId) ||
-            (conn.fromId === focusedSegment.toId   && conn.toId === focusedSegment.fromId)
-          )
+          const isFocused = isConnFocused(conn, focusedSegment)
           const wpColor = (isActiveRoute || isFocused) ? (conn.color || GREY) : GREY
           return wps.map(wp => (
             <Marker

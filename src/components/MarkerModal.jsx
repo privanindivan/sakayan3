@@ -278,10 +278,10 @@ export default function MarkerModal({
                         <div key={c.id} className="connect-group">
                           <div
                             className="connect-item connect-item-clickable"
-                            onClick={() => onConnClick?.(marker.id, other.id)}
+                            onClick={() => onConnClick?.(c.id, marker.id, other.id)}
                             role="button"
                             tabIndex={0}
-                            onKeyDown={e => e.key === 'Enter' && onConnClick?.(marker.id, other.id)}
+                            onKeyDown={e => e.key === 'Enter' && onConnClick?.(c.id, marker.id, other.id)}
                           >
                             <span
                               className="line-color-dot"
