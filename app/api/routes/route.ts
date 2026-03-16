@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import getSql from '@/lib/db';
+import { routesCache, CACHE_TTL_MS, setRoutesCache, bustRoutesCache } from './cache';
 
 export async function GET() {
+  const now = Date.now();
+  if (routesCache && now - routesCache.ts < CACHE_TTL_MS) {
+    return NextResponse.json({ routes: routesCache.data });
+  }
+
   const sql = getSql();
   const routes = await sql`
     SELECT r.*, COUNT(s.id)::int AS stop_count
@@ -11,6 +17,8 @@ export async function GET() {
     GROUP BY r.id
     ORDER BY r.created_at DESC
   `;
+
+  setRoutesCache(routes);
   return NextResponse.json({ routes });
 }
 
@@ -27,5 +35,6 @@ export async function POST(req: NextRequest) {
     VALUES (${name}, ${type}, ${color_hex || '#FF0000'}, ${geojson_path || null}, ${userId})
     RETURNING *
   `;
+  bustRoutesCache();
   return NextResponse.json({ route: rows[0] }, { status: 201 });
 }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import getSql from '@/lib/db';
+import { bustRoutesCache } from '../cache';
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const userId = req.headers.get('x-user-id');
@@ -26,6 +27,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     WHERE id = ${id}
     RETURNING *
   `;
+  bustRoutesCache();
   return NextResponse.json({ route: updatedRows[0] });
 }
 
@@ -36,5 +38,6 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
   const { id } = await params;
   const sql = getSql();
   await sql`UPDATE routes SET deleted_at = NOW() WHERE id = ${id}`;
+  bustRoutesCache();
   return NextResponse.json({ success: true });
 }

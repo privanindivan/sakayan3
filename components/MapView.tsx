@@ -73,10 +73,16 @@ export default function MapView({
 
       const canEdit = user && (user.id === stop.created_by || user.role === 'admin');
 
+      // Serve Cloudinary images as compressed thumbnails (w300/h100, auto quality+format)
+      // to avoid burning bandwidth on full-size uploads
+      const thumbUrl = stop.photo_url?.includes('cloudinary.com')
+        ? stop.photo_url.replace('/upload/', '/upload/c_fill,w_300,h_100,q_auto,f_auto/')
+        : stop.photo_url;
+
       const popupContent = `
         <div style="min-width:220px;max-width:280px;font-family:sans-serif;">
           <h3 style="font-weight:700;font-size:14px;margin:0 0 4px">${stop.name}</h3>
-          ${stop.photo_url ? `<img src="${stop.photo_url}" style="width:100%;height:100px;object-fit:cover;border-radius:6px;margin-bottom:6px" />` : ''}
+          ${thumbUrl ? `<img src="${thumbUrl}" loading="lazy" style="width:100%;height:100px;object-fit:cover;border-radius:6px;margin-bottom:6px" />` : ''}
           ${stop.description ? `<p style="font-size:12px;color:#555;margin:0 0 6px">${stop.description}</p>` : ''}
           ${canEdit ? `
             <div style="display:flex;gap:6px;margin-top:6px">

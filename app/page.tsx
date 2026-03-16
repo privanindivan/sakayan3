@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import AuthModal from '@/components/AuthModal';
 import AddStopModal from '@/components/AddStopModal';
@@ -18,6 +18,7 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [searchPin, setSearchPin] = useState<{ lat: number; lng: number; name: string } | null>(null);
+  const searchDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     fetch('/api/auth/me').then(r => r.json()).then(d => setUser(d.user));
@@ -41,7 +42,18 @@ export default function Home() {
   async function handleSearch(e: React.FormEvent) {
     e.preventDefault();
     if (!searchQuery.trim()) return;
-    const res = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`);
+    doSearch(searchQuery);
+  }
+
+  function handleSearchInput(value: string) {
+    setSearchQuery(value);
+    if (searchDebounceRef.current) clearTimeout(searchDebounceRef.current);
+    if (!value.trim()) { setSearchResults([]); return; }
+    searchDebounceRef.current = setTimeout(() => doSearch(value), 500);
+  }
+
+  async function doSearch(q: string) {
+    const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`);
     const data = await res.json();
     setSearchResults(data.results || []);
   }
@@ -68,7 +80,7 @@ export default function Home() {
         <form onSubmit={handleSearch} className="flex gap-1">
           <input
             value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
+            onChange={e => handleSearchInput(e.target.value)}
             placeholder="Search places in PH..."
             className="w-64 bg-white rounded-lg shadow-lg px-3 py-2 text-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
           />

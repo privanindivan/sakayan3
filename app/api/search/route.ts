@@ -11,14 +11,17 @@ export async function GET(req: NextRequest) {
     try {
       const url = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(q)}&filter=countrycode:ph&limit=5&apiKey=${geoapifyKey}`;
       const res = await fetch(url);
-      const data = await res.json();
-      if (data.features?.length > 0) {
-        const results = data.features.map((f: any) => ({
-          name: f.properties.formatted,
-          lat: f.geometry.coordinates[1],
-          lng: f.geometry.coordinates[0],
-        }));
-        return NextResponse.json({ results });
+      // 402 = quota exceeded, 429 = rate limited — fall through immediately
+      if (res.status !== 402 && res.status !== 429) {
+        const data = await res.json();
+        if (data.features?.length > 0) {
+          const results = data.features.map((f: any) => ({
+            name: f.properties.formatted,
+            lat: f.geometry.coordinates[1],
+            lng: f.geometry.coordinates[0],
+          }));
+          return NextResponse.json({ results, source: 'geoapify' });
+        }
       }
     } catch {
       // fall through to Nominatim
@@ -35,7 +38,7 @@ export async function GET(req: NextRequest) {
       lat: parseFloat(r.lat),
       lng: parseFloat(r.lon),
     }));
-    return NextResponse.json({ results });
+    return NextResponse.json({ results, source: 'nominatim' });
   } catch {
     return NextResponse.json({ results: [] });
   }
