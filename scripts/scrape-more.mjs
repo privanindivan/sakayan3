@@ -14,7 +14,7 @@ import { neon } from '@neondatabase/serverless'
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url))
 const RAW_FILE   = path.join(SCRIPT_DIR, 'terminals-raw.json')
 
-const DB_URL = 'postgresql://neondb_owner:npg_YuOG0zeck1Is@ep-small-star-a1mmvsnn-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+const DB_URL = process.env.NEON_DATABASE_URL
 
 const EXTRA_GMAPS_QUERIES = [
   // Cavite — specifically missed areas

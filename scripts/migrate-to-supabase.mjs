@@ -5,8 +5,8 @@ import pkg from 'pg'
 const { Client } = pkg
 import { neon } from '@neondatabase/serverless'
 
-const SUPABASE_URL = 'postgresql://postgres.shhlkffpnzdqppwnzehk:i0Xz07KCOJViXl95@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres'
-const NEON_URL = 'postgresql://neondb_owner:npg_YuOG0zeck1Is@ep-small-star-a1mmvsnn-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+const SUPABASE_URL = process.env.DATABASE_URL
+const NEON_URL = process.env.NEON_DATABASE_URL
 
 async function main() {
   // Connect to Supabase

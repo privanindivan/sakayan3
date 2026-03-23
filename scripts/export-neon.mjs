@@ -4,7 +4,7 @@
 import { neon } from '@neondatabase/serverless'
 import { writeFileSync } from 'fs'
 
-const DB_URL = 'postgresql://neondb_owner:npg_YuOG0zeck1Is@ep-small-star-a1mmvsnn-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+const DB_URL = process.env.NEON_DATABASE_URL
 const sql = neon(DB_URL)
 
 function escape(val) {
