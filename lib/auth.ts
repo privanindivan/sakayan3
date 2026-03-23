@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
@@ -22,8 +22,19 @@ export function verifyToken(token: string): JWTPayload | null {
 }
 
 export async function getAuthUser(): Promise<JWTPayload | null> {
+  // 1. Try cookie (email/password login)
   const cookieStore = await cookies();
-  const token = cookieStore.get('token')?.value;
-  if (!token) return null;
-  return verifyToken(token);
+  const cookieToken = cookieStore.get('token')?.value;
+  if (cookieToken) return verifyToken(cookieToken);
+
+  // 2. Try Bearer token from Authorization header (Google OAuth users)
+  //    Middleware only injects x-user-* headers for POST/PUT/DELETE/PATCH,
+  //    so GET routes like /api/auth/me must verify the token directly.
+  const headerStore = await headers();
+  const authHeader = headerStore.get('authorization');
+  if (authHeader?.startsWith('Bearer ')) {
+    return verifyToken(authHeader.slice(7));
+  }
+
+  return null;
 }

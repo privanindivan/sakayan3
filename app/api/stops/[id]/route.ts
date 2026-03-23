@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import getSql from '@/lib/db';
+import { sql } from '@/lib/db';
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const userId = req.headers.get('x-user-id');
@@ -7,7 +7,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const { id } = await params;
-  const sql = getSql();
+  
 
   const stopRows = await sql`SELECT * FROM stops WHERE id = ${id}`;
   const stop = stopRows[0];
@@ -34,7 +34,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
   if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const { id } = await params;
-  const sql = getSql();
+  
 
   const stopRows = await sql`SELECT * FROM stops WHERE id = ${id}`;
   const stop = stopRows[0];

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import getSql from '@/lib/db';
+import { sql } from '@/lib/db';
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
   if (!entity_type || !entity_id)
     return NextResponse.json({ error: 'Missing params' }, { status: 400 });
 
-  const sql = getSql();
+  
   const comments = await sql`
     SELECT c.*, u.username, u.avatar_url
     FROM comments c
@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
   if (!entity_type || !entity_id || !body)
     return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
 
-  const sql = getSql();
+  
   const rows = await sql`
     INSERT INTO comments (entity_type, entity_id, user_id, body)
     VALUES (${entity_type}, ${entity_id}, ${userId}, ${body})

@@ -1,0 +1,26 @@
+📊 DB has 2555 terminals
+🔁 Retrying 13 failed OSM regions with 8s delay between requests
+
+[1/13] Cagayan + Isabela ... 126 found, +95 new (running total: 95)
+[2/13] Tarlac + Nueva Ecija + Aurora ... 285 found, +222 new (running total: 317)
+[3/13] Metro Manila NCR ... 3379 found, +3231 new (running total: 3548)
+[4/13] Laguna ... ❌ HTTP 504 — waiting 20s and retrying...
+❌ retry failed: HTTP 504
+[5/13] Marinduque + Romblon ... 18 found, +12 new (running total: 3560)
+[6/13] Occidental Mindoro ... ❌ HTTP 504 — waiting 20s and retrying...
+27 found, +13 new (running total: 3573)
+[7/13] Catanduanes ... 9 found, +5 new (running total: 3578)
+[8/13] Negros Oriental ... ❌ HTTP 429 — waiting 20s and retrying...
+❌ retry failed: HTTP 504
+[9/13] Bohol ... 253 found, +179 new (running total: 3757)
+[10/13] Zamboanga City area ... ❌ HTTP 504 — waiting 20s and retrying...
+15 found, +11 new (running total: 3768)
+[11/13] Davao del Sur + Sarangani ... ❌ HTTP 504 — waiting 20s and retrying...
+46 found, +29 new (running total: 3797)
+[12/13] Dinagat Islands ... ❌ HTTP 429 — waiting 20s and retrying...
+15 found, +11 new (running total: 3808)
+[13/13] Maguindanao + Cotabato City ... ❌ HTTP 429 — waiting 20s and retrying...
+26 found, +10 new (running total: 3818)
+
+✅ Done — 3818 new terminals inserted
+📊 DB now has 6411 terminals total

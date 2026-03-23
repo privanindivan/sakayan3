@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import getSql from '@/lib/db';
+import { sql } from '@/lib/db';
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const userId = req.headers.get('x-user-id');
   if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const { id } = await params;
-  const sql = getSql();
+  
 
   const existing = await sql`
     SELECT id FROM comment_votes WHERE comment_id = ${id} AND user_id = ${userId}

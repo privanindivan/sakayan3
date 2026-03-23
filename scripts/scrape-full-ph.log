@@ -1,0 +1,37 @@
+📊 DB has 2501 terminals
+
+🗺️  OSM: 19/52 regions to fetch
+
+[OSM 1/19] Cagayan + Isabela ... ❌ HTTP 429
+[OSM 2/19] Tarlac + Nueva Ecija + Aurora ... ❌ HTTP 429
+[OSM 3/19] Metro Manila NCR ... ❌ HTTP 429
+[OSM 4/19] Rizal ... 34 found, +24 new (total: 24)
+[OSM 5/19] Cavite ... 27 found, +14 new (total: 38)
+[OSM 6/19] Laguna ... ❌ HTTP 429
+[OSM 7/19] Marinduque + Romblon ... ❌ HTTP 429
+[OSM 8/19] Occidental Mindoro ... ❌ HTTP 504
+[OSM 9/19] Catanduanes ... ❌ HTTP 504
+[OSM 10/19] Aklan + Capiz + Antique ... 30 found, +24 new (total: 62)
+[OSM 11/19] Iloilo ... 31 found, +0 new (total: 62)
+[OSM 12/19] Negros Oriental ... ❌ HTTP 429
+[OSM 13/19] Bohol ... ❌ HTTP 429
+[OSM 14/19] Zamboanga City area ... ❌ HTTP 429
+[OSM 15/19] Bukidnon ... 12 found, +5 new (total: 67)
+[OSM 16/19] Davao del Norte + City ... 33 found, +20 new (total: 87)
+[OSM 17/19] Davao del Sur + Sarangani ... ❌ HTTP 429
+[OSM 18/19] Dinagat Islands ... ❌ HTTP 429
+[OSM 19/19] Maguindanao + Cotabato City ... ❌ HTTP 429
+
+🔍 GMaps: 1/108 queries to run
+
+[GM 1/1] port terminal Calbayog Samar Philippines ... 8 found, +1 new (total: 88)
+
+✅ Full PH scrape complete — 88 new terminals inserted
+
+DB breakdown:
+  Bus: 836
+  Ferry: 634
+  Train: 598
+  Jeep: 452
+  UV: 64
+  Tricycle: 9

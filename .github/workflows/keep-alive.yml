@@ -1,9 +1,9 @@
-name: Keep Supabase Alive
+name: Keep Databases Alive
 
 on:
   schedule:
     - cron: '0 0 */6 * *'  # Every 6 days at midnight UTC
-  workflow_dispatch:         # Allow manual trigger
+  workflow_dispatch:
 
 jobs:
   ping:
@@ -19,5 +19,18 @@ jobs:
           db.connect()
             .then(() => db.query('SELECT COUNT(*) FROM terminals'))
             .then(r => { console.log('Supabase alive — terminals:', r.rows[0].count); return db.end(); })
-            .catch(e => { console.error('Ping failed:', e.message); process.exit(1); });
+            .catch(e => { console.error('Supabase ping failed:', e.message); process.exit(1); });
+          "
+
+      - name: Ping Neon DB (backup)
+        env:
+          NEON_DATABASE_URL: ${{ secrets.NEON_DATABASE_URL }}
+        run: |
+          node -e "
+          const { Client } = require('pg');
+          const db = new Client({ connectionString: process.env.NEON_DATABASE_URL, ssl: { rejectUnauthorized: false } });
+          db.connect()
+            .then(() => db.query('SELECT COUNT(*) FROM terminals'))
+            .then(r => { console.log('Neon alive — terminals:', r.rows[0].count); return db.end(); })
+            .catch(e => { console.error('Neon ping failed:', e.message); process.exit(1); });
           "

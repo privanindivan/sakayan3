@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import getSql from '@/lib/db';
+import { sql } from '@/lib/db';
 import { routesCache, CACHE_TTL_MS, setRoutesCache, bustRoutesCache } from './cache';
 
 export async function GET() {
@@ -8,7 +8,6 @@ export async function GET() {
     return NextResponse.json({ routes: routesCache.data });
   }
 
-  const sql = getSql();
   const routes = await sql`
     SELECT r.*, COUNT(s.id)::int AS stop_count
     FROM routes r
@@ -29,7 +28,6 @@ export async function POST(req: NextRequest) {
   const { name, type, color_hex, geojson_path } = await req.json();
   if (!name || !type) return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
 
-  const sql = getSql();
   const rows = await sql`
     INSERT INTO routes (name, type, color_hex, geojson_path, created_by)
     VALUES (${name}, ${type}, ${color_hex || '#FF0000'}, ${geojson_path || null}, ${userId})

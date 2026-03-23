@@ -189,7 +189,7 @@ export default function SearchBar({ onRoute, onFlyTo, markers = [], resetKey = 0
             placeholder="From"
             value={fromQuery}
             onChange={handleFromChange}
-            onFocus={() => setActiveField('from')}
+            onFocus={(e) => { setActiveField('from'); e.target.select() }}
             onBlur={() => setTimeout(() => setActiveField(f => f === 'from' ? null : f), 150)}
             onKeyDown={e => handleKeyDown(e, fromQuery, fromResults, true)}
             autoComplete="off"
@@ -212,7 +212,7 @@ export default function SearchBar({ onRoute, onFlyTo, markers = [], resetKey = 0
             placeholder="To"
             value={toQuery}
             onChange={handleToChange}
-            onFocus={() => setActiveField('to')}
+            onFocus={(e) => { setActiveField('to'); e.target.select() }}
             onBlur={() => setTimeout(() => setActiveField(f => f === 'to' ? null : f), 150)}
             onKeyDown={e => handleKeyDown(e, toQuery, toResults, false)}
             autoComplete="off"

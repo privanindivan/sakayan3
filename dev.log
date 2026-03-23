@@ -1,0 +1,397 @@
+
+> sakayan@1.0.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 2820, using available port 3001 instead.
+   ▲ Next.js 15.5.12
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.2 ✓ Compiled /middleware in 390ms (114 modules)
+ ○ Compiling /api/connection   Reload env: .env.local
+onnections in 1502ms (390 modules)
+ GET /api/auth/me 200 in 2114ms
+ GET /api/auth/me 200 in 33ms
+ GET /api/terminals 200 in 2603ms
+ GET /api/connections 200 in 2614ms
+ GET /api/terminals 200 in 220ms
+ GET /api/connections 200 in 234ms
+ ✓ Compiled /api/auth/register in 447ms (393 modules)
+ POST /api/auth/register 200 in 1135ms
+ GET /api/auth/me 200 in 58ms
+ GET /api/auth/me 200 in 28ms
+ GET /api/terminals 200 in 485ms
+ GET /api/connections 200 in 488ms
+ GET /api/terminals 200 in 154ms
+ GET /api/connections 200 in 176ms
+ POST /api/auth/register 200 in 392ms
+ POST /api/terminals 201 in 776ms
+ GET /api/auth/me 200 in 184ms
+ GET /api/terminals 200 in 217ms
+ GET /api/auth/me 200 in 149ms
+ GET /api/terminals 200 in 146ms
+ GET /api/connections 200 in 468ms
+ GET /api/connections 200 in 150ms
+ ○ Compiling /api/terminals/[id]/comments ...
+ ✓ Compiled /api/terminals/[id]/comments in 753ms (395 modules)
+Error [NeonDbError]: new row for relation "comments" violates check constraint "comments_entity_type_check"
+    at async POST (app\api\terminals\[id]\comments\route.ts:31:16)
+  29 |   if (!body?.trim()) return NextResponse.json({ error: 'Empty comment' }, { status: 400 })
+  30 |
+> 31 |   const rows = await sql.query(
+     |                ^
+  32 |     `INSERT INTO comments (entity_type, entity_id, user_id, body)
+  33 |      VALUES ('terminal', $1, $2, $3)
+  34 |      RETURNING id, body, created_at`, {
+  severity: 'ERROR',
+  code: '23514',
+  detail: 'Failing row contains (0ecfe7c7-0589-4efc-91d2-3fa2b8d3bf5b, terminal, 4e4e8359-a181-468d-a0d4-8b432da56439, df8303a1-9e21-4fe8-be83-af69bf9ab745, Test comment 🚌 hello, 0, 2026-03-22 05:31:08.707456+00).',
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: 'public',
+  table: 'comments',
+  column: undefined,
+  dataType: undefined,
+  constraint: 'comments_entity_type_check',
+  file: 'execMain.c',
+  line: '2119',
+  routine: 'ExecConstraints',
+  sourceError: undefined
+}
+ POST /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/comments 500 in 1622ms
+ GET /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/comments 200 in 2505ms
+Error [NeonDbError]: new row for relation "comments" violates check constraint "comments_entity_type_check"
+    at async POST (app\api\terminals\[id]\comments\route.ts:31:16)
+  29 |   if (!body?.trim()) return NextResponse.json({ error: 'Empty comment' }, { status: 400 })
+  30 |
+> 31 |   const rows = await sql.query(
+     |                ^
+  32 |     `INSERT INTO comments (entity_type, entity_id, user_id, body)
+  33 |      VALUES ('terminal', $1, $2, $3)
+  34 |      RETURNING id, body, created_at`, {
+  severity: 'ERROR',
+  code: '23514',
+  detail: 'Failing row contains (38a864d6-49cc-4d7e-ad09-8c194eb011e6, terminal, 4e4e8359-a181-468d-a0d4-8b432da56439, df8303a1-9e21-4fe8-be83-af69bf9ab745, Scroll test comment 1, 0, 2026-03-22 05:31:08.765512+00).',
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: 'public',
+  table: 'comments',
+  column: undefined,
+  dataType: undefined,
+  constraint: 'comments_entity_type_check',
+  file: 'execMain.c',
+  line: '2119',
+  routine: 'ExecConstraints',
+  sourceError: undefined
+}
+ POST /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/comments 500 in 730ms
+Error [NeonDbError]: new row for relation "comments" violates check constraint "comments_entity_type_check"
+    at async POST (app\api\terminals\[id]\comments\route.ts:31:16)
+  29 |   if (!body?.trim()) return NextResponse.json({ error: 'Empty comment' }, { status: 400 })
+  30 |
+> 31 |   const rows = await sql.query(
+     |                ^
+  32 |     `INSERT INTO comments (entity_type, entity_id, user_id, body)
+  33 |      VALUES ('terminal', $1, $2, $3)
+  34 |      RETURNING id, body, created_at`, {
+  severity: 'ERROR',
+  code: '23514',
+  detail: 'Failing row contains (04d80a4b-5b8d-4860-b35c-d9bf178377a4, terminal, 4e4e8359-a181-468d-a0d4-8b432da56439, df8303a1-9e21-4fe8-be83-af69bf9ab745, Scroll test comment 2, 0, 2026-03-22 05:31:09.276547+00).',
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: 'public',
+  table: 'comments',
+  column: undefined,
+  dataType: undefined,
+  constraint: 'comments_entity_type_check',
+  file: 'execMain.c',
+  line: '2119',
+  routine: 'ExecConstraints',
+  sourceError: undefined
+}
+ POST /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/comments 500 in 288ms
+Error [NeonDbError]: new row for relation "comments" violates check constraint "comments_entity_type_check"
+    at async POST (app\api\terminals\[id]\comments\route.ts:31:16)
+  29 |   if (!body?.trim()) return NextResponse.json({ error: 'Empty comment' }, { status: 400 })
+  30 |
+> 31 |   const rows = await sql.query(
+     |                ^
+  32 |     `INSERT INTO comments (entity_type, entity_id, user_id, body)
+  33 |      VALUES ('terminal', $1, $2, $3)
+  34 |      RETURNING id, body, created_at`, {
+  severity: 'ERROR',
+  code: '23514',
+  detail: 'Failing row contains (41c0d92e-622d-436a-8d32-3d017726cea3, terminal, 4e4e8359-a181-468d-a0d4-8b432da56439, df8303a1-9e21-4fe8-be83-af69bf9ab745, Scroll test comment 3, 0, 2026-03-22 05:31:09.300014+00).',
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: 'public',
+  table: 'comments',
+  column: undefined,
+  dataType: undefined,
+  constraint: 'comments_entity_type_check',
+  file: 'execMain.c',
+  line: '2119',
+  routine: 'ExecConstraints',
+  sourceError: undefined
+}
+ POST /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/comments 500 in 371ms
+Error [NeonDbError]: new row for relation "comments" violates check constraint "comments_entity_type_check"
+    at async POST (app\api\terminals\[id]\comments\route.ts:31:16)
+  29 |   if (!body?.trim()) return NextResponse.json({ error: 'Empty comment' }, { status: 400 })
+  30 |
+> 31 |   const rows = await sql.query(
+     |                ^
+  32 |     `INSERT INTO comments (entity_type, entity_id, user_id, body)
+  33 |      VALUES ('terminal', $1, $2, $3)
+  34 |      RETURNING id, body, created_at`, {
+  severity: 'ERROR',
+  code: '23514',
+  detail: 'Failing row contains (f77e8351-3b47-4350-af7f-211ed5e4366d, terminal, 4e4e8359-a181-468d-a0d4-8b432da56439, df8303a1-9e21-4fe8-be83-af69bf9ab745, Scroll test comment 4, 0, 2026-03-22 05:31:09.689439+00).',
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: 'public',
+  table: 'comments',
+  column: undefined,
+  dataType: undefined,
+  constraint: 'comments_entity_type_check',
+  file: 'execMain.c',
+  line: '2119',
+  routine: 'ExecConstraints',
+  sourceError: undefined
+}
+ POST /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/comments 500 in 287ms
+ ✓ Compiled /api/terminals/[id] in 370ms (397 modules)
+ ✓ Compiled /api/terminals/[id]/history in 347ms (399 modules)
+ PUT /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439 200 in 2124ms
+ GET /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/history 200 in 1552ms
+ ✓ Compiled /api/users/[id] in 457ms (401 modules)
+ GET /api/users/df8303a1-9e21-4fe8-be83-af69bf9ab745 200 in 2216ms
+ GET /api/users/df8303a1-9e21-4fe8-be83-af69bf9ab745 200 in 648ms
+ ✓ Compiled in 36ms
+ ✓ Compiled /api/auth/me in 136ms (104 modules)
+ ✓ Compiled (195 modules)
+ GET /api/auth/me 200 in 639ms
+ GET /api/auth/me 200 in 40ms
+ GET /api/connections 200 in 1003ms
+ GET /api/terminals 200 in 1015ms
+ GET /api/connections 200 in 163ms
+ GET /api/terminals 200 in 176ms
+ ✓ Compiled /api/auth/register in 152ms (198 modules)
+ POST /api/auth/register 200 in 721ms
+ POST /api/terminals 201 in 795ms
+ GET /api/auth/me 200 in 203ms
+ GET /api/terminals 200 in 223ms
+ GET /api/auth/me 200 in 163ms
+ GET /api/terminals 200 in 148ms
+ GET /api/connections 200 in 527ms
+ GET /api/connections 200 in 150ms
+ GET /api/auth/me 200 in 41ms
+ GET /api/auth/me 200 in 29ms
+ GET /api/connections 200 in 450ms
+ GET /api/terminals 200 in 456ms
+ GET /api/connections 200 in 159ms
+ GET /api/terminals 200 in 173ms
+ POST /api/auth/register 200 in 396ms
+ POST /api/terminals 201 in 764ms
+ GET /api/auth/me 200 in 169ms
+ GET /api/connections 200 in 188ms
+ GET /api/auth/me 200 in 156ms
+ GET /api/connections 200 in 148ms
+ GET /api/terminals 200 in 439ms
+ GET /api/terminals 200 in 156ms
+ ✓ Compiled /api/terminals/[id]/comments in 371ms (200 modules)
+ GET /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/comments 200 in 717ms
+ POST /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/comments 200 in 282ms
+ DELETE /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/comments?commentId=c444a1d2-8553-4704-be70-b6a27870033f 200 in 165ms
+ POST /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/comments 200 in 272ms
+ POST /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/comments 200 in 279ms
+ POST /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/comments 200 in 285ms
+ POST /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/comments 200 in 273ms
+ ✓ Compiled /api/terminals/[id] in 295ms (202 modules)
+ PUT /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439 200 in 1222ms
+ ✓ Compiled /api/terminals/[id]/history in 463ms (204 modules)
+ GET /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/history 200 in 741ms
+ POST /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/history 200 in 520ms
+ GET /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/history 200 in 166ms
+ PUT /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439 200 in 809ms
+ GET /api/auth/me 200 in 110ms
+ GET /api/auth/me 200 in 25ms
+ GET /api/terminals 200 in 601ms
+ GET /api/connections 200 in 606ms
+ GET /api/terminals 200 in 128ms
+ GET /api/connections 200 in 136ms
+ POST /api/auth/register 200 in 335ms
+ POST /api/terminals 201 in 529ms
+ GET /api/auth/me 200 in 171ms
+ GET /api/terminals 200 in 200ms
+ GET /api/auth/me 200 in 127ms
+ GET /api/terminals 200 in 105ms
+ GET /api/connections 200 in 367ms
+ GET /api/connections 200 in 122ms
+ GET /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/comments 200 in 128ms
+ POST /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/comments 200 in 205ms
+ DELETE /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/comments?commentId=992ff27e-0c0f-4fe3-b34b-ade5f4bdb98e 200 in 129ms
+ POST /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/comments 200 in 206ms
+ POST /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/comments 200 in 208ms
+ POST /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/comments 200 in 199ms
+ POST /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/comments 200 in 192ms
+ PUT /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439 200 in 562ms
+ GET /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/history 200 in 125ms
+ POST /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/history 200 in 388ms
+ GET /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439/history 200 in 131ms
+ PUT /api/terminals/4e4e8359-a181-468d-a0d4-8b432da56439 200 in 588ms
+ GET /api/auth/me 200 in 44ms
+ GET /api/auth/me 200 in 27ms
+ GET /api/terminals 200 in 315ms
+ GET /api/connections 200 in 319ms
+ GET /api/terminals 200 in 114ms
+ GET /api/connections 200 in 125ms
+ POST /api/auth/register 200 in 292ms
+ POST /api/terminals 201 in 552ms
+ GET /api/auth/me 200 in 114ms
+ GET /api/terminals 200 in 139ms
+ GET /api/auth/me 200 in 114ms
+ GET /api/terminals 200 in 121ms
+ GET /api/connections 200 in 297ms
+ GET /api/connections 200 in 109ms
+ GET /api/terminals/9847bf22-41f1-4d88-94bd-12acdef74aa6/comments 200 in 111ms
+ POST /api/terminals/9847bf22-41f1-4d88-94bd-12acdef74aa6/comments 200 in 202ms
+ DELETE /api/terminals/9847bf22-41f1-4d88-94bd-12acdef74aa6/comments?commentId=965c20da-44ae-4920-842a-008b53e8c907 200 in 130ms
+ POST /api/terminals/9847bf22-41f1-4d88-94bd-12acdef74aa6/comments 200 in 196ms
+ POST /api/terminals/9847bf22-41f1-4d88-94bd-12acdef74aa6/comments 200 in 203ms
+ POST /api/terminals/9847bf22-41f1-4d88-94bd-12acdef74aa6/comments 200 in 195ms
+ POST /api/terminals/9847bf22-41f1-4d88-94bd-12acdef74aa6/comments 200 in 198ms
+ PUT /api/terminals/9847bf22-41f1-4d88-94bd-12acdef74aa6 200 in 561ms
+ GET /api/terminals/9847bf22-41f1-4d88-94bd-12acdef74aa6/history 200 in 118ms
+ POST /api/terminals/9847bf22-41f1-4d88-94bd-12acdef74aa6/history 200 in 376ms
+ GET /api/terminals/9847bf22-41f1-4d88-94bd-12acdef74aa6/history 200 in 121ms
+ PUT /api/terminals/9847bf22-41f1-4d88-94bd-12acdef74aa6 200 in 586ms
+ ✓ Compiled /api/users/[id] in 347ms (206 modules)
+ GET /api/users/b631c2e2-47ab-4e06-a367-158199d9f0c1 200 in 968ms
+ GET /api/users/b631c2e2-47ab-4e06-a367-158199d9f0c1 200 in 448ms
+   Reload env: .env.local
+ ✓ Compiled in 329ms (309 modules)
+ ✓ Compiled /api/connections in 85ms (190 modules)
+ ✓ Compiled (195 modules)
+ GET /api/auth/me 200 in 453ms
+ GET /api/auth/me 200 in 24ms
+ GET /api/connections 200 in 973ms
+ GET /api/terminals 200 in 979ms
+ GET /api/connections 200 in 374ms
+ GET /api/terminals 200 in 377ms
+ GET /api/auth/me 200 in 34ms
+ GET /api/auth/me 200 in 29ms
+ GET /api/connections 200 in 628ms
+ GET /api/terminals 200 in 633ms
+ GET /api/connections 200 in 370ms
+ GET /api/terminals 200 in 372ms
+ GET /api/auth/me 200 in 26ms
+ GET /api/auth/me 200 in 49ms
+ GET /api/terminals 200 in 726ms
+ GET /api/connections 200 in 738ms
+ GET /api/connections 200 in 743ms
+ GET /api/terminals 200 in 751ms
+ GET /api/auth/me 200 in 28ms
+ GET /api/auth/me 200 in 57ms
+ GET /api/connections 200 in 739ms
+ GET /api/connections 200 in 742ms
+ GET /api/terminals 200 in 745ms
+ GET /api/terminals 200 in 749ms
+ GET /api/auth/me 200 in 34ms
+ GET /api/auth/me 200 in 27ms
+ GET /api/terminals 200 in 603ms
+ GET /api/connections 200 in 610ms
+ GET /api/terminals 200 in 349ms
+ GET /api/connections 200 in 348ms
+ GET /api/auth/me 200 in 28ms
+ GET /api/auth/me 200 in 62ms
+ GET /api/terminals 200 in 559ms
+ GET /api/connections 200 in 604ms
+ GET /api/terminals 200 in 609ms
+ GET /api/connections 200 in 612ms
+ GET /api/auth/me 200 in 25ms
+ GET /api/auth/me 200 in 54ms
+ GET /api/terminals 200 in 542ms
+ GET /api/connections 200 in 547ms
+ GET /api/terminals 200 in 551ms
+ GET /api/connections 200 in 552ms
+ GET /api/auth/me 200 in 39ms
+ GET /api/auth/me 200 in 125ms
+ GET /api/connections 200 in 597ms
+ GET /api/terminals 200 in 601ms
+ GET /api/terminals 200 in 605ms
+ GET /api/connections 200 in 607ms
+ GET /api/auth/me 200 in 313ms
+ GET /api/auth/me 200 in 119ms
+ GET /api/terminals 200 in 537ms
+ GET /api/connections 200 in 546ms
+ GET /api/terminals 200 in 338ms
+ GET /api/connections 200 in 329ms
+ GET /api/auth/me 200 in 300ms
+ GET /api/auth/me 200 in 121ms
+ GET /api/terminals 200 in 567ms
+ GET /api/connections 200 in 590ms
+ GET /api/terminals 200 in 370ms
+ GET /api/connections 200 in 462ms
+ GET /api/auth/me 200 in 24ms
+ GET /api/auth/me 200 in 45ms
+ GET /api/connections 200 in 1398ms
+ GET /api/terminals 200 in 1401ms
+ GET /api/terminals 200 in 1696ms
+ GET /api/connections 200 in 1834ms
+ GET /api/auth/me 200 in 28ms
+ GET /api/auth/me 200 in 52ms
+ GET /api/connections 200 in 643ms
+ GET /api/terminals 200 in 648ms
+ GET /api/connections 200 in 651ms
+ GET /api/terminals 200 in 654ms
+ GET /api/auth/me 200 in 25ms
+ GET /api/auth/me 200 in 50ms
+ GET /api/terminals 200 in 631ms
+ GET /api/connections 200 in 637ms
+ GET /api/terminals 200 in 641ms
+ GET /api/connections 200 in 647ms
+ GET /api/auth/me 200 in 29ms
+ GET /api/auth/me 200 in 30ms
+ GET /api/terminals 200 in 704ms
+ GET /api/connections 200 in 735ms
+ GET /api/terminals 200 in 369ms
+ GET /api/connections 200 in 366ms
+ GET /api/auth/me 200 in 27ms
+ GET /api/auth/me 200 in 15ms
+ GET /api/connections 200 in 638ms
+ GET /api/terminals 200 in 648ms
+ GET /api/connections 200 in 356ms
+ GET /api/terminals 200 in 359ms
+ GET /api/auth/me 200 in 411ms
+ GET /api/auth/me 200 in 205ms
+ GET /api/terminals 200 in 647ms
+ GET /api/connections 200 in 655ms
+ GET /api/terminals 200 in 385ms
+ GET /api/connections 200 in 382ms
+ GET /api/auth/me 200 in 539ms
+ GET /api/connections 200 in 649ms
+ GET /api/terminals 200 in 658ms
+ GET /api/auth/me 200 in 151ms
+ GET /api/connections 200 in 371ms
+ GET /api/terminals 200 in 364ms
+ ✓ Compiled in 137ms (114 modules)
+ ✓ Compiled in 103ms (114 modules)
+ ✓ Compiled in 65ms (114 modules)
+ ✓ Compiled in 36ms
+ ✓ Compiled in 91ms (114 modules)
+ ✓ Compiled in 78ms (114 modules)
+[?25h

@@ -1,14 +1,89 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import {
   MapContainer, TileLayer, Marker, Polyline, Tooltip,
+  CircleMarker,
   useMapEvents, useMap,
 } from 'react-leaflet'
 import L from 'leaflet'
 import RoadRoute from './RoadRoute'
 import { TYPE_COLORS } from '../data/sampleData'
 
-const PHILIPPINES = [12.8797, 121.7740]
-const DEFAULT_ZOOM = 6
+const MAPILLARY_TOKEN = process.env.NEXT_PUBLIC_MAPILLARY_TOKEN
+const MAPILLARY_MIN_ZOOM = 14   // don't fetch dots below this zoom
+
+function MapillaryLayer({ onImageClick }) {
+  const map = useMap()
+  const [images, setImages] = useState([])
+  const timerRef = useRef(null)
+  const onImageClickRef = useRef(onImageClick)
+  onImageClickRef.current = onImageClick
+
+  useEffect(() => {
+    if (!MAPILLARY_TOKEN) return
+
+    async function doFetch() {
+      if (map.getZoom() < MAPILLARY_MIN_ZOOM) { setImages([]); return }
+      const b = map.getBounds()
+      const bbox = `${b.getWest()},${b.getSouth()},${b.getEast()},${b.getNorth()}`
+      try {
+        const res = await fetch(
+          `https://graph.mapillary.com/images?access_token=${MAPILLARY_TOKEN}&fields=id,geometry,thumb_256_url&bbox=${bbox}&limit=300`
+        )
+        const data = await res.json()
+        setImages((data.data || []).map(img => ({
+          id: img.id,
+          lat: img.geometry.coordinates[1],
+          lng: img.geometry.coordinates[0],
+          thumbnailUrl: img.thumb_256_url,
+        })))
+      } catch {}
+    }
+
+    function schedFetch() {
+      clearTimeout(timerRef.current)
+      timerRef.current = setTimeout(doFetch, 400)
+    }
+
+    map.on('moveend', schedFetch)
+    map.on('zoomend', schedFetch)
+    doFetch() // initial fetch
+
+    return () => {
+      clearTimeout(timerRef.current)
+      map.off('moveend', schedFetch)
+      map.off('zoomend', schedFetch)
+    }
+  }, [map])
+
+  if (!MAPILLARY_TOKEN) return null
+
+  return images.map(img => (
+    <CircleMarker
+      key={img.id}
+      center={[img.lat, img.lng]}
+      radius={3}
+      className="mapillary-dot"
+      pathOptions={{ color: '#6B7280', fillColor: '#9CA3AF', fillOpacity: 0.85, weight: 1 }}
+      eventHandlers={{
+        click: (e) => { e.originalEvent?.stopPropagation(); onImageClickRef.current(img) }
+      }}
+    />
+  ))
+}
+
+const PHILIPPINES = [14.5995, 120.9842]
+const DEFAULT_ZOOM = 13
+
+function getSavedView() {
+  try {
+    const v = localStorage.getItem('sakayan_map_view')
+    if (v) {
+      const { lat, lng, zoom } = JSON.parse(v)
+      if (lat && lng && zoom) return { center: [lat, lng], zoom: Math.max(zoom, DEFAULT_ZOOM) }
+    }
+  } catch {}
+  return { center: PHILIPPINES, zoom: DEFAULT_ZOOM }
+}
 const PH_BOUNDS = [[4.5, 116.0], [21.5, 127.0]]
 const GREY = '#9CA3AF'
 
@@ -98,8 +173,35 @@ function ClickHandler({ onMapClick }) {
   return null
 }
 
+function BoundsTracker({ onBoundsChange, onZoomChange }) {
+  const map = useMap()
+  useEffect(() => {
+    onBoundsChange(map.getBounds())
+    onZoomChange(map.getZoom())
+    const handler = () => { onBoundsChange(map.getBounds()); onZoomChange(map.getZoom()) }
+    map.on('moveend', handler)
+    map.on('zoomend', handler)
+    return () => { map.off('moveend', handler); map.off('zoomend', handler) }
+  }, [map, onBoundsChange, onZoomChange])
+  return null
+}
+
 function MapController({ fromPoint, toPoint, userLocation, flyTarget, focusedSegment, markers, fitBoundsPoints }) {
   const map = useMap()
+
+  // Expose map on window so Playwright tests can control zoom/pan
+  useEffect(() => { window.__leafletMap = map }, [map])
+
+  // Persist map position to localStorage
+  useEffect(() => {
+    const handler = () => {
+      const c = map.getCenter()
+      localStorage.setItem('sakayan_map_view', JSON.stringify({ lat: c.lat, lng: c.lng, zoom: map.getZoom() }))
+    }
+    map.on('moveend', handler)
+    map.on('zoomend', handler)
+    return () => { map.off('moveend', handler); map.off('zoomend', handler) }
+  }, [map])
 
   useEffect(() => {
     if (fromPoint && toPoint) {
@@ -184,24 +286,60 @@ export default function MapView({
   addingWaypointMode,
   pendingWpLatLng,
   onWaypointClick,
+  onStreetViewClick,
 }) {
+  const [mapBounds, setMapBounds] = useState(null)
+  const [mapZoom, setMapZoom] = useState(DEFAULT_ZOOM)
   const hasActiveRoute = activeStopIds && activeStopIds.length > 0
+
+  const MARKER_MIN_ZOOM = 13  // hide all markers below this zoom to prevent lag
+
+  // Only render markers visible in the current viewport (+ always show active/focused ones)
+  const alwaysVisible = new Set([
+    ...(activeStopIds || []),
+    focusedSegment?.fromId,
+    focusedSegment?.toId,
+    connectingFrom,
+  ].filter(Boolean))
+  const visibleMarkers = mapZoom < MARKER_MIN_ZOOM
+    ? markers.filter(m => alwaysVisible.has(m.id))  // only show active/route markers when zoomed out
+    : mapBounds
+      ? markers.filter(m => mapBounds.contains([m.lat, m.lng]) || alwaysVisible.has(m.id))
+      : markers
 
   return (
     <div style={{ position: 'relative', height: '100%', width: '100%' }}>
+      {/* Custom attribution — must be outside MapContainer so it renders in the DOM */}
+      <div style={{
+        position: 'absolute', bottom: 0, right: 0, zIndex: 1000,
+        background: 'rgba(255,255,255,0.85)', padding: '2px 8px',
+        borderTopLeftRadius: 6, fontSize: 11, pointerEvents: 'auto',
+      }}>
+        <a
+          href="https://www.facebook.com/people/Sakayan/61578529771903/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ display: 'flex', alignItems: 'center', gap: 5, color: '#1877F2', textDecoration: 'none', fontWeight: 600 }}
+        >
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="#1877F2">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+          Sakayan
+        </a>
+      </div>
       <MapContainer
-        center={PHILIPPINES}
-        zoom={DEFAULT_ZOOM}
-        minZoom={6}
+        center={getSavedView().center}
+        zoom={getSavedView().zoom}
+        minZoom={5}
         maxBounds={PH_BOUNDS}
         maxBoundsViscosity={1.0}
         style={{ height: '100%', width: '100%' }}
         zoomControl={false}
-        attributionControl={true}
+        attributionControl={false}
       >
         <TileLayer
           url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
+          attribution=''
           maxZoom={19}
         />
 
@@ -291,7 +429,7 @@ export default function MapView({
 
         <UserRoute fromPoint={fromPoint} toPoint={toPoint} />
 
-        {markers.map(marker => {
+        {visibleMarkers.map(marker => {
           let color = GREY
           let pulse = false
 
@@ -332,6 +470,7 @@ export default function MapView({
           <Marker position={[flyTarget.lat, flyTarget.lng]} icon={searchIcon} />
         )}
 
+        <BoundsTracker onBoundsChange={setMapBounds} onZoomChange={setMapZoom} />
         <ClickHandler onMapClick={onMapClick} />
         <MapController
           fromPoint={fromPoint}
@@ -342,6 +481,7 @@ export default function MapView({
           fitBoundsPoints={fitBoundsPoints}
           markers={markers}
         />
+        <MapillaryLayer onImageClick={onStreetViewClick} />
       </MapContainer>
     </div>
   )

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import getSql from '@/lib/db';
+import { sql } from '@/lib/db';
 
 export async function POST(req: NextRequest) {
   const userId = req.headers.get('x-user-id');
@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
   if (!name || lat == null || lng == null)
     return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
 
-  const sql = getSql();
+  
   const rows = await sql`
     INSERT INTO stops (route_id, name, lat, lng, photo_url, description, created_by)
     VALUES (${route_id || null}, ${name}, ${lat}, ${lng}, ${photo_url || null}, ${description || null}, ${userId})

@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
+import '../src/index.css'
+import 'leaflet/dist/leaflet.css'
 
 export const metadata: Metadata = {
   title: 'Sakayan',

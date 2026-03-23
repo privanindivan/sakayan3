@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
-import getSql from '@/lib/db';
+import { sql } from '@/lib/db';
 import { signToken } from '@/lib/auth';
 import { cookies } from 'next/headers';
 
@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
   if (!email || !password)
     return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
 
-  const sql = getSql();
+  
   const rows = await sql`SELECT * FROM users WHERE email = ${email}`;
   const user = rows[0];
   if (!user)

@@ -1,0 +1,54 @@
+name: Sync Supabase → Neon (DB Backup)
+
+on:
+  schedule:
+    - cron: '0 2 * * *'   # Daily at 2am UTC
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync all tables from Supabase to Neon
+        env:
+          SUPABASE_URL: ${{ secrets.DATABASE_URL }}
+          NEON_URL: ${{ secrets.NEON_DATABASE_URL }}
+        run: |
+          node -e "
+          const { Client } = require('pg');
+
+          const src  = new Client({ connectionString: process.env.SUPABASE_URL, ssl: { rejectUnauthorized: false } });
+          const dest = new Client({ connectionString: process.env.NEON_URL,     ssl: { rejectUnauthorized: false } });
+
+          const TABLES = ['users','terminals','connections','votes','comments','edit_log','challenges','challenge_completions','reports'];
+
+          async function syncTable(table) {
+            const rows = await src.query('SELECT * FROM ' + table);
+            if (rows.rows.length === 0) { console.log(table + ': empty, skipped'); return; }
+            const cols = Object.keys(rows.rows[0]);
+            let inserted = 0, skipped = 0;
+            for (const row of rows.rows) {
+              const vals = cols.map(c => row[c]);
+              const placeholders = cols.map((_,i) => '$'+(i+1)).join(',');
+              try {
+                await dest.query(
+                  'INSERT INTO ' + table + ' (' + cols.join(',') + ') VALUES (' + placeholders + ') ON CONFLICT (id) DO NOTHING',
+                  vals
+                );
+                inserted++;
+              } catch { skipped++; }
+            }
+            console.log(table + ': ' + inserted + ' synced, ' + skipped + ' skipped');
+          }
+
+          (async () => {
+            await src.connect();
+            await dest.connect();
+            for (const t of TABLES) {
+              try { await syncTable(t); } catch(e) { console.error(t + ' failed:', e.message); }
+            }
+            await src.end();
+            await dest.end();
+            console.log('Sync complete');
+          })();
+          "

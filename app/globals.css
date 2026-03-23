@@ -1,3 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide Next.js dev tools indicator */
+nextjs-portal { display: none !important; }
+
 /* ============================================================
    BASE RESET & LAYOUT
    ============================================================ */
@@ -17,6 +24,13 @@ html, body, #root {
   -webkit-tap-highlight-color: transparent;
   /* Extend into notch / home bar areas */
   padding-top: env(safe-area-inset-top);
+}
+
+/* Status page needs scrolling */
+html:has(.status-layout),
+body:has(.status-layout) {
+  overflow: auto;
+  height: auto;
 }
 
 .app {

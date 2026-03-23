@@ -1,11 +1,22 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import MapView                from './components/MapView'
+import StreetViewPanel        from './components/StreetViewPanel'
 import SearchBar              from './components/SearchBar'
 import AddMarkerForm          from './components/AddMarkerForm'
 import MarkerModal            from './components/MarkerModal'
+import UserProfile            from './components/UserProfile'
 import DirectionPanel         from './components/DirectionPanel'
 import RouteAlternativesSheet from './components/RouteAlternativesSheet'
-import { INITIAL_MARKERS, TYPE_COLORS, DURATION_FACTORS } from './data/sampleData'
+import AuthModal              from './components/AuthModal'
+import { DURATION_FACTORS, TYPE_COLORS } from './data/sampleData'
+
+// Attach stored token to every API request (for Google OAuth users on different port)
+function apiFetch(url, options = {}) {
+  const token = localStorage.getItem('sakayan_token')
+  const headers = { ...(options.headers || {}) }
+  if (token) headers['Authorization'] = `Bearer ${token}`
+  return fetch(url, { ...options, headers })
+}
 
 function WaypointNameForm({ onSave, onRetap, onCancel }) {
   const [name, setName] = useState('')
@@ -32,46 +43,118 @@ function WaypointNameForm({ onSave, onRetap, onCancel }) {
   )
 }
 
-function load(key, fallback) {
-  try {
-    const raw = localStorage.getItem(key)
-    return raw ? JSON.parse(raw) : fallback
-  } catch { return fallback }
-}
-
-function save(key, value) {
-  try { localStorage.setItem(key, JSON.stringify(value)) } catch { /* quota exceeded */ }
+const BADGE_EMOJI = {
+  newcomer: '🌱',
+  explorer: '🧭',
+  guide: '🗺️',
+  navigator: '⭐',
+  pioneer: '🏆',
 }
 
 const ALT_COLORS = ['#4A90D9', '#FF6B35', '#27AE60', '#F39C12', '#8E44AD']
 
 export default function App() {
-  const [markers,        setMarkers]        = useState(() => load('sakayan_markers',     INITIAL_MARKERS))
-  const [connections,    setConnections]    = useState(() => load('sakayan_connections', []))
+  const [markers,        setMarkers]        = useState([])
+  const [connections,    setConnections]    = useState([])
+  const [loading,        setLoading]        = useState(true)
+  const [user,           setUser]           = useState(null)
+  const [authChecked,    setAuthChecked]    = useState(false)
+  const [showAuth,       setShowAuth]       = useState(false)
+
   const [selectedMarker, setSelectedMarker] = useState(null)
   const [pendingLatLng,  setPendingLatLng]  = useState(null)
-  const [showForm,       setShowForm]       = useState(false)
+  const [showForm,       setShowForm]       = useState(false)   // add mode active
+  const [showAddForm,    setShowAddForm]    = useState(false)   // full detail form visible
   const [fromPoint,      setFromPoint]      = useState(null)
   const [toPoint,        setToPoint]        = useState(null)
   const [userLocation,   setUserLocation]   = useState(null)
   const [locating,       setLocating]       = useState(false)
   const [connectingFrom, setConnectingFrom] = useState(null)
-  // { fromId, toId, alternatives: [{id, positions, color}], loading }
   const [pendingConnect, setPendingConnect] = useState(null)
   const [flyTarget,      setFlyTarget]      = useState(null)
   const [fitBoundsPoints,setFitBoundsPoints] = useState(null)
   const [searchResetKey, setSearchResetKey] = useState(0)
+  const [profileUserId,  setProfileUserId]  = useState(null)
+  const [streetViewImg,  setStreetViewImg]  = useState(null)
   const [activeStopIds,  setActiveStopIds]  = useState([])
   const [activeConnIds,  setActiveConnIds]  = useState([])
   const [focusedSegment, setFocusedSegment] = useState(null)
-  const [addingWaypoint, setAddingWaypoint] = useState(null)  // { connId } | null
+  const [addingWaypoint, setAddingWaypoint] = useState(null)
   const [pendingWpLatLng, setPendingWpLatLng] = useState(null)
+  const shownAuthPrompt = useRef(false)
 
-  const isAdmin = true
-  const requireAdmin = (cb) => cb()
+  // Handle OAuth redirect (after Google login)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const authToken = params.get('auth_token')
+    const authUser  = params.get('auth_user')
+    if (authToken && authUser) {
+      try {
+        localStorage.setItem('sakayan_token', authToken)
+        setUser(JSON.parse(decodeURIComponent(authUser)))
+      } catch {}
+      window.history.replaceState({}, '', window.location.pathname)
+    }
+    if (params.get('auth_error')) {
+      window.history.replaceState({}, '', window.location.pathname)
+    }
+  }, [])
 
-useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
-  useEffect(() => { save('sakayan_connections', connections) }, [connections])
+  // Check auth and load data on mount
+  useEffect(() => {
+    Promise.all([
+      apiFetch('/api/auth/me').then(r => r.json()),
+      apiFetch('/api/terminals').then(r => r.json()),
+      apiFetch('/api/connections').then(r => r.json()),
+    ]).then(([authData, terminalsData, connectionsData]) => {
+      if (authData.user) setUser(authData.user)
+
+      // Map terminals to sakayan2 marker format
+      setMarkers((terminalsData.terminals || []).map(t => ({
+        id: t.id,
+        lat: t.lat,
+        lng: t.lng,
+        name: t.name,
+        type: t.type,
+        details: t.details || '',
+        schedule: t.schedule,
+        images: t.images || [],
+        likes: t.likes || 0,
+        dislikes: t.dislikes || 0,
+        outdated_votes: t.outdated_votes || 0,
+        created_by: t.created_by,
+        creator_name: t.creator_name,
+        my_vote: t.my_vote,
+      })))
+
+      // Map connections to sakayan2 format
+      setConnections((connectionsData.connections || []).map(c => ({
+        id: c.id,
+        fromId: c.from_id || c.fromId,
+        toId: c.to_id || c.toId,
+        geometry: c.geometry,
+        color: c.color || '#4A90D9',
+        fare: c.fare,
+        duration: c.duration_secs,
+        waypoints: c.waypoints || [],
+        budget_level: c.budget_level,
+        likes: c.likes || 0,
+        created_by: c.created_by,
+      })))
+
+      setLoading(false)
+      setAuthChecked(true)
+
+      // Show auth prompt once on first visit if not logged in
+      if (!authData.user && !localStorage.getItem('sakayan_auth_dismissed')) {
+        setTimeout(() => setShowAuth(true), 800)
+        shownAuthPrompt.current = true
+      }
+    }).catch(() => {
+      setLoading(false)
+      setAuthChecked(true)
+    })
+  }, [])
 
   useEffect(() => {
     if (!flyTarget) return
@@ -102,29 +185,54 @@ useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
     setPendingWpLatLng(null)
   }, [])
 
-  const handleSaveWaypoint = useCallback((name) => {
+  const handleSaveWaypoint = useCallback(async (name) => {
     if (!addingWaypoint || !pendingWpLatLng || !name.trim()) return
-    setConnections(prev => prev.map(c =>
-      c.id === addingWaypoint.connId
-        ? { ...c, waypoints: [...(c.waypoints || []), { id: String(Date.now()), lat: pendingWpLatLng.lat, lng: pendingWpLatLng.lng, name: name.trim() }] }
-        : c
-    ))
+    const conn = connections.find(c => c.id === addingWaypoint.connId)
+    if (!conn) return
+    const newWaypoints = [...(conn.waypoints || []), {
+      id: String(Date.now()),
+      lat: pendingWpLatLng.lat,
+      lng: pendingWpLatLng.lng,
+      name: name.trim()
+    }]
+    try {
+      const res = await apiFetch(`/api/connections/${addingWaypoint.connId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ waypoints: newWaypoints }),
+      })
+      if (res.ok) {
+        setConnections(prev => prev.map(c =>
+          c.id === addingWaypoint.connId ? { ...c, waypoints: newWaypoints } : c
+        ))
+      }
+    } catch {}
     setAddingWaypoint(null)
     setPendingWpLatLng(null)
-  }, [addingWaypoint, pendingWpLatLng])
+  }, [addingWaypoint, pendingWpLatLng, connections])
 
   const handleCancelWaypoint = useCallback(() => {
     setAddingWaypoint(null)
     setPendingWpLatLng(null)
   }, [])
 
-  const handleRemoveWaypoint = useCallback((connId, wpId) => {
-    setConnections(prev => prev.map(c =>
-      c.id === connId
-        ? { ...c, waypoints: (c.waypoints || []).filter(w => w.id !== wpId) }
-        : c
-    ))
-  }, [])
+  const handleRemoveWaypoint = useCallback(async (connId, wpId) => {
+    const conn = connections.find(c => c.id === connId)
+    if (!conn) return
+    const newWaypoints = (conn.waypoints || []).filter(w => w.id !== wpId)
+    try {
+      const res = await apiFetch(`/api/connections/${connId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ waypoints: newWaypoints }),
+      })
+      if (res.ok) {
+        setConnections(prev => prev.map(c =>
+          c.id === connId ? { ...c, waypoints: newWaypoints } : c
+        ))
+      }
+    } catch {}
+  }, [connections])
 
   const handleMarkerClick = useCallback((marker) => {
     if (showForm) return
@@ -137,11 +245,9 @@ useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
         setPendingConnect(snap)
         setConnectingFrom(null)
 
-        // Fetch OSRM alternatives between the two stops
         const coords = `${fromM.lng},${fromM.lat};${marker.lng},${marker.lat}`
         fetch(
-          `https://router.project-osrm.org/route/v1/driving/${coords}` +
-          `?overview=full&geometries=geojson&alternatives=3`
+          `https://router.project-osrm.org/route/v1/driving/${coords}?overview=full&geometries=geojson&alternatives=3`
         )
           .then(r => r.json())
           .then(data => {
@@ -154,12 +260,7 @@ useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
                   distance: route.distance,
                   duration: route.duration,
                 }))
-              : [{ // fallback: straight line if OSRM returns nothing
-                  id: 0,
-                  positions: [[fromM.lat, fromM.lng], [marker.lat, marker.lng]],
-                  color: ALT_COLORS[0],
-                  distance: null,
-                }]
+              : [{ id: 0, positions: [[fromM.lat, fromM.lng], [marker.lat, marker.lng]], color: ALT_COLORS[0], distance: null }]
             setPendingConnect(prev =>
               prev && prev.fromId === snap.fromId && prev.toId === snap.toId
                 ? { ...prev, alternatives, loading: false }
@@ -167,14 +268,9 @@ useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
             )
           })
           .catch(() => {
-            // Fallback straight line on network error
             setPendingConnect(prev =>
               prev && prev.fromId === snap.fromId && prev.toId === snap.toId
-                ? { ...prev, alternatives: [{
-                    id: 0,
-                    positions: [[fromM.lat, fromM.lng], [marker.lat, marker.lng]],
-                    color: ALT_COLORS[0],
-                  }], loading: false }
+                ? { ...prev, alternatives: [{ id: 0, positions: [[fromM.lat, fromM.lng], [marker.lat, marker.lng]], color: ALT_COLORS[0] }], loading: false }
                 : prev
             )
           })
@@ -184,7 +280,6 @@ useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
       return
     }
     setSelectedMarker(marker)
-    // Fit map to show the marker + all its connected stops
     const connectedIds = connections
       .filter(c => c.fromId === marker.id || c.toId === marker.id)
       .map(c => c.fromId === marker.id ? c.toId : c.fromId)
@@ -193,35 +288,57 @@ useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
     else setFitBoundsPoints(null)
   }, [showForm, connectingFrom, markers, connections])
 
-  // ✓ Keep this alternative → save as a connection
-  const handleConfirmAlt = useCallback((altId, fare) => {
+  const handleConfirmAlt = useCallback(async (altId, fare) => {
     if (!pendingConnect) return
     const alt = pendingConnect.alternatives.find(a => a.id === altId)
     if (!alt) return
-    setConnections(prev => [
-      ...prev,
-      {
-        id:       `${pendingConnect.fromId}-${pendingConnect.toId}-${Date.now()}`,
-        fromId:   pendingConnect.fromId,
-        toId:     pendingConnect.toId,
-        geometry: alt.positions,
-        color:    TYPE_COLORS[markers.find(m => m.id === pendingConnect.fromId)?.type] || '#4A90D9',
-        fare:     fare ?? null,
-        duration: alt.duration != null
-          ? Math.round(alt.duration * (DURATION_FACTORS[markers.find(m => m.id === pendingConnect.fromId)?.type] ?? 1.4))
-          : null,
-      },
-    ])
-    // Remove confirmed alt; close sheet if none left
+
+    const fromM = markers.find(m => m.id === pendingConnect.fromId)
+    const color = TYPE_COLORS[fromM?.type] || '#4A90D9'
+    const duration_secs = alt.duration != null
+      ? Math.round(alt.duration * (DURATION_FACTORS[fromM?.type] ?? 1.4))
+      : null
+
+    try {
+      const res = await apiFetch('/api/connections', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fromId: pendingConnect.fromId,
+          toId: pendingConnect.toId,
+          geometry: alt.positions,
+          color,
+          fare: fare ?? null,
+          duration_secs,
+          waypoints: [],
+        }),
+      })
+      if (res.ok) {
+        const data = await res.json()
+        const conn = data.connection
+        setConnections(prev => [...prev, {
+          id: conn.id,
+          fromId: conn.from_id || conn.fromId,
+          toId: conn.to_id || conn.toId,
+          geometry: alt.positions,
+          color,
+          fare: fare ?? null,
+          duration: duration_secs,
+          waypoints: [],
+          likes: 0,
+          created_by: user?.id,
+        }])
+      }
+    } catch {}
+
     setPendingConnect(prev => {
       if (!prev) return null
       const remaining = prev.alternatives.filter(a => a.id !== altId)
       return remaining.length === 0 ? null : { ...prev, alternatives: remaining }
     })
     setFocusedSegment(null)
-  }, [pendingConnect])
+  }, [pendingConnect, markers, user])
 
-  // ✗ Discard this alternative
   const handleRejectAlt = useCallback((altId) => {
     setPendingConnect(prev => {
       if (!prev) return null
@@ -235,24 +352,53 @@ useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
     setFocusedSegment(null)
   }, [])
 
-  const handleRemoveConnection = useCallback((connId) => {
-    setConnections(prev => prev.filter(c => c.id !== connId))
+  const handleRemoveConnection = useCallback(async (connId) => {
+    try {
+      const res = await apiFetch(`/api/connections/${connId}`, { method: 'DELETE' })
+      if (res.ok) {
+        setConnections(prev => prev.filter(c => c.id !== connId))
+      }
+    } catch {}
   }, [])
 
-  const handleDeleteMarker = useCallback((markerId) => {
-    setMarkers(prev => prev.filter(m => m.id !== markerId))
-    setConnections(prev => prev.filter(c => c.fromId !== markerId && c.toId !== markerId))
-    setSelectedMarker(null)
+  const handleDeleteMarker = useCallback(async (markerId) => {
+    try {
+      const res = await apiFetch(`/api/terminals/${markerId}`, { method: 'DELETE' })
+      if (res.ok) {
+        setMarkers(prev => prev.filter(m => m.id !== markerId))
+        setConnections(prev => prev.filter(c => c.fromId !== markerId && c.toId !== markerId))
+        setSelectedMarker(null)
+      }
+    } catch {}
   }, [])
 
-  const handleAddMarker = (data) => {
-    setMarkers(prev => [...prev, { id: Date.now(), ...data }])
-    setShowForm(false)
-    setPendingLatLng(null)
+  const handleAddMarker = async (data) => {
+    if (!user) { setShowAuth(true); return }
+    try {
+      const res = await apiFetch('/api/terminals', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      if (res.ok) {
+        const result = await res.json()
+        const t = result.terminal
+        setMarkers(prev => [...prev, {
+          id: t.id, lat: t.lat, lng: t.lng, name: t.name,
+          type: t.type, details: t.details || '', schedule: t.schedule,
+          images: t.images || [], likes: 0, dislikes: 0, outdated_votes: 0,
+          created_by: t.created_by, creator_name: user.username,
+        }])
+        setShowForm(false)
+        setShowAddForm(false)
+        setPendingLatLng(null)
+      }
+    } catch {}
   }
 
   const handleCancelForm = () => {
     setShowForm(false)
+    setShowAddForm(false)
     setPendingLatLng(null)
   }
 
@@ -269,9 +415,88 @@ useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
     )
   }
 
+  const handleVote = async (entity_type, entity_id, vote_type) => {
+    if (!user) { setShowAuth(true); return }
+    try {
+      const res = await apiFetch('/api/votes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ entity_type, entity_id, vote_type }),
+      })
+      if (res.ok) {
+        const data = await res.json()
+        if (entity_type === 'terminal') {
+          setMarkers(prev => prev.map(m => {
+            if (m.id !== entity_id) return m
+            const col = vote_type === 'like' ? 'likes' : vote_type === 'dislike' ? 'dislikes' : 'outdated_votes'
+            const newM = { ...m, my_vote: data.voted ? vote_type : null }
+            newM[col] = data.voted ? (m[col] || 0) + 1 : Math.max(0, (m[col] || 0) - 1)
+            return newM
+          }))
+          if (selectedMarker?.id === entity_id) {
+            setSelectedMarker(prev => {
+              if (!prev) return prev
+              const col = vote_type === 'like' ? 'likes' : vote_type === 'dislike' ? 'dislikes' : 'outdated_votes'
+              const updated = { ...prev, my_vote: data.voted ? vote_type : null }
+              updated[col] = data.voted ? (prev[col] || 0) + 1 : Math.max(0, (prev[col] || 0) - 1)
+              return updated
+            })
+          }
+        }
+      }
+    } catch {}
+  }
+
+  const isAdmin = user?.role === 'admin'
+  const requireAuth = (cb) => {
+    if (!user) { setShowAuth(true); return }
+    cb()
+  }
+
+  if (loading) {
+    return (
+      <div style={{ display:'flex', alignItems:'center', justifyContent:'center', height:'100vh', background:'#f8f9fa' }}>
+        <div style={{ textAlign:'center' }}>
+          <div style={{ fontSize:32, marginBottom:8 }}>🗺️</div>
+          <div style={{ color:'#555', fontFamily:'sans-serif' }}>Loading Sakayan…</div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="app">
       <SearchBar onRoute={handleRoute} onFlyTo={(t) => setFlyTarget(t)} markers={markers} resetKey={searchResetKey} />
+
+      {/* Top-right: auth */}
+      <div className="top-right-bar">
+        {user ? (
+          <div className="user-chip">
+            <span className="user-badge-emoji">{BADGE_EMOJI[user.badge] || '🌱'}</span>
+            <button
+              className="user-chip-name"
+              onClick={() => setProfileUserId(user.id)}
+              title="View my profile"
+            >{user.username}</button>
+            <button className="user-chip-logout" onClick={() => {
+              if (!window.confirm('Log out?')) return
+              apiFetch('/api/auth/logout', { method: 'POST' })
+              localStorage.removeItem('sakayan_token')
+              localStorage.removeItem('sakayan_auth_dismissed')
+              setUser(null)
+              setShowForm(false)
+              setShowAddForm(false)
+              setPendingLatLng(null)
+              setConnectingFrom(null)
+              setSelectedMarker(null)
+            }}>✕</button>
+          </div>
+        ) : (
+          <button className="login-chip" onClick={() => setShowAuth(true)}>
+            🔑 Login
+          </button>
+        )}
+      </div>
 
       <MapView
         markers={markers}
@@ -293,42 +518,26 @@ useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
         addingWaypointMode={!!addingWaypoint}
         pendingWpLatLng={pendingWpLatLng}
         onWaypointClick={(fromId, toId) => setFocusedSegment({ fromId, toId })}
+        onStreetViewClick={(img) => setStreetViewImg(img)}
       />
 
-      {/* FB Messenger button — upper right corner */}
-      <div className="fb-corner-btn">
-        <button
-          className="icon-btn fb-btn"
-          aria-label="Message us on Facebook"
-          title="Message us on Facebook"
-          onClick={() => {/* TODO: add FB page link */}}
-        >
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="white">
-            <path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.3 2.246.464 3.443.464 6.627 0 12-4.974 12-11.111S18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8l3.131 3.26L19.752 8l-6.561 6.963z"/>
-          </svg>
-        </button>
-      </div>
-
-      {/* Corner buttons */}
+      {/* Corner buttons — locate only for anonymous; locate + add for logged-in */}
       <div className="corner-btns">
-        <button
-          className="icon-btn locate-btn"
-          onClick={handleLocate}
-          aria-label="My location"
-          title="My location"
-        >
+        <button className="icon-btn locate-btn" onClick={handleLocate} aria-label="My location" title="My location">
           {locating ? '…' : '◎'}
         </button>
-        <button
-          className={`icon-btn fab-btn ${showForm ? 'fab-cancel' : ''}`}
-          onClick={() => {
-            if (showForm) handleCancelForm()
-            else { setShowForm(true); setPendingLatLng(null); setConnectingFrom(null) }
-          }}
-          aria-label={showForm ? 'Cancel' : 'Add stop'}
-        >
-          {showForm ? '✕' : '+'}
-        </button>
+        {user && (
+          <button
+            className={`icon-btn fab-btn ${showAddForm ? 'fab-cancel' : showForm ? 'fab-active' : ''}`}
+            onClick={() => {
+              if (showForm) handleCancelForm()
+              else { setShowForm(true); setPendingLatLng(null); setConnectingFrom(null) }
+            }}
+            aria-label={showForm ? 'Cancel adding' : 'Add stop'}
+          >
+            {showAddForm ? '✕' : '+'}
+          </button>
+        )}
       </div>
 
       {/* Connect-mode banner */}
@@ -347,7 +556,6 @@ useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
         </div>
       )}
 
-      {/* Waypoint name form */}
       {addingWaypoint && pendingWpLatLng && (
         <WaypointNameForm
           onSave={handleSaveWaypoint}
@@ -356,7 +564,28 @@ useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
         />
       )}
 
-      {showForm && (
+      {/* Pin placed — confirm card (✓ / ✗) before opening full form */}
+      {showForm && pendingLatLng && !showAddForm && (
+        <div className="pin-confirm-card">
+          <div className="pin-confirm-label">
+            📍 Pin placed
+            <span>{pendingLatLng.lat.toFixed(5)}, {pendingLatLng.lng.toFixed(5)}</span>
+          </div>
+          <button
+            className="pin-confirm-cancel"
+            onClick={() => setPendingLatLng(null)}
+            aria-label="Remove pin"
+          >✕</button>
+          <button
+            className="pin-confirm-ok"
+            onClick={() => setShowAddForm(true)}
+            aria-label="Confirm pin"
+          >✓</button>
+        </div>
+      )}
+
+      {/* Full detail form — only after pin confirmed */}
+      {showAddForm && (
         <AddMarkerForm
           pendingLatLng={pendingLatLng}
           onSubmit={handleAddMarker}
@@ -364,7 +593,6 @@ useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
         />
       )}
 
-      {/* Route alternatives confirmation sheet */}
       {pendingConnect && (
         <RouteAlternativesSheet
           fromStop={markers.find(m => m.id === pendingConnect.fromId)}
@@ -403,21 +631,56 @@ useEffect(() => { save('sakayan_markers',     markers)     }, [markers])
           marker={selectedMarker}
           connections={connections}
           markers={markers}
+          user={user}
           isAdmin={isAdmin}
-          requireAdmin={requireAdmin}
+          requireAdmin={(cb) => {
+            if (!user) { setShowAuth(true); return }
+            cb()
+          }}
           onClose={() => setSelectedMarker(null)}
-          onSave={(updated) => {
-            setMarkers(prev => prev.map(m => m.id === updated.id ? updated : m))
-            setSelectedMarker(updated)
+          onSave={async (updated) => {
+            try {
+              const res = await apiFetch(`/api/terminals/${updated.id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updated),
+              })
+              if (res.ok) {
+                setMarkers(prev => prev.map(m => m.id === updated.id ? { ...m, ...updated } : m))
+                setSelectedMarker(updated)
+              }
+            } catch {}
           }}
           onDelete={handleDeleteMarker}
           onRemoveConnection={handleRemoveConnection}
+          onUpdateConnection={(updated) => setConnections(prev => prev.map(c => c.id === updated.id ? { ...c, fare: updated.fare, duration: updated.duration_secs } : c))}
           onStartConnect={handleStartConnect}
           onAddWaypoint={handleStartAddWaypoint}
           onRemoveWaypoint={handleRemoveWaypoint}
+          onVote={handleVote}
           onConnClick={(connId, fromId, toId) => {
             setSelectedMarker(null)
             setFocusedSegment({ connId, fromId, toId })
+          }}
+          onOpenProfile={(uid) => setProfileUserId(uid)}
+        />
+      )}
+
+      {profileUserId && (
+        <UserProfile userId={profileUserId} onClose={() => setProfileUserId(null)} />
+      )}
+
+      <StreetViewPanel image={streetViewImg} onClose={() => setStreetViewImg(null)} />
+
+      {showAuth && (
+        <AuthModal
+          onClose={() => {
+            setShowAuth(false)
+            localStorage.setItem('sakayan_auth_dismissed', '1')
+          }}
+          onSuccess={(loggedInUser) => {
+            setUser(loggedInUser)
+            setShowAuth(false)
           }}
         />
       )}
