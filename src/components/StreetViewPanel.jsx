@@ -1,8 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
+const MAPILLARY_TOKEN = process.env.NEXT_PUBLIC_MAPILLARY_TOKEN
 
 export default function StreetViewPanel({ image, onClose }) {
   const [expanded, setExpanded] = useState(false)
   const [loaded, setLoaded] = useState(false)
+  const [thumbUrl, setThumbUrl] = useState(null)
+
+  useEffect(() => {
+    if (!image?.id) return
+    setThumbUrl(image.thumbnailUrl || null)
+    if (image.thumbnailUrl) return
+    // Fetch thumbnail from Mapillary on demand
+    if (!MAPILLARY_TOKEN) return
+    fetch(`https://graph.mapillary.com/${image.id}?access_token=${MAPILLARY_TOKEN}&fields=thumb_256_url`)
+      .then(r => r.json())
+      .then(d => { if (d.thumb_256_url) setThumbUrl(d.thumb_256_url) })
+      .catch(() => {})
+  }, [image?.id])
 
   if (!image) return null
 
@@ -13,7 +28,10 @@ export default function StreetViewPanel({ image, onClose }) {
       {/* Bottom-left thumbnail card — image only, no label text */}
       {!expanded && (
         <div className="sv-panel" onClick={() => { setLoaded(false); setExpanded(true) }}>
-          <img src={image.thumbnailUrl} alt="Street view" className="sv-thumb" />
+          {thumbUrl
+            ? <img src={thumbUrl} alt="Street view" className="sv-thumb" />
+            : <div className="sv-thumb" style={{ display:'flex', alignItems:'center', justifyContent:'center', background:'#1f2937', color:'#9ca3af', fontSize:12 }}>Loading…</div>
+          }
           <button
             className="sv-panel-close"
             onClick={(e) => { e.stopPropagation(); onClose() }}
