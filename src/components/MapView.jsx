@@ -8,23 +8,25 @@ import L from 'leaflet'
 import RoadRoute from './RoadRoute'
 import { TYPE_COLORS } from '../data/sampleData'
 
-const MAPILLARY_MIN_ZOOM = 14   // don't fetch dots below this zoom
+const MAPILLARY_MIN_ZOOM = 14
+const TILE_DEG = 0.09  // 0.09×0.09 = 0.0081 sq° — under Mapillary's 0.010 limit
 
 function MapillaryLayer({ onImageClick }) {
   const map = useMap()
-  const dotsRef = useRef(new Map())   // id → image, accumulates across pans
-  const fetchedRef = useRef(new Set()) // rounded bbox strings already fetched
+  const dotsRef    = useRef(new Map())    // id → image, never wiped on pan/zoom
+  const fetchedRef = useRef(new Set())    // 'col:row' tiles already fetched
   const [images, setImages] = useState([])
-  const timerRef = useRef(null)
+  const zoomTimer  = useRef(null)
   const onImageClickRef = useRef(onImageClick)
   onImageClickRef.current = onImageClick
 
   useEffect(() => {
-    // Fetch one bbox tile (must be ≤ 0.009 sq° to stay under Mapillary's limit)
-    async function fetchTile(w, s, e, n) {
-      const key = `${w.toFixed(3)},${s.toFixed(3)},${e.toFixed(3)},${n.toFixed(3)}`
+    async function fetchTile(col, row) {
+      const key = `${col}:${row}`
       if (fetchedRef.current.has(key)) return
       fetchedRef.current.add(key)
+      const w = col * TILE_DEG,  s = row * TILE_DEG
+      const e = w   + TILE_DEG,  n = s   + TILE_DEG
       try {
         const res = await fetch(`/api/mapillary?bbox=${w},${s},${e},${n}`)
         const data = await res.json()
@@ -41,52 +43,39 @@ function MapillaryLayer({ onImageClick }) {
           }
         })
         if (added > 0) setImages([...dotsRef.current.values()])
-      } catch {
-        fetchedRef.current.delete(key) // allow retry on error
-      }
+      } catch { fetchedRef.current.delete(key) }
     }
 
-    // Cover the full viewport — split into quadrants if area exceeds limit
-    async function fetchViewport() {
+    // Queue all tiles covering viewport + pad-tile border (pre-fetches swipe direction)
+    function loadTiles(pad = 1) {
       if (map.getZoom() < MAPILLARY_MIN_ZOOM) return
-      const b = map.getBounds()
-      const w = b.getWest(), s = b.getSouth(), e = b.getEast(), n = b.getNorth()
-      if ((e - w) * (n - s) <= 0.009) {
-        await fetchTile(w, s, e, n)
-      } else {
-        const mLng = (w + e) / 2, mLat = (s + n) / 2
-        await Promise.all([
-          fetchTile(w, s, mLng, mLat),
-          fetchTile(mLng, s, e, mLat),
-          fetchTile(w, mLat, mLng, n),
-          fetchTile(mLng, mLat, e, n),
-        ])
-      }
+      const b  = map.getBounds()
+      const c0 = Math.floor(b.getWest()  / TILE_DEG) - pad
+      const c1 = Math.floor(b.getEast()  / TILE_DEG) + pad
+      const r0 = Math.floor(b.getSouth() / TILE_DEG) - pad
+      const r1 = Math.floor(b.getNorth() / TILE_DEG) + pad
+      for (let c = c0; c <= c1; c++)
+        for (let r = r0; r <= r1; r++)
+          fetchTile(c, r)   // fire-and-forget; cached tiles skip instantly
     }
 
     function onZoomEnd() {
+      clearTimeout(zoomTimer.current)
       if (map.getZoom() < MAPILLARY_MIN_ZOOM) {
-        // Zoomed out past threshold — clear everything so dots don't pile up
-        dotsRef.current.clear()
-        fetchedRef.current.clear()
-        setImages([])
+        dotsRef.current.clear(); fetchedRef.current.clear(); setImages([])
         return
       }
-      clearTimeout(timerRef.current)
-      timerRef.current = setTimeout(fetchViewport, 300)
+      zoomTimer.current = setTimeout(() => loadTiles(1), 200)
     }
 
-    function onMoveEnd() {
-      clearTimeout(timerRef.current)
-      timerRef.current = setTimeout(fetchViewport, 300)
-    }
+    const onMoveEnd = () => loadTiles(1)
 
     map.on('zoomend', onZoomEnd)
     map.on('moveend', onMoveEnd)
-    fetchViewport()
+    loadTiles(1)
 
     return () => {
-      clearTimeout(timerRef.current)
+      clearTimeout(zoomTimer.current)
       map.off('zoomend', onZoomEnd)
       map.off('moveend', onMoveEnd)
     }
