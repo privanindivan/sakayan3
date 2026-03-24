@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import {
   MapContainer, TileLayer, Marker, Polyline, Tooltip,
+  CircleMarker,
   useMapEvents, useMap,
 } from 'react-leaflet'
 import L from 'leaflet'
@@ -11,21 +12,14 @@ const MAPILLARY_MIN_ZOOM = 14   // don't fetch dots below this zoom
 
 function MapillaryLayer({ onImageClick }) {
   const map = useMap()
-  const groupRef = useRef(null)
+  const [images, setImages] = useState([])
   const timerRef = useRef(null)
   const onImageClickRef = useRef(onImageClick)
   onImageClickRef.current = onImageClick
 
   useEffect(() => {
-    // Canvas renderer keeps dots stable during zoom animations —
-    // SVG CircleMarker inherits the pane's CSS scale transform mid-zoom
-    // which makes dots drift and "bubble" before snapping back.
-    const renderer = L.canvas({ padding: 0.5 }).addTo(map)
-    const group = L.layerGroup().addTo(map)
-    groupRef.current = group
-
     async function doFetch() {
-      if (map.getZoom() < MAPILLARY_MIN_ZOOM) { group.clearLayers(); return }
+      if (map.getZoom() < MAPILLARY_MIN_ZOOM) { setImages([]); return }
       const b = map.getBounds()
       const c = map.getCenter()
       const MAX_HALF = 0.047
@@ -35,23 +29,12 @@ function MapillaryLayer({ onImageClick }) {
       try {
         const res = await fetch(`/api/mapillary?bbox=${bbox}`)
         const data = await res.json()
-        group.clearLayers()
-        ;(data.data || []).forEach(img => {
-          const lat = img.geometry.coordinates[1]
-          const lng = img.geometry.coordinates[0]
-          L.circleMarker([lat, lng], {
-            renderer,
-            radius: 4,
-            color: 'rgba(255,255,255,0.75)',
-            fillColor: '#9CA3AF',
-            fillOpacity: 0.9,
-            weight: 1.5,
-            className: 'mapillary-dot',
-          }).on('click', (e) => {
-            e.originalEvent?.stopPropagation()
-            onImageClickRef.current({ id: img.id, lat, lng, thumbnailUrl: img.thumb_256_url })
-          }).addTo(group)
-        })
+        setImages((data.data || []).map(img => ({
+          id: img.id,
+          lat: img.geometry.coordinates[1],
+          lng: img.geometry.coordinates[0],
+          thumbnailUrl: img.thumb_256_url,
+        })))
       } catch {}
     }
 
@@ -68,12 +51,20 @@ function MapillaryLayer({ onImageClick }) {
       clearTimeout(timerRef.current)
       map.off('moveend', schedFetch)
       map.off('zoomend', schedFetch)
-      group.remove()
-      renderer.remove()
     }
   }, [map])
 
-  return null
+  return images.map(img => (
+    <CircleMarker
+      key={img.id}
+      center={[img.lat, img.lng]}
+      radius={4}
+      pathOptions={{ color: 'rgba(255,255,255,0.75)', fillColor: '#9CA3AF', fillOpacity: 0.9, weight: 1.5 }}
+      eventHandlers={{
+        click: (e) => { e.originalEvent?.stopPropagation(); onImageClickRef.current(img) }
+      }}
+    />
+  ))
 }
 
 const PHILIPPINES = [14.5995, 120.9842]
