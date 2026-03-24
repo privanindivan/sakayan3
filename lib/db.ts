@@ -1,9 +1,11 @@
 import { Pool } from 'pg'
 
+// Transaction mode pooler (port 6543) avoids Supabase session-count limit
+const dbUrl = (process.env.DATABASE_URL || '').replace(':5432/', ':6543/')
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: dbUrl,
   ssl: { rejectUnauthorized: false },
-  max: 10,
+  max: 3,
 })
 
 // Tagged template literal — same interface as neon() so all queries work unchanged
