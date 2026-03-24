@@ -12,7 +12,9 @@ const { Pool } = require('pg');
 const TOKEN = process.env.VITE_MAPILLARY_TOKEN || process.env.NEXT_PUBLIC_MAPILLARY_TOKEN;
 if (!TOKEN) { console.error('No Mapillary token found in .env.local'); process.exit(1); }
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } });
+// Use transaction mode pooler (port 6543) — no session-count limits
+const dbUrl = (process.env.DATABASE_URL || '').replace(':5432/', ':6543/');
+const pool = new Pool({ connectionString: dbUrl, ssl: { rejectUnauthorized: false }, max: 3 });
 
 // Philippines bounding box
 const PH = { west: 116.0, east: 127.0, south: 4.5, north: 21.5 };

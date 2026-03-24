@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Pool } from 'pg'
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } })
+// Transaction mode pooler (port 6543) avoids session-count limits on Supabase free tier
+const dbUrl = (process.env.DATABASE_URL || '').replace(':5432/', ':6543/')
+const pool = new Pool({ connectionString: dbUrl, ssl: { rejectUnauthorized: false }, max: 2 })
 
 export async function GET(req: NextRequest) {
   const bbox = req.nextUrl.searchParams.get('bbox')
