@@ -10,7 +10,6 @@ import { TYPE_COLORS } from '../data/sampleData'
 
 const MAPILLARY_MIN_ZOOM = 13
 const TILE_DEG = 0.09
-const MAPILLARY_TOKEN = process.env.NEXT_PUBLIC_MAPILLARY_TOKEN
 
 function MapillaryLayer({ onImageClick }) {
   const map = useMap()
@@ -29,10 +28,8 @@ function MapillaryLayer({ onImageClick }) {
       const w = col * TILE_DEG,  s = row * TILE_DEG
       const e = w   + TILE_DEG,  n = s   + TILE_DEG
       try {
-        // Fetch directly from Mapillary — exact same data as mapillary.com, no caching layer
-        const url = MAPILLARY_TOKEN
-          ? `https://graph.mapillary.com/images?access_token=${MAPILLARY_TOKEN}&bbox=${w},${s},${e},${n}&limit=500&fields=id,geometry`
-          : `/api/mapillary?bbox=${w},${s},${e},${n}`
+        // Always use server proxy — token lives server-side, never exposed in browser bundle
+        const url = `/api/mapillary?bbox=${w},${s},${e},${n}`
         const res = await fetch(url)
         const data = await res.json()
         let added = 0
