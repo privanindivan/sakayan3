@@ -17,7 +17,7 @@ const pool = new Pool({ connectionString: process.env.DATABASE_URL, ssl: { rejec
 // Philippines bounding box
 const PH = { west: 116.0, east: 127.0, south: 4.5, north: 21.5 };
 const TILE_DEG = 0.09;          // 0.09×0.09 = 0.0081 sq° — under Mapillary 0.010 limit
-const CONCURRENCY = 20;         // parallel tile fetches
+const CONCURRENCY = 30;         // parallel tile fetches
 const LIMIT = 300;              // max images per tile
 
 // Build full tile list
@@ -43,10 +43,15 @@ async function fetchTile(tile) {
   const key = `${tile.w},${tile.s},${tile.e},${tile.n}`;
   const url = `https://graph.mapillary.com/images?access_token=${TOKEN}&fields=id,geometry&bbox=${tile.w},${tile.s},${tile.e},${tile.n}&limit=${LIMIT}`;
   try {
-    const res = await fetch(url);
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 12000);
+    const res = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeout);
     const data = await res.json();
     if (data.error) {
       process.stdout.write('E');
+      // Still mark as fetched so we don't retry ocean/OOB tiles forever
+      await pool.query('INSERT INTO mapillary_fetched_tiles (tile_key) VALUES ($1) ON CONFLICT DO NOTHING', [key]);
       return;
     }
     const images = (data.data || []).map(img => ({
@@ -72,6 +77,8 @@ async function fetchTile(tile) {
     await pool.query('INSERT INTO mapillary_fetched_tiles (tile_key) VALUES ($1) ON CONFLICT DO NOTHING', [key]);
   } catch (e) {
     process.stdout.write('x');
+    // Mark as fetched so timeouts/unreachable tiles aren't retried endlessly
+    try { await pool.query('INSERT INTO mapillary_fetched_tiles (tile_key) VALUES ($1) ON CONFLICT DO NOTHING', [key]); } catch {}
   }
 }
 
