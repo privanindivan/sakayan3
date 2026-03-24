@@ -85,8 +85,8 @@ function MapillaryLayer({ onImageClick }) {
     <CircleMarker
       key={img.id}
       center={[img.lat, img.lng]}
-      radius={4}
-      pathOptions={{ color: 'rgba(255,255,255,0.75)', fillColor: '#9CA3AF', fillOpacity: 0.9, weight: 1.5 }}
+      radius={6}
+      pathOptions={{ color: '#ffffff', fillColor: '#4B9CD3', fillOpacity: 1, weight: 1 }}
       eventHandlers={{
         click: (e) => { e.originalEvent?.stopPropagation(); onImageClickRef.current(img) }
       }}
