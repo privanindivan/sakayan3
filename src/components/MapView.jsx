@@ -8,7 +8,7 @@ import L from 'leaflet'
 import RoadRoute from './RoadRoute'
 import { TYPE_COLORS } from '../data/sampleData'
 
-const MAPILLARY_MIN_ZOOM = 14
+const MAPILLARY_MIN_ZOOM = 13
 const TILE_DEG = 0.09  // 0.09×0.09 = 0.0081 sq° — under Mapillary's 0.010 limit
 
 function MapillaryLayer({ onImageClick }) {
