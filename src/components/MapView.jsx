@@ -12,45 +12,83 @@ const MAPILLARY_MIN_ZOOM = 14   // don't fetch dots below this zoom
 
 function MapillaryLayer({ onImageClick }) {
   const map = useMap()
+  const dotsRef = useRef(new Map())   // id → image, accumulates across pans
+  const fetchedRef = useRef(new Set()) // rounded bbox strings already fetched
   const [images, setImages] = useState([])
   const timerRef = useRef(null)
   const onImageClickRef = useRef(onImageClick)
   onImageClickRef.current = onImageClick
 
   useEffect(() => {
-    async function doFetch() {
-      if (map.getZoom() < MAPILLARY_MIN_ZOOM) { setImages([]); return }
-      const b = map.getBounds()
-      const c = map.getCenter()
-      const MAX_HALF = 0.047
-      const halfW = Math.min((b.getEast() - b.getWest()) / 2, MAX_HALF)
-      const halfH = Math.min((b.getNorth() - b.getSouth()) / 2, MAX_HALF)
-      const bbox = `${c.lng - halfW},${c.lat - halfH},${c.lng + halfW},${c.lat + halfH}`
+    // Fetch one bbox tile (must be ≤ 0.009 sq° to stay under Mapillary's limit)
+    async function fetchTile(w, s, e, n) {
+      const key = `${w.toFixed(3)},${s.toFixed(3)},${e.toFixed(3)},${n.toFixed(3)}`
+      if (fetchedRef.current.has(key)) return
+      fetchedRef.current.add(key)
       try {
-        const res = await fetch(`/api/mapillary?bbox=${bbox}`)
+        const res = await fetch(`/api/mapillary?bbox=${w},${s},${e},${n}`)
         const data = await res.json()
-        setImages((data.data || []).map(img => ({
-          id: img.id,
-          lat: img.geometry.coordinates[1],
-          lng: img.geometry.coordinates[0],
-          thumbnailUrl: img.thumb_256_url,
-        })))
-      } catch {}
+        let added = 0
+        ;(data.data || []).forEach(img => {
+          if (!dotsRef.current.has(img.id)) {
+            dotsRef.current.set(img.id, {
+              id: img.id,
+              lat: img.geometry.coordinates[1],
+              lng: img.geometry.coordinates[0],
+              thumbnailUrl: img.thumb_256_url,
+            })
+            added++
+          }
+        })
+        if (added > 0) setImages([...dotsRef.current.values()])
+      } catch {
+        fetchedRef.current.delete(key) // allow retry on error
+      }
     }
 
-    function schedFetch() {
+    // Cover the full viewport — split into quadrants if area exceeds limit
+    async function fetchViewport() {
+      if (map.getZoom() < MAPILLARY_MIN_ZOOM) return
+      const b = map.getBounds()
+      const w = b.getWest(), s = b.getSouth(), e = b.getEast(), n = b.getNorth()
+      if ((e - w) * (n - s) <= 0.009) {
+        await fetchTile(w, s, e, n)
+      } else {
+        const mLng = (w + e) / 2, mLat = (s + n) / 2
+        await Promise.all([
+          fetchTile(w, s, mLng, mLat),
+          fetchTile(mLng, s, e, mLat),
+          fetchTile(w, mLat, mLng, n),
+          fetchTile(mLng, mLat, e, n),
+        ])
+      }
+    }
+
+    function onZoomEnd() {
+      if (map.getZoom() < MAPILLARY_MIN_ZOOM) {
+        // Zoomed out past threshold — clear everything so dots don't pile up
+        dotsRef.current.clear()
+        fetchedRef.current.clear()
+        setImages([])
+        return
+      }
       clearTimeout(timerRef.current)
-      timerRef.current = setTimeout(doFetch, 400)
+      timerRef.current = setTimeout(fetchViewport, 300)
     }
 
-    map.on('moveend', schedFetch)
-    map.on('zoomend', schedFetch)
-    doFetch()
+    function onMoveEnd() {
+      clearTimeout(timerRef.current)
+      timerRef.current = setTimeout(fetchViewport, 300)
+    }
+
+    map.on('zoomend', onZoomEnd)
+    map.on('moveend', onMoveEnd)
+    fetchViewport()
 
     return () => {
       clearTimeout(timerRef.current)
-      map.off('moveend', schedFetch)
-      map.off('zoomend', schedFetch)
+      map.off('zoomend', onZoomEnd)
+      map.off('moveend', onMoveEnd)
     }
   }, [map])
 
