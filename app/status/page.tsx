@@ -45,6 +45,7 @@ export default function StatusPage() {
   const [data, setData]       = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [checkedAt, setCheckedAt] = useState('')
+  const [mounted, setMounted] = useState(false)
 
   async function refresh() {
     setLoading(true)
@@ -63,7 +64,7 @@ export default function StatusPage() {
     }
   }
 
-  useEffect(() => { refresh() }, [])
+  useEffect(() => { setMounted(true); refresh() }, [])
 
   const services: any[] = data?.services || []
   const getService = (id: string) => services.find(s => s.id === id)
@@ -300,9 +301,7 @@ export default function StatusPage() {
             Recent Notices
           </div>
           {[0, 1, 2].map(i => {
-            const d = new Date()
-            d.setDate(d.getDate() - i)
-            const label = d.toLocaleDateString('en-PH', { month: 'long', day: 'numeric', year: 'numeric' })
+            const label = mounted ? (() => { const d = new Date(); d.setDate(d.getDate() - i); return d.toLocaleDateString('en-PH', { month: 'long', day: 'numeric', year: 'numeric' }) })() : ''
             return (
               <div key={i} style={{ display: 'flex', gap: 16, padding: '10px 0', borderBottom: i < 2 ? '1px solid #f0f4f8' : 'none', alignItems: 'flex-start' }}>
                 <span style={{ fontSize: 13, color: '#888', minWidth: 130, paddingTop: 1 }}>{label}</span>
