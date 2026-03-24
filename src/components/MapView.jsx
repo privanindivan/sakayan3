@@ -9,12 +9,13 @@ import RoadRoute from './RoadRoute'
 import { TYPE_COLORS } from '../data/sampleData'
 
 const MAPILLARY_MIN_ZOOM = 13
-const TILE_DEG = 0.09  // 0.09×0.09 = 0.0081 sq° — under Mapillary's 0.010 limit
+const TILE_DEG = 0.09
+const MAPILLARY_TOKEN = process.env.NEXT_PUBLIC_MAPILLARY_TOKEN
 
 function MapillaryLayer({ onImageClick }) {
   const map = useMap()
-  const dotsRef    = useRef(new Map())    // id → image, never wiped on pan/zoom
-  const fetchedRef = useRef(new Set())    // 'col:row' tiles already fetched
+  const dotsRef    = useRef(new Map())
+  const fetchedRef = useRef(new Set())
   const [images, setImages] = useState([])
   const zoomTimer  = useRef(null)
   const onImageClickRef = useRef(onImageClick)
@@ -28,7 +29,11 @@ function MapillaryLayer({ onImageClick }) {
       const w = col * TILE_DEG,  s = row * TILE_DEG
       const e = w   + TILE_DEG,  n = s   + TILE_DEG
       try {
-        const res = await fetch(`/api/mapillary?bbox=${w},${s},${e},${n}`)
+        // Fetch directly from Mapillary — exact same data as mapillary.com, no caching layer
+        const url = MAPILLARY_TOKEN
+          ? `https://graph.mapillary.com/images?access_token=${MAPILLARY_TOKEN}&bbox=${w},${s},${e},${n}&limit=500&fields=id,geometry`
+          : `/api/mapillary?bbox=${w},${s},${e},${n}`
+        const res = await fetch(url)
         const data = await res.json()
         let added = 0
         ;(data.data || []).forEach(img => {
@@ -85,8 +90,8 @@ function MapillaryLayer({ onImageClick }) {
     <CircleMarker
       key={img.id}
       center={[img.lat, img.lng]}
-      radius={6}
-      pathOptions={{ color: '#ffffff', fillColor: '#4B9CD3', fillOpacity: 1, weight: 1 }}
+      radius={4}
+      pathOptions={{ color: '#ffffff', fillColor: '#22C55E', fillOpacity: 1, weight: 1 }}
       eventHandlers={{
         click: (e) => { e.originalEvent?.stopPropagation(); onImageClickRef.current(img) }
       }}
@@ -94,12 +99,14 @@ function MapillaryLayer({ onImageClick }) {
   ))
 }
 
-const PHILIPPINES = [14.5995, 120.9842]
+const PHILIPPINES = [14.55, 121.02]  // Ortigas/Mandaluyong — best Mapillary coverage for mobile
 const DEFAULT_ZOOM = 13
+
+const MAP_VIEW_KEY = 'sakayan_map_view_v2'
 
 function getSavedView() {
   try {
-    const v = localStorage.getItem('sakayan_map_view')
+    const v = localStorage.getItem(MAP_VIEW_KEY)
     if (v) {
       const { lat, lng, zoom } = JSON.parse(v)
       if (lat && lng && zoom) return { center: [lat, lng], zoom: Math.max(zoom, DEFAULT_ZOOM) }
@@ -219,7 +226,7 @@ function MapController({ fromPoint, toPoint, userLocation, flyTarget, focusedSeg
   useEffect(() => {
     const handler = () => {
       const c = map.getCenter()
-      localStorage.setItem('sakayan_map_view', JSON.stringify({ lat: c.lat, lng: c.lng, zoom: map.getZoom() }))
+      localStorage.setItem(MAP_VIEW_KEY, JSON.stringify({ lat: c.lat, lng: c.lng, zoom: map.getZoom() }))
     }
     map.on('moveend', handler)
     map.on('zoomend', handler)

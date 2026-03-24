@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react'
 
-const MAPILLARY_TOKEN = process.env.NEXT_PUBLIC_MAPILLARY_TOKEN
-
 export default function StreetViewPanel({ image, onClose }) {
   const [expanded, setExpanded] = useState(false)
   const [loaded, setLoaded] = useState(false)
@@ -11,11 +9,10 @@ export default function StreetViewPanel({ image, onClose }) {
     if (!image?.id) return
     setThumbUrl(image.thumbnailUrl || null)
     if (image.thumbnailUrl) return
-    // Fetch thumbnail from Mapillary on demand
-    if (!MAPILLARY_TOKEN) return
-    fetch(`https://graph.mapillary.com/${image.id}?access_token=${MAPILLARY_TOKEN}&fields=thumb_256_url`)
+    // Fetch via server proxy — works regardless of build-time env vars
+    fetch(`/api/mapillary/thumb?id=${image.id}`)
       .then(r => r.json())
-      .then(d => { if (d.thumb_256_url) setThumbUrl(d.thumb_256_url) })
+      .then(d => { if (d.url) setThumbUrl(d.url) })
       .catch(() => {})
   }, [image?.id])
 
