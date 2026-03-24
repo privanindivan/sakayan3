@@ -12,7 +12,6 @@ const MAPILLARY_MIN_ZOOM = 14   // don't fetch dots below this zoom
 function MapillaryLayer({ onImageClick }) {
   const map = useMap()
   const groupRef = useRef(null)
-  const rendererRef = useRef(null)
   const timerRef = useRef(null)
   const onImageClickRef = useRef(onImageClick)
   onImageClickRef.current = onImageClick
@@ -21,7 +20,7 @@ function MapillaryLayer({ onImageClick }) {
     // Canvas renderer keeps dots stable during zoom animations —
     // SVG CircleMarker inherits the pane's CSS scale transform mid-zoom
     // which makes dots drift and "bubble" before snapping back.
-    rendererRef.current = L.canvas({ padding: 0.5 })
+    const renderer = L.canvas({ padding: 0.5 }).addTo(map)
     const group = L.layerGroup().addTo(map)
     groupRef.current = group
 
@@ -41,7 +40,7 @@ function MapillaryLayer({ onImageClick }) {
           const lat = img.geometry.coordinates[1]
           const lng = img.geometry.coordinates[0]
           L.circleMarker([lat, lng], {
-            renderer: rendererRef.current,
+            renderer,
             radius: 4,
             color: 'rgba(255,255,255,0.75)',
             fillColor: '#9CA3AF',
@@ -70,6 +69,7 @@ function MapillaryLayer({ onImageClick }) {
       map.off('moveend', schedFetch)
       map.off('zoomend', schedFetch)
       group.remove()
+      renderer.remove()
     }
   }, [map])
 
