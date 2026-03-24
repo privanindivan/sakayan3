@@ -6,7 +6,7 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
   const { id } = await params
 
   const userRows = await sql.query(
-    `SELECT id, username, badge, avatar_url, created_at FROM users WHERE id = $1`,
+    `SELECT id, username, badge, avatar_url, created_at, points FROM users WHERE id = $1`,
     [id]
   )
   if (!userRows[0]) return NextResponse.json({ error: 'Not found' }, { status: 404 })

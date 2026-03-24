@@ -9,9 +9,12 @@ const RATE_MAX_WRITES = 30;      // max 30 writes per IP per minute
 
 const rateMap = new Map<string, { count: number; windowStart: number }>();
 
+const RATE_LIMIT_EXEMPT = ['/api/auth/login', '/api/auth/logout', '/api/auth/register'];
+
 function rateLimitCheck(request: NextRequest): NextResponse | null {
   if (!WRITE_METHODS.has(request.method)) return null;
   if (!request.nextUrl.pathname.startsWith('/api/')) return null;
+  if (RATE_LIMIT_EXEMPT.includes(request.nextUrl.pathname)) return null;
 
   const ip =
     request.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
@@ -92,6 +95,14 @@ function decodeJWTPayload(token: string): { userId: string; email: string; role:
 }
 
 export function middleware(request: NextRequest) {
+  // /status is local-only
+  if (request.nextUrl.pathname.startsWith('/status')) {
+    const host = request.headers.get('host') || '';
+    if (!host.startsWith('localhost') && !host.startsWith('127.0.0.1')) {
+      return new NextResponse(null, { status: 404 });
+    }
+  }
+
   const blocked = geoBlock(request);
   if (blocked) return blocked;
 
@@ -102,28 +113,41 @@ export function middleware(request: NextRequest) {
   const method = request.method;
 
   if (!pathname.startsWith('/api/')) return NextResponse.next();
-  if (!PROTECTED_METHODS.includes(method)) return NextResponse.next();
   if (PUBLIC_POST_ROUTES.includes(pathname)) return NextResponse.next();
 
   const cookieToken = request.cookies.get('token')?.value;
   const authHeader = request.headers.get('authorization');
   const bearerToken = authHeader?.startsWith('Bearer ') ? authHeader.slice(7) : null;
   const token = cookieToken || bearerToken;
-  if (!token) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+  // For write methods, require a valid token
+  if (PROTECTED_METHODS.includes(method)) {
+    if (!token) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    const payload = decodeJWTPayload(token);
+    if (!payload) {
+      return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
+    }
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set('x-user-id', payload.userId);
+    requestHeaders.set('x-user-role', payload.role);
+    if (payload.email) requestHeaders.set('x-user-email', payload.email);
+    return NextResponse.next({ request: { headers: requestHeaders } });
   }
 
-  const payload = decodeJWTPayload(token);
-  if (!payload) {
-    return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
+  // For read methods, inject user identity if token present (enables my_vote etc.)
+  if (token) {
+    const payload = decodeJWTPayload(token);
+    if (payload) {
+      const requestHeaders = new Headers(request.headers);
+      requestHeaders.set('x-user-id', payload.userId);
+      requestHeaders.set('x-user-role', payload.role);
+      return NextResponse.next({ request: { headers: requestHeaders } });
+    }
   }
 
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set('x-user-id', payload.userId);
-  requestHeaders.set('x-user-role', payload.role);
-  if (payload.email) requestHeaders.set('x-user-email', payload.email);
-
-  return NextResponse.next({ request: { headers: requestHeaders } });
+  return NextResponse.next();
 }
 
 export const config = {

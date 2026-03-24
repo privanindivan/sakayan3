@@ -1,6 +1,20 @@
 import { sql } from '@/lib/db'
 import { NextRequest, NextResponse } from 'next/server'
 
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const userId = req.headers.get('x-user-id')
+  const rows = await sql.query(`
+    SELECT c.*, u.username as creator_name, v.vote_type as my_vote
+    FROM connections c
+    LEFT JOIN users u ON c.created_by = u.id
+    LEFT JOIN votes v ON v.entity_type='connection' AND v.entity_id=c.id AND v.user_id=$1
+    WHERE c.id = $2
+  `, [userId, id])
+  if (!rows[0]) return NextResponse.json({ error: 'Not found' }, { status: 404 })
+  const conn = rows[0]
+  return NextResponse.json({ connection: { ...conn, fromId: conn.from_id, toId: conn.to_id, waypoints: conn.waypoints || [] } })
+}
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params

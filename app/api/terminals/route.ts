@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
       LEFT JOIN users u ON t.created_by = u.id
       LEFT JOIN votes v ON v.entity_type='terminal' AND v.entity_id=t.id AND v.user_id=$1
       ORDER BY t.created_at DESC
-      LIMIT 2000
+      LIMIT 10000
     `, [userId])
   }
   return NextResponse.json({ terminals: rows }, {

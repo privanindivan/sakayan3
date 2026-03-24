@@ -2,7 +2,7 @@ import { sql } from '@/lib/db'
 import { NextRequest, NextResponse } from 'next/server'
 import jwt from 'jsonwebtoken'
 
-const FRONTEND_URL = process.env.NEXT_PUBLIC_FRONTEND_URL || 'http://localhost:5173'
+const FRONTEND_URL = process.env.FRONTEND_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'http://localhost:3000'
 
 export async function GET(req: NextRequest) {
   const code = req.nextUrl.searchParams.get('code')
@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
         code,
         client_id: process.env.GOOGLE_CLIENT_ID!,
         client_secret: process.env.GOOGLE_CLIENT_SECRET!,
-        redirect_uri: process.env.NEXT_PUBLIC_BASE_URL + '/api/auth/google/callback',
+        redirect_uri: (process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL) + '/api/auth/google/callback',
         grant_type: 'authorization_code',
       }),
     })

@@ -5,9 +5,14 @@ import { addPoints } from '@/lib/badge'
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
+  const userId = req.headers.get('x-user-id')
   const rows = await sql.query(
-    `SELECT t.*, u.username as creator_name FROM terminals t LEFT JOIN users u ON t.created_by = u.id WHERE t.id = $1`,
-    [id]
+    `SELECT t.*, u.username as creator_name, v.vote_type as my_vote
+     FROM terminals t
+     LEFT JOIN users u ON t.created_by = u.id
+     LEFT JOIN votes v ON v.entity_type='terminal' AND v.entity_id=t.id AND v.user_id=$1
+     WHERE t.id = $2`,
+    [userId, id]
   )
   if (!rows[0]) return NextResponse.json({ error: 'Not found' }, { status: 404 })
   return NextResponse.json({ terminal: rows[0] })
