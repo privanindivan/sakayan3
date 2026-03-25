@@ -4,98 +4,53 @@ import {
   useMapEvents, useMap,
 } from 'react-leaflet'
 import L from 'leaflet'
+import 'leaflet.vectorgrid'
 import RoadRoute from './RoadRoute'
 import { TYPE_COLORS } from '../data/sampleData'
 
 const MAPILLARY_MIN_ZOOM = 13
-const TILE_DEG = 0.09
 
 function MapillaryLayer({ onImageClick }) {
   const map = useMap()
-  const dotsRef    = useRef(new Map())   // id → L.CircleMarker
-  const fetchedRef = useRef(new Set())
-  const layerRef   = useRef(null)
+  const layerRef = useRef(null)
   const onImageClickRef = useRef(onImageClick)
   onImageClickRef.current = onImageClick
 
   useEffect(() => {
+    const token = process.env.NEXT_PUBLIC_MAPILLARY_TOKEN
+    if (!token || !L.vectorGrid) return
+
     // Custom pane above markerPane (z=600) so dots render on top of transit markers
     if (!map.getPane('mapillaryPane')) {
       map.createPane('mapillaryPane')
       map.getPane('mapillaryPane').style.zIndex = '620'
     }
-    const renderer = L.svg({ pane: 'mapillaryPane' })
-    const layer = L.layerGroup().addTo(map)
+
+    const layer = L.vectorGrid.protobuf(
+      `https://tiles.mapillary.com/maps/vtp/mly1_public/2/{z}/{x}/{y}?access_token=${token}`,
+      {
+        minZoom: MAPILLARY_MIN_ZOOM,
+        maxNativeZoom: 14,
+        rendererFactory: () => L.canvas({ pane: 'mapillaryPane' }),
+        vectorTileLayerStyles: {
+          image: { weight: 1.5, color: '#ffffff', fillColor: '#22C55E', fillOpacity: 1, radius: 4, fill: true },
+          sequence: { weight: 0, opacity: 0, fill: false },
+          overview: { weight: 0, opacity: 0, fill: false, radius: 0 },
+        },
+        interactive: true,
+        getFeatureId: f => f.properties.id,
+      }
+    )
+
+    layer.on('click', e => {
+      L.DomEvent.stopPropagation(e)
+      onImageClickRef.current({ id: e.layer.properties.id, lat: e.latlng.lat, lng: e.latlng.lng })
+    })
+
+    layer.addTo(map)
     layerRef.current = layer
 
-    async function fetchTile(col, row) {
-      const key = `${col}:${row}`
-      if (fetchedRef.current.has(key)) return
-      fetchedRef.current.add(key)
-      const w = +(col * TILE_DEG).toFixed(6), s = +(row * TILE_DEG).toFixed(6)
-      const e = +(w + TILE_DEG).toFixed(6),   n = +(s + TILE_DEG).toFixed(6)
-      try {
-        const res = await fetch(`/api/mapillary?bbox=${w},${s},${e},${n}`)
-        const data = await res.json()
-        ;(data.data || []).forEach(img => {
-          if (dotsRef.current.has(img.id)) return
-          const lat = img.geometry.coordinates[1]
-          const lng = img.geometry.coordinates[0]
-          const dot = L.circleMarker([lat, lng], {
-            radius: 5, color: '#ffffff', fillColor: '#22C55E', fillOpacity: 1, weight: 1.5,
-            renderer, pane: 'mapillaryPane',
-          })
-          dot.on('click', (e) => {
-            e.originalEvent?.stopPropagation()
-            onImageClickRef.current({ id: img.id, lat, lng })
-          })
-          dotsRef.current.set(img.id, dot)
-          layer.addLayer(dot)
-        })
-      } catch { fetchedRef.current.delete(key) }
-    }
-
-    function loadTiles(pad = 1) {
-      if (map.getZoom() < MAPILLARY_MIN_ZOOM) return
-      const b  = map.getBounds()
-      const c0 = Math.floor(b.getWest()  / TILE_DEG) - pad
-      const c1 = Math.floor(b.getEast()  / TILE_DEG) + pad
-      const r0 = Math.floor(b.getSouth() / TILE_DEG) - pad
-      const r1 = Math.floor(b.getNorth() / TILE_DEG) + pad
-      for (let c = c0; c <= c1; c++)
-        for (let r = r0; r <= r1; r++)
-          fetchTile(c, r)
-    }
-
-    // After pan/zoom the pixel origin may reset, making all _point values stale.
-    // Re-project every dot and trigger a full SVG redraw.
-    function redrawDots() {
-      dotsRef.current.forEach(dot => { if (dot._project) dot._project() })
-      const anyDot = dotsRef.current.values().next().value
-      if (!anyDot?._renderer) return
-      const r = anyDot._renderer
-      if (r._update) r._update()
-      if (r._requestRedraw) r._requestRedraw(anyDot)
-    }
-
-    function onZoomEnd() {
-      if (map.getZoom() < MAPILLARY_MIN_ZOOM) {
-        layer.clearLayers(); dotsRef.current.clear(); fetchedRef.current.clear()
-        return
-      }
-      setTimeout(() => { loadTiles(1); redrawDots() }, 200)
-    }
-    const onMoveEnd = () => { loadTiles(1); redrawDots() }
-
-    map.on('zoomend', onZoomEnd)
-    map.on('moveend', onMoveEnd)
-    loadTiles(1)
-
-    return () => {
-      map.off('zoomend', onZoomEnd)
-      map.off('moveend', onMoveEnd)
-      layer.remove()
-    }
+    return () => { layer.remove() }
   }, [map])
 
   return null
