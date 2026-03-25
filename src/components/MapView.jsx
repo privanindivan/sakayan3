@@ -27,7 +27,7 @@ function MapillaryLayer({ onImageClick }) {
     }
 
     const layer = L.vectorGrid.protobuf(
-      `https://tiles.mapillary.com/maps/vtp/mly1_public/2/{z}/{x}/{y}?access_token=${token}`,
+      `https://tiles.mapillary.com/maps/vtp/mly1_public/2/{z}/{x}/{y}?access_token=${encodeURIComponent(token)}`,
       {
         minZoom: MAPILLARY_MIN_ZOOM,
         maxNativeZoom: 14,
