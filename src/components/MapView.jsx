@@ -67,14 +67,20 @@ function MapillaryLayer({ onImageClick }) {
           fetchTile(c, r)
     }
 
+    // Force-redraw all dot paths so _empty() is re-evaluated against the new renderer bounds
+    function redrawDots() {
+      const anyDot = dotsRef.current.values().next().value
+      if (anyDot?._renderer?._requestRedraw) anyDot._renderer._requestRedraw(anyDot)
+    }
+
     function onZoomEnd() {
       if (map.getZoom() < MAPILLARY_MIN_ZOOM) {
         layer.clearLayers(); dotsRef.current.clear(); fetchedRef.current.clear()
         return
       }
-      setTimeout(() => loadTiles(1), 200)
+      setTimeout(() => { loadTiles(1); redrawDots() }, 200)
     }
-    const onMoveEnd = () => loadTiles(1)
+    const onMoveEnd = () => { loadTiles(1); redrawDots() }
 
     map.on('zoomend', onZoomEnd)
     map.on('moveend', onMoveEnd)
