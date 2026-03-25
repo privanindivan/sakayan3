@@ -22,8 +22,8 @@ function MapillaryLayer({ onImageClick }) {
     const token = process.env.NEXT_PUBLIC_MAPILLARY_TOKEN
     if (!token) return
 
-    // Canvas renderer: redraws all dots on every pan/zoom — no disappearing
-    const renderer = L.canvas({ padding: 1 })
+    // SVG renderer: no canvas bounds issues — dots visible anywhere on map
+    const renderer = L.svg()
     const layer = L.layerGroup().addTo(map)
     layerRef.current = layer
 
