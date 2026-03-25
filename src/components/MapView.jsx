@@ -7,73 +7,120 @@ import L from 'leaflet'
 import RoadRoute from './RoadRoute'
 import { TYPE_COLORS } from '../data/sampleData'
 
-const MAPILLARY_MIN_ZOOM = 14
+const MAPILLARY_TILE_ZOOM = 14
 
+// Convert lat/lng to tile XY at a given zoom
+function latLngToTile(lat, lng, zoom) {
+  const n = Math.pow(2, zoom)
+  const x = Math.floor((lng + 180) / 360 * n)
+  const sinLat = Math.sin(lat * Math.PI / 180)
+  const y = Math.floor((1 - Math.log((1 + sinLat) / (1 - sinLat)) / (2 * Math.PI)) / 2 * n)
+  return { x, y }
+}
+
+// Pure-canvas Mapillary layer — fetches Mapillary's actual tile data server-side,
+// draws all dots in one canvas context. Zero Leaflet layer objects per dot.
 function MapillaryLayer({ onImageClick }) {
   const map = useMap()
-  const layerRef = useRef(null)
-  const rendererRef = useRef(null)
-  const timerRef = useRef(null)
+  const stateRef = useRef({ images: [], tileCache: {}, pendingTiles: new Set(), rafId: null, timer: null })
   const onImageClickRef = useRef(onImageClick)
   onImageClickRef.current = onImageClick
 
   useEffect(() => {
-    if (!map.getPane('mapillaryPane')) {
-      map.createPane('mapillaryPane')
-      map.getPane('mapillaryPane').style.zIndex = '620'
+    const s = stateRef.current
+
+    // Canvas attached to map container (not a pane), never moves — we redraw on every map move
+    const canvas = document.createElement('canvas')
+    canvas.style.cssText = 'position:absolute;top:0;left:0;pointer-events:none;z-index:650'
+    map.getContainer().appendChild(canvas)
+
+    const draw = () => {
+      s.rafId = null
+      const size = map.getSize()
+      if (canvas.width !== size.x) canvas.width = size.x
+      if (canvas.height !== size.y) canvas.height = size.y
+      const ctx = canvas.getContext('2d')
+      ctx.clearRect(0, 0, size.x, size.y)
+      if (map.getZoom() < MAPILLARY_TILE_ZOOM) return
+      ctx.fillStyle = '#22C55E'
+      for (const img of s.images) {
+        const pt = map.latLngToContainerPoint([img.lat, img.lng])
+        if (pt.x < -5 || pt.x > size.x + 5 || pt.y < -5 || pt.y > size.y + 5) continue
+        ctx.beginPath()
+        ctx.arc(pt.x, pt.y, 4, 0, Math.PI * 2)
+        ctx.fill()
+      }
     }
 
-    // Single canvas renderer shared by all dots — zero DOM nodes per dot
-    rendererRef.current = L.canvas({ pane: 'mapillaryPane' })
+    const schedDraw = () => { if (!s.rafId) s.rafId = requestAnimationFrame(draw) }
 
-    const layer = L.layerGroup()
-    layerRef.current = layer
-    layer.addTo(map)
+    const fetchTiles = () => {
+      clearTimeout(s.timer)
+      s.timer = setTimeout(async () => {
+        if (map.getZoom() < MAPILLARY_TILE_ZOOM) { s.images = []; schedDraw(); return }
 
-    const fetchImages = () => {
-      clearTimeout(timerRef.current)
-      timerRef.current = setTimeout(async () => {
-        if (map.getZoom() < MAPILLARY_MIN_ZOOM) {
-          layer.clearLayers()
-          return
-        }
+        // Get all z14 tiles visible in current viewport
         const b = map.getBounds()
-        const bbox = [
-          b.getWest().toFixed(5), b.getSouth().toFixed(5),
-          b.getEast().toFixed(5), b.getNorth().toFixed(5),
-        ].join(',')
-        try {
-          const res = await fetch(`/api/mapillary?bbox=${bbox}`)
-          const json = await res.json()
-          layer.clearLayers()
-          ;(json.data || []).forEach(img => {
-            const [lng, lat] = img.geometry.coordinates
-            L.circleMarker([lat, lng], {
-              radius: 4,
-              color: '#22C55E',
-              fillColor: '#22C55E',
-              fillOpacity: 0.85,
-              weight: 0,
-              pane: 'mapillaryPane',
-              renderer: rendererRef.current,
-            }).on('click', e => {
-              L.DomEvent.stopPropagation(e)
-              onImageClickRef.current({ id: img.id, lat, lng })
-            }).addTo(layer)
-          })
-        } catch { /* network error — keep existing dots */ }
-      }, 300)
+        const tMin = latLngToTile(b.getNorth(), b.getWest(), MAPILLARY_TILE_ZOOM)
+        const tMax = latLngToTile(b.getSouth(), b.getEast(), MAPILLARY_TILE_ZOOM)
+        const needed = []
+        for (let tx = tMin.x; tx <= tMax.x; tx++) {
+          for (let ty = tMin.y; ty <= tMax.y; ty++) {
+            needed.push(`${MAPILLARY_TILE_ZOOM}/${tx}/${ty}`)
+          }
+        }
+
+        // Fetch only uncached tiles in parallel
+        const uncached = needed.filter(k => !(k in s.tileCache) && !s.pendingTiles.has(k))
+        uncached.forEach(k => s.pendingTiles.add(k))
+
+        await Promise.all(uncached.map(async k => {
+          const [z, x, y] = k.split('/')
+          try {
+            const res = await fetch(`/api/maptile-json?z=${z}&x=${x}&y=${y}`)
+            const json = await res.json()
+            s.tileCache[k] = json.images || []
+          } catch {
+            s.tileCache[k] = []
+          } finally {
+            s.pendingTiles.delete(k)
+          }
+        }))
+
+        // Merge all cached tiles for visible area into one images array
+        s.images = needed.flatMap(k => s.tileCache[k] || [])
+        schedDraw()
+      }, 350)
     }
 
-    fetchImages()
-    map.on('moveend', fetchImages)
-    map.on('zoomend', fetchImages)
+    const handleClick = (e) => {
+      if (map.getZoom() < MAPILLARY_TILE_ZOOM) return
+      const pt = e.containerPoint
+      let closest = null, minDist = 14
+      for (const img of s.images) {
+        const ip = map.latLngToContainerPoint([img.lat, img.lng])
+        const d = Math.hypot(pt.x - ip.x, pt.y - ip.y)
+        if (d < minDist) { minDist = d; closest = img }
+      }
+      if (closest) onImageClickRef.current(closest)
+    }
+
+    map.on('move', schedDraw)
+    map.on('zoom', schedDraw)
+    map.on('moveend', fetchTiles)
+    map.on('zoomend', fetchTiles)
+    map.on('click', handleClick)
+    fetchTiles()
 
     return () => {
-      clearTimeout(timerRef.current)
-      map.off('moveend', fetchImages)
-      map.off('zoomend', fetchImages)
-      layer.remove()
+      clearTimeout(s.timer)
+      if (s.rafId) cancelAnimationFrame(s.rafId)
+      map.off('move', schedDraw)
+      map.off('zoom', schedDraw)
+      map.off('moveend', fetchTiles)
+      map.off('zoomend', fetchTiles)
+      map.off('click', handleClick)
+      canvas.remove()
     }
   }, [map])
 
@@ -358,7 +405,10 @@ export default function MapView({
         attributionControl={false}
       >
         <TileLayer
-          url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+          key={showStreetPhotos ? 'light' : 'osm'}
+          url={showStreetPhotos
+            ? 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
+            : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'}
           attribution=''
           maxZoom={19}
         />
