@@ -67,10 +67,13 @@ function MapillaryLayer({ onImageClick }) {
           fetchTile(c, r)
     }
 
-    // Force-redraw all dot paths so _empty() is re-evaluated against the new renderer bounds
+    // Force-update renderer bounds then redraw all dot paths against the new viewport
     function redrawDots() {
       const anyDot = dotsRef.current.values().next().value
-      if (anyDot?._renderer?._requestRedraw) anyDot._renderer._requestRedraw(anyDot)
+      if (!anyDot?._renderer) return
+      const r = anyDot._renderer
+      if (r._update) r._update()          // refresh renderer._bounds to current viewport
+      if (r._requestRedraw) r._requestRedraw(anyDot)  // schedule _updatePath on all layers
     }
 
     function onZoomEnd() {
