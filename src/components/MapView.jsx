@@ -67,13 +67,15 @@ function MapillaryLayer({ onImageClick }) {
           fetchTile(c, r)
     }
 
-    // Force-update renderer bounds then redraw all dot paths against the new viewport
+    // After pan/zoom the pixel origin may reset, making all _point values stale.
+    // Re-project every dot and trigger a full SVG redraw.
     function redrawDots() {
+      dotsRef.current.forEach(dot => { if (dot._project) dot._project() })
       const anyDot = dotsRef.current.values().next().value
       if (!anyDot?._renderer) return
       const r = anyDot._renderer
-      if (r._update) r._update()          // refresh renderer._bounds to current viewport
-      if (r._requestRedraw) r._requestRedraw(anyDot)  // schedule _updatePath on all layers
+      if (r._update) r._update()
+      if (r._requestRedraw) r._requestRedraw(anyDot)
     }
 
     function onZoomEnd() {
