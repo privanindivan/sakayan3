@@ -262,6 +262,28 @@ html, body, #root {
 .fab-cancel             { background: #e53935 !important; color: white !important; border-color: #e53935 !important; }
 .fab-cancel:active      { background: #c62828 !important; }
 
+/* Street Photos toggle button — upper left */
+.street-photos-btn {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 1000;
+  width: auto !important;
+  border-radius: 24px !important;
+  padding: 0 14px !important;
+  height: 36px !important;
+  background: white;
+  display: flex !important;
+  align-items: center;
+  border: 1.5px solid #D1D5DB !important;
+  color: #9CA3AF;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+.street-photos-btn.street-photos-on {
+  border-color: #22C55E !important;
+}
+.street-photos-btn:active { background: #f0fdf4; }
+
 /* Pin confirm card — appears after tapping map to place pin */
 .pin-confirm-card {
   position: absolute;
@@ -559,6 +581,22 @@ html, body, #root {
   align-items: center;
   justify-content: center;
 }
+
+.modal-copy-link {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  background: #f0f4ff;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+.modal-copy-link:hover { background: #d1fae5; }
 
 .modal-body { padding: 14px 18px 20px; }
 

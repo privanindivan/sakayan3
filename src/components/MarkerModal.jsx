@@ -59,6 +59,7 @@ export default function MarkerModal({
   onOpenProfile,
 }) {
   const [editing,  setEditing]  = useState(false)
+  const [copied,   setCopied]   = useState(false)
   const [tab,      setTab]      = useState('info') // 'info' | 'comments' | 'history'
   const [uploading, setUploading] = useState(false)
   const [editingConnId, setEditingConnId] = useState(null)
@@ -345,6 +346,19 @@ export default function MarkerModal({
                 <button className="edit-btn connect-btn"
                   onClick={() => requireAdmin(() => { onStartConnect(marker.id); onClose() })}>
                   🔗 Connect{!user && ' 🔒'}
+                </button>
+                <button
+                  className="modal-copy-link"
+                  onClick={() => {
+                    const url = `${window.location.origin}${window.location.pathname}?t=${marker.id}`
+                    navigator.clipboard.writeText(url).then(() => {
+                      setCopied(true)
+                      setTimeout(() => setCopied(false), 2000)
+                    })
+                  }}
+                  aria-label="Copy link"
+                >
+                  {copied ? '✓' : '🔗'}
                 </button>
               </div>
 

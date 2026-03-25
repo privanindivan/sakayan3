@@ -81,6 +81,7 @@ export default function App() {
   const [focusedSegment, setFocusedSegment] = useState(null)
   const [addingWaypoint, setAddingWaypoint] = useState(null)
   const [pendingWpLatLng, setPendingWpLatLng] = useState(null)
+  const [showStreetPhotos, setShowStreetPhotos] = useState(true)
   const shownAuthPrompt = useRef(false)
 
   // Handle OAuth redirect (after Google login)
@@ -144,6 +145,19 @@ export default function App() {
 
       setLoading(false)
       setAuthChecked(true)
+
+      // Auto-open terminal from URL ?t=<id>
+      const tid = new URLSearchParams(window.location.search).get('t')
+      if (tid) {
+        const found = (terminalsData.terminals || []).find(t => String(t.id) === String(tid))
+        if (found) setSelectedMarker({
+          id: found.id, lat: found.lat, lng: found.lng, name: found.name,
+          type: found.type, details: found.details || '', schedule: found.schedule,
+          images: found.images || [], likes: found.likes || 0, dislikes: found.dislikes || 0,
+          outdated_votes: found.outdated_votes || 0, created_by: found.created_by,
+          creator_name: found.creator_name, my_vote: found.my_vote,
+        })
+      }
 
       // Show auth prompt once on first visit if not logged in
       if (!authData.user && !localStorage.getItem('sakayan_auth_dismissed')) {
@@ -280,6 +294,7 @@ export default function App() {
       return
     }
     setSelectedMarker(marker)
+    window.history.pushState({}, '', `?t=${marker.id}`)
     const connectedIds = connections
       .filter(c => c.fromId === marker.id || c.toId === marker.id)
       .map(c => c.fromId === marker.id ? c.toId : c.fromId)
@@ -519,7 +534,21 @@ export default function App() {
         pendingWpLatLng={pendingWpLatLng}
         onWaypointClick={(fromId, toId) => setFocusedSegment({ fromId, toId })}
         onStreetViewClick={(img) => setStreetViewImg(img)}
+        showStreetPhotos={showStreetPhotos}
       />
+
+      {/* Street Photos toggle — upper left */}
+      <button
+        className={`icon-btn street-photos-btn ${showStreetPhotos ? 'street-photos-on' : ''}`}
+        onClick={() => setShowStreetPhotos(v => !v)}
+        aria-label="Toggle Street Photos"
+        title="Street Photos"
+      >
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="9" cy="9" r="7" fill={showStreetPhotos ? '#22C55E' : '#9CA3AF'} stroke="white" strokeWidth="1.5"/>
+        </svg>
+        <span style={{ fontSize: 11, marginLeft: 4, fontWeight: 600, color: showStreetPhotos ? '#22C55E' : '#9CA3AF' }}>Street Photos</span>
+      </button>
 
       {/* Corner buttons — locate only for anonymous; locate + add for logged-in */}
       <div className="corner-btns">
@@ -637,7 +666,7 @@ export default function App() {
             if (!user) { setShowAuth(true); return }
             cb()
           }}
-          onClose={() => setSelectedMarker(null)}
+          onClose={() => { setSelectedMarker(null); window.history.replaceState({}, '', window.location.pathname) }}
           onSave={async (updated) => {
             try {
               const res = await apiFetch(`/api/terminals/${updated.id}`, {
