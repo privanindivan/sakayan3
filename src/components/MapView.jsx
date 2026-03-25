@@ -26,7 +26,7 @@ function MapillaryLayer({ onImageClick }) {
     }
 
     const layer = L.vectorGrid.protobuf(
-      `/api/maptile/{z}/{x}/{y}`,
+      `/api/maptile?z={z}&x={x}&y={y}`,
       {
         minZoom: MAPILLARY_MIN_ZOOM,
         maxNativeZoom: 14,
