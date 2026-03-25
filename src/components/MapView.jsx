@@ -8,7 +8,7 @@ import 'leaflet.vectorgrid'
 import RoadRoute from './RoadRoute'
 import { TYPE_COLORS } from '../data/sampleData'
 
-const MAPILLARY_MIN_ZOOM = 13
+const MAPILLARY_MIN_ZOOM = 14
 
 function MapillaryLayer({ onImageClick }) {
   const map = useMap()
@@ -31,8 +31,9 @@ function MapillaryLayer({ onImageClick }) {
         minZoom: MAPILLARY_MIN_ZOOM,
         maxNativeZoom: 14,
         pane: 'mapillaryPane',
+        rendererFactory: L.canvas.tile,
         vectorTileLayerStyles: {
-          image: { weight: 1.5, color: '#ffffff', fillColor: '#22C55E', fillOpacity: 1, radius: 4, fill: true },
+          image: { weight: 0, fillColor: '#22C55E', fillOpacity: 0.9, radius: 3, fill: true },
           sequence: { weight: 0, opacity: 0, fill: false },
           overview: { weight: 0, opacity: 0, fill: false, radius: 0 },
         },
