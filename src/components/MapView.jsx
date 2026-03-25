@@ -19,8 +19,12 @@ function MapillaryLayer({ onImageClick }) {
   onImageClickRef.current = onImageClick
 
   useEffect(() => {
-    // SVG renderer: no canvas bounds issues — dots visible anywhere on map
-    const renderer = L.svg()
+    // Custom pane above markerPane (z=600) so dots render on top of transit markers
+    if (!map.getPane('mapillaryPane')) {
+      map.createPane('mapillaryPane')
+      map.getPane('mapillaryPane').style.zIndex = '620'
+    }
+    const renderer = L.svg({ pane: 'mapillaryPane' })
     const layer = L.layerGroup().addTo(map)
     layerRef.current = layer
 
@@ -39,7 +43,7 @@ function MapillaryLayer({ onImageClick }) {
           const lng = img.geometry.coordinates[0]
           const dot = L.circleMarker([lat, lng], {
             radius: 5, color: '#ffffff', fillColor: '#22C55E', fillOpacity: 1, weight: 1.5,
-            renderer,
+            renderer, pane: 'mapillaryPane',
           })
           dot.on('click', (e) => {
             e.originalEvent?.stopPropagation()
