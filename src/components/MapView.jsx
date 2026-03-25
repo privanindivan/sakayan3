@@ -1,7 +1,6 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import {
   MapContainer, TileLayer, Marker, Polyline, Tooltip,
-  CircleMarker,
   useMapEvents, useMap,
 } from 'react-leaflet'
 import L from 'leaflet'
@@ -10,19 +9,22 @@ import { TYPE_COLORS } from '../data/sampleData'
 
 const MAPILLARY_MIN_ZOOM = 13
 const TILE_DEG = 0.09
-const canvasRenderer = typeof window !== 'undefined' ? L.canvas({ padding: 0.5 }) : null
 
 function MapillaryLayer({ onImageClick }) {
   const map = useMap()
-  const dotsRef    = useRef(new Map())
+  const dotsRef    = useRef(new Map())   // id → L.CircleMarker
   const fetchedRef = useRef(new Set())
-  const [images, setImages] = useState([])
+  const layerRef   = useRef(null)
   const onImageClickRef = useRef(onImageClick)
   onImageClickRef.current = onImageClick
 
   useEffect(() => {
     const token = process.env.NEXT_PUBLIC_MAPILLARY_TOKEN
     if (!token) return
+
+    // Imperative layer — no React state, no canvas sync issues
+    const layer = L.layerGroup().addTo(map)
+    layerRef.current = layer
 
     async function fetchTile(col, row) {
       const key = `${col}:${row}`
@@ -31,20 +33,23 @@ function MapillaryLayer({ onImageClick }) {
       const w = +(col * TILE_DEG).toFixed(6), s = +(row * TILE_DEG).toFixed(6)
       const e = +(w + TILE_DEG).toFixed(6),   n = +(s + TILE_DEG).toFixed(6)
       try {
-        // Call Mapillary Graph API directly — it supports CORS for third-party browser use
-        // Use URLSearchParams to properly encode token (contains | chars that break raw template literals)
         const params = new URLSearchParams({ access_token: token, bbox: `${w},${s},${e},${n}`, limit: 500, fields: 'id,geometry' })
-        const url = `https://graph.mapillary.com/images?${params}`
-        const res = await fetch(url)
+        const res = await fetch(`https://graph.mapillary.com/images?${params}`)
         const data = await res.json()
-        let added = 0
         ;(data.data || []).forEach(img => {
-          if (!dotsRef.current.has(img.id)) {
-            dotsRef.current.set(img.id, { id: img.id, lat: img.geometry.coordinates[1], lng: img.geometry.coordinates[0] })
-            added++
-          }
+          if (dotsRef.current.has(img.id)) return
+          const lat = img.geometry.coordinates[1]
+          const lng = img.geometry.coordinates[0]
+          const dot = L.circleMarker([lat, lng], {
+            radius: 5, color: '#ffffff', fillColor: '#22C55E', fillOpacity: 1, weight: 1.5,
+          })
+          dot.on('click', (e) => {
+            e.originalEvent?.stopPropagation()
+            onImageClickRef.current({ id: img.id, lat, lng })
+          })
+          dotsRef.current.set(img.id, dot)
+          layer.addLayer(dot)
         })
-        if (added > 0) setImages([...dotsRef.current.values()])
       } catch { fetchedRef.current.delete(key) }
     }
 
@@ -62,7 +67,7 @@ function MapillaryLayer({ onImageClick }) {
 
     function onZoomEnd() {
       if (map.getZoom() < MAPILLARY_MIN_ZOOM) {
-        dotsRef.current.clear(); fetchedRef.current.clear(); setImages([])
+        layer.clearLayers(); dotsRef.current.clear(); fetchedRef.current.clear()
         return
       }
       setTimeout(() => loadTiles(1), 200)
@@ -76,19 +81,11 @@ function MapillaryLayer({ onImageClick }) {
     return () => {
       map.off('zoomend', onZoomEnd)
       map.off('moveend', onMoveEnd)
+      layer.remove()
     }
   }, [map])
 
-  return images.map(img => (
-    <CircleMarker
-      key={img.id}
-      center={[img.lat, img.lng]}
-      radius={4}
-      renderer={canvasRenderer}
-      pathOptions={{ color: '#ffffff', fillColor: '#22C55E', fillOpacity: 1, weight: 1 }}
-      eventHandlers={{ click: (e) => { e.originalEvent?.stopPropagation(); onImageClickRef.current(img) } }}
-    />
-  ))
+  return null
 }
 
 const PHILIPPINES = [14.55, 121.02]  // Ortigas/Mandaluyong — best Mapillary coverage for mobile
