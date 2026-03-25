@@ -4,7 +4,6 @@ import {
   useMapEvents, useMap,
 } from 'react-leaflet'
 import L from 'leaflet'
-import 'leaflet.vectorgrid'
 import RoadRoute from './RoadRoute'
 import { TYPE_COLORS } from '../data/sampleData'
 
@@ -13,44 +12,69 @@ const MAPILLARY_MIN_ZOOM = 14
 function MapillaryLayer({ onImageClick }) {
   const map = useMap()
   const layerRef = useRef(null)
+  const rendererRef = useRef(null)
+  const timerRef = useRef(null)
   const onImageClickRef = useRef(onImageClick)
   onImageClickRef.current = onImageClick
 
   useEffect(() => {
-    if (!L.vectorGrid) return
-
-    // Custom pane above markerPane (z=600) so dots render on top of transit markers
     if (!map.getPane('mapillaryPane')) {
       map.createPane('mapillaryPane')
       map.getPane('mapillaryPane').style.zIndex = '620'
     }
 
-    const layer = L.vectorGrid.protobuf(
-      `/api/maptile?z={z}&x={x}&y={y}`,
-      {
-        minZoom: MAPILLARY_MIN_ZOOM,
-        maxNativeZoom: 14,
-        pane: 'mapillaryPane',
-        rendererFactory: L.canvas.tile,
-        vectorTileLayerStyles: {
-          image: { weight: 0, fillColor: '#22C55E', fillOpacity: 0.9, radius: 3, fill: true },
-          sequence: { weight: 0, opacity: 0, fill: false },
-          overview: { weight: 0, opacity: 0, fill: false, radius: 0 },
-        },
-        interactive: true,
-        getFeatureId: f => f.properties.id,
-      }
-    )
+    // Single canvas renderer shared by all dots — zero DOM nodes per dot
+    rendererRef.current = L.canvas({ pane: 'mapillaryPane' })
 
-    layer.on('click', e => {
-      L.DomEvent.stopPropagation(e)
-      onImageClickRef.current({ id: e.layer.properties.id, lat: e.latlng.lat, lng: e.latlng.lng })
-    })
-
-    layer.addTo(map)
+    const layer = L.layerGroup()
     layerRef.current = layer
+    layer.addTo(map)
 
-    return () => { layer.remove() }
+    const fetchImages = () => {
+      clearTimeout(timerRef.current)
+      timerRef.current = setTimeout(async () => {
+        if (map.getZoom() < MAPILLARY_MIN_ZOOM) {
+          layer.clearLayers()
+          return
+        }
+        const b = map.getBounds()
+        const bbox = [
+          b.getWest().toFixed(5), b.getSouth().toFixed(5),
+          b.getEast().toFixed(5), b.getNorth().toFixed(5),
+        ].join(',')
+        try {
+          const res = await fetch(`/api/mapillary?bbox=${bbox}`)
+          const json = await res.json()
+          layer.clearLayers()
+          ;(json.data || []).forEach(img => {
+            const [lng, lat] = img.geometry.coordinates
+            L.circleMarker([lat, lng], {
+              radius: 4,
+              color: '#22C55E',
+              fillColor: '#22C55E',
+              fillOpacity: 0.85,
+              weight: 0,
+              pane: 'mapillaryPane',
+              renderer: rendererRef.current,
+            }).on('click', e => {
+              L.DomEvent.stopPropagation(e)
+              onImageClickRef.current({ id: img.id, lat, lng })
+            }).addTo(layer)
+          })
+        } catch { /* network error — keep existing dots */ }
+      }, 300)
+    }
+
+    fetchImages()
+    map.on('moveend', fetchImages)
+    map.on('zoomend', fetchImages)
+
+    return () => {
+      clearTimeout(timerRef.current)
+      map.off('moveend', fetchImages)
+      map.off('zoomend', fetchImages)
+      layer.remove()
+    }
   }, [map])
 
   return null
@@ -73,6 +97,14 @@ function getSavedView() {
 }
 const PH_BOUNDS = [[4.5, 116.0], [21.5, 127.0]]
 const GREY = '#9CA3AF'
+
+// Guard against geometry stored as [lng, lat] instead of [lat, lng].
+// For the Philippines: lat is 5–21, lng is 116–128. If first coord > 90, it's lng.
+function normGeom(geometry) {
+  if (!geometry || !geometry.length) return geometry
+  const [a] = geometry[0]
+  return Math.abs(a) > 90 ? geometry.map(([ln, la]) => [la, ln]) : geometry
+}
 
 // Check whether a connection matches the current focused segment.
 // Prefers matching by connId (set when clicking from MarkerModal) so
@@ -343,7 +375,7 @@ export default function MapView({
 
           if (conn.geometry) {
             return (
-              <Polyline key={conn.id} positions={conn.geometry}
+              <Polyline key={conn.id} positions={normGeom(conn.geometry)}
                 color={lineColor} weight={5} opacity={lineOpacity} interactive={false} />
             )
           }
@@ -362,7 +394,7 @@ export default function MapView({
           const lineColor = conn.color || TYPE_COLORS[from.type] || '#4A90D9'
           if (conn.geometry) {
             return (
-              <Polyline key={`focused-${conn.id}`} positions={conn.geometry}
+              <Polyline key={`focused-${conn.id}`} positions={normGeom(conn.geometry)}
                 color={lineColor} weight={5} opacity={1} interactive={false} />
             )
           }
