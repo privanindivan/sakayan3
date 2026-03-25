@@ -31,7 +31,7 @@ function MapillaryLayer({ onImageClick }) {
       {
         minZoom: MAPILLARY_MIN_ZOOM,
         maxNativeZoom: 14,
-        rendererFactory: () => L.canvas({ pane: 'mapillaryPane' }),
+        pane: 'mapillaryPane',
         vectorTileLayerStyles: {
           image: { weight: 1.5, color: '#ffffff', fillColor: '#22C55E', fillOpacity: 1, radius: 4, fill: true },
           sequence: { weight: 0, opacity: 0, fill: false },
