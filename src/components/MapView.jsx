@@ -17,8 +17,7 @@ function MapillaryLayer({ onImageClick }) {
   onImageClickRef.current = onImageClick
 
   useEffect(() => {
-    const token = process.env.NEXT_PUBLIC_MAPILLARY_TOKEN
-    if (!token || !L.vectorGrid) return
+    if (!L.vectorGrid) return
 
     // Custom pane above markerPane (z=600) so dots render on top of transit markers
     if (!map.getPane('mapillaryPane')) {
@@ -27,7 +26,7 @@ function MapillaryLayer({ onImageClick }) {
     }
 
     const layer = L.vectorGrid.protobuf(
-      `https://tiles.mapillary.com/maps/vtp/mly1_public/2/{z}/{x}/{y}?access_token=${encodeURIComponent(token)}`,
+      `/api/maptile/{z}/{x}/{y}`,
       {
         minZoom: MAPILLARY_MIN_ZOOM,
         maxNativeZoom: 14,
