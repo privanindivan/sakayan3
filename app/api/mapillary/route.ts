@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
     if (rows.length > 0) {
       // Background: refresh from Mapillary so new images get added over time
       if (TOKEN) {
-        const url = `https://graph.mapillary.com/images?access_token=${TOKEN}&bbox=${w},${s},${e},${n}&limit=500&fields=id,geometry`
+        const url = `https://graph.mapillary.com/images?access_token=${TOKEN}&bbox=${w},${s},${e},${n}&limit=2000&fields=id,geometry`
         fetch(url).then(r => r.json()).then(json => {
           const imgs: Array<{ id: string; geometry: { coordinates: number[] } }> = json.data || []
           if (imgs.length === 0) return

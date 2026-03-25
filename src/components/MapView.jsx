@@ -9,13 +9,23 @@ import { TYPE_COLORS } from '../data/sampleData'
 
 const MAPILLARY_TILE_ZOOM = 14
 
-// Convert lat/lng to tile XY at a given zoom
+// Convert lat/lng → tile XY
 function latLngToTile(lat, lng, zoom) {
   const n = Math.pow(2, zoom)
   const x = Math.floor((lng + 180) / 360 * n)
   const sinLat = Math.sin(lat * Math.PI / 180)
   const y = Math.floor((1 - Math.log((1 + sinLat) / (1 - sinLat)) / (2 * Math.PI)) / 2 * n)
   return { x, y }
+}
+
+// Convert tile XY → bbox {west,south,east,north}
+function tileToBbox(x, y, zoom) {
+  const n = Math.pow(2, zoom)
+  const west  = (x / n) * 360 - 180
+  const east  = ((x + 1) / n) * 360 - 180
+  const north = Math.atan(Math.sinh(Math.PI * (1 - 2 * y / n))) * 180 / Math.PI
+  const south = Math.atan(Math.sinh(Math.PI * (1 - 2 * (y + 1) / n))) * 180 / Math.PI
+  return { west, south, east, north }
 }
 
 // Pure-canvas Mapillary layer — fetches Mapillary's actual tile data server-side,
@@ -75,11 +85,17 @@ function MapillaryLayer({ onImageClick }) {
         uncached.forEach(k => s.pendingTiles.add(k))
 
         await Promise.all(uncached.map(async k => {
-          const [z, x, y] = k.split('/')
+          const [, tx, ty] = k.split('/').map(Number)
+          const { west, south, east, north } = tileToBbox(tx, ty, MAPILLARY_TILE_ZOOM)
+          const bbox = `${west.toFixed(5)},${south.toFixed(5)},${east.toFixed(5)},${north.toFixed(5)}`
           try {
-            const res = await fetch(`/api/maptile-json?z=${z}&x=${x}&y=${y}`)
+            const res = await fetch(`/api/mapillary?bbox=${bbox}`)
             const json = await res.json()
-            s.tileCache[k] = json.images || []
+            s.tileCache[k] = (json.data || []).map(img => ({
+              id: img.id,
+              lat: img.geometry.coordinates[1],
+              lng: img.geometry.coordinates[0],
+            }))
           } catch {
             s.tileCache[k] = []
           } finally {
