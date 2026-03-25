@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
     const rows = await sql.query(
       `SELECT id, lat, lng FROM mapillary_images
        WHERE lng >= $1 AND lng <= $2 AND lat >= $3 AND lat <= $4
-       LIMIT 500`,
+       LIMIT 2000`,
       [w, e, s, n]
     )
     if (rows.length > 0) {
