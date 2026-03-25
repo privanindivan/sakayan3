@@ -22,7 +22,8 @@ function MapillaryLayer({ onImageClick }) {
     const token = process.env.NEXT_PUBLIC_MAPILLARY_TOKEN
     if (!token) return
 
-    // Imperative layer — no React state, no canvas sync issues
+    // Canvas renderer: redraws all dots on every pan/zoom — no disappearing
+    const renderer = L.canvas({ padding: 1 })
     const layer = L.layerGroup().addTo(map)
     layerRef.current = layer
 
@@ -42,6 +43,7 @@ function MapillaryLayer({ onImageClick }) {
           const lng = img.geometry.coordinates[0]
           const dot = L.circleMarker([lat, lng], {
             radius: 5, color: '#ffffff', fillColor: '#22C55E', fillOpacity: 1, weight: 1.5,
+            renderer,
           })
           dot.on('click', (e) => {
             e.originalEvent?.stopPropagation()
