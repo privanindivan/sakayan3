@@ -1,0 +1,12 @@
+export const RED       = '#E8342A';
+export const RED_DARK  = '#C42B22';
+export const WHITE     = '#FFFFFF';
+export const BLACK     = '#0A0A0A';
+export const GREY_BG   = '#F4F4F4';
+export const MAP_BG    = '#E8E4DC';
+export const PIN_RED   = '#E8342A';
+export const PIN_BLUE  = '#2A6FE8';
+export const ROUTE     = '#2A6FE8';
+export const DOT_GREY  = '#9CA3AF';
+export const OVERLAY   = 'rgba(0,0,0,0.55)';
+export const CARD_BG   = 'rgba(255,255,255,0.96)';

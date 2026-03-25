@@ -26,30 +26,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/api/connections/route.js"
     ],
-    "/api/auth/google/route": [
+    "/api/mapillary/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/auth/google/route.js"
-    ],
-    "/api/auth/google/callback/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/auth/google/callback/route.js"
-    ],
-    "/api/auth/logout/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/auth/logout/route.js"
-    ],
-    "/api/auth/register/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/auth/register/route.js"
-    ],
-    "/api/users/[id]/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/users/[id]/route.js"
+      "static/chunks/app/api/mapillary/route.js"
     ],
     "/status/layout": [
       "static/chunks/webpack.js",
