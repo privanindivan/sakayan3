@@ -74,6 +74,7 @@ export default function StreetViewPanel({ image, onClose }) {
             src={`https://www.mapillary.com/embed?image_key=${image.id}&style=photo`}
             className="sv-iframe"
             style={{ opacity: loaded ? 1 : 0 }}
+            allow="xr-spatial-tracking; fullscreen"
             allowFullScreen
             onLoad={() => setLoaded(true)}
           />
