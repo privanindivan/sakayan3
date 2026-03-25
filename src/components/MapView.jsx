@@ -19,9 +19,6 @@ function MapillaryLayer({ onImageClick }) {
   onImageClickRef.current = onImageClick
 
   useEffect(() => {
-    const token = process.env.NEXT_PUBLIC_MAPILLARY_TOKEN
-    if (!token) return
-
     // SVG renderer: no canvas bounds issues — dots visible anywhere on map
     const renderer = L.svg()
     const layer = L.layerGroup().addTo(map)
@@ -34,8 +31,7 @@ function MapillaryLayer({ onImageClick }) {
       const w = +(col * TILE_DEG).toFixed(6), s = +(row * TILE_DEG).toFixed(6)
       const e = +(w + TILE_DEG).toFixed(6),   n = +(s + TILE_DEG).toFixed(6)
       try {
-        const params = new URLSearchParams({ access_token: token, bbox: `${w},${s},${e},${n}`, limit: 500, fields: 'id,geometry' })
-        const res = await fetch(`https://graph.mapillary.com/images?${params}`)
+        const res = await fetch(`/api/mapillary?bbox=${w},${s},${e},${n}`)
         const data = await res.json()
         ;(data.data || []).forEach(img => {
           if (dotsRef.current.has(img.id)) return
