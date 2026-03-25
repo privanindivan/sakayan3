@@ -27,7 +27,7 @@
     "react-leaflet": "^4.2.1"
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs": "^5.15.9",
+    "@netlify/plugin-nextjs": "^4.41.3",
     "@tailwindcss/postcss": "^4.2.1",
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.10",
