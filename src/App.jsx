@@ -537,7 +537,7 @@ export default function App() {
         showStreetPhotos={showStreetPhotos}
       />
 
-      {/* Street Photos toggle — upper left */}
+      {/* Street Photos toggle — bottom left */}
       <button
         className={`icon-btn street-photos-btn ${showStreetPhotos ? 'street-photos-on' : ''}`}
         onClick={() => setShowStreetPhotos(v => !v)}

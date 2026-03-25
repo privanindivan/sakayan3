@@ -262,10 +262,10 @@ html, body, #root {
 .fab-cancel             { background: #e53935 !important; color: white !important; border-color: #e53935 !important; }
 .fab-cancel:active      { background: #c62828 !important; }
 
-/* Street Photos toggle button — upper left */
+/* Street Photos toggle button — bottom left */
 .street-photos-btn {
   position: absolute;
-  top: 16px;
+  bottom: calc(24px + env(safe-area-inset-bottom));
   left: 16px;
   z-index: 1000;
   width: auto !important;
