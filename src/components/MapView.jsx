@@ -10,37 +10,37 @@ import { TYPE_COLORS } from '../data/sampleData'
 
 const MAPILLARY_MIN_ZOOM = 13
 const TILE_DEG = 0.09
+const canvasRenderer = typeof window !== 'undefined' ? L.canvas({ padding: 0.5 }) : null
 
 function MapillaryLayer({ onImageClick }) {
   const map = useMap()
   const dotsRef    = useRef(new Map())
   const fetchedRef = useRef(new Set())
   const [images, setImages] = useState([])
-  const zoomTimer  = useRef(null)
   const onImageClickRef = useRef(onImageClick)
   onImageClickRef.current = onImageClick
 
   useEffect(() => {
+    const token = process.env.NEXT_PUBLIC_MAPILLARY_TOKEN
+    if (!token) return
+
     async function fetchTile(col, row) {
       const key = `${col}:${row}`
       if (fetchedRef.current.has(key)) return
       fetchedRef.current.add(key)
-      const w = col * TILE_DEG,  s = row * TILE_DEG
-      const e = w   + TILE_DEG,  n = s   + TILE_DEG
+      const w = +(col * TILE_DEG).toFixed(6), s = +(row * TILE_DEG).toFixed(6)
+      const e = +(w + TILE_DEG).toFixed(6),   n = +(s + TILE_DEG).toFixed(6)
       try {
-        // Always use server proxy — token lives server-side, never exposed in browser bundle
-        const url = `/api/mapillary?bbox=${w},${s},${e},${n}`
+        // Call Mapillary Graph API directly — it supports CORS for third-party browser use
+        // Use URLSearchParams to properly encode token (contains | chars that break raw template literals)
+        const params = new URLSearchParams({ access_token: token, bbox: `${w},${s},${e},${n}`, limit: 500, fields: 'id,geometry' })
+        const url = `https://graph.mapillary.com/images?${params}`
         const res = await fetch(url)
         const data = await res.json()
         let added = 0
         ;(data.data || []).forEach(img => {
           if (!dotsRef.current.has(img.id)) {
-            dotsRef.current.set(img.id, {
-              id: img.id,
-              lat: img.geometry.coordinates[1],
-              lng: img.geometry.coordinates[0],
-              thumbnailUrl: img.thumb_256_url,
-            })
+            dotsRef.current.set(img.id, { id: img.id, lat: img.geometry.coordinates[1], lng: img.geometry.coordinates[0] })
             added++
           }
         })
@@ -48,7 +48,6 @@ function MapillaryLayer({ onImageClick }) {
       } catch { fetchedRef.current.delete(key) }
     }
 
-    // Queue all tiles covering viewport + pad-tile border (pre-fetches swipe direction)
     function loadTiles(pad = 1) {
       if (map.getZoom() < MAPILLARY_MIN_ZOOM) return
       const b  = map.getBounds()
@@ -58,18 +57,16 @@ function MapillaryLayer({ onImageClick }) {
       const r1 = Math.floor(b.getNorth() / TILE_DEG) + pad
       for (let c = c0; c <= c1; c++)
         for (let r = r0; r <= r1; r++)
-          fetchTile(c, r)   // fire-and-forget; cached tiles skip instantly
+          fetchTile(c, r)
     }
 
     function onZoomEnd() {
-      clearTimeout(zoomTimer.current)
       if (map.getZoom() < MAPILLARY_MIN_ZOOM) {
         dotsRef.current.clear(); fetchedRef.current.clear(); setImages([])
         return
       }
-      zoomTimer.current = setTimeout(() => loadTiles(1), 200)
+      setTimeout(() => loadTiles(1), 200)
     }
-
     const onMoveEnd = () => loadTiles(1)
 
     map.on('zoomend', onZoomEnd)
@@ -77,7 +74,6 @@ function MapillaryLayer({ onImageClick }) {
     loadTiles(1)
 
     return () => {
-      clearTimeout(zoomTimer.current)
       map.off('zoomend', onZoomEnd)
       map.off('moveend', onMoveEnd)
     }
@@ -88,10 +84,9 @@ function MapillaryLayer({ onImageClick }) {
       key={img.id}
       center={[img.lat, img.lng]}
       radius={4}
+      renderer={canvasRenderer}
       pathOptions={{ color: '#ffffff', fillColor: '#22C55E', fillOpacity: 1, weight: 1 }}
-      eventHandlers={{
-        click: (e) => { e.originalEvent?.stopPropagation(); onImageClickRef.current(img) }
-      }}
+      eventHandlers={{ click: (e) => { e.originalEvent?.stopPropagation(); onImageClickRef.current(img) } }}
     />
   ))
 }
@@ -314,6 +309,7 @@ export default function MapView({
   pendingWpLatLng,
   onWaypointClick,
   onStreetViewClick,
+  showStreetPhotos,
 }) {
   const [mapBounds, setMapBounds] = useState(null)
   const [mapZoom, setMapZoom] = useState(DEFAULT_ZOOM)
@@ -508,7 +504,7 @@ export default function MapView({
           fitBoundsPoints={fitBoundsPoints}
           markers={markers}
         />
-        <MapillaryLayer onImageClick={onStreetViewClick} />
+        {showStreetPhotos && <MapillaryLayer onImageClick={onStreetViewClick} />}
       </MapContainer>
     </div>
   )
