@@ -81,7 +81,7 @@ export default function App() {
   const [focusedSegment, setFocusedSegment] = useState(null)
   const [addingWaypoint, setAddingWaypoint] = useState(null)
   const [pendingWpLatLng, setPendingWpLatLng] = useState(null)
-  const [showStreetPhotos, setShowStreetPhotos] = useState(true)
+  const [showStreetPhotos, setShowStreetPhotos] = useState(false)
   const shownAuthPrompt = useRef(false)
 
   // Handle OAuth redirect (after Google login)
