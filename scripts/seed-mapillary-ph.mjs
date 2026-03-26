@@ -26,8 +26,8 @@ const PH_SOUTH = 4.5
 const PH_NORTH = 21.5
 const STEP        = 0.09   // degrees per cell — area = 0.0081 sq deg < 0.010 limit
 const LIMIT       = 2000   // Mapillary Graph API max per request
-const CONCURRENCY = 24     // parallel requests (was 8 — ocean cells timeout-limited)
-const DELAY_MS    = 50     // ms between batches (was 150)
+const CONCURRENCY = 32     // parallel requests — Mapillary ~8-10s/response, need high concurrency
+const DELAY_MS    = 100    // ms between batches
 
 // Generate all grid cells
 const cells = []
@@ -72,7 +72,7 @@ function fetchCell(cell) {
       })
     })
     req.on('error', () => resolve([]))
-    req.setTimeout(5000, () => { req.destroy(); resolve([]) })
+    req.setTimeout(10000, () => { req.destroy(); resolve([]) })
   })
 }
 
