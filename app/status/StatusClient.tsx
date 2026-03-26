@@ -2,16 +2,16 @@
 import { useEffect, useState } from 'react'
 
 // Ranked by which free limit gets hit first under growing traffic:
-// 1. Vercel      — 100K fn invocations/day (~10K daily users exhausts it)
-// 2. Supabase    — 200 max concurrent connections (spikes kill it)
+// 1. Supabase    — 500 MB DB storage + pauses after 7 days inactivity (hits first!)
+// 2. Netlify     — 125K fn invocations/month + 300 build min/month (~4K calls/day cap)
 // 3. Cloudinary  — 25K transforms/mo (every image upload triggers this)
 // 4. Mapillary   — fair use, no hard cap
 // 5. OSM Tiles   — fair use, no hard cap
 // 6. OSRM        — public instance, no hard cap
 // 7. Geoapify    — not in use, Nominatim handles search (free/unlimited)
 const SERVICES = [
-  { id: 'vercel',     name: 'Hosting (Vercel)',            critical: true  },
   { id: 'neon',       name: 'Database (Supabase)',         critical: true  },
+  { id: 'vercel',     name: 'Hosting (Netlify)',           critical: true  },
   { id: 'cloudinary', name: 'Image Storage (Cloudinary)',  critical: false },
   { id: 'mapillary',  name: 'Street View (Mapillary)',     critical: false },
   { id: 'osm',        name: 'Map Tiles (OpenStreetMap)',   critical: false },
@@ -179,7 +179,7 @@ export default function StatusPage() {
                     )}
                     {svc.id === 'vercel' && (
                       <span style={{ color: '#ff8c00', fontWeight: 600 }}>
-                        {' '}· ⚠️ 100K fn calls/day — hits first under traffic (~10K users/day)
+                        {' '}· ⚠️ 125K fn calls/month + 300 build min/month (~4K calls/day avg)
                       </span>
                     )}
                     {svc.id === 'mapillary' && <span style={{ color: '#aaa' }}> · No hard cap</span>}
@@ -277,7 +277,7 @@ export default function StatusPage() {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
             {[
               { name: 'Supabase',        url: 'https://status.supabase.com',          icon: '🗄️' },
-              { name: 'Vercel',          url: 'https://www.vercelstatus.com',         icon: '▲' },
+              { name: 'Netlify',         url: 'https://www.netlifystatus.com',        icon: '▲' },
               { name: 'Cloudinary',      url: 'https://status.cloudinary.com',        icon: '🖼️' },
               { name: 'OpenStreetMap',   url: 'https://status.openstreetmap.org',     icon: '🗺️' },
             ].map(s => (

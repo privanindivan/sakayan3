@@ -92,23 +92,19 @@ export async function GET() {
       }
     })(),
 
-    // 3. Vercel — ping the deployment itself
+    // 3. Netlify — ping the deployment itself
     (async () => {
       const start = Date.now()
-      // Ping own API to check Vercel function health
-      const { ok, ms } = await pingUrl(
-        process.env.VERCEL_URL
-          ? `https://${process.env.VERCEL_URL}/api/health`
-          : 'http://localhost:3000/api/health',
-        5000
-      )
-      // Vercel free limits: 100GB bandwidth/month, 100K function invocations/day, 6000 build minutes/month
+      // Ping own API to check Netlify function health
+      const siteUrl = process.env.URL || process.env.DEPLOY_URL || 'http://localhost:3000'
+      const { ok, ms } = await pingUrl(`${siteUrl}/api/health`, 5000)
+      // Netlify free limits: 100 GB BW/month, 125K fn invocations/month, 300 build minutes/month
       return {
-        id: 'vercel', name: 'Vercel (Hosting)', critical: true,
+        id: 'vercel', name: 'Netlify (Hosting)', critical: true,
         ok: true, ms: Date.now() - start,
-        detail: 'Free: 100 GB BW/mo · 100K fn calls/day · No usage API on free plan',
+        detail: 'Free: 100 GB BW/mo · 125K fn calls/mo · 300 build min/mo · No usage API on free plan',
         pct: 0,
-        meta: { note: 'Cannot retrieve live usage without Vercel Pro API token' },
+        meta: { note: 'Cannot retrieve live usage without Netlify Pro API token' },
       }
     })(),
 

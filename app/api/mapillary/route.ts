@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sql } from '@/lib/db'
+import { neonQuery } from '@/lib/neon-db'
 
 const TOKEN = process.env.MAPILLARY_TOKEN || process.env.NEXT_PUBLIC_MAPILLARY_TOKEN
+
+// Use Neon for mapillary_images when available (offloads Supabase 500 MB storage limit)
+// Falls back to Supabase if NEON_DATABASE_URL is not set
+const mapillaryQuery = neonQuery ?? sql.query.bind(sql)
 
 export async function GET(req: NextRequest) {
   const bbox = req.nextUrl.searchParams.get('bbox')
@@ -12,8 +17,8 @@ export async function GET(req: NextRequest) {
 
   // 1. Serve from DB first (instant — pre-seeded images for full PH)
   try {
-    const rows = await sql.query(
-      `SELECT id, lat, lng FROM mapillary_images
+    const rows = await mapillaryQuery(
+      `SELECT id::text, lat, lng FROM mapillary_images
        WHERE lng >= $1 AND lng <= $2 AND lat >= $3 AND lat <= $4
        LIMIT 2000`,
       [w, e, s, n]
@@ -26,8 +31,8 @@ export async function GET(req: NextRequest) {
           const imgs: Array<{ id: string; geometry: { coordinates: number[] } }> = json.data || []
           if (imgs.length === 0) return
           const vals = imgs.map(img => [img.id, img.geometry.coordinates[1], img.geometry.coordinates[0]])
-          const text = vals.map((_, i) => `($${i * 3 + 1},$${i * 3 + 2},$${i * 3 + 3})`).join(',')
-          sql.query(`INSERT INTO mapillary_images(id,lat,lng) VALUES ${text} ON CONFLICT(id) DO NOTHING`, vals.flat()).catch(() => {})
+          const text = vals.map((_, i) => `($${i * 3 + 1}::bigint,$${i * 3 + 2},$${i * 3 + 3})`).join(',')
+          mapillaryQuery(`INSERT INTO mapillary_images(id,lat,lng) VALUES ${text} ON CONFLICT(id) DO NOTHING`, vals.flat()).catch(() => {})
         }).catch(() => {})
       }
       return NextResponse.json({ data: rows.map(r => ({
@@ -40,14 +45,14 @@ export async function GET(req: NextRequest) {
   // 2. DB empty for this tile — fetch live from Mapillary and cache
   if (TOKEN) {
     try {
-      const url = `https://graph.mapillary.com/images?access_token=${TOKEN}&bbox=${w},${s},${e},${n}&limit=500&fields=id,geometry`
+      const url = `https://graph.mapillary.com/images?access_token=${TOKEN}&bbox=${w},${s},${e},${n}&limit=2000&fields=id,geometry`
       const res = await fetch(url)
       const json = await res.json()
       const images: Array<{ id: string; geometry: { coordinates: number[] } }> = json.data || []
       if (images.length > 0) {
         const vals = images.map(img => [img.id, img.geometry.coordinates[1], img.geometry.coordinates[0]])
-        const text = vals.map((_, i) => `($${i * 3 + 1},$${i * 3 + 2},$${i * 3 + 3})`).join(',')
-        sql.query(`INSERT INTO mapillary_images(id,lat,lng) VALUES ${text} ON CONFLICT(id) DO NOTHING`, vals.flat()).catch(() => {})
+        const text = vals.map((_, i) => `($${i * 3 + 1}::bigint,$${i * 3 + 2},$${i * 3 + 3})`).join(',')
+        mapillaryQuery(`INSERT INTO mapillary_images(id,lat,lng) VALUES ${text} ON CONFLICT(id) DO NOTHING`, vals.flat()).catch(() => {})
         return NextResponse.json({ data: images.map(img => ({ id: img.id, geometry: img.geometry })) })
       }
     } catch { /* return empty */ }

@@ -9,6 +9,9 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
+      - name: Install pg
+        run: npm install pg
+
       - name: Sync all tables from Supabase to Neon
         env:
           SUPABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -17,8 +20,14 @@ jobs:
           node -e "
           const { Client } = require('pg');
 
-          const src  = new Client({ connectionString: process.env.SUPABASE_URL, ssl: { rejectUnauthorized: false } });
-          const dest = new Client({ connectionString: process.env.NEON_URL,     ssl: { rejectUnauthorized: false } });
+          const supabaseUrl = process.env.SUPABASE_URL;
+          const neonUrl     = process.env.NEON_URL;
+
+          if (!supabaseUrl) { console.error('ERROR: DATABASE_URL secret not set'); process.exit(1); }
+          if (!neonUrl)     { console.error('ERROR: NEON_DATABASE_URL secret not set — add it in repo Settings > Secrets'); process.exit(1); }
+
+          const src  = new Client({ connectionString: supabaseUrl, ssl: { rejectUnauthorized: false } });
+          const dest = new Client({ connectionString: neonUrl,     ssl: { rejectUnauthorized: false } });
 
           const TABLES = ['users','terminals','connections','votes','comments','edit_log','challenges','challenge_completions','reports'];
 
@@ -44,11 +53,12 @@ jobs:
           (async () => {
             await src.connect();
             await dest.connect();
+            console.log('Connected to both DBs');
             for (const t of TABLES) {
               try { await syncTable(t); } catch(e) { console.error(t + ' failed:', e.message); }
             }
             await src.end();
             await dest.end();
             console.log('Sync complete');
-          })();
+          })().catch(e => { console.error('Fatal:', e.message); process.exit(1); });
           "
