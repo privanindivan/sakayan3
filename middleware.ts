@@ -56,13 +56,15 @@ setInterval(() => {
 // ──────────────────────────────────────────────────────────────────────────
 
 // ── Philippine-only geo-block ──────────────────────────────────────────────
-// Vercel sets x-vercel-ip-country, Cloudflare sets cf-ipcountry.
+// Vercel sets x-vercel-ip-country, Cloudflare sets cf-ipcountry,
+// Netlify Edge sets x-nf-country-code.
 // Skipped in local dev (no header present = no block).
 function geoBlock(request: NextRequest): NextResponse | null {
   if (process.env.NODE_ENV === 'development') return null;
   const country =
     request.headers.get('x-vercel-ip-country') ||
-    request.headers.get('cf-ipcountry');
+    request.headers.get('cf-ipcountry') ||
+    request.headers.get('x-nf-country-code');
   if (!country || country === 'PH') return null; // PH or unknown → allow
   return new NextResponse(
     '<!doctype html><html><head><meta charset="utf-8"><title>Access Restricted</title>' +
@@ -78,15 +80,32 @@ function geoBlock(request: NextRequest): NextResponse | null {
 const PROTECTED_METHODS = ['POST', 'PUT', 'DELETE', 'PATCH'];
 const PUBLIC_POST_ROUTES = ['/api/auth/register', '/api/auth/login'];
 
-// Minimal JWT decode (no verification) for header injection in middleware
-// Full verification happens in individual API routes via lib/auth.ts
-function decodeJWTPayload(token: string): { userId: string; email: string; role: string } | null {
+// JWT verification using Web Crypto API (Edge-compatible, no Node.js deps)
+async function verifyJWTPayload(token: string): Promise<{ userId: string; email: string; role: string } | null> {
   try {
+    const secret = process.env.JWT_SECRET;
+    if (!secret) return null;
     const parts = token.split('.');
     if (parts.length !== 3) return null;
+
+    const encoder = new TextEncoder();
+    const key = await crypto.subtle.importKey(
+      'raw',
+      encoder.encode(secret),
+      { name: 'HMAC', hash: 'SHA-256' },
+      false,
+      ['verify']
+    );
+    const sigInput = encoder.encode(`${parts[0]}.${parts[1]}`);
+    const sigBytes = Uint8Array.from(
+      atob(parts[2].replace(/-/g, '+').replace(/_/g, '/')),
+      c => c.charCodeAt(0)
+    );
+    const valid = await crypto.subtle.verify('HMAC', key, sigBytes, sigInput);
+    if (!valid) return null;
+
     const payload = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
     if (!payload.userId || !payload.role) return null;
-    // Check expiry
     if (payload.exp && Date.now() / 1000 > payload.exp) return null;
     return { userId: payload.userId, email: payload.email, role: payload.role };
   } catch {
@@ -94,7 +113,7 @@ function decodeJWTPayload(token: string): { userId: string; email: string; role:
   }
 }
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   // /status is local-only
   if (request.nextUrl.pathname.startsWith('/status')) {
     const host = request.headers.get('host') || '';
@@ -125,7 +144,7 @@ export function middleware(request: NextRequest) {
     if (!token) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
-    const payload = decodeJWTPayload(token);
+    const payload = await verifyJWTPayload(token);
     if (!payload) {
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
     }
@@ -138,7 +157,7 @@ export function middleware(request: NextRequest) {
 
   // For read methods, inject user identity if token present (enables my_vote etc.)
   if (token) {
-    const payload = decodeJWTPayload(token);
+    const payload = await verifyJWTPayload(token);
     if (payload) {
       const requestHeaders = new Headers(request.headers);
       requestHeaders.set('x-user-id', payload.userId);
