@@ -1,12 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { sql } from '@/lib/db'
 import { neonQuery } from '@/lib/neon-db'
 
 const TOKEN = process.env.MAPILLARY_TOKEN || process.env.NEXT_PUBLIC_MAPILLARY_TOKEN
-
-// Use Neon for mapillary_images when available (offloads Supabase 500 MB storage limit)
-// Falls back to Supabase if NEON_DATABASE_URL is not set
-const mapillaryQuery = neonQuery ?? sql.query.bind(sql)
 
 export async function GET(req: NextRequest) {
   const bbox = req.nextUrl.searchParams.get('bbox')
@@ -22,9 +17,11 @@ export async function GET(req: NextRequest) {
     'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
   }
 
+  if (!neonQuery) return NextResponse.json({ error: 'DB not configured' }, { status: 503 })
+
   // 1. Serve from DB first (instant — pre-seeded images for full PH)
   try {
-    const rows = await mapillaryQuery(
+    const rows = await neonQuery(
       `SELECT id::text, lat, lng FROM mapillary_images
        WHERE lng >= $1 AND lng <= $2 AND lat >= $3 AND lat <= $4
        LIMIT 2000`,
@@ -48,7 +45,7 @@ export async function GET(req: NextRequest) {
       if (images.length > 0) {
         const vals = images.map(img => [img.id, img.geometry.coordinates[1], img.geometry.coordinates[0]])
         const text = vals.map((_, i) => `($${i * 3 + 1}::bigint,$${i * 3 + 2},$${i * 3 + 3})`).join(',')
-        mapillaryQuery(`INSERT INTO mapillary_images(id,lat,lng) VALUES ${text} ON CONFLICT(id) DO NOTHING`, vals.flat()).catch(() => {})
+        neonQuery(`INSERT INTO mapillary_images(id,lat,lng) VALUES ${text} ON CONFLICT(id) DO NOTHING`, vals.flat()).catch(() => {})
         return NextResponse.json({ data: images.map(img => ({ id: img.id, geometry: img.geometry })) }, { headers: CACHE_HEADERS })
       }
     } catch { /* return empty */ }
