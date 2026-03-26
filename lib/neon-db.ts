@@ -5,19 +5,14 @@ import { neon } from '@neondatabase/serverless'
 
 const url = process.env.NEON_DATABASE_URL
 
-// Convert parameterized query string + params array → tagged template call
-// e.g. ("SELECT ... WHERE x=$1", [val]) → sql`SELECT ... WHERE x=${val}`
-function makeQuery(url: string) {
-  const sql = neon(url)
-  return async (text: string, params?: any[]): Promise<any[]> => {
-    const values = params ?? []
-    const parts = text.split(/\$\d+/)
-    const strings = parts as unknown as TemplateStringsArray
-    ;(strings as any).raw = parts
-    const rows = await sql(strings, ...values)
-    return rows as any[]
-  }
-}
+export const neonSql = url ? neon(url) : null
 
-export const neonQuery: ((text: string, params?: any[]) => Promise<any[]>) | null =
-  url ? makeQuery(url) : null
+// Convenience wrapper for the status route (simple queries with no params)
+export const neonQuery: ((text: string, params?: any[]) => Promise<any[]>) | null = neonSql
+  ? async (text: string, params?: any[]) => {
+      const values = params ?? []
+      const parts = text.split(/\$\d+/)
+      const frozen = Object.freeze(Object.assign(parts, { raw: Object.freeze(parts.slice()) }))
+      return neonSql(frozen as unknown as TemplateStringsArray, ...values) as Promise<any[]>
+    }
+  : null
