@@ -4,10 +4,13 @@ import {
   useMapEvents, useMap,
 } from 'react-leaflet'
 import L from 'leaflet'
+import { VectorTile } from '@mapbox/vector-tile'
+import Pbf from 'pbf'
 import RoadRoute from './RoadRoute'
 import { TYPE_COLORS } from '../data/sampleData'
 
 const MAPILLARY_TILE_ZOOM = 14
+const MAPILLARY_TOKEN = process.env.NEXT_PUBLIC_MAPILLARY_TOKEN
 
 // Convert lat/lng → tile XY
 function latLngToTile(lat, lng, zoom) {
@@ -18,14 +21,33 @@ function latLngToTile(lat, lng, zoom) {
   return { x, y }
 }
 
-// Convert tile XY → bbox {west,south,east,north}
-function tileToBbox(x, y, zoom) {
+// Convert vector tile pixel coords → lat/lng
+function tilePixelToLatLng(px, py, tx, ty, zoom, extent = 4096) {
   const n = Math.pow(2, zoom)
-  const west  = (x / n) * 360 - 180
-  const east  = ((x + 1) / n) * 360 - 180
-  const north = Math.atan(Math.sinh(Math.PI * (1 - 2 * y / n))) * 180 / Math.PI
-  const south = Math.atan(Math.sinh(Math.PI * (1 - 2 * (y + 1) / n))) * 180 / Math.PI
-  return { west, south, east, north }
+  const lng = (tx + px / extent) / n * 360 - 180
+  const latRad = Math.atan(Math.sinh(Math.PI * (1 - 2 * (ty + py / extent) / n)))
+  return { lat: latRad * 180 / Math.PI, lng }
+}
+
+// Fetch Mapillary MVT vector tile — returns all image positions in tile
+async function fetchMapillaryTile(tx, ty, zoom) {
+  const url = `https://tiles.mapillary.com/maps/vtp/mly1_public/2/${zoom}/${tx}/${ty}?access_token=${MAPILLARY_TOKEN}`
+  const res = await fetch(url)
+  if (!res.ok) return []
+  const buf = await res.arrayBuffer()
+  const tile = new VectorTile(new Pbf(new Uint8Array(buf)))
+  const layer = tile.layers['image']
+  if (!layer) return []
+  const images = []
+  for (let i = 0; i < layer.length; i++) {
+    const feature = layer.feature(i)
+    const geom = feature.loadGeometry()
+    if (!geom.length || !geom[0].length) continue
+    const { x, y } = geom[0][0]
+    const { lat, lng } = tilePixelToLatLng(x, y, tx, ty, zoom, layer.extent)
+    images.push({ id: String(feature.properties.id), lat, lng })
+  }
+  return images
 }
 
 // Pure-canvas Mapillary layer — fetches Mapillary's actual tile data server-side,
@@ -86,16 +108,8 @@ function MapillaryLayer({ onImageClick }) {
 
         await Promise.all(uncached.map(async k => {
           const [, tx, ty] = k.split('/').map(Number)
-          const { west, south, east, north } = tileToBbox(tx, ty, MAPILLARY_TILE_ZOOM)
-          const bbox = `${west.toFixed(5)},${south.toFixed(5)},${east.toFixed(5)},${north.toFixed(5)}`
           try {
-            const res = await fetch(`/api/mapillary?bbox=${bbox}`)
-            const json = await res.json()
-            s.tileCache[k] = (json.data || []).map(img => ({
-              id: img.id,
-              lat: img.geometry.coordinates[1],
-              lng: img.geometry.coordinates[0],
-            }))
+            s.tileCache[k] = await fetchMapillaryTile(tx, ty, MAPILLARY_TILE_ZOOM)
           } catch {
             s.tileCache[k] = []
           } finally {
