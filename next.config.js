@@ -6,6 +6,7 @@ const nextConfig = {
   images: {
     domains: ['res.cloudinary.com'],
   },
+  serverExternalPackages: ['@neondatabase/serverless', 'pg'],
 }
 
 module.exports = nextConfig
