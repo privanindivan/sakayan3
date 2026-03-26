@@ -38,21 +38,27 @@ for (let lat = PH_SOUTH; lat < PH_NORTH; lat = +(lat + STEP).toFixed(6)) {
 }
 console.log(`Total cells: ${cells.length}`)
 
-// DB clients
-const clients = []
-if (SUPABASE_URL) {
-  const supabase = new pg.Client({ connectionString: SUPABASE_URL, ssl: { rejectUnauthorized: false } })
-  await supabase.connect()
-  clients.push({ label: 'Supabase', client: supabase })
-  console.log('Supabase connected')
+// Connect with auto-reconnect (Neon free tier suspends and drops connections)
+async function makeClient(label, url) {
+  const client = new pg.Client({ connectionString: url, ssl: { rejectUnauthorized: false } })
+  await client.connect()
+  client.on('error', () => {}) // suppress unhandled error on drop
+  console.log(`${label} connected`)
+  return client
 }
 
-if (NEON_URL) {
-  const neon = new pg.Client({ connectionString: NEON_URL, ssl: { rejectUnauthorized: false } })
-  await neon.connect()
-  clients.push({ label: 'Neon', client: neon })
-  console.log('Neon connected')
+async function reconnect(label, url) {
+  console.log(`  ↻ Reconnecting ${label}...`)
+  try {
+    const c = await makeClient(label, url)
+    return c
+  } catch { return null }
 }
+
+// DB clients
+const clients = []
+if (SUPABASE_URL) clients.push({ label: 'Supabase', url: SUPABASE_URL, client: await makeClient('Supabase', SUPABASE_URL) })
+if (NEON_URL)     clients.push({ label: 'Neon',     url: NEON_URL,     client: await makeClient('Neon',     NEON_URL)     })
 
 // Fetch one cell from Mapillary Graph API
 function fetchCell(cell) {
@@ -70,26 +76,30 @@ function fetchCell(cell) {
   })
 }
 
-// Insert batch into one DB client — id cast to BIGINT
-async function insertBatch(client, images) {
+// Insert batch — reconnects automatically if Neon drops the connection
+async function insertBatch(entry, images) {
   if (!images.length) return 0
-  // id stored as BIGINT: pass raw numeric string, pg will cast it
   const vals = images.map(img => [
-    img.id,                          // BIGINT (Mapillary IDs are pure integers)
-    img.geometry.coordinates[1],     // lat FLOAT4
-    img.geometry.coordinates[0],     // lng FLOAT4
+    img.id,
+    img.geometry.coordinates[1],
+    img.geometry.coordinates[0],
   ])
   const text = vals.map((_, i) => `($${i*3+1}::bigint,$${i*3+2},$${i*3+3})`).join(',')
-  try {
-    const res = await client.query(
-      `INSERT INTO mapillary_images(id,lat,lng) VALUES ${text} ON CONFLICT(id) DO NOTHING`,
-      vals.flat()
-    )
-    return res.rowCount || 0
-  } catch (e) {
-    console.error('  DB error:', e.message)
-    return 0
+  const query = `INSERT INTO mapillary_images(id,lat,lng) VALUES ${text} ON CONFLICT(id) DO NOTHING`
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const res = await entry.client.query(query, vals.flat())
+      return res.rowCount || 0
+    } catch (e) {
+      if (attempt < 2) {
+        await new Promise(r => setTimeout(r, 2000))
+        entry.client = await reconnect(entry.label, entry.url) || entry.client
+      } else {
+        console.error(`  ${entry.label} error:`, e.message)
+      }
+    }
   }
+  return 0
 }
 
 // Process cells in batches of CONCURRENCY
@@ -111,8 +121,8 @@ for (let i = 0; i < cells.length; i += CONCURRENCY) {
       totalImages += images.length
       // Insert into all connected DBs
       let inserted = 0
-      for (const { client } of clients) {
-        inserted = await insertBatch(client, images)
+      for (const entry of clients) {
+        inserted = await insertBatch(entry, images)
       }
       totalInserted += inserted
       if (images.length === LIMIT) {
