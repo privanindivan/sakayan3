@@ -6,6 +6,7 @@ const TOKEN = process.env.MAPILLARY_TOKEN || process.env.NEXT_PUBLIC_MAPILLARY_T
 const CACHE_HEADERS = { 'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400' }
 
 export async function GET(req: NextRequest) {
+  try {
   const bbox = req.nextUrl.searchParams.get('bbox')
   if (!bbox) return NextResponse.json({ data: [] })
 
@@ -26,7 +27,10 @@ export async function GET(req: NextRequest) {
         geometry: { type: 'Point', coordinates: [r.lng, r.lat] },
       })) }, { headers: CACHE_HEADERS })
     }
-  } catch { /* fall through to live API */ }
+  } catch (dbErr: any) {
+    console.error('[mapillary] neon error:', dbErr?.message)
+    /* fall through to live API */
+  }
 
   // 2. DB empty for this tile — fetch live from Mapillary
   if (TOKEN) {
@@ -39,10 +43,16 @@ export async function GET(req: NextRequest) {
       if (images.length > 0) {
         return NextResponse.json({ data: images.map(img => ({ id: img.id, geometry: img.geometry })) }, { headers: CACHE_HEADERS })
       }
-    } catch { /* return empty */ }
+    } catch (apiErr: any) {
+      console.error('[mapillary] live api error:', apiErr?.message)
+    }
   }
 
   return NextResponse.json({ data: [] }, {
     headers: { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600' },
   })
+  } catch (fatal: any) {
+    console.error('[mapillary] fatal:', fatal?.message)
+    return NextResponse.json({ data: [], error: fatal?.message }, { status: 200 })
+  }
 }
