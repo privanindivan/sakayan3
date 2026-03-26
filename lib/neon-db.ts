@@ -1,20 +1,19 @@
-import { Pool } from 'pg'
+import { Pool } from '@neondatabase/serverless'
 
-// Neon free DB — used exclusively for mapillary_images to offload from Supabase's 500 MB limit
-// Falls back to null if NEON_DATABASE_URL is not configured
+// Neon free DB — used exclusively for mapillary_images
+// Uses @neondatabase/serverless Pool (HTTP transport) — designed for serverless/edge,
+// handles cold starts cleanly without persistent TCP connections
 
-let neonPool: Pool | null = null
+const url = process.env.NEON_DATABASE_URL
 
-if (process.env.NEON_DATABASE_URL) {
-  neonPool = new Pool({
-    connectionString: process.env.NEON_DATABASE_URL,
-    ssl: { rejectUnauthorized: false },
-    max: 3,
-    connectionTimeoutMillis: 8000,  // fail fast if Neon cold-starts slowly
-    idleTimeoutMillis: 10000,
-  })
-}
-
-export const neonQuery = neonPool
-  ? (text: string, params?: any[]) => neonPool!.query(text, params ?? []).then(r => r.rows)
+export const neonQuery: ((text: string, params?: any[]) => Promise<any[]>) | null = url
+  ? async (text: string, params?: any[]) => {
+      const pool = new Pool({ connectionString: url })
+      try {
+        const { rows } = await pool.query(text, params ?? [])
+        return rows
+      } finally {
+        await pool.end()
+      }
+    }
   : null
