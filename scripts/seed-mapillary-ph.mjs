@@ -14,10 +14,11 @@
 import pg from 'pg'
 import https from 'https'
 
-const TOKEN       = 'MLY|26628587603401919|723a9a1c8c0f99c6f22fbc36ff88af65'
-const SUPABASE_URL = process.env.DATABASE_URL
-  || 'postgresql://postgres.shhlkffpnzdqppwnzehk:i0Xz07KCOJViXl95@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres'
-const NEON_URL    = process.env.NEON_DATABASE_URL || null
+const TOKEN        = 'MLY|26628587603401919|723a9a1c8c0f99c6f22fbc36ff88af65'
+const NEON_URL     = process.env.NEON_DATABASE_URL || null
+// When NEON_URL is set, mapillary lives on Neon — skip Supabase to save its 500 MB limit
+const SUPABASE_URL = NEON_URL ? null : (process.env.DATABASE_URL
+  || 'postgresql://postgres.shhlkffpnzdqppwnzehk:i0Xz07KCOJViXl95@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres')
 
 const PH_WEST  = 116.0
 const PH_EAST  = 127.0
@@ -39,10 +40,12 @@ console.log(`Total cells: ${cells.length}`)
 
 // DB clients
 const clients = []
-const supabase = new pg.Client({ connectionString: SUPABASE_URL, ssl: { rejectUnauthorized: false } })
-await supabase.connect()
-clients.push({ label: 'Supabase', client: supabase })
-console.log('Supabase connected')
+if (SUPABASE_URL) {
+  const supabase = new pg.Client({ connectionString: SUPABASE_URL, ssl: { rejectUnauthorized: false } })
+  await supabase.connect()
+  clients.push({ label: 'Supabase', client: supabase })
+  console.log('Supabase connected')
+}
 
 if (NEON_URL) {
   const neon = new pg.Client({ connectionString: NEON_URL, ssl: { rejectUnauthorized: false } })
