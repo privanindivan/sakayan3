@@ -10,6 +10,8 @@ if (process.env.NEON_DATABASE_URL) {
     connectionString: process.env.NEON_DATABASE_URL,
     ssl: { rejectUnauthorized: false },
     max: 3,
+    connectionTimeoutMillis: 8000,  // fail fast if Neon cold-starts slowly
+    idleTimeoutMillis: 10000,
   })
 }
 
