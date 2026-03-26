@@ -15,6 +15,13 @@ export async function GET(req: NextRequest) {
   const [w, s, e, n] = bbox.split(',').map(Number)
   if ([w, s, e, n].some(isNaN)) return NextResponse.json({ data: [] })
 
+  // CDN cache headers — tile data is pre-seeded and static
+  // s-maxage: Netlify CDN caches 1hr; same tile bbox = 0 function invocations after first hit
+  // stale-while-revalidate: serve stale up to 24hr while refreshing in background
+  const CACHE_HEADERS = {
+    'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
+  }
+
   // 1. Serve from DB first (instant — pre-seeded images for full PH)
   try {
     const rows = await mapillaryQuery(
@@ -24,21 +31,10 @@ export async function GET(req: NextRequest) {
       [w, e, s, n]
     )
     if (rows.length > 0) {
-      // Background: refresh from Mapillary so new images get added over time
-      if (TOKEN) {
-        const url = `https://graph.mapillary.com/images?access_token=${TOKEN}&bbox=${w},${s},${e},${n}&limit=2000&fields=id,geometry`
-        fetch(url).then(r => r.json()).then(json => {
-          const imgs: Array<{ id: string; geometry: { coordinates: number[] } }> = json.data || []
-          if (imgs.length === 0) return
-          const vals = imgs.map(img => [img.id, img.geometry.coordinates[1], img.geometry.coordinates[0]])
-          const text = vals.map((_, i) => `($${i * 3 + 1}::bigint,$${i * 3 + 2},$${i * 3 + 3})`).join(',')
-          mapillaryQuery(`INSERT INTO mapillary_images(id,lat,lng) VALUES ${text} ON CONFLICT(id) DO NOTHING`, vals.flat()).catch(() => {})
-        }).catch(() => {})
-      }
       return NextResponse.json({ data: rows.map(r => ({
         id: r.id,
         geometry: { type: 'Point', coordinates: [r.lng, r.lat] },
-      })) })
+      })) }, { headers: CACHE_HEADERS })
     }
   } catch { /* fall through */ }
 
@@ -53,10 +49,13 @@ export async function GET(req: NextRequest) {
         const vals = images.map(img => [img.id, img.geometry.coordinates[1], img.geometry.coordinates[0]])
         const text = vals.map((_, i) => `($${i * 3 + 1}::bigint,$${i * 3 + 2},$${i * 3 + 3})`).join(',')
         mapillaryQuery(`INSERT INTO mapillary_images(id,lat,lng) VALUES ${text} ON CONFLICT(id) DO NOTHING`, vals.flat()).catch(() => {})
-        return NextResponse.json({ data: images.map(img => ({ id: img.id, geometry: img.geometry })) })
+        return NextResponse.json({ data: images.map(img => ({ id: img.id, geometry: img.geometry })) }, { headers: CACHE_HEADERS })
       }
     } catch { /* return empty */ }
   }
 
-  return NextResponse.json({ data: [] })
+  // Empty tile — short cache so it rechecks once seeding catches up
+  return NextResponse.json({ data: [] }, {
+    headers: { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600' },
+  })
 }

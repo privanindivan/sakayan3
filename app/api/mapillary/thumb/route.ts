@@ -14,7 +14,9 @@ export async function GET(req: NextRequest) {
     )
     const data = await res.json()
     if (!data.thumb_256_url) return NextResponse.json({ error: 'not found' }, { status: 404 })
-    return NextResponse.json({ url: data.thumb_256_url })
+    return NextResponse.json({ url: data.thumb_256_url }, {
+      headers: { 'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800' },
+    })
   } catch {
     return NextResponse.json({ error: 'upstream error' }, { status: 502 })
   }

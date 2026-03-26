@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
     waypoints: c.waypoints || [],
   }))
   return NextResponse.json({ connections }, {
-    headers: { 'Cache-Control': 'public, max-age=30, stale-while-revalidate=60' }
+    headers: { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120' }
   })
 }
 
