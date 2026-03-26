@@ -2,21 +2,23 @@
 import { useEffect, useState } from 'react'
 
 // Ranked by which free limit gets hit first under growing traffic:
-// 1. Supabase    — 500 MB DB storage + pauses after 7 days inactivity (hits first!)
-// 2. Netlify     — 125K fn invocations/month + 300 build min/month (~4K calls/day cap)
-// 3. Cloudinary  — 25K transforms/mo (every image upload triggers this)
-// 4. Mapillary   — fair use, no hard cap
-// 5. OSM Tiles   — fair use, no hard cap
-// 6. OSRM        — public instance, no hard cap
-// 7. Geoapify    — not in use, Nominatim handles search (free/unlimited)
+// 1. Netlify       — 125K fn invocations/month (~4K/day cap) — tightest with map usage
+// 2. Neon          — 190 compute hrs/month (mapillary_images DB, auto-suspends)
+// 3. Supabase      — 500 MB storage + 5 GB egress/month (app data only now)
+// 4. Cloudinary    — 25K transforms/mo
+// 5. Mapillary     — fair use, no hard cap
+// 6. OSM Tiles     — fair use, no hard cap
+// 7. OSRM          — public instance, no hard cap
+// 8. Geoapify      — not in use, Nominatim handles search (free/unlimited)
 const SERVICES = [
-  { id: 'neon',       name: 'Database (Supabase)',         critical: true  },
-  { id: 'vercel',     name: 'Hosting (Netlify)',           critical: true  },
-  { id: 'cloudinary', name: 'Image Storage (Cloudinary)',  critical: false },
-  { id: 'mapillary',  name: 'Street View (Mapillary)',     critical: false },
-  { id: 'osm',        name: 'Map Tiles (OpenStreetMap)',   critical: false },
-  { id: 'osrm',       name: 'Routing (OSRM)',              critical: false },
-  { id: 'geoapify',   name: 'Search API (Geoapify)',       critical: false },
+  { id: 'vercel',        name: 'Hosting (Netlify)',              critical: true  },
+  { id: 'neon-mapillary',name: 'Mapillary DB (Neon)',            critical: true  },
+  { id: 'neon',          name: 'App Database (Supabase)',        critical: true  },
+  { id: 'cloudinary',    name: 'Image Storage (Cloudinary)',     critical: false },
+  { id: 'mapillary',     name: 'Street View (Mapillary)',        critical: false },
+  { id: 'osm',           name: 'Map Tiles (OpenStreetMap)',      critical: false },
+  { id: 'osrm',          name: 'Routing (OSRM)',                 critical: false },
+  { id: 'geoapify',      name: 'Search API (Geoapify)',          critical: false },
 ]
 
 // Generate 90-day bar — all green since we just launched, last block reflects live status
@@ -168,8 +170,8 @@ export default function StatusPage() {
                   <span style={{ fontSize: 11, color: '#aaa' }}>Today</span>
                 </div>
 
-                {/* Detail text — hide for neon/cloudinary since bars show the info */}
-                {!loading && !['neon','cloudinary'].includes(svc.id) && (
+                {/* Detail text — hide for services with bars */}
+                {!loading && !['neon','neon-mapillary','cloudinary'].includes(svc.id) && (
                   <div style={{ marginTop: 8, fontSize: 12, color: ok ? '#666' : '#8f485d' }}>
                     {detail || (ok ? 'Operational' : 'Unreachable')}
                     {svc.id === 'geoapify' && !detail?.includes('Nominatim') && (
@@ -185,6 +187,32 @@ export default function StatusPage() {
                     {svc.id === 'mapillary' && <span style={{ color: '#aaa' }}> · No hard cap</span>}
                     {svc.id === 'osm' && <span style={{ color: '#aaa' }}> · Fair use policy</span>}
                     {svc.id === 'osrm' && <span style={{ color: '#aaa' }}> · Public instance, no hard cap</span>}
+                  </div>
+                )}
+
+                {/* Neon (mapillary DB): storage + row count + compute hours warning */}
+                {!loading && svc.id === 'neon-mapillary' && live?.meta && (
+                  <div style={{ marginTop: 8, display: 'flex', flexDirection: 'column', gap: 5 }}>
+                    {[
+                      { label: 'Storage', pct: live.meta.storagePct, used: `${live.meta.storageMB} MB`, limit: '512 MB' },
+                    ].map(({ label, pct: p, used, limit }) => (
+                      <div key={label}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#aaa', marginBottom: 2 }}>
+                          <span>{label}</span>
+                          <span style={{ color: p > 80 ? '#8f485d' : p > 50 ? '#ff8c00' : '#1652f0', fontWeight: 600 }}>{used} / {limit} ({p}%)</span>
+                        </div>
+                        <div style={{ background: '#f0f4f8', borderRadius: 4, height: 4 }}>
+                          <div style={{ width: `${Math.min(p, 100)}%`, height: '100%', borderRadius: 4, background: p > 80 ? '#8f485d' : p > 50 ? '#ff8c00' : '#1652f0', transition: 'width .4s' }} />
+                        </div>
+                      </div>
+                    ))}
+                    <div style={{ fontSize: 11, color: '#aaa' }}>Compute hours: 190 hrs/mo limit · No live usage API on free plan</div>
+                    <div style={{ fontSize: 11, color: '#888', marginTop: 2 }}>
+                      {live.meta.imageCount != null ? `${Number(live.meta.imageCount).toLocaleString()} Mapillary images indexed` : ''}
+                    </div>
+                    <div style={{ fontSize: 11, color: '#aaa', fontStyle: 'italic' }}>
+                      Auto-suspends after 5 min idle — CDN cache reduces wake-ups
+                    </div>
                   </div>
                 )}
 
@@ -206,7 +234,7 @@ export default function StatusPage() {
                       </div>
                     ))}
                     <div style={{ fontSize: 11, color: '#aaa', fontStyle: 'italic', marginTop: 2 }}>
-                      ⚠️ Supabase pauses after 7 days inactivity — keep-alive ping active every 6 days
+                      ⚠️ Pauses after 7 days inactivity — keep-alive ping active
                     </div>
                     {live.meta.terminals != null && (
                       <div style={{ fontSize: 11, color: '#888', marginTop: 2 }}>

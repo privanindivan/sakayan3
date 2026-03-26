@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { sql } from '@/lib/db'
+import { neonQuery } from '@/lib/neon-db'
 import { v2 as cloudinary } from 'cloudinary'
 
 cloudinary.config({
@@ -21,7 +22,66 @@ async function pingUrl(url: string, timeoutMs = 5000): Promise<{ ok: boolean; ms
 export async function GET() {
   const checks = await Promise.allSettled([
 
-    // 1. Supabase DB — storage + connections (no compute hour cap on free tier)
+    // 1. Netlify — hosting health
+    (async () => {
+      const start = Date.now()
+      const siteUrl = process.env.URL || process.env.DEPLOY_URL || 'http://localhost:3000'
+      await pingUrl(`${siteUrl}/api/health`, 5000)
+      // Netlify free limits: 100 GB BW/month, 125K fn invocations/month, 300 build minutes/month
+      return {
+        id: 'vercel', name: 'Netlify (Hosting)', critical: true,
+        ok: true, ms: Date.now() - start,
+        detail: 'Free: 100 GB BW/mo · 125K fn calls/mo · 300 build min/mo · No usage API on free plan',
+        pct: 0,
+        meta: { note: 'Cannot retrieve live usage without Netlify Pro API token' },
+      }
+    })(),
+
+    // 2. Neon DB — mapillary_images storage + row count + compute hours
+    (async () => {
+      const start = Date.now()
+      if (!neonQuery) {
+        return {
+          id: 'neon-mapillary', name: 'Mapillary DB (Neon)', critical: true,
+          ok: false, ms: 0,
+          detail: 'NEON_DATABASE_URL not configured',
+          pct: 0,
+        }
+      }
+      try {
+        const [info] = await neonQuery(`SELECT
+          pg_database_size(current_database()) as bytes,
+          (SELECT COUNT(*) FROM mapillary_images) as image_count`)
+
+        const storageMB      = Math.round(Number(info.bytes) / 1024 / 1024 * 10) / 10
+        const storageLimitMB = 512   // Neon free: 512 MB
+        const storagePct     = Math.round(storageMB / storageLimitMB * 100)
+        const imageCount     = Number(info.image_count)
+
+        // Neon free: 190 compute hours/month — no live API, estimate ~0 since status check is rare
+        const computeHours = null
+        const computeLimit = 190
+        const computePct   = null
+
+        const pct = storagePct
+
+        return {
+          id: 'neon-mapillary', name: 'Mapillary DB (Neon)', critical: true,
+          ok: true, ms: Date.now() - start,
+          detail: `Storage ${storageMB} MB / ${storageLimitMB} MB · ${imageCount.toLocaleString()} images`,
+          pct,
+          meta: {
+            imageCount,
+            storageMB, storageLimitMB, storagePct,
+            computeHours, computeLimit, computePct,
+          },
+        }
+      } catch (e: any) {
+        return { id: 'neon-mapillary', name: 'Mapillary DB (Neon)', critical: true, ok: false, ms: Date.now() - start, detail: e.message, pct: 0 }
+      }
+    })(),
+
+    // 3. Supabase DB — storage + connections (no compute hour cap on free tier)
     (async () => {
       const start = Date.now()
       try {
@@ -40,14 +100,14 @@ export async function GET() {
         const storagePct = Math.round(usedMB / limitMB * 100)
 
         // Supabase free: 200 max client connections (session pooler)
-        const connLimit  = 200
+        const connLimit   = 200
         const activeConns = connInfo.active
-        const connPct    = Math.round(activeConns / connLimit * 100)
+        const connPct     = Math.round(activeConns / connLimit * 100)
 
         const worstPct = Math.max(storagePct, connPct)
 
         return {
-          id: 'neon', name: 'Supabase DB', critical: true,
+          id: 'neon', name: 'App DB (Supabase)', critical: true,
           ok: true, ms: Date.now() - start,
           detail: `Storage ${usedMB} MB / ${limitMB} MB · Connections ${activeConns} / ${connLimit}`,
           pct: worstPct,
@@ -61,11 +121,11 @@ export async function GET() {
           },
         }
       } catch (e: any) {
-        return { id: 'neon', name: 'Supabase DB', critical: true, ok: false, ms: Date.now() - start, detail: e.message, pct: 0 }
+        return { id: 'neon', name: 'App DB (Supabase)', critical: true, ok: false, ms: Date.now() - start, detail: e.message, pct: 0 }
       }
     })(),
 
-    // 2. Cloudinary — storage + bandwidth + transformations
+    // 4. Cloudinary — storage + bandwidth + transformations
     (async () => {
       const start = Date.now()
       try {
@@ -92,25 +152,9 @@ export async function GET() {
       }
     })(),
 
-    // 3. Netlify — ping the deployment itself
+    // 5. Mapillary
     (async () => {
-      const start = Date.now()
-      // Ping own API to check Netlify function health
-      const siteUrl = process.env.URL || process.env.DEPLOY_URL || 'http://localhost:3000'
-      const { ok, ms } = await pingUrl(`${siteUrl}/api/health`, 5000)
-      // Netlify free limits: 100 GB BW/month, 125K fn invocations/month, 300 build minutes/month
-      return {
-        id: 'vercel', name: 'Netlify (Hosting)', critical: true,
-        ok: true, ms: Date.now() - start,
-        detail: 'Free: 100 GB BW/mo · 125K fn calls/mo · 300 build min/mo · No usage API on free plan',
-        pct: 0,
-        meta: { note: 'Cannot retrieve live usage without Netlify Pro API token' },
-      }
-    })(),
-
-    // 4. Mapillary
-    (async () => {
-      const token = process.env.VITE_MAPILLARY_TOKEN
+      const token = process.env.MAPILLARY_TOKEN || process.env.NEXT_PUBLIC_MAPILLARY_TOKEN
       const { ok, ms } = await pingUrl(
         `https://graph.mapillary.com/images?access_token=${token}&fields=id&bbox=120.9,14.5,121.0,14.6&limit=1`,
         6000
@@ -118,11 +162,10 @@ export async function GET() {
       return { id: 'mapillary', name: 'Mapillary (Street View)', critical: false, ok, ms, detail: ok ? 'API reachable' : 'Unreachable', pct: 0 }
     })(),
 
-    // 5. Geoapify (search)
+    // 6. Geoapify (search)
     (async () => {
       const key = process.env.GEOAPIFY_KEY
       if (!key) {
-        // No key set — search runs on OSM Nominatim fallback, Geoapify not in use
         return {
           id: 'geoapify', name: 'Search API (Geoapify)', critical: false, ok: true, ms: 0,
           detail: 'Not configured — search uses OSM Nominatim (free, no cap)',
@@ -140,13 +183,13 @@ export async function GET() {
       }
     })(),
 
-    // 6. OSM Tiles
+    // 7. OSM Tiles
     (async () => {
       const { ok, ms } = await pingUrl('https://tile.openstreetmap.org/12/3254/1885.png', 6000)
       return { id: 'osm', name: 'OSM Map Tiles', critical: false, ok, ms, detail: ok ? 'Tiles serving · Free (fair use)' : 'Unreachable', pct: 0 }
     })(),
 
-    // 7. OSRM Routing
+    // 8. OSRM Routing
     (async () => {
       const { ok, ms } = await pingUrl(
         'https://router.project-osrm.org/route/v1/driving/120.9842,14.5995;121.0,14.6?overview=false',
