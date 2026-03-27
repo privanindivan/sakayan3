@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
   const userId = req.headers.get('x-user-id');
   if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-  const MAX_BYTES = 10 * 1024 * 1024; // 10 MB
+  const MAX_BYTES = 20 * 1024 * 1024; // 20 MB
   const contentLength = parseInt(req.headers.get('content-length') || '0');
   if (contentLength > MAX_BYTES) return NextResponse.json({ error: 'File too large. Maximum size is 10 MB.' }, { status: 413 });
 

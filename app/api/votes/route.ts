@@ -5,9 +5,16 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function POST(req: NextRequest) {
   const userId = req.headers.get('x-user-id')
   if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  const { entity_type, entity_id, vote_type } = await req.json()
+  let body: { entity_type?: string; entity_id?: string; vote_type?: string }
+  try { body = await req.json() } catch { return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }) }
+  const { entity_type, entity_id, vote_type } = body
   if (!entity_type || !entity_id || !vote_type) {
     return NextResponse.json({ error: 'Missing fields' }, { status: 400 })
+  }
+  const ALLOWED_ENTITY_TYPES = ['terminal', 'connection', 'stop']
+  const ALLOWED_VOTE_TYPES = ['like', 'dislike', 'outdated']
+  if (!ALLOWED_ENTITY_TYPES.includes(entity_type) || !ALLOWED_VOTE_TYPES.includes(vote_type)) {
+    return NextResponse.json({ error: 'Invalid vote parameters' }, { status: 400 })
   }
 
   const existing = await sql.query(

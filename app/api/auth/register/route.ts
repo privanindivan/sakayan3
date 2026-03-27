@@ -5,7 +5,9 @@ import { signToken } from '@/lib/auth';
 import { cookies } from 'next/headers';
 
 export async function POST(req: NextRequest) {
-  const { email, password, username } = await req.json();
+  let body: { email?: string; password?: string; username?: string }
+  try { body = await req.json() } catch { return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }) }
+  const { email, password, username } = body
   if (!email || !password || !username)
     return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
 
@@ -24,7 +26,7 @@ export async function POST(req: NextRequest) {
 
   const token = signToken({ userId: user.id, email: user.email, role: user.role });
   const cookieStore = await cookies();
-  cookieStore.set('token', token, { httpOnly: true, maxAge: 60 * 60 * 24 * 7, path: '/', sameSite: 'lax' });
+  cookieStore.set('token', token, { httpOnly: true, maxAge: 60 * 60 * 24 * 7, path: '/', sameSite: 'lax', secure: process.env.NODE_ENV === 'production' });
 
   return NextResponse.json({ user: { id: user.id, email: user.email, username: user.username, role: user.role } });
 }

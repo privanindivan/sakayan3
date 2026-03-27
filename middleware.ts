@@ -21,8 +21,9 @@ function authRateLimitCheck(request: NextRequest): NextResponse | null {
   if (!AUTH_RATE_ROUTES.includes(request.nextUrl.pathname)) return null;
   if (request.method !== 'POST') return null;
   const ip =
-    request.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
+    request.headers.get('x-nf-client-connection-ip') ||
     request.headers.get('x-real-ip') ||
+    request.headers.get('x-forwarded-for')?.split(',').at(-1)?.trim() ||
     'unknown';
   const now = Date.now();
   const entry = authRateMap.get(ip);
@@ -45,9 +46,11 @@ function rateLimitCheck(request: NextRequest): NextResponse | null {
   if (!request.nextUrl.pathname.startsWith('/api/')) return null;
   if (RATE_LIMIT_EXEMPT.includes(request.nextUrl.pathname)) return null;
 
+  // x-nf-client-connection-ip is Netlify's trusted real IP (not spoofable)
   const ip =
-    request.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
+    request.headers.get('x-nf-client-connection-ip') ||
     request.headers.get('x-real-ip') ||
+    request.headers.get('x-forwarded-for')?.split(',').at(-1)?.trim() ||
     'unknown';
 
   const now = Date.now();

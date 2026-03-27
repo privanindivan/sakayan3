@@ -37,12 +37,19 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   const userId = req.headers.get('x-user-id')
   if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  const { name, lat, lng, type, details, schedule, images } = await req.json()
-  if (!name || !lat || !lng) return NextResponse.json({ error: 'Missing fields' }, { status: 400 })
+  let body: any
+  try { body = await req.json() } catch { return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }) }
+  const { name, lat, lng, type, details, schedule, images } = body
+  if (!name || lat == null || lng == null) return NextResponse.json({ error: 'Missing fields' }, { status: 400 })
+  const latN = Number(lat), lngN = Number(lng)
+  if (!isFinite(latN) || !isFinite(lngN) || latN < -90 || latN > 90 || lngN < -180 || lngN > 180)
+    return NextResponse.json({ error: 'Invalid coordinates' }, { status: 400 })
+  if (typeof name === 'string' && name.length > 200)
+    return NextResponse.json({ error: 'Name too long (max 200 chars)' }, { status: 400 })
   const rows = await sql.query(
     `INSERT INTO terminals (name, lat, lng, type, details, schedule, images, created_by)
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *`,
-    [name, lat, lng, type || 'Jeep', details || null, schedule ? JSON.stringify(schedule) : null, images || [], userId]
+    [name, latN, lngN, type || 'Jeep', details || null, schedule ? JSON.stringify(schedule) : null, images || [], userId]
   )
   await addPoints(userId, 5)
   return NextResponse.json({ terminal: rows[0] }, { status: 201 })
