@@ -41,7 +41,7 @@ function matchMarkers(markers, query) {
   return markers.filter(m => m.name.toLowerCase().includes(q))
 }
 
-export default function SearchBar({ onRoute, onFlyTo, markers = [], resetKey = 0 }) {
+export default function SearchBar({ onRoute, onFlyTo, markers = [], resetKey = 0, prefill = null }) {
   const fromRef = useRef(null)
   const toRef   = useRef(null)
 
@@ -64,6 +64,17 @@ export default function SearchBar({ onRoute, onFlyTo, markers = [], resetKey = 0
     setFromResults([]); setToResults([])
     setActiveField(null)
   }, [resetKey]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (!prefill) return
+    setFromQuery(prefill.from.name)
+    setToQuery(prefill.to.name)
+    setFromPoint(prefill.from)
+    setToPoint(prefill.to)
+    setFromResults([])
+    setToResults([])
+    setActiveField(null)
+  }, [prefill]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (fromPoint && toPoint) onRoute(fromPoint, toPoint)

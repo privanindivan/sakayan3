@@ -79,6 +79,7 @@ export default function App() {
   const [activeStopIds,  setActiveStopIds]  = useState([])
   const [activeConnIds,  setActiveConnIds]  = useState([])
   const [focusedSegment, setFocusedSegment] = useState(null)
+  const [routePrefill,   setRoutePrefill]   = useState(null)
   const [addingWaypoint, setAddingWaypoint] = useState(null)
   const [pendingWpLatLng, setPendingWpLatLng] = useState(null)
   const [showStreetPhotos, setShowStreetPhotos] = useState(false)
@@ -481,7 +482,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <SearchBar onRoute={handleRoute} onFlyTo={(t) => setFlyTarget(t)} markers={markers} resetKey={searchResetKey} />
+      <SearchBar onRoute={handleRoute} onFlyTo={(t) => setFlyTarget(t)} markers={markers} resetKey={searchResetKey} prefill={routePrefill} />
 
       {/* Top-right: auth */}
       <div className="top-right-bar">
@@ -645,6 +646,7 @@ export default function App() {
             setSearchResetKey(k => k + 1)
             setActiveStopIds([]); setActiveConnIds([])
             setFocusedSegment(null)
+            setRoutePrefill(null)
           }}
           onActiveRoute={(stopIds, connIds) => {
             setActiveStopIds(stopIds)
@@ -688,8 +690,18 @@ export default function App() {
           onRemoveWaypoint={handleRemoveWaypoint}
           onVote={handleVote}
           onConnClick={(connId, fromId, toId) => {
+            const fromMarker = markers.find(m => m.id === fromId)
+            const toMarker   = markers.find(m => m.id === toId)
             setSelectedMarker(null)
-            setFocusedSegment({ connId, fromId, toId })
+            if (fromMarker && toMarker) {
+              const fp = { lat: fromMarker.lat, lng: fromMarker.lng, name: fromMarker.name }
+              const tp = { lat: toMarker.lat,   lng: toMarker.lng,   name: toMarker.name   }
+              setFromPoint(fp)
+              setToPoint(tp)
+              setRoutePrefill({ from: fp, to: tp })
+            } else {
+              setFocusedSegment({ connId, fromId, toId })
+            }
           }}
           onOpenProfile={(uid) => setProfileUserId(uid)}
         />
