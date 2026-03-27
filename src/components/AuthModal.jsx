@@ -61,7 +61,7 @@ export default function AuthModal({ onClose, onSuccess }) {
         <div className="auth-header">
           <div style={{ fontSize: 36, marginBottom: 6 }}>🗺️</div>
           <h2 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>
-            {mode === 'login' ? 'Welcome back!' : 'Join Sakayan'}
+            {mode === 'login' ? 'Sign in' : 'Join Sakayan'}
           </h2>
           <p style={{ margin: '4px 0 0', fontSize: 13, color: '#888' }}>
             {mode === 'login'
