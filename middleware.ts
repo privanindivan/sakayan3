@@ -9,7 +9,36 @@ const RATE_MAX_WRITES = 30;      // max 30 writes per IP per minute
 
 const rateMap = new Map<string, { count: number; windowStart: number }>();
 
-const RATE_LIMIT_EXEMPT = ['/api/auth/login', '/api/auth/logout', '/api/auth/register'];
+const RATE_LIMIT_EXEMPT = ['/api/auth/logout'];
+
+// Stricter rate limit for auth endpoints — 10 attempts per 15 minutes
+const AUTH_RATE_WINDOW_MS = 15 * 60_000;
+const AUTH_RATE_MAX = 10;
+const AUTH_RATE_ROUTES = ['/api/auth/login', '/api/auth/register'];
+const authRateMap = new Map<string, { count: number; windowStart: number }>();
+
+function authRateLimitCheck(request: NextRequest): NextResponse | null {
+  if (!AUTH_RATE_ROUTES.includes(request.nextUrl.pathname)) return null;
+  if (request.method !== 'POST') return null;
+  const ip =
+    request.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
+    request.headers.get('x-real-ip') ||
+    'unknown';
+  const now = Date.now();
+  const entry = authRateMap.get(ip);
+  if (!entry || now - entry.windowStart > AUTH_RATE_WINDOW_MS) {
+    authRateMap.set(ip, { count: 1, windowStart: now });
+    return null;
+  }
+  entry.count++;
+  if (entry.count > AUTH_RATE_MAX) {
+    return NextResponse.json(
+      { error: 'Too many login attempts. Try again in 15 minutes.' },
+      { status: 429, headers: { 'Retry-After': String(Math.ceil((entry.windowStart + AUTH_RATE_WINDOW_MS - now) / 1000)) } }
+    );
+  }
+  return null;
+}
 
 function rateLimitCheck(request: NextRequest): NextResponse | null {
   if (!WRITE_METHODS.has(request.method)) return null;
@@ -46,11 +75,14 @@ function rateLimitCheck(request: NextRequest): NextResponse | null {
   return null;
 }
 
-// Prevent rateMap from growing unbounded — prune old entries every 5 minutes
+// Prevent rate maps from growing unbounded — prune old entries every 5 minutes
 setInterval(() => {
-  const cutoff = Date.now() - RATE_WINDOW_MS;
+  const now = Date.now();
   for (const [ip, entry] of rateMap) {
-    if (entry.windowStart < cutoff) rateMap.delete(ip);
+    if (now - entry.windowStart > RATE_WINDOW_MS) rateMap.delete(ip);
+  }
+  for (const [ip, entry] of authRateMap) {
+    if (now - entry.windowStart > AUTH_RATE_WINDOW_MS) authRateMap.delete(ip);
   }
 }, 5 * 60_000);
 // ──────────────────────────────────────────────────────────────────────────
@@ -124,6 +156,9 @@ export async function middleware(request: NextRequest) {
 
   const blocked = geoBlock(request);
   if (blocked) return blocked;
+
+  const authLimited = authRateLimitCheck(request);
+  if (authLimited) return authLimited;
 
   const rateLimited = rateLimitCheck(request);
   if (rateLimited) return rateLimited;
