@@ -152,17 +152,34 @@ export async function GET() {
       }
     })(),
 
-    // 5. Mapillary
+    // 5. Cloudflare Worker — tile proxy (100K req/day free, daily reset)
+    (async () => {
+      const start = Date.now()
+      const workerUrl = 'https://sakayan-tile-proxy.privanindivan.workers.dev'
+      // Ping with a real tile (z=14, Manila area)
+      const { ok, ms } = await pingUrl(`${workerUrl}/14/13486/7776`, 6000)
+      return {
+        id: 'cf-worker', name: 'Tile Proxy (Cloudflare Worker)', critical: true,
+        ok, ms,
+        detail: ok
+          ? 'Tile proxy live · Free: 100K req/day · Handles all Mapillary tile traffic · No usage API on free plan'
+          : 'Worker unreachable — Mapillary dots will not load',
+        pct: 0,
+        meta: { note: 'Usage resets daily; no API to read live count on free plan' },
+      }
+    })(),
+
+    // 7. Mapillary
     (async () => {
       const token = process.env.MAPILLARY_TOKEN || process.env.NEXT_PUBLIC_MAPILLARY_TOKEN
       const { ok, ms } = await pingUrl(
         `https://graph.mapillary.com/images?access_token=${token}&fields=id&bbox=120.9,14.5,121.0,14.6&limit=1`,
         6000
       )
-      return { id: 'mapillary', name: 'Mapillary (Street View)', critical: false, ok, ms, detail: ok ? 'API reachable' : 'Unreachable', pct: 0 }
+      return { id: 'mapillary', name: 'Mapillary (Street View)', critical: false, ok, ms, detail: ok ? 'API reachable · Fair use, no hard cap' : 'Unreachable', pct: 0 }
     })(),
 
-    // 6. Geoapify (search)
+    // 9. Geoapify (search)
     (async () => {
       const key = process.env.GEOAPIFY_KEY
       if (!key) {
@@ -183,13 +200,13 @@ export async function GET() {
       }
     })(),
 
-    // 7. OSM Tiles
+    // 10. OSM Tiles
     (async () => {
       const { ok, ms } = await pingUrl('https://tile.openstreetmap.org/12/3254/1885.png', 6000)
       return { id: 'osm', name: 'OSM Map Tiles', critical: false, ok, ms, detail: ok ? 'Tiles serving · Free (fair use)' : 'Unreachable', pct: 0 }
     })(),
 
-    // 8. OSRM Routing
+    // 11. OSRM Routing
     (async () => {
       const { ok, ms } = await pingUrl(
         'https://router.project-osrm.org/route/v1/driving/120.9842,14.5995;121.0,14.6?overview=false',

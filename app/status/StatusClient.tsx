@@ -2,16 +2,18 @@
 import { useEffect, useState } from 'react'
 
 // Ranked by which free limit gets hit first under growing traffic:
-// 1. Netlify       — 125K fn invocations/month (~4K/day cap) — tightest with map usage
-// 2. Neon          — 190 compute hrs/month (mapillary_images DB, auto-suspends)
-// 3. Supabase      — 500 MB storage + 5 GB egress/month (app data only now)
-// 4. Cloudinary    — 25K transforms/mo
-// 5. Mapillary     — fair use, no hard cap
-// 6. OSM Tiles     — fair use, no hard cap
-// 7. OSRM          — public instance, no hard cap
-// 8. Geoapify      — not in use, Nominatim handles search (free/unlimited)
+// 1. Netlify       — 125K fn calls/month (~4K/day) — no usage API on free plan
+// 2. Cloudflare Worker — 100K req/DAY (tile proxy) — daily reset, no usage API on free plan
+// 3. Neon          — 190 compute hrs/month (mapillary DB, auto-suspends 5 min idle)
+// 4. Supabase      — 500 MB storage + pauses after 7 days inactivity
+// 5. Cloudinary    — 25K transforms/mo (only one with live usage API)
+// 6. Mapillary     — fair use, no hard cap
+// 7. OSM Tiles     — fair use, no hard cap
+// 8. OSRM          — public instance, no hard cap
+// 9. Geoapify      — not in use, Nominatim handles search (free/unlimited)
 const SERVICES = [
   { id: 'vercel',        name: 'Hosting (Netlify)',              critical: true  },
+  { id: 'cf-worker',     name: 'Tile Proxy (Cloudflare Worker)', critical: true  },
   { id: 'neon-mapillary',name: 'Mapillary DB (Neon)',            critical: true  },
   { id: 'neon',          name: 'App Database (Supabase)',        critical: true  },
   { id: 'cloudinary',    name: 'Image Storage (Cloudinary)',     critical: false },
@@ -181,7 +183,12 @@ export default function StatusPage() {
                     )}
                     {svc.id === 'vercel' && (
                       <span style={{ color: '#ff8c00', fontWeight: 600 }}>
-                        {' '}· ⚠️ 125K fn calls/month + 300 build min/month (~4K calls/day avg)
+                        {' '}· ⚠️ 125K fn calls/month · 300 build min/month · No live usage API on free plan
+                      </span>
+                    )}
+                    {svc.id === 'cf-worker' && (
+                      <span style={{ color: '#ff8c00', fontWeight: 600 }}>
+                        {' '}· ⚠️ 100K req/day (resets daily) · No live usage API on free plan
                       </span>
                     )}
                     {svc.id === 'mapillary' && <span style={{ color: '#aaa' }}> · No hard cap</span>}
@@ -304,8 +311,9 @@ export default function StatusPage() {
           <div style={{ fontWeight: 700, fontSize: 14, color: '#1a1a1a', marginBottom: 14 }}>Official provider status pages</div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
             {[
-              { name: 'Supabase',        url: 'https://status.supabase.com',          icon: '🗄️' },
               { name: 'Netlify',         url: 'https://www.netlifystatus.com',        icon: '▲' },
+              { name: 'Cloudflare',      url: 'https://www.cloudflarestatus.com',     icon: '🔶' },
+              { name: 'Supabase',        url: 'https://status.supabase.com',          icon: '🗄️' },
               { name: 'Cloudinary',      url: 'https://status.cloudinary.com',        icon: '🖼️' },
               { name: 'OpenStreetMap',   url: 'https://status.openstreetmap.org',     icon: '🗺️' },
             ].map(s => (
