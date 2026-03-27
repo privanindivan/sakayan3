@@ -10,6 +10,7 @@ import RoadRoute from './RoadRoute'
 import { TYPE_COLORS } from '../data/sampleData'
 
 const MAPILLARY_TILE_ZOOM = 14
+const TILE_PROXY_URL = 'https://sakayan-tile-proxy.privanindivan.workers.dev'
 
 // Convert lat/lng → tile XY
 function latLngToTile(lat, lng, zoom) {
@@ -30,7 +31,7 @@ function tilePixelToLatLng(px, py, tx, ty, zoom, extent = 4096) {
 
 // Fetch Mapillary MVT vector tile — returns all image positions in tile
 async function fetchMapillaryTile(tx, ty, zoom) {
-  const res = await fetch(`/api/mapillary-tile/${zoom}/${tx}/${ty}`)
+  const res = await fetch(`${TILE_PROXY_URL}/${zoom}/${tx}/${ty}`)
   if (!res.ok) return []
   const buf = await res.arrayBuffer()
   const tile = new VectorTile(new Pbf(new Uint8Array(buf)))
