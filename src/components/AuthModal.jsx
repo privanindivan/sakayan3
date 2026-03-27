@@ -59,7 +59,7 @@ export default function AuthModal({ onClose, onSuccess }) {
 
       <div className="modal auth-modal" onClick={e => e.stopPropagation()}>
         <div className="auth-header">
-          <div style={{ fontSize: 36, marginBottom: 6 }}>🗺️</div>
+          <div style={{ marginBottom: 6 }}><img src="/logo.png" alt="Sakayan" style={{ width: 56, height: 56, borderRadius: 12 }} /></div>
           <h2 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>
             {mode === 'login' ? 'Sign in' : 'Join Sakayan'}
           </h2>
