@@ -726,6 +726,14 @@ export default function App() {
         />
       )}
 
+      <div style={{
+        position: 'fixed', bottom: 6, left: 8, zIndex: 9999,
+        fontSize: 9, fontWeight: 700, letterSpacing: '0.08em',
+        color: 'rgba(255,255,255,0.7)', background: 'rgba(0,0,0,0.28)',
+        padding: '2px 5px', borderRadius: 4, pointerEvents: 'none',
+        fontFamily: 'sans-serif', textTransform: 'uppercase',
+      }}>beta</div>
+
     </div>
   )
 }
