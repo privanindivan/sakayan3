@@ -25,11 +25,14 @@ export default {
 
     let res
     try {
-      res = await fetch(tileUrl, { signal: AbortSignal.timeout(8000) })
+      res = await fetch(tileUrl, { signal: AbortSignal.timeout(8000), redirect: 'manual' })
     } catch {
       return new Response('Upstream timeout', { status: 504 })
     }
 
+    // Mapillary redirects (to Meta/Facebook login) when token is used server-side without browser context.
+    // Treat any redirect as auth failure.
+    if (res.status >= 300 && res.status < 400) return new Response('Auth redirect', { status: 401 })
     if (!res.ok) return new Response(null, { status: res.status })
 
     const buf = await res.arrayBuffer()
