@@ -7,13 +7,16 @@ export default function StreetViewPanel({ image, onClose }) {
 
   useEffect(() => {
     if (!image?.id) return
+    setExpanded(false)
+    setLoaded(false)
     setThumbUrl(image.thumbnailUrl || null)
     if (image.thumbnailUrl) return
-    // Fetch via server proxy — works regardless of build-time env vars
+    let cancelled = false
     fetch(`/api/mapillary/thumb?id=${image.id}`)
       .then(r => r.json())
-      .then(d => { if (d.url) setThumbUrl(d.url) })
+      .then(d => { if (!cancelled && d.url) setThumbUrl(d.url) })
       .catch(() => {})
+    return () => { cancelled = true }
   }, [image?.id])
 
   if (!image) return null
