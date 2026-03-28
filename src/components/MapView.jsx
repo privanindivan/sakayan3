@@ -9,7 +9,7 @@ import Pbf from 'pbf'
 import RoadRoute from './RoadRoute'
 import { TYPE_COLORS } from '../data/sampleData'
 
-const MAPILLARY_TILE_ZOOM = 16
+const MAPILLARY_TILE_ZOOM = 15
 const MAPILLARY_TOKEN = process.env.NEXT_PUBLIC_MAPILLARY_TOKEN || ''
 
 // Convert lat/lng → tile XY
