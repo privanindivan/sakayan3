@@ -134,8 +134,14 @@ function MapillaryLayer({ onImageClick }) {
       if (closest) onImageClickRef.current(closest)
     }
 
-    map.on('move', schedDraw)
+    let lastMoveDrawn = 0
+    const throttledDraw = () => {
+      const now = Date.now()
+      if (now - lastMoveDrawn > 100) { lastMoveDrawn = now; schedDraw() }
+    }
+    map.on('move', throttledDraw)
     map.on('zoom', schedDraw)
+    map.on('moveend', schedDraw)
     map.on('moveend', fetchTiles)
     map.on('zoomend', fetchTiles)
     map.on('click', handleClick)
