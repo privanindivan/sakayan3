@@ -2,20 +2,20 @@
 import { useEffect, useState } from 'react'
 
 // Ranked by which free limit gets hit first under growing traffic:
-// 1. Netlify       — 125K fn calls/month (~4K/day) — no usage API on free plan
-// 2. Cloudflare Worker — 100K req/DAY (tile proxy) — daily reset, no usage API on free plan
-// 3. Neon          — 190 compute hrs/month (mapillary DB, auto-suspends 5 min idle)
-// 4. Supabase      — 500 MB storage + pauses after 7 days inactivity
+// 1. Cloudflare Worker — 100K req/DAY (tile proxy) — daily reset, no usage API on free plan
+// 2. Netlify       — 125K fn calls/month (~4K/day) — no usage API on free plan
+// 3. Supabase      — 500 MB storage + pauses after 7 days inactivity
+// 4. Neon          — 190 compute hrs/month (mapillary DB, auto-suspends 5 min idle)
 // 5. Cloudinary    — 25K transforms/mo (only one with live usage API)
 // 6. Mapillary     — fair use, no hard cap
 // 7. OSM Tiles     — fair use, no hard cap
 // 8. OSRM          — public instance, no hard cap
 // 9. Geoapify      — not in use, Nominatim handles search (free/unlimited)
 const SERVICES = [
-  { id: 'vercel',        name: 'Hosting (Netlify)',              critical: true  },
   { id: 'cf-worker',     name: 'Tile Proxy (Cloudflare Worker)', critical: true  },
-  { id: 'neon-mapillary',name: 'Mapillary DB (Neon)',            critical: true  },
+  { id: 'vercel',        name: 'Hosting (Netlify)',              critical: true  },
   { id: 'neon',          name: 'App Database (Supabase)',        critical: true  },
+  { id: 'neon-mapillary',name: 'Mapillary DB (Neon)',            critical: true  },
   { id: 'cloudinary',    name: 'Image Storage (Cloudinary)',     critical: false },
   { id: 'mapillary',     name: 'Street View (Mapillary)',        critical: false },
   { id: 'osm',           name: 'Map Tiles (OpenStreetMap)',      critical: false },

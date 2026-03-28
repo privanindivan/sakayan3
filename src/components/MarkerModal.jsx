@@ -81,6 +81,7 @@ export default function MarkerModal({
   const [history,        setHistory]        = useState([])
   const [loadingHistory, setLoadingHistory] = useState(false)
   const [reverting,      setReverting]      = useState(null)
+  const [confirmRevert,  setConfirmRevert]  = useState(null)
 
   const stopConns = connections.filter(c => c.fromId === marker.id || c.toId === marker.id)
 
@@ -531,13 +532,33 @@ export default function MarkerModal({
                           <p className="history-detail">{h.summary}</p>
                         )}
                         {user && h.action !== 'delete' && h.old_data && (
-                          <button
-                            className="history-revert-btn"
-                            onClick={() => revertTo(h.id)}
-                            disabled={reverting === h.id}
-                          >
-                            {reverting === h.id ? 'Reverting…' : '↩ Revert to this'}
-                          </button>
+                          confirmRevert === h.id ? (
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 6 }}>
+                              <span style={{ fontSize: 12, color: '#888' }}>Revert to this version?</span>
+                              <button
+                                className="history-revert-btn"
+                                style={{ background: '#E8342A', color: '#fff' }}
+                                onClick={() => { setConfirmRevert(null); revertTo(h.id) }}
+                                disabled={reverting === h.id}
+                              >
+                                {reverting === h.id ? 'Reverting…' : 'Yes, revert'}
+                              </button>
+                              <button
+                                className="history-revert-btn"
+                                onClick={() => setConfirmRevert(null)}
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          ) : (
+                            <button
+                              className="history-revert-btn"
+                              onClick={() => setConfirmRevert(h.id)}
+                              disabled={reverting === h.id}
+                            >
+                              ↩ Revert to this
+                            </button>
+                          )
                         )}
                       </div>
                     ))}
