@@ -1,10 +1,11 @@
-export const VEHICLE_TYPES = ['Jeep', 'Bus', 'UV Express', 'Tricycle', 'Train']
+export const VEHICLE_TYPES = ['Jeep', 'Bus', 'UV Express', 'Tricycle', 'Cab', 'Train']
 
 export const TYPE_COLORS = {
   Jeep:         '#FF6B35',
   Bus:          '#4A90D9',
   'UV Express': '#27AE60',
   Tricycle:     '#F39C12',
+  Cab:          '#EAB308',
   Train:        '#8E44AD',
 }
 
@@ -16,6 +17,7 @@ export const DURATION_FACTORS = {
   Bus:          1.4,  // wider roads but still congested; fewer stops than jeep
   'UV Express': 1.2,  // express routes, fewer stops, slightly faster
   Tricycle:     1.9,  // local streets only; slowest mode
+  Cab:          1.3,  // door-to-door, faster than jeep but still urban traffic
   Train:        0.85, // fixed rail, no traffic; often faster than driving
 }
 
