@@ -10,9 +10,9 @@ const FULL_H  = 0.88  // % of window height
 function dist(a, b) {
   return Math.hypot(a.lat - b.lat, a.lng - b.lng)
 }
-function findNearest(point, markers) {
-  if (!markers.length) return null
-  return markers.reduce((best, m) => dist(m, point) < dist(best, point) ? m : best)
+// Return up to k nearest terminals sorted by distance
+function findKNearest(point, markers, k = 8) {
+  return [...markers].sort((a, b) => dist(a, point) - dist(b, point)).slice(0, k)
 }
 function buildAdjacency(connections) {
   const adj = {}
@@ -214,23 +214,35 @@ export default function DirectionPanel({
   const [expanded, setExpanded] = useState({})
   const [sortBy, setSortBy]     = useState('best')
 
-  const nearFrom = findNearest(fromPoint, markers)
-  const nearTo   = findNearest(toPoint,   markers)
+  const adj           = buildAdjacency(connections)
+  const fromCandidates = findKNearest(fromPoint, markers, 8)
+  const toCandidates   = findKNearest(toPoint,   markers, 8)
 
-  const adj      = buildAdjacency(connections)
-  const allPaths = nearFrom && nearTo && nearFrom.id !== nearTo.id
-    ? findAllPaths(nearFrom.id, nearTo.id, adj)
-    : []
+  // Try all from/to candidate pairs and collect unique routes
+  const seenConnIds = new Set()
+  const allFoundRoutes = []
+  for (const fc of fromCandidates) {
+    for (const tc of toCandidates) {
+      if (fc.id === tc.id) continue
+      const paths = findAllPaths(fc.id, tc.id, adj, 10)
+      for (const path of paths) {
+        const key = (path.connIds ?? []).join(',')
+        if (seenConnIds.has(key)) continue
+        seenConnIds.add(key)
+        allFoundRoutes.push({ ...path, fromMarker: fc, toMarker: tc })
+      }
+    }
+  }
 
-  const walkInSecs  = nearFrom ? walkSecs(fromPoint, nearFrom) : 0
-  const walkOutSecs = nearTo   ? walkSecs(nearTo,   toPoint)   : 0
-
-  const routes = allPaths.map(({ stopIds, connIds, colors }, i) => {
-    const fare    = pathFare(connIds ?? [], connections)
-    const rideDur = pathDuration(connIds ?? [], connections, markers)
-    const duration = rideDur != null ? rideDur + walkInSecs + walkOutSecs : null
+  const routes = allFoundRoutes.map(({ stopIds, connIds, colors, fromMarker, toMarker }, i) => {
+    const fare     = pathFare(connIds ?? [], connections)
+    const rideDur  = pathDuration(connIds ?? [], connections, markers)
+    const wIn      = walkSecs(fromPoint, fromMarker)
+    const wOut     = walkSecs(toMarker, toPoint)
+    const duration = rideDur != null ? rideDur + wIn + wOut : null
     return {
-      stopIds, connIds, colors,
+      stopIds, connIds, colors, fromMarker, toMarker,
+      walkInSecs: wIn, walkOutSecs: wOut,
       color: colors[0] || ROUTE_COLORS[i % ROUTE_COLORS.length],
       label: `Route ${i + 1}`,
       fare, duration,
@@ -278,11 +290,11 @@ export default function DirectionPanel({
   const buildSteps = (route) => {
     const stops = route.stopIds.map(id => markers.find(m => m.id === id)).filter(Boolean)
     if (!stops.length) return []
-    const steps = [{ kind: 'walk', label: `Walk to ${stops[0].name}`, secs: walkSecs(fromPoint, stops[0]) }]
+    const steps = [{ kind: 'walk', label: `Walk to ${route.fromMarker.name}`, secs: route.walkInSecs }]
     for (let i = 0; i < stops.length - 1; i++) {
       steps.push({ kind: 'ride', from: stops[i], to: stops[i + 1], segColor: pathColor(route.colors, i) })
     }
-    steps.push({ kind: 'walk', label: `Walk to ${toPoint.name || 'destination'}`, secs: walkSecs(stops[stops.length - 1], toPoint) })
+    steps.push({ kind: 'walk', label: `Walk to ${toPoint.name || 'destination'}`, secs: route.walkOutSecs })
     return steps
   }
 
@@ -326,14 +338,14 @@ export default function DirectionPanel({
 
       {/* Scrollable body — hidden when peeking */}
       <div className="dir-body" style={{ overflowY: isPeeking ? 'hidden' : 'auto', flex: 1 }}>
-        {nearFrom && nearTo && (
+        {routes.length > 0 && (
           <div className="dir-snap-row">
-            <span className="dir-snap-stop" style={{ borderColor: TYPE_COLORS[nearFrom.type] || '#888' }}>
-              {nearFrom.name}
+            <span className="dir-snap-stop" style={{ borderColor: TYPE_COLORS[routes[0].fromMarker.type] || '#888' }}>
+              {routes[0].fromMarker.name}
             </span>
             <span className="dir-snap-arrow">→</span>
-            <span className="dir-snap-stop" style={{ borderColor: TYPE_COLORS[nearTo.type] || '#888' }}>
-              {nearTo.name}
+            <span className="dir-snap-stop" style={{ borderColor: TYPE_COLORS[routes[0].toMarker.type] || '#888' }}>
+              {routes[0].toMarker.name}
             </span>
           </div>
         )}
