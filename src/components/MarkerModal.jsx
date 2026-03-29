@@ -84,6 +84,10 @@ export default function MarkerModal({
   const [reverting,      setReverting]      = useState(null)
   const [confirmRevert,  setConfirmRevert]  = useState(null)
   const [savingConn,     setSavingConn]     = useState(false)
+  const [deletingMarker, setDeletingMarker] = useState(false)
+  const [submittingComment, setSubmittingComment] = useState(false)
+  const [deletingComment,   setDeletingComment]   = useState(null)
+  const [voting,         setVoting]         = useState(null)
 
   const stopConns = connections.filter(c => c.fromId === marker.id || c.toId === marker.id)
 
@@ -118,26 +122,32 @@ export default function MarkerModal({
 
   async function submitComment() {
     if (!commentText.trim()) return
+    setSubmittingComment(true)
     const token = localStorage.getItem('sakayan_token')
-    const r = await fetch(`/api/terminals/${marker.id}/comments`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
-      body: JSON.stringify({ body: commentText.trim() }),
-    })
-    if (r.ok) {
-      const d = await r.json()
-      setComments(prev => [d.comment, ...prev])
-      setCommentText('')
-    }
+    try {
+      const r = await fetch(`/api/terminals/${marker.id}/comments`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+        body: JSON.stringify({ body: commentText.trim() }),
+      })
+      if (r.ok) {
+        const d = await r.json()
+        setComments(prev => [d.comment, ...prev])
+        setCommentText('')
+      }
+    } finally { setSubmittingComment(false) }
   }
 
   async function deleteComment(commentId) {
+    setDeletingComment(commentId)
     const token = localStorage.getItem('sakayan_token')
-    await fetch(`/api/terminals/${marker.id}/comments?commentId=${commentId}`, {
-      method: 'DELETE',
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
-    })
-    setComments(prev => prev.filter(c => c.id !== commentId))
+    try {
+      await fetch(`/api/terminals/${marker.id}/comments?commentId=${commentId}`, {
+        method: 'DELETE',
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      })
+      setComments(prev => prev.filter(c => c.id !== commentId))
+    } finally { setDeletingComment(null) }
   }
 
   async function revertTo(logId) {
@@ -309,9 +319,12 @@ export default function MarkerModal({
                 </button>
                 <button className="btn-cancel-edit" onClick={handleCancel} disabled={saving}>Cancel</button>
               </div>
-              <button className="btn-delete-stop" onClick={() => {
-                if (window.confirm(`Delete "${marker.name}"?`)) onDelete(marker.id)
-              }}>🗑 Delete this stop</button>
+              <button className="btn-delete-stop" disabled={deletingMarker} onClick={async () => {
+                if (window.confirm(`Delete "${marker.name}"?`)) {
+                  setDeletingMarker(true)
+                  try { await onDelete(marker.id) } finally { setDeletingMarker(false) }
+                }
+              }}>{deletingMarker ? '🗑 Deleting…' : '🗑 Delete this stop'}</button>
             </>
           ) : (
             <>
@@ -326,16 +339,19 @@ export default function MarkerModal({
               {/* Social actions */}
               <div className="social-actions">
                 <button className={`social-btn like-btn${marker.my_vote === 'like' ? ' active' : ''}`}
-                  onClick={() => onVote?.('terminal', marker.id, 'like')} title="Like">
-                  👍 {marker.likes || 0}
+                  disabled={!!voting}
+                  onClick={async () => { setVoting('like'); try { await onVote?.('terminal', marker.id, 'like') } finally { setVoting(null) } }} title="Like">
+                  {voting === 'like' ? '…' : '👍'} {marker.likes || 0}
                 </button>
                 <button className={`social-btn dislike-btn${marker.my_vote === 'dislike' ? ' active' : ''}`}
-                  onClick={() => onVote?.('terminal', marker.id, 'dislike')} title="Dislike">
-                  👎 {marker.dislikes || 0}
+                  disabled={!!voting}
+                  onClick={async () => { setVoting('dislike'); try { await onVote?.('terminal', marker.id, 'dislike') } finally { setVoting(null) } }} title="Dislike">
+                  {voting === 'dislike' ? '…' : '👎'} {marker.dislikes || 0}
                 </button>
                 <button className={`social-btn outdated-btn${marker.my_vote === 'outdated' ? ' active' : ''}`}
-                  onClick={() => onVote?.('terminal', marker.id, 'outdated')} title="Mark as outdated">
-                  🕐 Outdated {marker.outdated_votes > 0 ? `(${marker.outdated_votes})` : ''}
+                  disabled={!!voting}
+                  onClick={async () => { setVoting('outdated'); try { await onVote?.('terminal', marker.id, 'outdated') } finally { setVoting(null) } }} title="Mark as outdated">
+                  {voting === 'outdated' ? '…' : '🕐'} Outdated {marker.outdated_votes > 0 ? `(${marker.outdated_votes})` : ''}
                 </button>
               </div>
 
@@ -494,8 +510,8 @@ export default function MarkerModal({
                         rows={2}
                         maxLength={500}
                       />
-                      <button className="comment-submit" onClick={submitComment} disabled={!commentText.trim()}>
-                        Send
+                      <button className="comment-submit" onClick={submitComment} disabled={!commentText.trim() || submittingComment}>
+                        {submittingComment ? 'Sending…' : 'Send'}
                       </button>
                     </div>
                   )}
@@ -512,7 +528,9 @@ export default function MarkerModal({
                           </button>
                           <span className="comment-time">{timeAgo(c.created_at)}</span>
                           {user && String(user.id) === String(c.user_id) && (
-                            <button className="comment-delete" onClick={() => deleteComment(c.id)} title="Delete">&#x2715;</button>
+                            <button className="comment-delete" onClick={() => deleteComment(c.id)} disabled={deletingComment === c.id} title="Delete">
+                              {deletingComment === c.id ? '…' : '✕'}
+                            </button>
                           )}
                         </div>
                         <p className="comment-body">{c.body}</p>

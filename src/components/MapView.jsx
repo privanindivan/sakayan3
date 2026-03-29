@@ -394,7 +394,7 @@ export default function MapView({
   const [mapZoom, setMapZoom] = useState(DEFAULT_ZOOM)
   const hasActiveRoute = activeStopIds && activeStopIds.length > 0
 
-  const MARKER_MIN_ZOOM = 13  // hide all markers below this zoom to prevent lag
+  const MARKER_MIN_ZOOM = 14  // hide all markers below this zoom to prevent lag
 
   // Only render markers visible in the current viewport (+ always show active/focused ones)
   const alwaysVisible = new Set([
