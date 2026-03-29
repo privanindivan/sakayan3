@@ -252,6 +252,7 @@ export default function App() {
 
   const handleMarkerClick = useCallback((marker) => {
     if (showForm) return
+    if (fromPoint && toPoint) return   // direction panel active — ignore marker taps
     if (connectingFrom !== null) {
       if (connectingFrom !== marker.id) {
         const fromM = markers.find(m => m.id === connectingFrom)
@@ -303,7 +304,7 @@ export default function App() {
     const allPts = [marker, ...connectedIds.map(id => markers.find(m => m.id === id)).filter(Boolean)]
     if (allPts.length > 1) setFitBoundsPoints(allPts.map(p => [p.lat, p.lng]))
     else setFitBoundsPoints(null)
-  }, [showForm, connectingFrom, markers, connections])
+  }, [showForm, fromPoint, toPoint, connectingFrom, markers, connections])
 
   const handleConfirmAlt = useCallback(async (altId, fare) => {
     if (!pendingConnect) return
