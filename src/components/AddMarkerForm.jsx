@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { VEHICLE_TYPES } from '../data/sampleData'
 
-export default function AddMarkerForm({ pendingLatLng, onSubmit, onCancel }) {
+export default function AddMarkerForm({ pendingLatLng, onSubmit, onCancel, saving = false }) {
   const [name,    setName]    = useState('')
   const [type,    setType]    = useState(VEHICLE_TYPES[0])
   const [details, setDetails] = useState('')
@@ -54,8 +54,8 @@ export default function AddMarkerForm({ pendingLatLng, onSubmit, onCancel }) {
           <p className="hint" style={{ marginBottom: 8 }}>No pin yet — tap the map first</p>
         )}
 
-        <button type="submit" className="btn-primary" disabled={!pendingLatLng}>
-          Add Terminal
+        <button type="submit" className="btn-primary" disabled={!pendingLatLng || saving}>
+          {saving ? 'Saving…' : 'Add Terminal'}
         </button>
       </form>
     </div>

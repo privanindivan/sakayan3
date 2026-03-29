@@ -83,6 +83,7 @@ export default function App() {
   const [addingWaypoint, setAddingWaypoint] = useState(null)
   const [pendingWpLatLng, setPendingWpLatLng] = useState(null)
   const [showStreetPhotos, setShowStreetPhotos] = useState(false)
+  const [savingMarker,   setSavingMarker]   = useState(false)
   const shownAuthPrompt = useRef(false)
 
   // Handle OAuth redirect (after Google login)
@@ -390,6 +391,7 @@ export default function App() {
 
   const handleAddMarker = async (data) => {
     if (!user) { setShowAuth(true); return }
+    setSavingMarker(true)
     try {
       const res = await apiFetch('/api/terminals', {
         method: 'POST',
@@ -409,7 +411,7 @@ export default function App() {
         setShowAddForm(false)
         setPendingLatLng(null)
       }
-    } catch {}
+    } catch {} finally { setSavingMarker(false) }
   }
 
   const handleCancelForm = () => {
@@ -620,6 +622,7 @@ export default function App() {
           pendingLatLng={pendingLatLng}
           onSubmit={handleAddMarker}
           onCancel={handleCancelForm}
+          saving={savingMarker}
         />
       )}
 
@@ -669,7 +672,9 @@ export default function App() {
             cb()
           }}
           onClose={() => { setSelectedMarker(null); window.history.replaceState({}, '', window.location.pathname) }}
+          saving={savingMarker}
           onSave={async (updated) => {
+            setSavingMarker(true)
             try {
               const res = await apiFetch(`/api/terminals/${updated.id}`, {
                 method: 'PUT',
@@ -680,7 +685,7 @@ export default function App() {
                 setMarkers(prev => prev.map(m => m.id === updated.id ? { ...m, ...updated } : m))
                 setSelectedMarker(updated)
               }
-            } catch {}
+            } catch {} finally { setSavingMarker(false) }
           }}
           onDelete={handleDeleteMarker}
           onRemoveConnection={handleRemoveConnection}

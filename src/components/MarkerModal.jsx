@@ -57,6 +57,7 @@ export default function MarkerModal({
   onRemoveConnection, onUpdateConnection, onStartConnect, onConnClick,
   onAddWaypoint, onRemoveWaypoint, onVote,
   onOpenProfile,
+  saving = false,
 }) {
   const [editing,  setEditing]  = useState(false)
   const [copied,   setCopied]   = useState(false)
@@ -82,6 +83,7 @@ export default function MarkerModal({
   const [loadingHistory, setLoadingHistory] = useState(false)
   const [reverting,      setReverting]      = useState(null)
   const [confirmRevert,  setConfirmRevert]  = useState(null)
+  const [savingConn,     setSavingConn]     = useState(false)
 
   const stopConns = connections.filter(c => c.fromId === marker.id || c.toId === marker.id)
 
@@ -206,6 +208,7 @@ export default function MarkerModal({
   }
 
   async function saveConnEdit(connId) {
+    setSavingConn(true)
     const fare = connFareInput !== '' ? parseFloat(connFareInput) : null
     const duration_secs = connMinInput !== '' ? Math.round(parseFloat(connMinInput) * 60) : null
     const token = localStorage.getItem('sakayan_token')
@@ -214,12 +217,16 @@ export default function MarkerModal({
       ...(fare != null ? { fare } : {}),
       ...(duration_secs != null ? { duration_secs } : {}),
     })
-    const r = await fetch(`/api/connections/${connId}`, { method: 'PUT', headers, body })
-    if (r.ok) {
-      const d = await r.json()
-      onUpdateConnection?.(d.connection)
+    try {
+      const r = await fetch(`/api/connections/${connId}`, { method: 'PUT', headers, body })
+      if (r.ok) {
+        const d = await r.json()
+        onUpdateConnection?.(d.connection)
+      }
+    } finally {
+      setSavingConn(false)
+      setEditingConnId(null)
     }
-    setEditingConnId(null)
   }
 
   const badgeColor   = TYPE_COLORS[type] || '#1a73e8'
@@ -297,8 +304,10 @@ export default function MarkerModal({
               <input ref={fileInputRef} type="file" accept="image/*" multiple style={{ display: 'none' }} onChange={handleFilePick} />
               <p className="coords-text" style={{ marginTop: 12 }}>{marker.lat.toFixed(5)}, {marker.lng.toFixed(5)}</p>
               <div className="edit-actions">
-                <button className="btn-save" onClick={handleSave}>Save</button>
-                <button className="btn-cancel-edit" onClick={handleCancel}>Cancel</button>
+                <button className="btn-save" onClick={handleSave} disabled={saving}>
+                  {saving ? 'Saving…' : 'Save'}
+                </button>
+                <button className="btn-cancel-edit" onClick={handleCancel} disabled={saving}>Cancel</button>
               </div>
               <button className="btn-delete-stop" onClick={() => {
                 if (window.confirm(`Delete "${marker.name}"?`)) onDelete(marker.id)
@@ -440,7 +449,9 @@ export default function MarkerModal({
                                 onChange={e => setConnMinInput(e.target.value)}
                                 min="0"
                               />
-                              <button className="btn-save conn-edit-save" onClick={() => saveConnEdit(c.id)}>Save</button>
+                              <button className="btn-save conn-edit-save" onClick={() => saveConnEdit(c.id)} disabled={savingConn}>
+                                {savingConn ? 'Saving…' : 'Save'}
+                              </button>
                               <button className="btn-cancel-edit" onClick={() => setEditingConnId(null)}>Cancel</button>
                             </div>
                           )}
