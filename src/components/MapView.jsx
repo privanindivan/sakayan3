@@ -471,6 +471,27 @@ export default function MapView({
           )
         })}
 
+        {/* Active route connections — separate overlay so color always applies fresh on top */}
+        {activeConnIds && activeConnIds.length > 0 && connections
+          .filter(conn => activeConnIds.includes(conn.id))
+          .map(conn => {
+            const from = markers.find(m => m.id === conn.fromId)
+            const to   = markers.find(m => m.id === conn.toId)
+            if (!from || !to) return null
+            const lineColor = conn.color || TYPE_COLORS[from.type] || '#4A90D9'
+            if (conn.geometry) {
+              return (
+                <Polyline key={`active-${conn.id}`} positions={normGeom(conn.geometry)}
+                  color={lineColor} weight={5} opacity={1} interactive={false} />
+              )
+            }
+            return (
+              <RoadRoute key={`active-${conn.id}`}
+                route={{ id: `active-${conn.id}`, waypoints: [[from.lat, from.lng], [to.lat, to.lng]], color: lineColor, weight: 5, opacity: 1 }}
+              />
+            )
+          })}
+
         {/* Focused connection — separate overlay mounted fresh on top so color always applies */}
         {focusedSegment && connections.filter(conn => isConnFocused(conn, focusedSegment)).map(conn => {
           const from = markers.find(m => m.id === conn.fromId)
@@ -532,8 +553,8 @@ export default function MapView({
           />
         ))}
 
-        {/* Only show OSRM fallback line when no existing connection route is active */}
-        {!hasActiveRoute && <UserRoute fromPoint={fromPoint} toPoint={toPoint} />}
+        {/* Only show OSRM fallback line when no saved connection route was found */}
+        {(!activeConnIds || activeConnIds.length === 0) && <UserRoute fromPoint={fromPoint} toPoint={toPoint} />}
 
         {visibleMarkers.map(marker => {
           let color = GREY
