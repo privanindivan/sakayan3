@@ -532,7 +532,8 @@ export default function MapView({
           />
         ))}
 
-        <UserRoute fromPoint={fromPoint} toPoint={toPoint} />
+        {/* Only show OSRM fallback line when no existing connection route is active */}
+        {!hasActiveRoute && <UserRoute fromPoint={fromPoint} toPoint={toPoint} />}
 
         {visibleMarkers.map(marker => {
           let color = GREY
