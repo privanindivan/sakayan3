@@ -9,6 +9,9 @@ jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
+      - name: Install pg
+        run: npm install pg
+
       - name: Ping Supabase DB
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
