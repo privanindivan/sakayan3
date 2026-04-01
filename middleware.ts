@@ -17,6 +17,77 @@ const AUTH_RATE_MAX = 10;
 const AUTH_RATE_ROUTES = ['/api/auth/login', '/api/auth/register'];
 const authRateMap = new Map<string, { count: number; windowStart: number }>();
 
+// ── GET rate limiter (anti-scraping) ──────────────────────────────────────
+// General: 100 GET /api/* per IP per minute
+// Bulk endpoints (full DB dumps): 5 per IP per minute
+// Mapillary proxy: 15/min (bbox) — generous for panning, blocks hammering
+const GET_RATE_MAX = 100;
+const BULK_RATE_MAX = 5;
+const MAPILLARY_RATE_MAX = 15;
+
+const getRateMap = new Map<string, { count: number; windowStart: number }>();
+const bulkRateMap = new Map<string, { count: number; windowStart: number }>();
+const mapillaryRateMap = new Map<string, { count: number; windowStart: number }>();
+
+function getReadRateCheck(request: NextRequest): NextResponse | null {
+  if (request.method !== 'GET') return null;
+  if (!request.nextUrl.pathname.startsWith('/api/')) return null;
+
+  const ip =
+    request.headers.get('x-nf-client-connection-ip') ||
+    request.headers.get('x-real-ip') ||
+    request.headers.get('x-forwarded-for')?.split(',').at(-1)?.trim() ||
+    'unknown';
+  const now = Date.now();
+  const key429 = { status: 429 as const, headers: { 'Retry-After': '60' } };
+
+  // Bulk endpoint check — /api/terminals (no bbox) and /api/connections
+  const isBulk =
+    (request.nextUrl.pathname === '/api/terminals' && !request.nextUrl.searchParams.has('bbox')) ||
+    request.nextUrl.pathname === '/api/connections';
+
+  if (isBulk) {
+    const entry = bulkRateMap.get(ip);
+    if (!entry || now - entry.windowStart > RATE_WINDOW_MS) {
+      bulkRateMap.set(ip, { count: 1, windowStart: now });
+    } else {
+      entry.count++;
+      if (entry.count > BULK_RATE_MAX) {
+        return NextResponse.json({ error: 'Too many requests. Please slow down.' }, key429);
+      }
+    }
+  }
+
+  // Mapillary proxy endpoints — 15/min to block quota-drain attacks
+  const isMapillary =
+    request.nextUrl.pathname === '/api/mapillary' ||
+    request.nextUrl.pathname === '/api/mapillary/thumb';
+
+  if (isMapillary) {
+    const entry = mapillaryRateMap.get(ip);
+    if (!entry || now - entry.windowStart > RATE_WINDOW_MS) {
+      mapillaryRateMap.set(ip, { count: 1, windowStart: now });
+    } else {
+      entry.count++;
+      if (entry.count > MAPILLARY_RATE_MAX) {
+        return NextResponse.json({ error: 'Too many requests. Please slow down.' }, key429);
+      }
+    }
+  }
+
+  // General GET rate limit
+  const gEntry = getRateMap.get(ip);
+  if (!gEntry || now - gEntry.windowStart > RATE_WINDOW_MS) {
+    getRateMap.set(ip, { count: 1, windowStart: now });
+    return null;
+  }
+  gEntry.count++;
+  if (gEntry.count > GET_RATE_MAX) {
+    return NextResponse.json({ error: 'Too many requests. Please slow down.' }, key429);
+  }
+  return null;
+}
+
 function authRateLimitCheck(request: NextRequest): NextResponse | null {
   if (!AUTH_RATE_ROUTES.includes(request.nextUrl.pathname)) return null;
   if (request.method !== 'POST') return null;
@@ -86,6 +157,15 @@ setInterval(() => {
   }
   for (const [ip, entry] of authRateMap) {
     if (now - entry.windowStart > AUTH_RATE_WINDOW_MS) authRateMap.delete(ip);
+  }
+  for (const [ip, entry] of getRateMap) {
+    if (now - entry.windowStart > RATE_WINDOW_MS) getRateMap.delete(ip);
+  }
+  for (const [ip, entry] of bulkRateMap) {
+    if (now - entry.windowStart > RATE_WINDOW_MS) bulkRateMap.delete(ip);
+  }
+  for (const [ip, entry] of mapillaryRateMap) {
+    if (now - entry.windowStart > RATE_WINDOW_MS) mapillaryRateMap.delete(ip);
   }
 }, 5 * 60_000);
 // ──────────────────────────────────────────────────────────────────────────
@@ -165,6 +245,9 @@ export async function middleware(request: NextRequest) {
 
   const rateLimited = rateLimitCheck(request);
   if (rateLimited) return rateLimited;
+
+  const readLimited = getReadRateCheck(request);
+  if (readLimited) return readLimited;
 
   const { pathname } = request.nextUrl;
   const method = request.method;

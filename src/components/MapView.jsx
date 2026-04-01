@@ -10,7 +10,7 @@ import RoadRoute from './RoadRoute'
 import { TYPE_COLORS } from '../data/sampleData'
 
 const MAPILLARY_TILE_ZOOM = 14
-const MAPILLARY_TOKEN = process.env.NEXT_PUBLIC_MAPILLARY_TOKEN || ''
+const MAPILLARY_TILE_PROXY = '/api/mapillary-tile'
 
 // Convert lat/lng → tile XY
 function latLngToTile(lat, lng, zoom) {
@@ -31,7 +31,7 @@ function tilePixelToLatLng(px, py, tx, ty, zoom, extent = 4096) {
 
 // Fetch Mapillary MVT vector tile — returns all image positions in tile
 async function fetchMapillaryTile(tx, ty, zoom) {
-  const res = await fetch(`https://tiles.mapillary.com/maps/vtp/mly1_public/2/${zoom}/${tx}/${ty}?access_token=${MAPILLARY_TOKEN}`)
+  const res = await fetch(`${MAPILLARY_TILE_PROXY}/${zoom}/${tx}/${ty}`)
   if (!res.ok) return []
   const buf = await res.arrayBuffer()
   const tile = new VectorTile(new Pbf(new Uint8Array(buf)))
@@ -394,7 +394,7 @@ export default function MapView({
   const [mapZoom, setMapZoom] = useState(DEFAULT_ZOOM)
   const hasActiveRoute = activeStopIds && activeStopIds.length > 0
 
-  const MARKER_MIN_ZOOM = 14  // hide all markers below this zoom to prevent lag
+  const MARKER_MIN_ZOOM = 13  // hide all markers below this zoom to prevent lag
 
   // Only render markers visible in the current viewport (+ always show active/focused ones)
   const alwaysVisible = new Set([
@@ -411,6 +411,17 @@ export default function MapView({
 
   return (
     <div style={{ position: 'relative', height: '100%', width: '100%' }}>
+      {/* Zoom-in hint when markers are hidden */}
+      {mapZoom < MARKER_MIN_ZOOM && markers.length > 0 && (
+        <div style={{
+          position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+          zIndex: 1000, background: 'rgba(0,0,0,0.55)', color: '#fff',
+          padding: '8px 16px', borderRadius: 20, fontSize: 13, pointerEvents: 'none',
+          whiteSpace: 'nowrap',
+        }}>
+          🔍 Zoom in to see terminals
+        </div>
+      )}
       {/* Custom attribution — must be outside MapContainer so it renders in the DOM */}
       <div style={{
         position: 'absolute', bottom: 0, right: 0, zIndex: 1000,

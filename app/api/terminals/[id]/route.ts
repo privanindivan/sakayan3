@@ -26,6 +26,13 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   const existing = await sql.query(`SELECT * FROM terminals WHERE id = $1`, [id])
   if (!existing[0]) return NextResponse.json({ error: 'Not found' }, { status: 404 })
 
+  // Only creator or admin can edit
+  const userRows = await sql.query(`SELECT role FROM users WHERE id = $1`, [userId])
+  const isAdmin = userRows[0]?.role === 'admin'
+  if (existing[0].created_by !== userId && !isAdmin) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  }
+
   const { name, type, details, schedule, images } = await req.json()
 
   // Log the edit before applying

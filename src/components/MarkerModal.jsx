@@ -384,7 +384,7 @@ export default function MarkerModal({
                   }}
                   aria-label="Copy link"
                 >
-                  {copied ? '✓' : '🔗'}
+                  {copied ? '✓ Copied!' : '🔗 Copy link'}
                 </button>
               </div>
 
