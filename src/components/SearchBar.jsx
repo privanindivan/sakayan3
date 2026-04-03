@@ -193,7 +193,7 @@ export default function SearchBar({ onRoute, onFlyTo, markers = [], resetKey = 0
       <div className="search-card">
         {/* FROM */}
         <div className="search-row">
-          <span className="route-dot from-dot" />
+          <span className="route-icon" style={{filter:'brightness(0) saturate(100%) invert(59%) sepia(54%) saturate(446%) hue-rotate(91deg) brightness(103%) contrast(90%)'}}>🔍</span>
           <input
             ref={fromRef}
             type="search"
@@ -216,7 +216,7 @@ export default function SearchBar({ onRoute, onFlyTo, markers = [], resetKey = 0
 
         {/* TO */}
         <div className="search-row">
-          <span className="route-dot to-dot" />
+          <span className="route-icon" style={{filter:'brightness(0) saturate(100%) invert(40%) sepia(68%) saturate(4000%) hue-rotate(340deg) brightness(100%) contrast(100%)'}}>🔍</span>
           <input
             ref={toRef}
             type="search"

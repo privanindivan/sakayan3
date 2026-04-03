@@ -69,6 +69,14 @@ html, body, #root {
 }
 .from-dot { background: #22C55E; }
 .to-dot   { background: #EF4444; }
+.route-icon {
+  font-size: 13px;
+  flex-shrink: 0;
+  margin-right: 10px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
 
 .search-divider {
   display: flex;
