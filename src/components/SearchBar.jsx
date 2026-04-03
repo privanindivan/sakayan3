@@ -193,7 +193,7 @@ export default function SearchBar({ onRoute, onFlyTo, markers = [], resetKey = 0
       <div className="search-card">
         {/* FROM */}
         <div className="search-row">
-          <svg className="route-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <svg className="route-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="23" y1="23" x2="16.65" y2="16.65"/></svg>
           <input
             ref={fromRef}
             type="search"
@@ -216,7 +216,7 @@ export default function SearchBar({ onRoute, onFlyTo, markers = [], resetKey = 0
 
         {/* TO */}
         <div className="search-row">
-          <svg className="route-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <svg className="route-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="23" y1="23" x2="16.65" y2="16.65"/></svg>
           <input
             ref={toRef}
             type="search"
