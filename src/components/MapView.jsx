@@ -85,41 +85,43 @@ function MapillaryLayer({ onImageClick }) {
 
     const schedDraw = () => { if (!s.rafId) s.rafId = requestAnimationFrame(draw) }
 
+    const doFetch = async () => {
+      if (map.getZoom() < MAPILLARY_TILE_ZOOM) { s.images = []; schedDraw(); return }
+
+      // Get all z14 tiles visible in current viewport
+      const b = map.getBounds()
+      const tMin = latLngToTile(b.getNorth(), b.getWest(), MAPILLARY_TILE_ZOOM)
+      const tMax = latLngToTile(b.getSouth(), b.getEast(), MAPILLARY_TILE_ZOOM)
+      const needed = []
+      for (let tx = tMin.x; tx <= tMax.x; tx++) {
+        for (let ty = tMin.y; ty <= tMax.y; ty++) {
+          needed.push(`${MAPILLARY_TILE_ZOOM}/${tx}/${ty}`)
+        }
+      }
+
+      // Fetch only uncached tiles in parallel
+      const uncached = needed.filter(k => !(k in s.tileCache) && !s.pendingTiles.has(k))
+      uncached.forEach(k => s.pendingTiles.add(k))
+
+      await Promise.all(uncached.map(async k => {
+        const [, tx, ty] = k.split('/').map(Number)
+        try {
+          s.tileCache[k] = await fetchMapillaryTile(tx, ty, MAPILLARY_TILE_ZOOM)
+        } catch {
+          s.tileCache[k] = []
+        } finally {
+          s.pendingTiles.delete(k)
+        }
+      }))
+
+      // Merge all cached tiles for visible area into one images array
+      s.images = needed.flatMap(k => s.tileCache[k] || [])
+      schedDraw()
+    }
+
     const fetchTiles = () => {
       clearTimeout(s.timer)
-      s.timer = setTimeout(async () => {
-        if (map.getZoom() < MAPILLARY_TILE_ZOOM) { s.images = []; schedDraw(); return }
-
-        // Get all z14 tiles visible in current viewport
-        const b = map.getBounds()
-        const tMin = latLngToTile(b.getNorth(), b.getWest(), MAPILLARY_TILE_ZOOM)
-        const tMax = latLngToTile(b.getSouth(), b.getEast(), MAPILLARY_TILE_ZOOM)
-        const needed = []
-        for (let tx = tMin.x; tx <= tMax.x; tx++) {
-          for (let ty = tMin.y; ty <= tMax.y; ty++) {
-            needed.push(`${MAPILLARY_TILE_ZOOM}/${tx}/${ty}`)
-          }
-        }
-
-        // Fetch only uncached tiles in parallel
-        const uncached = needed.filter(k => !(k in s.tileCache) && !s.pendingTiles.has(k))
-        uncached.forEach(k => s.pendingTiles.add(k))
-
-        await Promise.all(uncached.map(async k => {
-          const [, tx, ty] = k.split('/').map(Number)
-          try {
-            s.tileCache[k] = await fetchMapillaryTile(tx, ty, MAPILLARY_TILE_ZOOM)
-          } catch {
-            s.tileCache[k] = []
-          } finally {
-            s.pendingTiles.delete(k)
-          }
-        }))
-
-        // Merge all cached tiles for visible area into one images array
-        s.images = needed.flatMap(k => s.tileCache[k] || [])
-        schedDraw()
-      }, 350)
+      s.timer = setTimeout(doFetch, 350)
     }
 
     const handleClick = (e) => {
@@ -145,7 +147,7 @@ function MapillaryLayer({ onImageClick }) {
     map.on('moveend', fetchTiles)
     map.on('zoomend', fetchTiles)
     map.on('click', handleClick)
-    fetchTiles()
+    doFetch() // immediate on mount — no debounce delay
 
     return () => {
       clearTimeout(s.timer)
@@ -163,7 +165,7 @@ function MapillaryLayer({ onImageClick }) {
 }
 
 const PHILIPPINES = [14.55, 121.02]  // Ortigas/Mandaluyong — best Mapillary coverage for mobile
-const DEFAULT_ZOOM = 13
+const DEFAULT_ZOOM = 14
 
 const MAP_VIEW_KEY = 'sakayan_map_view_v2'
 
@@ -450,13 +452,18 @@ export default function MapView({
         zoomControl={false}
         attributionControl={false}
       >
+        {/* Both tile layers always mounted — toggling opacity avoids blank flash on switch */}
         <TileLayer
-          key={showStreetPhotos ? 'light' : 'osm'}
-          url={showStreetPhotos
-            ? 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
-            : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'}
+          url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution=''
           maxZoom={19}
+          opacity={showStreetPhotos ? 0 : 1}
+        />
+        <TileLayer
+          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
+          attribution=''
+          maxZoom={19}
+          opacity={showStreetPhotos ? 1 : 0}
         />
 
         {/* Saved connections — always grey unless part of active route */}
