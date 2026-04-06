@@ -10,6 +10,9 @@ import RouteAlternativesSheet from './components/RouteAlternativesSheet'
 import AuthModal              from './components/AuthModal'
 import { DURATION_FACTORS, TYPE_COLORS } from './data/sampleData'
 
+const ALL_TYPES = ['Bus', 'Jeep', 'Train', 'Ferry', 'Tricycle', 'UV Express', 'Cab']
+const TYPE_EMOJI = { Bus: '🚌', Jeep: '🚐', Train: '🚆', Ferry: '⛴️', Tricycle: '🛺', 'UV Express': '🚐', Cab: '🛺' }
+
 // Attach stored token to every API request (for Google OAuth users on different port)
 function apiFetch(url, options = {}) {
   const token = localStorage.getItem('sakayan_token')
@@ -84,6 +87,8 @@ export default function App() {
   const [pendingWpLatLng, setPendingWpLatLng] = useState(null)
   const [showStreetPhotos, setShowStreetPhotos] = useState(false)
   const [savingMarker,   setSavingMarker]   = useState(false)
+  const [activeTypes,    setActiveTypes]    = useState(null) // null = all shown
+  const [showTypeFilter, setShowTypeFilter] = useState(false)
   const shownAuthPrompt = useRef(false)
 
   // Handle OAuth redirect (after Google login)
@@ -516,7 +521,7 @@ export default function App() {
       </div>
 
       <MapView
-        markers={markers}
+        markers={activeTypes ? markers.filter(m => activeTypes.has(m.type)) : markers}
         connections={connections}
         pendingAlternatives={pendingConnect?.alternatives ?? []}
         connectingFrom={connectingFrom}
@@ -538,6 +543,57 @@ export default function App() {
         onStreetViewClick={(img) => setStreetViewImg(img)}
         showStreetPhotos={showStreetPhotos}
       />
+
+      {/* Vehicle type filter — top left */}
+      <div style={{ position: 'absolute', top: 12, left: 12, zIndex: 1100 }}>
+        <button
+          onClick={() => setShowTypeFilter(v => !v)}
+          title="Filter by vehicle type"
+          style={{
+            width: 36, height: 36, borderRadius: 8, border: '1.5px solid #d1d5db',
+            background: activeTypes ? '#1d4ed8' : 'white', color: activeTypes ? 'white' : '#374151',
+            cursor: 'pointer', fontSize: 16, display: 'flex', alignItems: 'center', justifyContent: 'center',
+            boxShadow: '0 1px 4px rgba(0,0,0,0.18)', fontWeight: 700,
+          }}
+        >
+          {activeTypes ? `${activeTypes.size}` : '☰'}
+        </button>
+        {showTypeFilter && (
+          <div style={{
+            position: 'absolute', top: 42, left: 0, background: 'white', borderRadius: 10,
+            boxShadow: '0 4px 16px rgba(0,0,0,0.18)', padding: '10px 8px', minWidth: 170,
+            border: '1px solid #e5e7eb',
+          }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: '#6b7280', marginBottom: 6, paddingLeft: 4 }}>FILTER BY TYPE</div>
+            {ALL_TYPES.map(type => {
+              const color = TYPE_COLORS[type] || '#4A90D9'
+              const checked = !activeTypes || activeTypes.has(type)
+              return (
+                <label key={type} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '5px 4px', cursor: 'pointer', borderRadius: 6 }}>
+                  <input
+                    type="checkbox"
+                    checked={checked}
+                    onChange={() => {
+                      setActiveTypes(prev => {
+                        const base = prev ? new Set(prev) : new Set(ALL_TYPES)
+                        if (base.has(type)) { base.delete(type) } else { base.add(type) }
+                        return base.size === ALL_TYPES.length ? null : base
+                      })
+                    }}
+                    style={{ accentColor: color, width: 15, height: 15 }}
+                  />
+                  <span style={{ width: 10, height: 10, borderRadius: 3, background: color, flexShrink: 0 }} />
+                  <span style={{ fontSize: 13, color: '#111827' }}>{TYPE_EMOJI[type]} {type}</span>
+                </label>
+              )
+            })}
+            <div style={{ borderTop: '1px solid #e5e7eb', marginTop: 8, paddingTop: 8, display: 'flex', gap: 6 }}>
+              <button onClick={() => setActiveTypes(null)} style={{ flex: 1, fontSize: 11, padding: '4px 0', borderRadius: 5, border: '1px solid #d1d5db', background: '#f9fafb', cursor: 'pointer' }}>All</button>
+              <button onClick={() => setActiveTypes(new Set())} style={{ flex: 1, fontSize: 11, padding: '4px 0', borderRadius: 5, border: '1px solid #d1d5db', background: '#f9fafb', cursor: 'pointer' }}>None</button>
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Street Photos toggle — bottom left */}
       <button
@@ -655,7 +711,7 @@ export default function App() {
             setActiveConnIds(connIds)
             setFocusedSegment(null)
           }}
-          onSegmentFocus={(fromId, toId) => setFocusedSegment({ fromId, toId })}
+          onSegmentFocus={(fromId, toId, connId) => setFocusedSegment({ fromId, toId, connId })}
         />
       )}
 

@@ -97,7 +97,7 @@ function connDuration(conn, markers) {
 }
 
 function pathFare(connIds, connections) {
-  const fares = connIds.map(id => connections.find(c => c.id === id)?.fare).filter(f => f != null)
+  const fares = connIds.map(id => connections.find(c => c.id === id)?.fare).filter(f => f != null).map(Number)
   if (!fares.length) return null
   return fares.reduce((a, b) => a + b, 0)
 }
@@ -292,7 +292,7 @@ export default function DirectionPanel({
     if (!stops.length) return []
     const steps = [{ kind: 'walk', label: `Walk to ${route.fromMarker.name}`, secs: route.walkInSecs }]
     for (let i = 0; i < stops.length - 1; i++) {
-      steps.push({ kind: 'ride', from: stops[i], to: stops[i + 1], segColor: pathColor(route.colors, i) })
+      steps.push({ kind: 'ride', from: stops[i], to: stops[i + 1], segColor: pathColor(route.colors, i), connId: route.connIds?.[i] })
     }
     steps.push({ kind: 'walk', label: `Walk to ${toPoint.name || 'destination'}`, secs: route.walkOutSecs })
     return steps
@@ -410,7 +410,7 @@ export default function DirectionPanel({
                         key={si}
                         className="dir-step ride-step"
                         onClick={() => {
-                          onSegmentFocus?.(step.from.id, step.to.id)
+                          onSegmentFocus?.(step.from.id, step.to.id, step.connId)
                           if (snap === 'full') snapTo('half')
                         }}
                       >

@@ -51,11 +51,13 @@ async function fetchMapillaryTile(tx, ty, zoom) {
 
 // Pure-canvas Mapillary layer — fetches Mapillary's actual tile data server-side,
 // draws all dots in one canvas context. Zero Leaflet layer objects per dot.
-function MapillaryLayer({ onImageClick }) {
+function MapillaryLayer({ onImageClick, onLoadingChange }) {
   const map = useMap()
   const stateRef = useRef({ images: [], tileCache: {}, pendingTiles: new Set(), rafId: null, timer: null })
   const onImageClickRef = useRef(onImageClick)
   onImageClickRef.current = onImageClick
+  const onLoadingChangeRef = useRef(onLoadingChange)
+  onLoadingChangeRef.current = onLoadingChange
 
   useEffect(() => {
     const s = stateRef.current
@@ -103,6 +105,8 @@ function MapillaryLayer({ onImageClick }) {
       const uncached = needed.filter(k => !(k in s.tileCache) && !s.pendingTiles.has(k))
       uncached.forEach(k => s.pendingTiles.add(k))
 
+      if (uncached.length > 0) onLoadingChangeRef.current?.(true)
+
       await Promise.all(uncached.map(async k => {
         const [, tx, ty] = k.split('/').map(Number)
         try {
@@ -114,6 +118,8 @@ function MapillaryLayer({ onImageClick }) {
         }
       }))
 
+      onLoadingChangeRef.current?.(false)
+
       // Merge all cached tiles for visible area into one images array
       s.images = needed.flatMap(k => s.tileCache[k] || [])
       schedDraw()
@@ -121,7 +127,7 @@ function MapillaryLayer({ onImageClick }) {
 
     const fetchTiles = () => {
       clearTimeout(s.timer)
-      s.timer = setTimeout(doFetch, 350)
+      s.timer = setTimeout(doFetch, 200)
     }
 
     const handleClick = (e) => {
@@ -185,7 +191,12 @@ const GREY = '#9CA3AF'
 // Guard against geometry stored as [lng, lat] instead of [lat, lng].
 // For the Philippines: lat is 5–21, lng is 116–128. If first coord > 90, it's lng.
 function normGeom(geometry) {
-  if (!geometry || !geometry.length) return geometry
+  if (!geometry) return []
+  // GeoJSON LineString: { type: "LineString", coordinates: [[lng, lat], ...] }
+  if (geometry.type === 'LineString' && Array.isArray(geometry.coordinates)) {
+    return geometry.coordinates.map(([lng, lat]) => [lat, lng])
+  }
+  if (!geometry.length) return []
   const [a] = geometry[0]
   return Math.abs(a) > 90 ? geometry.map(([ln, la]) => [la, ln]) : geometry
 }
@@ -394,6 +405,7 @@ export default function MapView({
 }) {
   const [mapBounds, setMapBounds] = useState(null)
   const [mapZoom, setMapZoom] = useState(DEFAULT_ZOOM)
+  const [streetPhotosLoading, setStreetPhotosLoading] = useState(false)
   const hasActiveRoute = activeStopIds && activeStopIds.length > 0
 
   const MARKER_MIN_ZOOM = 13  // hide all markers below this zoom to prevent lag
@@ -413,6 +425,18 @@ export default function MapView({
 
   return (
     <div style={{ position: 'relative', height: '100%', width: '100%' }}>
+      {/* Street photos loading indicator */}
+      {showStreetPhotos && streetPhotosLoading && (
+        <div style={{
+          position: 'absolute', bottom: 24, left: '50%', transform: 'translateX(-50%)',
+          zIndex: 1000, background: 'rgba(0,0,0,0.65)', color: '#fff',
+          padding: '6px 14px', borderRadius: 20, fontSize: 12, pointerEvents: 'none',
+          whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: 6,
+        }}>
+          <span style={{ display: 'inline-block', width: 10, height: 10, borderRadius: '50%', background: '#22C55E', animation: 'pulse-ring 1s infinite' }} />
+          Loading street photos…
+        </div>
+      )}
       {/* Zoom-in hint when markers are hidden */}
       {mapZoom < MARKER_MIN_ZOOM && markers.length > 0 && (
         <div style={{
@@ -626,7 +650,7 @@ export default function MapView({
           fitBoundsPoints={fitBoundsPoints}
           markers={markers}
         />
-        {showStreetPhotos && <MapillaryLayer onImageClick={onStreetViewClick} />}
+        {showStreetPhotos && <MapillaryLayer onImageClick={onStreetViewClick} onLoadingChange={setStreetPhotosLoading} />}
       </MapContainer>
     </div>
   )
