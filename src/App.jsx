@@ -202,6 +202,7 @@ export default function App() {
 
   const handleStartAddWaypoint = useCallback((connId) => {
     setAddingWaypoint({ connId })
+    setFocusedSegment({ connId })
     setSelectedMarker(null)
     setPendingWpLatLng(null)
   }, [])
