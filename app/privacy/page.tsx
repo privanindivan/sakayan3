@@ -17,7 +17,7 @@ export default function PrivacyPolicy() {
       <p>We use Google OAuth for authentication. Google's privacy policy applies to data processed through their services.</p>
 
       <h2>Contact</h2>
-      <p>For any privacy questions, contact the app developer through the Sakayan platform.</p>
+      <p>For any privacy questions, reach us on our <a href="https://www.facebook.com/people/Sakayan/61578529771903/" target="_blank" rel="noopener noreferrer">Facebook page</a>.</p>
     </main>
   )
 }

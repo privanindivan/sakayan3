@@ -23,7 +23,7 @@ export default function TermsOfService() {
       <p>We may update these terms at any time. Continued use of Sakayan after changes constitutes acceptance of the updated terms.</p>
 
       <h2>Contact</h2>
-      <p>For questions about these terms, contact the app developer through the Sakayan platform.</p>
+      <p>For questions about these terms, reach us on our <a href="https://www.facebook.com/people/Sakayan/61578529771903/" target="_blank" rel="noopener noreferrer">Facebook page</a>.</p>
     </main>
   )
 }
