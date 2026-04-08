@@ -571,8 +571,7 @@ export default function App() {
       }}>
         {/* Header */}
         <div style={{ padding: '20px 16px 12px', borderBottom: '1px solid #e5e7eb', display: 'flex', alignItems: 'center', gap: 10 }}>
-          <img src="/sakayan-logo.png" alt="" style={{ width: 28, height: 28, borderRadius: 6 }}
-            onError={e => { e.target.style.display = 'none' }} />
+          <img src="/logo.png" alt="" style={{ width: 28, height: 28, borderRadius: 6 }} />
           <span style={{ fontSize: 18, fontWeight: 700, color: '#111827' }}>Sakayan</span>
           <button onClick={() => setShowDrawer(false)} style={{
             marginLeft: 'auto', background: 'none', border: 'none', fontSize: 20, color: '#9ca3af', cursor: 'pointer', padding: '0 4px',
