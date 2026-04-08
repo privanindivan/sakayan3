@@ -88,7 +88,7 @@ export default function App() {
   const [showStreetPhotos, setShowStreetPhotos] = useState(false)
   const [savingMarker,   setSavingMarker]   = useState(false)
   const [activeTypes,    setActiveTypes]    = useState(null) // null = all shown
-  const [showTypeFilter, setShowTypeFilter] = useState(false)
+  const [showDrawer,     setShowDrawer]     = useState(false)
   const shownAuthPrompt = useRef(false)
 
   // Handle OAuth redirect (after Google login)
@@ -545,69 +545,103 @@ export default function App() {
         showStreetPhotos={showStreetPhotos}
       />
 
-      {/* Vehicle type filter — top left */}
-      <div style={{ position: 'absolute', top: 12, left: 12, zIndex: 1100 }}>
-        <button
-          onClick={() => setShowTypeFilter(v => !v)}
-          title="Filter by vehicle type"
-          style={{
-            width: 36, height: 36, borderRadius: 8, border: '1.5px solid #d1d5db',
-            background: activeTypes ? '#1d4ed8' : 'white', color: activeTypes ? 'white' : '#374151',
-            cursor: 'pointer', fontSize: 16, display: 'flex', alignItems: 'center', justifyContent: 'center',
-            boxShadow: '0 1px 4px rgba(0,0,0,0.18)', fontWeight: 700,
-          }}
-        >
-          {activeTypes ? `${activeTypes.size}` : '☰'}
-        </button>
-        {showTypeFilter && (
-          <div style={{
-            position: 'absolute', top: 42, left: 0, background: 'white', borderRadius: 10,
-            boxShadow: '0 4px 16px rgba(0,0,0,0.18)', padding: '10px 8px', minWidth: 170,
-            border: '1px solid #e5e7eb',
-          }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: '#6b7280', marginBottom: 6, paddingLeft: 4 }}>FILTER BY TYPE</div>
-            {ALL_TYPES.map(type => {
-              const color = TYPE_COLORS[type] || '#4A90D9'
-              const checked = !activeTypes || activeTypes.has(type)
-              return (
-                <label key={type} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '5px 4px', cursor: 'pointer', borderRadius: 6 }}>
-                  <input
-                    type="checkbox"
-                    checked={checked}
-                    onChange={() => {
-                      setActiveTypes(prev => {
-                        const base = prev ? new Set(prev) : new Set(ALL_TYPES)
-                        if (base.has(type)) { base.delete(type) } else { base.add(type) }
-                        return base.size === ALL_TYPES.length ? null : base
-                      })
-                    }}
-                    style={{ accentColor: color, width: 15, height: 15 }}
-                  />
-                  <span style={{ width: 10, height: 10, borderRadius: 3, background: color, flexShrink: 0 }} />
-                  <span style={{ fontSize: 13, color: '#111827' }}>{TYPE_EMOJI[type]} {type}</span>
-                </label>
-              )
-            })}
-            <div style={{ borderTop: '1px solid #e5e7eb', marginTop: 8, paddingTop: 8, display: 'flex', gap: 6 }}>
-              <button onClick={() => setActiveTypes(null)} style={{ flex: 1, fontSize: 11, padding: '4px 0', borderRadius: 5, border: '1px solid #d1d5db', background: '#f9fafb', cursor: 'pointer' }}>All</button>
-              <button onClick={() => setActiveTypes(new Set())} style={{ flex: 1, fontSize: 11, padding: '4px 0', borderRadius: 5, border: '1px solid #d1d5db', background: '#f9fafb', cursor: 'pointer' }}>None</button>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Street Photos toggle — bottom left */}
+      {/* Menu button — top left */}
       <button
-        className={`icon-btn street-photos-btn ${showStreetPhotos ? 'street-photos-on' : ''}`}
-        onClick={() => setShowStreetPhotos(v => !v)}
-        aria-label="Toggle Street Photos"
-        title="Street Photos"
+        onClick={() => setShowDrawer(true)}
+        title="Menu"
+        style={{
+          position: 'absolute', top: 12, left: 12, zIndex: 1100,
+          width: 36, height: 36, borderRadius: 8, border: '1.5px solid #d1d5db',
+          background: activeTypes ? '#1d4ed8' : 'white', color: activeTypes ? 'white' : '#374151',
+          cursor: 'pointer', fontSize: 16, display: 'flex', alignItems: 'center', justifyContent: 'center',
+          boxShadow: '0 1px 4px rgba(0,0,0,0.18)', fontWeight: 700,
+        }}
       >
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="9" cy="9" r="7" fill={showStreetPhotos ? '#22C55E' : '#9CA3AF'} stroke="white" strokeWidth="1.5"/>
-        </svg>
-        <span style={{ fontSize: 11, marginLeft: 4, fontWeight: 600, color: showStreetPhotos ? '#22C55E' : '#9CA3AF' }}>Street Photos</span>
+        {activeTypes ? `☰ ${activeTypes.size}` : '☰'}
       </button>
+
+      {/* Slide-out drawer */}
+      {showDrawer && <div onClick={() => setShowDrawer(false)} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.35)', zIndex: 2000 }} />}
+      <div style={{
+        position: 'fixed', top: 0, left: 0, bottom: 0, width: 280,
+        background: 'white', zIndex: 2001, boxShadow: '4px 0 20px rgba(0,0,0,0.15)',
+        transform: showDrawer ? 'translateX(0)' : 'translateX(-100%)',
+        transition: 'transform 0.25s ease', display: 'flex', flexDirection: 'column',
+        overflowY: 'auto',
+      }}>
+        {/* Header */}
+        <div style={{ padding: '20px 16px 12px', borderBottom: '1px solid #e5e7eb', display: 'flex', alignItems: 'center', gap: 10 }}>
+          <img src="/sakayan-logo.png" alt="" style={{ width: 28, height: 28, borderRadius: 6 }}
+            onError={e => { e.target.style.display = 'none' }} />
+          <span style={{ fontSize: 18, fontWeight: 700, color: '#111827' }}>Sakayan</span>
+          <button onClick={() => setShowDrawer(false)} style={{
+            marginLeft: 'auto', background: 'none', border: 'none', fontSize: 20, color: '#9ca3af', cursor: 'pointer', padding: '0 4px',
+          }}>✕</button>
+        </div>
+
+        {/* Vehicle type filters */}
+        <div style={{ padding: '14px 16px 10px' }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#6b7280', marginBottom: 8, letterSpacing: '0.05em' }}>VEHICLE TYPES</div>
+          {ALL_TYPES.map(type => {
+            const color = TYPE_COLORS[type] || '#4A90D9'
+            const checked = !activeTypes || activeTypes.has(type)
+            return (
+              <label key={type} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '7px 4px', cursor: 'pointer', borderRadius: 6 }}>
+                <input
+                  type="checkbox"
+                  checked={checked}
+                  onChange={() => {
+                    setActiveTypes(prev => {
+                      const base = prev ? new Set(prev) : new Set(ALL_TYPES)
+                      if (base.has(type)) { base.delete(type) } else { base.add(type) }
+                      return base.size === ALL_TYPES.length ? null : base
+                    })
+                  }}
+                  style={{ accentColor: color, width: 16, height: 16 }}
+                />
+                <span style={{ width: 10, height: 10, borderRadius: 3, background: color, flexShrink: 0 }} />
+                <span style={{ fontSize: 14, color: '#111827' }}>{TYPE_EMOJI[type]} {type}</span>
+              </label>
+            )
+          })}
+          <div style={{ display: 'flex', gap: 6, marginTop: 8 }}>
+            <button onClick={() => setActiveTypes(null)} style={{ flex: 1, fontSize: 12, padding: '5px 0', borderRadius: 6, border: '1px solid #d1d5db', background: '#f9fafb', cursor: 'pointer' }}>All</button>
+            <button onClick={() => setActiveTypes(new Set())} style={{ flex: 1, fontSize: 12, padding: '5px 0', borderRadius: 6, border: '1px solid #d1d5db', background: '#f9fafb', cursor: 'pointer' }}>None</button>
+          </div>
+        </div>
+
+        <div style={{ borderTop: '1px solid #e5e7eb' }} />
+
+        {/* Map layers */}
+        <div style={{ padding: '14px 16px 10px' }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#6b7280', marginBottom: 8, letterSpacing: '0.05em' }}>MAP LAYERS</div>
+          <div onClick={() => setShowStreetPhotos(v => !v)} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '7px 4px', cursor: 'pointer', borderRadius: 6 }}>
+            <span style={{ width: 18, height: 18, borderRadius: '50%', background: showStreetPhotos ? '#22C55E' : '#d1d5db', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background 0.2s' }}>
+              {showStreetPhotos && <span style={{ color: 'white', fontSize: 11, fontWeight: 700 }}>✓</span>}
+            </span>
+            <span style={{ fontSize: 14, color: '#111827' }}>Street Photos</span>
+          </div>
+        </div>
+
+        <div style={{ borderTop: '1px solid #e5e7eb' }} />
+
+        {/* Links */}
+        <div style={{ padding: '14px 16px' }}>
+          <a href="/privacy" target="_blank" rel="noopener noreferrer"
+            style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 4px', color: '#374151', textDecoration: 'none', fontSize: 14, borderRadius: 6 }}>
+            Privacy Policy
+          </a>
+          <a href="/terms" target="_blank" rel="noopener noreferrer"
+            style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 4px', color: '#374151', textDecoration: 'none', fontSize: 14, borderRadius: 6 }}>
+            Terms of Service
+          </a>
+        </div>
+
+        {/* Version — pinned to bottom */}
+        <div style={{ marginTop: 'auto', padding: '14px 16px', borderTop: '1px solid #e5e7eb' }}>
+          <span style={{ fontSize: 12, color: '#9ca3af' }}>Sakayan v1.0.0</span>
+        </div>
+      </div>
 
       {/* Corner buttons — locate only for anonymous; locate + add for logged-in */}
       <div className="corner-btns">
