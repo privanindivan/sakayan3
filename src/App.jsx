@@ -642,6 +642,19 @@ export default function App() {
         </div>
       </div>
 
+      {/* Street Photos toggle — bottom left */}
+      <button
+        className={`icon-btn street-photos-btn ${showStreetPhotos ? 'street-photos-on' : ''}`}
+        onClick={() => setShowStreetPhotos(v => !v)}
+        aria-label="Toggle Street Photos"
+        title="Street Photos"
+      >
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="9" cy="9" r="7" fill={showStreetPhotos ? '#22C55E' : '#9CA3AF'} stroke="white" strokeWidth="1.5"/>
+        </svg>
+        <span style={{ fontSize: 11, marginLeft: 4, fontWeight: 600, color: showStreetPhotos ? '#22C55E' : '#9CA3AF' }}>Street Photos</span>
+      </button>
+
       {/* Corner buttons — locate only for anonymous; locate + add for logged-in */}
       <div className="corner-btns">
         <button className="icon-btn locate-btn" onClick={handleLocate} aria-label="My location" title="My location">
