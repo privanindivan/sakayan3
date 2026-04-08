@@ -26,9 +26,11 @@ html, body, #root {
   padding-top: env(safe-area-inset-top);
 }
 
-/* Status page needs scrolling */
+/* Status / legal pages need scrolling */
 html:has(.status-layout),
-body:has(.status-layout) {
+body:has(.status-layout),
+html:has(.legal-page),
+body:has(.legal-page) {
   overflow: auto;
   height: auto;
 }
