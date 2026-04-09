@@ -2403,6 +2403,23 @@ html, body, #root {
   gap: 8px;
 }
 
+.fullscreen-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  transition: background 0.15s;
+}
+.fullscreen-btn:hover { background: var(--border); }
+
 .user-chip {
   display: flex;
   align-items: center;

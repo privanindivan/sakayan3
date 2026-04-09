@@ -89,6 +89,12 @@ export default function App() {
   const [savingMarker,   setSavingMarker]   = useState(false)
   const [activeTypes,    setActiveTypes]    = useState(null) // null = all shown
   const [showDrawer,     setShowDrawer]     = useState(false)
+  const [isFullscreen,   setIsFullscreen]   = useState(false)
+  useEffect(() => {
+    const handler = () => setIsFullscreen(!!document.fullscreenElement)
+    document.addEventListener('fullscreenchange', handler)
+    return () => document.removeEventListener('fullscreenchange', handler)
+  }, [])
   const shownAuthPrompt = useRef(false)
 
   // Handle OAuth redirect (after Google login)
@@ -491,8 +497,18 @@ export default function App() {
     <div className="app">
       <SearchBar onRoute={handleRoute} onFlyTo={(t) => setFlyTarget(t)} markers={markers} resetKey={searchResetKey} prefill={routePrefill} />
 
-      {/* Top-right: auth */}
+      {/* Top-right: fullscreen + auth */}
       <div className="top-right-bar">
+        <button
+          className="fullscreen-btn"
+          onClick={() => {
+            if (!document.fullscreenElement) document.documentElement.requestFullscreen?.()
+            else document.exitFullscreen?.()
+          }}
+          title="Toggle fullscreen"
+        >
+          {isFullscreen ? '⊡' : '⛶'}
+        </button>
         {user ? (
           <div className="user-chip">
             <span className="user-badge-emoji">{BADGE_EMOJI[user.badge] || '🌱'}</span>
