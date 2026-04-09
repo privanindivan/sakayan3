@@ -29,25 +29,35 @@ function StyledRoute({ positions, color, weight = 5, opacity = 1, dashed = false
 }
 
 export default function RoadRoute({ route }) {
-  const [positions, setPositions] = useState(route.waypoints)
+  const [positions, setPositions] = useState(null)
 
   useEffect(() => {
-    const coords = route.waypoints.map(([lat, lng]) => `${lng},${lat}`).join(';')
-    const controller = new AbortController()
-    const timer = setTimeout(() => controller.abort(), 6000)
+    const coords = route.waypoints
+      .map(([lat, lng]) => `${lng},${lat}`)
+      .join(';')
 
     fetch(
-      `https://router.project-osrm.org/route/v1/driving/${coords}?overview=full&geometries=geojson`,
-      { signal: controller.signal }
+      `https://router.project-osrm.org/route/v1/driving/${coords}?overview=full&geometries=geojson`
     )
       .then(r => r.json())
       .then(data => {
         const geom = data.routes?.[0]?.geometry?.coordinates
-        if (geom) setPositions(geom.map(([lng, lat]) => [lat, lng]))
+        setPositions(geom ? geom.map(([lng, lat]) => [lat, lng]) : route.waypoints)
       })
-      .catch(() => {})
-      .finally(() => clearTimeout(timer))
+      .catch(() => setPositions(route.waypoints))
   }, [route.id]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (!positions) {
+    return (
+      <StyledRoute
+        positions={route.waypoints}
+        color={route.color}
+        weight={route.weight}
+        opacity={route.opacity}
+        dashed
+      />
+    )
+  }
 
   return (
     <StyledRoute
