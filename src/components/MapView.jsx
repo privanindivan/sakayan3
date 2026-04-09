@@ -490,30 +490,23 @@ export default function MapView({
           opacity={showStreetPhotos ? 1 : 0}
         />
 
-        {/* Saved connections — always grey unless part of active route */}
-        {connections.map(conn => {
+        {/* Saved connections — only render background (grey) ones when zoomed in enough */}
+        {mapZoom >= MARKER_MIN_ZOOM && connections.map(conn => {
+          const isActiveRoute = activeConnIds?.includes(conn.id)
+          const isFocused = isConnFocused(conn, focusedSegment)
+          if (isActiveRoute || isFocused) return null  // handled below
           const from = markers.find(m => m.id === conn.fromId)
           const to   = markers.find(m => m.id === conn.toId)
           if (!from || !to) return null
-
-          const isActiveRoute = activeConnIds?.includes(conn.id)
-          const lineColor   = isActiveRoute ? (conn.color || TYPE_COLORS[from.type] || '#4A90D9') : GREY
-          const lineOpacity = isActiveRoute ? 1 : 0.45
-
-          if (conn.geometry) {
-            return (
-              <Polyline key={conn.id} positions={normGeom(conn.geometry)}
-                color={lineColor} weight={5} opacity={lineOpacity} interactive={false} />
-            )
-          }
+          if (!mapBounds?.contains([from.lat, from.lng]) && !mapBounds?.contains([to.lat, to.lng])) return null
           return (
             <RoadRoute key={conn.id}
-              route={{ id: conn.id, waypoints: [[from.lat, from.lng], [to.lat, to.lng]], color: lineColor, weight: 5, opacity: lineOpacity }}
+              route={{ id: conn.id, waypoints: [[from.lat, from.lng], [to.lat, to.lng]], color: GREY, weight: 4, opacity: 0.45 }}
             />
           )
         })}
 
-        {/* Active route connections — separate overlay so color always applies fresh on top */}
+        {/* Active route connections — always render, follow roads via RoadRoute */}
         {activeConnIds && activeConnIds.length > 0 && connections
           .filter(conn => activeConnIds.includes(conn.id))
           .map(conn => {
@@ -521,12 +514,6 @@ export default function MapView({
             const to   = markers.find(m => m.id === conn.toId)
             if (!from || !to) return null
             const lineColor = conn.color || TYPE_COLORS[from.type] || '#4A90D9'
-            if (conn.geometry) {
-              return (
-                <Polyline key={`active-${conn.id}`} positions={normGeom(conn.geometry)}
-                  color={lineColor} weight={5} opacity={1} interactive={false} />
-              )
-            }
             return (
               <RoadRoute key={`active-${conn.id}`}
                 route={{ id: `active-${conn.id}`, waypoints: [[from.lat, from.lng], [to.lat, to.lng]], color: lineColor, weight: 5, opacity: 1 }}
@@ -534,18 +521,12 @@ export default function MapView({
             )
           })}
 
-        {/* Focused connection — separate overlay mounted fresh on top so color always applies */}
+        {/* Focused connection — always render, follow roads via RoadRoute */}
         {focusedSegment && connections.filter(conn => isConnFocused(conn, focusedSegment)).map(conn => {
           const from = markers.find(m => m.id === conn.fromId)
           const to   = markers.find(m => m.id === conn.toId)
           if (!from || !to) return null
           const lineColor = conn.color || TYPE_COLORS[from.type] || '#4A90D9'
-          if (conn.geometry) {
-            return (
-              <Polyline key={`focused-${conn.id}`} positions={normGeom(conn.geometry)}
-                color={lineColor} weight={5} opacity={1} interactive={false} />
-            )
-          }
           return (
             <RoadRoute key={`focused-${conn.id}`}
               route={{ id: `focused-${conn.id}`, waypoints: [[from.lat, from.lng], [to.lat, to.lng]], color: lineColor, weight: 5, opacity: 1 }}
