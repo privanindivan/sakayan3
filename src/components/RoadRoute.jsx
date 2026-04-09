@@ -47,17 +47,7 @@ export default function RoadRoute({ route }) {
       .catch(() => setPositions(route.waypoints))
   }, [route.id]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (!positions) {
-    return (
-      <StyledRoute
-        positions={route.waypoints}
-        color={route.color}
-        weight={route.weight}
-        opacity={route.opacity}
-        dashed
-      />
-    )
-  }
+  if (!positions) return null
 
   return (
     <StyledRoute
