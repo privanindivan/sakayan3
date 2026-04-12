@@ -202,13 +202,13 @@ export default function MarkerModal({
     }))
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!name.trim()) return
     const scheduleValue = (sched.start || sched.end || sched.days)
       ? { days: sched.days, start: sched.start, end: sched.end,
           ...(sched.days === 'Custom' ? { customDays: sched.customDays } : {}) }
       : null
-    onSave({ ...marker, name: name.trim(), type, details: details.trim(), schedule: scheduleValue, images })
+    await onSave({ ...marker, name: name.trim(), type, details: details.trim(), schedule: scheduleValue, images })
     setEditing(false)
   }
 
