@@ -143,7 +143,7 @@ export default function SearchBar({ onRoute, onFlyTo, markers = [], resetKey = 0
       selectPoint(item.point, isFrom)
     } else if (item.kind === 'marker') {
       const m = item.marker
-      selectPoint({ lat: m.lat, lng: m.lng, name: m.name }, isFrom)
+      selectPoint({ id: m.id, lat: m.lat, lng: m.lng, name: m.name }, isFrom)
     } else {
       const r = item.result
       selectPoint(

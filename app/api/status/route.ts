@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 import { sql } from '@/lib/db'
 import { neonQuery } from '@/lib/neon-db'
 import { v2 as cloudinary } from 'cloudinary'
+import fs from 'fs'
+import path from 'path'
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -125,7 +127,7 @@ export async function GET() {
       }
     })(),
 
-    // 4. Cloudinary — storage + bandwidth + transformations
+    // 4. Cloudinary — storage + bandwidth + transformations (over quota, migrating to ImageKit)
     (async () => {
       const start = Date.now()
       try {
@@ -140,15 +142,88 @@ export async function GET() {
         const bwPct          = Math.round(bwMB / bwLimitMB * 100)
         const transformPct   = Math.round(transforms / transformLimit * 100)
         const pct            = Math.max(storagePct, bwPct, transformPct)
+
+        // Read migration progress
+        let migrated = 0, migrationTotal = 0
+        try {
+          const progressFile = path.join(process.cwd(), 'scripts', 'imagekit_migration_progress.json')
+          if (fs.existsSync(progressFile)) {
+            const prog = JSON.parse(fs.readFileSync(progressFile, 'utf8'))
+            migrated = Object.keys(prog.done || {}).length
+          }
+        } catch {}
+
+        // Credits used vs 25 limit (Cloudinary "credits" = combined usage score)
+        const creditsUsed = usage.credits?.usage ?? null
+        const creditsLimit = usage.credits?.limit ?? 25
+
         return {
-          id: 'cloudinary', name: 'Cloudinary', critical: false,
-          ok: true, ms: Date.now() - start,
+          id: 'cloudinary', name: 'Cloudinary (migrating → ImageKit)', critical: false,
+          ok: pct < 100, ms: Date.now() - start,
           detail: `Storage: ${storageMB} MB / 25 GB · BW: ${bwMB} MB / 25 GB · Transforms: ${transforms} / ${transformLimit}`,
           pct,
-          meta: { storageMB, storageLimitMB, storagePct, bwMB, bwLimitMB, bwPct, transforms, transformLimit, transformPct },
+          meta: {
+            storageMB, storageLimitMB, storagePct,
+            bwMB, bwLimitMB, bwPct,
+            transforms, transformLimit, transformPct,
+            creditsUsed, creditsLimit,
+            migrated, migrationTotal,
+            overQuota: pct >= 100 || (creditsUsed !== null && creditsUsed >= creditsLimit),
+          },
         }
       } catch (e: any) {
-        return { id: 'cloudinary', name: 'Cloudinary', critical: false, ok: false, ms: Date.now() - start, detail: e.message, pct: 0 }
+        return { id: 'cloudinary', name: 'Cloudinary (migrating → ImageKit)', critical: false, ok: false, ms: Date.now() - start, detail: e.message, pct: 0 }
+      }
+    })(),
+
+    // 4b. ImageKit — new image CDN (replacing Cloudinary)
+    (async () => {
+      const start = Date.now()
+      const privateKey = process.env.IMAGEKIT_PRIVATE_KEY
+      if (!privateKey) {
+        return {
+          id: 'imagekit', name: 'Image CDN (ImageKit)', critical: false,
+          ok: false, ms: 0, detail: 'IMAGEKIT_PRIVATE_KEY not configured', pct: 0,
+        }
+      }
+
+      // Read migration progress first (always available locally)
+      let migrated = 0, migrationFailed = 0, migrationTotal = 0
+      try {
+        const progressFile = path.join(process.cwd(), 'scripts', 'imagekit_migration_progress.json')
+        if (fs.existsSync(progressFile)) {
+          const prog = JSON.parse(fs.readFileSync(progressFile, 'utf8'))
+          migrated = Object.keys(prog.done || {}).length
+          migrationFailed = (prog.failed || []).length
+        }
+      } catch {}
+
+      try {
+        const auth = 'Basic ' + Buffer.from(privateKey + ':').toString('base64')
+        // Use files list API to verify key works + get approximate file count in /sakayan folder
+        const res = await fetch('https://api.imagekit.io/v1/files?path=/sakayan&skip=0&limit=1', {
+          headers: { Authorization: auth },
+          signal: AbortSignal.timeout(8000),
+        })
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        // Get total count from headers or response
+        const totalHeader = res.headers.get('x-total-count')
+        const fileCount = totalHeader ? parseInt(totalHeader) : null
+
+        return {
+          id: 'imagekit', name: 'Image CDN (ImageKit)', critical: false,
+          ok: true, ms: Date.now() - start,
+          detail: `API reachable · Free: 5 GB storage · 25 GB/mo bandwidth · Unlimited transforms`,
+          pct: 0,
+          meta: { fileCount, migrated, migrationFailed },
+        }
+      } catch (e: any) {
+        return {
+          id: 'imagekit', name: 'Image CDN (ImageKit)', critical: false,
+          ok: false, ms: Date.now() - start,
+          detail: e.message, pct: 0,
+          meta: { migrated, migrationFailed },
+        }
       }
     })(),
 

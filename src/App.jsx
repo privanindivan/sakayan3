@@ -56,6 +56,29 @@ const BADGE_EMOJI = {
 
 const ALT_COLORS = ['#4A90D9', '#FF6B35', '#27AE60', '#F39C12', '#8E44AD']
 
+function Toast({ toasts }) {
+  if (!toasts.length) return null
+  return (
+    <div style={{ position: 'fixed', bottom: 80, left: '50%', transform: 'translateX(-50%)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, pointerEvents: 'none' }}>
+      {toasts.map(t => (
+        <div key={t.id} style={{
+          background: t.type === 'loading' ? '#1e293b' : t.type === 'error' ? '#dc2626' : '#16a34a',
+          color: '#fff', borderRadius: 24, padding: '10px 20px',
+          fontSize: 14, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 8,
+          boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+          animation: 'toastIn 0.2s ease',
+        }}>
+          {t.type === 'loading' && <span style={{ display: 'inline-block', width: 14, height: 14, border: '2px solid #fff', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 0.7s linear infinite' }} />}
+          {t.type === 'success' && '✓'}
+          {t.type === 'deleted' && '🗑'}
+          {t.type === 'error' && '✕'}
+          {t.message}
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export default function App() {
   const [markers,        setMarkers]        = useState([])
   const [connections,    setConnections]    = useState([])
@@ -90,12 +113,21 @@ export default function App() {
   const [activeTypes,    setActiveTypes]    = useState(null) // null = all shown
   const [showDrawer,     setShowDrawer]     = useState(false)
   const [isFullscreen,   setIsFullscreen]   = useState(false)
-  useEffect(() => {
-    const handler = () => setIsFullscreen(!!document.fullscreenElement)
-    document.addEventListener('fullscreenchange', handler)
-    return () => document.removeEventListener('fullscreenchange', handler)
-  }, [])
+  const [toasts,         setToasts]         = useState([])
   const shownAuthPrompt = useRef(false)
+
+  const showToast = useCallback((message, type = 'success', duration = 2000) => {
+    const id = Date.now() + Math.random()
+    setToasts(prev => [...prev, { id, message, type }])
+    if (type !== 'loading') {
+      setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), duration)
+    }
+    return id
+  }, [])
+
+  const dismissToast = useCallback((id) => {
+    setToasts(prev => prev.filter(t => t.id !== id))
+  }, [])
 
   // Handle OAuth redirect (after Google login)
   useEffect(() => {
@@ -329,6 +361,7 @@ export default function App() {
       ? Math.round(alt.duration * (DURATION_FACTORS[fromM?.type] ?? 1.4))
       : null
 
+    const loadId = showToast('Saving connection…', 'loading')
     try {
       const res = await apiFetch('/api/connections', {
         method: 'POST',
@@ -343,6 +376,7 @@ export default function App() {
           waypoints: [],
         }),
       })
+      dismissToast(loadId)
       if (res.ok) {
         const data = await res.json()
         const conn = data.connection
@@ -358,8 +392,11 @@ export default function App() {
           likes: 0,
           created_by: user?.id,
         }])
+        showToast('Connection added!', 'success')
+      } else {
+        showToast('Failed to save connection', 'error')
       }
-    } catch {}
+    } catch { dismissToast(loadId); showToast('Failed to save connection', 'error') }
 
     setPendingConnect(prev => {
       if (!prev) return null
@@ -383,34 +420,46 @@ export default function App() {
   }, [])
 
   const handleRemoveConnection = useCallback(async (connId) => {
+    const loadId = showToast('Deleting connection…', 'loading')
     try {
       const res = await apiFetch(`/api/connections/${connId}`, { method: 'DELETE' })
+      dismissToast(loadId)
       if (res.ok) {
         setConnections(prev => prev.filter(c => c.id !== connId))
+        showToast('Connection deleted', 'deleted')
+      } else {
+        showToast('Failed to delete', 'error')
       }
-    } catch {}
-  }, [])
+    } catch { dismissToast(loadId); showToast('Failed to delete', 'error') }
+  }, [showToast, dismissToast])
 
   const handleDeleteMarker = useCallback(async (markerId) => {
+    const loadId = showToast('Deleting stop…', 'loading')
     try {
       const res = await apiFetch(`/api/terminals/${markerId}`, { method: 'DELETE' })
+      dismissToast(loadId)
       if (res.ok) {
         setMarkers(prev => prev.filter(m => m.id !== markerId))
         setConnections(prev => prev.filter(c => c.fromId !== markerId && c.toId !== markerId))
         setSelectedMarker(null)
+        showToast('Stop deleted', 'deleted')
+      } else {
+        showToast('Failed to delete stop', 'error')
       }
-    } catch {}
-  }, [])
+    } catch { dismissToast(loadId); showToast('Failed to delete stop', 'error') }
+  }, [showToast, dismissToast])
 
   const handleAddMarker = async (data) => {
     if (!user) { setShowAuth(true); return }
     setSavingMarker(true)
+    const loadId = showToast('Saving stop…', 'loading')
     try {
       const res = await apiFetch('/api/terminals', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       })
+      dismissToast(loadId)
       if (res.ok) {
         const result = await res.json()
         const t = result.terminal
@@ -423,8 +472,12 @@ export default function App() {
         setShowForm(false)
         setShowAddForm(false)
         setPendingLatLng(null)
+        showToast('Stop added!', 'success')
+      } else {
+        showToast('Failed to save stop', 'error')
       }
-    } catch {} finally { setSavingMarker(false) }
+    } catch { dismissToast(loadId); showToast('Failed to save stop', 'error') }
+    finally { setSavingMarker(false) }
   }
 
   const handleCancelForm = () => {
@@ -495,20 +548,27 @@ export default function App() {
 
   return (
     <div className="app">
-      <SearchBar onRoute={handleRoute} onFlyTo={(t) => setFlyTarget(t)} markers={markers} resetKey={searchResetKey} prefill={routePrefill} />
+      {!isFullscreen && <SearchBar onRoute={handleRoute} onFlyTo={(t) => setFlyTarget(t)} markers={markers} resetKey={searchResetKey} prefill={routePrefill} />}
 
-      {/* Top-right: fullscreen + auth */}
-      <div className="top-right-bar">
-        <button
-          className="fullscreen-btn"
-          onClick={() => {
-            if (!document.fullscreenElement) document.documentElement.requestFullscreen?.()
-            else document.exitFullscreen?.()
-          }}
-          title="Toggle fullscreen"
-        >
-          {isFullscreen ? '⊡' : '⛶'}
-        </button>
+      {/* Fullscreen toggle — hides UI elements only, never triggers browser fullscreen */}
+      <button
+        type="button"
+        className="fullscreen-btn"
+        onClick={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          // Exit browser-level fullscreen if it somehow got activated
+          if (document.fullscreenElement) document.exitFullscreen().catch(() => {})
+          setIsFullscreen(f => !f)
+        }}
+        title={isFullscreen ? 'Exit map view' : 'Full map view'}
+        style={{ position: 'absolute', top: 12, right: 12, zIndex: 1100 }}
+      >
+        {isFullscreen ? '⊡' : '⛶'}
+      </button>
+
+      {/* Top-right: auth (hidden in fullscreen) */}
+      {!isFullscreen && <div className="top-right-bar" style={{ right: 56 }}>
         {user ? (
           <div className="user-chip">
             <span className="user-badge-emoji">{BADGE_EMOJI[user.badge] || '🌱'}</span>
@@ -535,7 +595,7 @@ export default function App() {
             🔑 Login
           </button>
         )}
-      </div>
+      </div>}
 
       <MapView
         markers={activeTypes ? markers.filter(m => activeTypes.has(m.type)) : markers}
@@ -561,8 +621,8 @@ export default function App() {
         showStreetPhotos={showStreetPhotos}
       />
 
-      {/* Menu button — top left */}
-      <button
+      {/* Menu button — top left (hidden in fullscreen) */}
+      {!isFullscreen && <button
         onClick={() => setShowDrawer(true)}
         title="Menu"
         style={{
@@ -574,10 +634,10 @@ export default function App() {
         }}
       >
         {activeTypes ? `☰ ${activeTypes.size}` : '☰'}
-      </button>
+      </button>}
 
       {/* Slide-out drawer */}
-      {showDrawer && <div onClick={() => setShowDrawer(false)} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.35)', zIndex: 2000 }} />}
+      {!isFullscreen && showDrawer && <div onClick={() => setShowDrawer(false)} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.35)', zIndex: 2000 }} />}
       <div style={{
         position: 'fixed', top: 0, left: 0, bottom: 0, width: 280,
         background: 'white', zIndex: 2001, boxShadow: '4px 0 20px rgba(0,0,0,0.15)',
@@ -671,8 +731,8 @@ export default function App() {
         <span style={{ fontSize: 11, marginLeft: 4, fontWeight: 600, color: showStreetPhotos ? '#22C55E' : '#9CA3AF' }}>Street Photos</span>
       </button>
 
-      {/* Corner buttons — locate only for anonymous; locate + add for logged-in */}
-      <div className="corner-btns">
+      {/* Corner buttons — hidden in fullscreen */}
+      {!isFullscreen && <div className="corner-btns">
         <button className="icon-btn locate-btn" onClick={handleLocate} aria-label="My location" title="My location">
           {locating ? '…' : '◎'}
         </button>
@@ -688,7 +748,7 @@ export default function App() {
             {showAddForm ? '✕' : '+'}
           </button>
         )}
-      </div>
+      </div>}
 
       {/* Connect-mode banner */}
       {connectingFrom && !pendingConnect && (
@@ -778,7 +838,7 @@ export default function App() {
         />
       )}
 
-      {selectedMarker && (
+      {!isFullscreen && selectedMarker && (
         <MarkerModal
           marker={selectedMarker}
           connections={connections}
@@ -793,17 +853,23 @@ export default function App() {
           saving={savingMarker}
           onSave={async (updated) => {
             setSavingMarker(true)
+            const loadId = showToast('Saving changes…', 'loading')
             try {
               const res = await apiFetch(`/api/terminals/${updated.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(updated),
               })
+              dismissToast(loadId)
               if (res.ok) {
                 setMarkers(prev => prev.map(m => m.id === updated.id ? { ...m, ...updated } : m))
                 setSelectedMarker(updated)
+                showToast('Changes saved!', 'success')
+              } else {
+                showToast('Failed to save changes', 'error')
               }
-            } catch {} finally { setSavingMarker(false) }
+            } catch { dismissToast(loadId); showToast('Failed to save changes', 'error') }
+            finally { setSavingMarker(false) }
           }}
           onDelete={handleDeleteMarker}
           onRemoveConnection={handleRemoveConnection}
@@ -830,13 +896,13 @@ export default function App() {
         />
       )}
 
-      {profileUserId && (
+      {!isFullscreen && profileUserId && (
         <UserProfile userId={profileUserId} onClose={() => setProfileUserId(null)} />
       )}
 
-      <StreetViewPanel image={streetViewImg} onClose={() => setStreetViewImg(null)} />
+      {!isFullscreen && <StreetViewPanel image={streetViewImg} onClose={() => setStreetViewImg(null)} />}
 
-      {showAuth && (
+      {!isFullscreen && showAuth && (
         <AuthModal
           onClose={() => {
             setShowAuth(false)
@@ -858,6 +924,7 @@ export default function App() {
         backdropFilter: 'blur(4px)',
       }}>beta</div>
 
+      <Toast toasts={toasts} />
     </div>
   )
 }

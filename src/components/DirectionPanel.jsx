@@ -215,8 +215,11 @@ export default function DirectionPanel({
   const [sortBy, setSortBy]     = useState('best')
 
   const adj           = buildAdjacency(connections)
-  const fromCandidates = findKNearest(fromPoint, markers, 8)
-  const toCandidates   = findKNearest(toPoint,   markers, 8)
+  // If the point came from a terminal search, use it directly; else find nearest
+  const fromExact = fromPoint.id ? markers.find(m => m.id === fromPoint.id) : null
+  const toExact   = toPoint.id   ? markers.find(m => m.id === toPoint.id)   : null
+  const fromCandidates = fromExact ? [fromExact, ...findKNearest(fromPoint, markers, 7).filter(m => m.id !== fromExact.id)] : findKNearest(fromPoint, markers, 8)
+  const toCandidates   = toExact   ? [toExact,   ...findKNearest(toPoint,   markers, 7).filter(m => m.id !== toExact.id)]   : findKNearest(toPoint,   markers, 8)
 
   // Try all from/to candidate pairs and collect unique routes
   const seenConnIds = new Set()
@@ -350,9 +353,33 @@ export default function DirectionPanel({
           </div>
         )}
 
-        {routes.length === 0 && (
-          <p className="dir-no-route">No route found. Connect the stops to create one.</p>
-        )}
+        {routes.length === 0 && (() => {
+          const nearFrom = fromCandidates[0]
+          const nearTo   = toCandidates[0]
+          const wFrom    = nearFrom ? fmtDuration(walkSecs(fromPoint, nearFrom)) : null
+          const wTo      = nearTo   ? fmtDuration(walkSecs(toPoint,   nearTo))   : null
+          return (
+            <div className="dir-no-route-block">
+              <div className="dir-no-route-icon">🔍</div>
+              <p className="dir-no-route-title">No connected route found</p>
+              <p className="dir-no-route-sub">No transit connection exists yet between these areas.</p>
+              {nearFrom && (
+                <div className="dir-no-route-hint">
+                  <span className="dir-dot from-dot" style={{display:'inline-block',marginRight:6}}/>
+                  <span>Nearest stop to origin: <b>{nearFrom.name}</b></span>
+                  {wFrom && <span className="dir-no-route-walk"> · {wFrom} walk</span>}
+                </div>
+              )}
+              {nearTo && (
+                <div className="dir-no-route-hint">
+                  <span className="dir-dot to-dot" style={{display:'inline-block',marginRight:6}}/>
+                  <span>Nearest stop to destination: <b>{nearTo.name}</b></span>
+                  {wTo && <span className="dir-no-route-walk"> · {wTo} walk</span>}
+                </div>
+              )}
+            </div>
+          )
+        })()}
 
         {/* Sort pills — only show when there are multiple routes */}
         {routes.length > 1 && (

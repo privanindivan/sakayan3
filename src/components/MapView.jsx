@@ -8,6 +8,7 @@ import 'maplibre-gl/dist/maplibre-gl.css'
 import '@maplibre/maplibre-gl-leaflet'
 
 // OpenFreeMap Liberty — vector tiles, Google Maps-like, free, no API key
+// 3D building extrusion layers are removed after load to keep the map flat/2D
 function MapLibreLayer() {
   const map = useMap()
   useEffect(() => {
@@ -15,7 +16,27 @@ function MapLibreLayer() {
       style: 'https://tiles.openfreemap.org/styles/liberty',
       attribution: '',
     }).addTo(map)
-    return () => { try { map.removeLayer(layer) } catch {} }
+
+    const glMap = layer.getMaplibreMap()
+    const flatten = () => {
+      const style = glMap.getStyle()
+      if (!style?.layers) return
+      style.layers.forEach(l => {
+        if (l.type === 'fill-extrusion' && glMap.getLayer(l.id)) {
+          glMap.removeLayer(l.id)
+        }
+      })
+    }
+    if (glMap.isStyleLoaded()) {
+      flatten()
+    } else {
+      glMap.once('load', flatten)
+    }
+
+    return () => {
+      glMap.off('load', flatten)
+      try { map.removeLayer(layer) } catch {}
+    }
   }, [map])
   return null
 }
