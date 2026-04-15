@@ -1,9 +1,24 @@
 import { useEffect, useState, useRef } from 'react'
 import {
-  MapContainer, TileLayer, Marker, Polyline, Tooltip,
+  MapContainer, Marker, Polyline, Tooltip,
   useMapEvents, useMap,
 } from 'react-leaflet'
 import L from 'leaflet'
+import 'maplibre-gl/dist/maplibre-gl.css'
+import '@maplibre/maplibre-gl-leaflet'
+
+// OpenFreeMap Liberty — vector tiles, Google Maps-like, free, no API key
+function MapLibreLayer() {
+  const map = useMap()
+  useEffect(() => {
+    const layer = L.maplibreGL({
+      style: 'https://tiles.openfreemap.org/styles/liberty',
+      attribution: '',
+    }).addTo(map)
+    return () => { try { map.removeLayer(layer) } catch {} }
+  }, [map])
+  return null
+}
 import { VectorTile } from '@mapbox/vector-tile'
 import Pbf from 'pbf'
 import RoadRoute from './RoadRoute'
@@ -476,14 +491,7 @@ export default function MapView({
         zoomControl={false}
         attributionControl={false}
       >
-        {/* OSM Mapnik with CSS filter — full POIs, desaturated for cleaner look */}
-        <TileLayer
-          url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution=''
-          maxZoom={19}
-          opacity={1}
-          className="map-tiles-clean"
-        />
+        <MapLibreLayer />
 
         {/* Saved connections — always grey unless part of active route */}
         {connections.map(conn => {
