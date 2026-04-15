@@ -476,13 +476,13 @@ export default function MapView({
         zoomControl={false}
         attributionControl={false}
       >
-        {/* CartoDB Voyager — clean Google Maps-like base with POIs, free, no API key */}
+        {/* OSM Mapnik with CSS filter — full POIs, desaturated for cleaner look */}
         <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+          url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution=''
-          subdomains='abcd'
           maxZoom={19}
           opacity={1}
+          className="map-tiles-clean"
         />
 
         {/* Saved connections — always grey unless part of active route */}
