@@ -476,18 +476,13 @@ export default function MapView({
         zoomControl={false}
         attributionControl={false}
       >
-        {/* Both tile layers always mounted — toggling opacity avoids blank flash on switch */}
+        {/* CartoDB Voyager — clean Google Maps-like base with POIs, free, no API key */}
         <TileLayer
-          url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
           attribution=''
+          subdomains='abcd'
           maxZoom={19}
-          opacity={showStreetPhotos ? 0 : 1}
-        />
-        <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
-          attribution=''
-          maxZoom={19}
-          opacity={showStreetPhotos ? 1 : 0}
+          opacity={1}
         />
 
         {/* Saved connections — always grey unless part of active route */}
