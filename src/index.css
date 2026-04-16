@@ -2242,8 +2242,14 @@ html, body, #root {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 0;
+  padding: 6px 4px;
   border-top: 1px solid #334155;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.1s;
+}
+.route-alt-row--active {
+  background: #ffffff10;
 }
 .route-alt-dot {
   width: 12px;

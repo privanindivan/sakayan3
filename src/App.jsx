@@ -115,6 +115,7 @@ export default function App() {
   const [isFullscreen,   setIsFullscreen]   = useState(false)
   const [toasts,         setToasts]         = useState([])
   const [drawPath,       setDrawPath]       = useState(null)  // {fromId, toId, points:[{lat,lng},...]}
+  const [focusedAltId,   setFocusedAltId]   = useState(null)
   const shownAuthPrompt = useRef(false)
 
   const showToast = useCallback((message, type = 'success', duration = 2000) => {
@@ -464,6 +465,7 @@ export default function App() {
     const fromM = markers.find(m => m.id === pendingConnect.fromId)
     if (!fromM) return
     setPendingConnect(null)
+    setFocusedAltId(null)
     setDrawPath({ fromId: pendingConnect.fromId, toId: pendingConnect.toId, points: [{ lat: fromM.lat, lng: fromM.lng }] })
     showToast('Tap along the route path on the map. Hit Done when finished.', 'success', 5000)
   }, [pendingConnect, markers])
@@ -510,6 +512,7 @@ export default function App() {
   const handleCancelPendingConnect = useCallback(() => {
     setPendingConnect(null)
     setFocusedSegment(null)
+    setFocusedAltId(null)
   }, [])
 
   const handleRemoveConnection = useCallback(async (connId) => {
@@ -713,6 +716,7 @@ export default function App() {
         onStreetViewClick={(img) => setStreetViewImg(img)}
         showStreetPhotos={showStreetPhotos}
         drawPath={drawPath}
+        focusedAltId={focusedAltId}
       />
 
       {/* Menu button — top left (hidden in fullscreen) */}
@@ -922,6 +926,7 @@ export default function App() {
           onConfirm={handleConfirmAlt}
           onReject={handleRejectAlt}
           onCancel={handleCancelPendingConnect}
+          onFocusAlt={setFocusedAltId}
         />
       )}
 

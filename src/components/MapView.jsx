@@ -439,6 +439,7 @@ export default function MapView({
   onStreetViewClick,
   showStreetPhotos,
   drawPath,
+  focusedAltId,
 }) {
   const [mapBounds, setMapBounds] = useState(null)
   const [mapZoom, setMapZoom] = useState(DEFAULT_ZOOM)
@@ -608,17 +609,20 @@ export default function MapView({
           <Marker position={[pendingWpLatLng.lat, pendingWpLatLng.lng]} icon={pendingIcon} />
         )}
 
-        {/* Pending alternatives — distinct colors so user can match Option N to map line */}
-        {pendingAlternatives.map(alt => (
-          <Polyline
-            key={`alt-${alt.id}`}
-            positions={alt.positions}
-            color={alt.color}
-            weight={6}
-            opacity={0.7}
-            interactive={false}
-          />
-        ))}
+        {/* Pending alternatives — only the focused one is shown bright; others dim */}
+        {pendingAlternatives.map(alt => {
+          const isFocused = focusedAltId == null || alt.id === focusedAltId
+          return (
+            <Polyline
+              key={`alt-${alt.id}`}
+              positions={alt.positions}
+              color={alt.color}
+              weight={isFocused ? 6 : 3}
+              opacity={isFocused ? 0.9 : 0.15}
+              interactive={false}
+            />
+          )
+        })}
 
         {/* Draw-path live preview */}
         {drawPath && drawPath.points.length >= 2 && (
