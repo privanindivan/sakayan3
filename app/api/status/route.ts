@@ -1,15 +1,8 @@
 import { NextResponse } from 'next/server'
 import { sql } from '@/lib/db'
 import { neonQuery } from '@/lib/neon-db'
-import { v2 as cloudinary } from 'cloudinary'
 import fs from 'fs'
 import path from 'path'
-
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-})
 
 async function pingUrl(url: string, timeoutMs = 5000): Promise<{ ok: boolean; ms: number }> {
   const start = Date.now()
@@ -127,56 +120,7 @@ export async function GET() {
       }
     })(),
 
-    // 4. Cloudinary — storage + bandwidth + transformations (over quota, migrating to ImageKit)
-    (async () => {
-      const start = Date.now()
-      try {
-        const usage: any = await cloudinary.api.usage()
-        const storageMB      = Math.round((usage.storage?.usage || 0) / 1024 / 1024 * 10) / 10
-        const storageLimitMB = 25 * 1024
-        const bwMB           = Math.round((usage.bandwidth?.usage || 0) / 1024 / 1024 * 10) / 10
-        const bwLimitMB      = 25 * 1024
-        const transforms     = usage.transformations?.usage || 0
-        const transformLimit = 25000 // free tier monthly limit
-        const storagePct     = Math.round(storageMB / storageLimitMB * 100)
-        const bwPct          = Math.round(bwMB / bwLimitMB * 100)
-        const transformPct   = Math.round(transforms / transformLimit * 100)
-        const pct            = Math.max(storagePct, bwPct, transformPct)
-
-        // Read migration progress
-        let migrated = 0, migrationTotal = 0
-        try {
-          const progressFile = path.join(process.cwd(), 'scripts', 'imagekit_migration_progress.json')
-          if (fs.existsSync(progressFile)) {
-            const prog = JSON.parse(fs.readFileSync(progressFile, 'utf8'))
-            migrated = Object.keys(prog.done || {}).length
-          }
-        } catch {}
-
-        // Credits used vs 25 limit (Cloudinary "credits" = combined usage score)
-        const creditsUsed = usage.credits?.usage ?? null
-        const creditsLimit = usage.credits?.limit ?? 25
-
-        return {
-          id: 'cloudinary', name: 'Cloudinary (migrating → ImageKit)', critical: false,
-          ok: pct < 100, ms: Date.now() - start,
-          detail: `Storage: ${storageMB} MB / 25 GB · BW: ${bwMB} MB / 25 GB · Transforms: ${transforms} / ${transformLimit}`,
-          pct,
-          meta: {
-            storageMB, storageLimitMB, storagePct,
-            bwMB, bwLimitMB, bwPct,
-            transforms, transformLimit, transformPct,
-            creditsUsed, creditsLimit,
-            migrated, migrationTotal,
-            overQuota: pct >= 100 || (creditsUsed !== null && creditsUsed >= creditsLimit),
-          },
-        }
-      } catch (e: any) {
-        return { id: 'cloudinary', name: 'Cloudinary (migrating → ImageKit)', critical: false, ok: false, ms: Date.now() - start, detail: e.message, pct: 0 }
-      }
-    })(),
-
-    // 4b. ImageKit — new image CDN (replacing Cloudinary)
+    // 4. ImageKit — image CDN
     (async () => {
       const start = Date.now()
       const privateKey = process.env.IMAGEKIT_PRIVATE_KEY

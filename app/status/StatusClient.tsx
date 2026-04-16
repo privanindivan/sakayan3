@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react'
 // 2. Netlify       — 125K fn calls/month (~4K/day) — no usage API on free plan
 // 3. Supabase      — 500 MB storage + pauses after 7 days inactivity
 // 4. Neon          — 190 compute hrs/month (mapillary DB, auto-suspends 5 min idle)
-// 5. Cloudinary    — 25K transforms/mo (only one with live usage API)
 // 6. Mapillary     — fair use, no hard cap
 // 7. OSM Tiles     — fair use, no hard cap
 // 8. OSRM          — public instance, no hard cap
@@ -17,7 +16,6 @@ const SERVICES = [
   { id: 'neon',          name: 'App Database (Supabase)',        critical: true  },
   { id: 'neon-mapillary',name: 'Mapillary DB (Neon)',            critical: true  },
   { id: 'imagekit',      name: 'Image CDN (ImageKit)',           critical: false },
-  { id: 'cloudinary',    name: 'Cloudinary (migrating)',         critical: false },
   { id: 'mapillary',     name: 'Street View (Mapillary)',        critical: false },
   { id: 'osm',           name: 'Map Tiles (OpenStreetMap)',      critical: false },
   { id: 'osrm',          name: 'Routing (OSRM)',                 critical: false },
@@ -174,7 +172,7 @@ export default function StatusPage() {
                 </div>
 
                 {/* Detail text — hide for services with bars */}
-                {!loading && !['neon','neon-mapillary','cloudinary','imagekit'].includes(svc.id) && (
+                {!loading && !['neon','neon-mapillary','imagekit'].includes(svc.id) && (
                   <div style={{ marginTop: 8, fontSize: 12, color: ok ? '#666' : '#8f485d' }}>
                     {detail || (ok ? 'Operational' : 'Unreachable')}
                     {svc.id === 'geoapify' && !detail?.includes('Nominatim') && (
@@ -267,39 +265,8 @@ export default function StatusPage() {
                   </div>
                 )}
 
-                {/* Cloudinary: storage + bandwidth + transforms bars + migration note */}
-                {!loading && svc.id === 'cloudinary' && live?.meta && (
-                  <div style={{ marginTop: 8, display: 'flex', flexDirection: 'column', gap: 5 }}>
-                    {live.meta.overQuota && (
-                      <div style={{ fontSize: 11, color: '#8f485d', fontWeight: 700, marginBottom: 2 }}>
-                        ⚠️ Over free quota — serving may be restricted. Migration to ImageKit in progress.
-                      </div>
-                    )}
-                    {[
-                      { label: 'Transforms', pct: live.meta.transformPct, used: `${live.meta.transforms}`, limit: '25,000/mo' },
-                      { label: 'Bandwidth', pct: live.meta.bwPct, used: `${live.meta.bwMB} MB`, limit: '25 GB/mo' },
-                      { label: 'Storage', pct: live.meta.storagePct, used: `${live.meta.storageMB} MB`, limit: '25 GB' },
-                    ].map(({ label, pct: p, used, limit }) => (
-                      <div key={label}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#aaa', marginBottom: 2 }}>
-                          <span>{label}</span>
-                          <span style={{ color: p > 80 ? '#8f485d' : p > 50 ? '#ff8c00' : '#1652f0', fontWeight: 600 }}>{used} / {limit} ({p}%)</span>
-                        </div>
-                        <div style={{ background: '#f0f4f8', borderRadius: 4, height: 4 }}>
-                          <div style={{ width: `${Math.min(p, 100)}%`, height: '100%', borderRadius: 4, background: p > 80 ? '#8f485d' : p > 50 ? '#ff8c00' : '#1652f0', transition: 'width .4s' }} />
-                        </div>
-                      </div>
-                    ))}
-                    {live.meta.creditsUsed != null && (
-                      <div style={{ fontSize: 11, color: live.meta.creditsUsed >= live.meta.creditsLimit ? '#8f485d' : '#aaa', marginTop: 2 }}>
-                        Credits: {live.meta.creditsUsed} / {live.meta.creditsLimit} used this month
-                      </div>
-                    )}
-                  </div>
-                )}
-
                 {/* Generic single bar for other services */}
-                {!loading && !['neon','cloudinary','imagekit'].includes(svc.id) && pct > 0 && (
+                {!loading && !['neon','imagekit'].includes(svc.id) && pct > 0 && (
                   <div style={{ marginTop: 6 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#aaa', marginBottom: 3 }}>
                       <span>Free tier usage</span>
@@ -341,7 +308,6 @@ export default function StatusPage() {
               { name: 'Cloudflare',      url: 'https://www.cloudflarestatus.com',     icon: '🔶' },
               { name: 'Supabase',        url: 'https://status.supabase.com',          icon: '🗄️' },
               { name: 'ImageKit',        url: 'https://status.imagekit.io',           icon: '🖼️' },
-              { name: 'Cloudinary',      url: 'https://status.cloudinary.com',        icon: '☁️' },
               { name: 'OpenStreetMap',   url: 'https://status.openstreetmap.org',     icon: '🗺️' },
             ].map(s => (
               <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer" style={{
