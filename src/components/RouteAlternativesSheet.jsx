@@ -37,47 +37,58 @@ export default function RouteAlternativesSheet({
       )}
 
       {!loading && alternatives.map((alt, i) => {
-        const dist    = fmtDist(alt.distance)
-        const isShortest = alternatives.length > 1 && i === 0
-        const fareVal = fares[alt.id] ?? ''
+        const isManual   = alt.manual === true
+        const osrmAlts   = alternatives.filter(a => !a.manual)
+        const isShortest = !isManual && osrmAlts.length > 1 && i === 0
+        const dist       = fmtDist(alt.distance)
+        const fareVal    = fares[alt.id] ?? ''
         return (
-          <div key={alt.id} className="route-alt-item">
+          <div key={alt.id} className={`route-alt-item${isManual ? ' route-alt-item--manual' : ''}`}>
             <div className="route-alt-info">
               <span className="route-alt-dot" style={{ background: alt.color }} />
               <div className="route-alt-meta">
                 <span className="route-alt-label">
-                  Option {alt.id + 1}
-                  {isShortest && <span className="route-alt-tag">Shorter</span>}
+                  {isManual
+                    ? <>Draw manually <span className="route-alt-tag route-alt-tag--manual">+ add waypoints</span></>
+                    : <>Option {i + 1}{isShortest && <span className="route-alt-tag">Shorter</span>}</>
+                  }
                 </span>
-                {dist && <span className="route-alt-dist">{dist}</span>}
+                {isManual
+                  ? <span className="route-alt-dist" style={{ color: '#9CA3AF' }}>Straight line — trace correct path via waypoints</span>
+                  : dist && <span className="route-alt-dist">{dist}</span>
+                }
               </div>
             </div>
-            <div className="route-alt-fare-row">
-              <span className="fare-prefix">₱</span>
-              <input
-                className="route-alt-fare-input"
-                type="number"
-                inputMode="decimal"
-                min="0"
-                step="0.5"
-                placeholder="Fare (optional)"
-                value={fareVal}
-                onChange={e => setFare(alt.id, e.target.value)}
-              />
-            </div>
+            {!isManual && (
+              <div className="route-alt-fare-row">
+                <span className="fare-prefix">₱</span>
+                <input
+                  className="route-alt-fare-input"
+                  type="number"
+                  inputMode="decimal"
+                  min="0"
+                  step="0.5"
+                  placeholder="Fare (optional)"
+                  value={fareVal}
+                  onChange={e => setFare(alt.id, e.target.value)}
+                />
+              </div>
+            )}
             <div className="route-alt-actions">
               <button
                 className="route-alt-confirm"
                 onClick={() => onConfirm(alt.id, fareVal !== '' ? Number(fareVal) : null)}
                 aria-label="Keep this route"
-                title="Keep this route"
+                title={isManual ? 'Save as straight line (add waypoints after)' : 'Keep this route'}
               >✓</button>
-              <button
-                className="route-alt-reject"
-                onClick={() => onReject(alt.id)}
-                aria-label="Remove this route"
-                title="Remove this route"
-              >✗</button>
+              {!isManual && (
+                <button
+                  className="route-alt-reject"
+                  onClick={() => onReject(alt.id)}
+                  aria-label="Remove this route"
+                  title="Remove this route"
+                >✗</button>
+              )}
             </div>
           </div>
         )

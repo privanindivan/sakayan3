@@ -313,15 +313,16 @@ export default function App() {
           .then(r => r.json())
           .then(data => {
             const routes = data.routes || []
+            const manualOpt = { id: 'manual', positions: [[fromM.lat, fromM.lng], [marker.lat, marker.lng]], color: '#9CA3AF', distance: null, manual: true }
             const alternatives = routes.length > 0
-              ? routes.map((route, i) => ({
+              ? [...routes.map((route, i) => ({
                   id: i,
                   positions: route.geometry.coordinates.map(([lng, lat]) => [lat, lng]),
                   color: ALT_COLORS[i % ALT_COLORS.length],
                   distance: route.distance,
                   duration: route.duration,
-                }))
-              : [{ id: 0, positions: [[fromM.lat, fromM.lng], [marker.lat, marker.lng]], color: ALT_COLORS[0], distance: null }]
+                })), manualOpt]
+              : [manualOpt]
             setPendingConnect(prev =>
               prev && prev.fromId === snap.fromId && prev.toId === snap.toId
                 ? { ...prev, alternatives, loading: false }
@@ -331,7 +332,7 @@ export default function App() {
           .catch(() => {
             setPendingConnect(prev =>
               prev && prev.fromId === snap.fromId && prev.toId === snap.toId
-                ? { ...prev, alternatives: [{ id: 0, positions: [[fromM.lat, fromM.lng], [marker.lat, marker.lng]], color: ALT_COLORS[0] }], loading: false }
+                ? { ...prev, alternatives: [{ id: 'manual', positions: [[fromM.lat, fromM.lng], [marker.lat, marker.lng]], color: '#9CA3AF', distance: null, manual: true }], loading: false }
                 : prev
             )
           })
