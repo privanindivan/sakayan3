@@ -308,35 +308,69 @@ export default function App() {
         setPendingConnect(snap)
         setConnectingFrom(null)
 
-        const coords = `${fromM.lng},${fromM.lat};${marker.lng},${marker.lat}`
-        fetch(
-          `https://router.project-osrm.org/route/v1/driving/${coords}?overview=full&geometries=geojson&alternatives=3`
+        // Build perpendicular midpoint offsets to force OSRM into different corridors.
+        // Standard alternatives stay within ~40% of shortest path — inland jeepney routes
+        // are often 50–80% longer so they never appear. Forcing via-points overcomes this.
+        const midLat = (fromM.lat + marker.lat) / 2
+        const midLng = (fromM.lng + marker.lng) / 2
+        const dLat = marker.lat - fromM.lat
+        const dLng = marker.lng - fromM.lng
+        const len = Math.hypot(dLat, dLng) || 1
+        const pLat = -dLng / len
+        const pLng =  dLat / len
+        const latKm = 1 / 111
+        const lngKm = 1 / (111 * Math.cos(midLat * Math.PI / 180))
+        const viaOffsets = [1.5, 3.0, -1.5, -3.0]
+        const viaPoints = viaOffsets.map(km => ({
+          lat: midLat + pLat * km * latKm,
+          lng: midLng + pLng * km * lngKm,
+        }))
+
+        const base = `https://router.project-osrm.org/route/v1/driving`
+        const qry  = `?overview=full&geometries=geojson`
+        const directUrl = `${base}/${fromM.lng},${fromM.lat};${marker.lng},${marker.lat}${qry}&alternatives=3`
+        const viaUrls   = viaPoints.map(v =>
+          `${base}/${fromM.lng},${fromM.lat};${v.lng},${v.lat};${marker.lng},${marker.lat}${qry}`
         )
-          .then(r => r.json())
-          .then(data => {
-            const routes = data.routes || []
-            const alternatives = routes.length > 0
-              ? routes.map((route, i) => ({
-                  id: i,
-                  positions: route.geometry.coordinates.map(([lng, lat]) => [lat, lng]),
-                  color: ALT_COLORS[i % ALT_COLORS.length],
-                  distance: route.distance,
-                  duration: route.duration,
-                }))
-              : []
-            setPendingConnect(prev =>
-              prev && prev.fromId === snap.fromId && prev.toId === snap.toId
-                ? { ...prev, alternatives, loading: false }
-                : prev
-            )
-          })
-          .catch(() => {
-            setPendingConnect(prev =>
-              prev && prev.fromId === snap.fromId && prev.toId === snap.toId
-                ? { ...prev, alternatives: [], loading: false }
-                : prev
-            )
-          })
+
+        Promise.all(
+          [fetch(directUrl), ...viaUrls.map(u => fetch(u))]
+            .map(p => p.then(r => r.json()).catch(() => ({ routes: [] })))
+        ).then(results => {
+          // Collect all routes, deduplicate by mid-coordinate proximity (<400m apart)
+          const seen = []
+          const unique = []
+          for (const data of results) {
+            for (const route of (data.routes || [])) {
+              const coords = route.geometry.coordinates
+              const mid = coords[Math.floor(coords.length / 2)]
+              const isDupe = seen.some(s =>
+                Math.hypot(s[0] - mid[0], s[1] - mid[1]) < 0.004  // ~400m in degrees
+              )
+              if (!isDupe) { seen.push(mid); unique.push(route) }
+            }
+          }
+          // Sort by distance ascending so shortest appears first
+          unique.sort((a, b) => a.distance - b.distance)
+          const alternatives = unique.slice(0, 5).map((route, i) => ({
+            id: i,
+            positions: route.geometry.coordinates.map(([lng, lat]) => [lat, lng]),
+            color: ALT_COLORS[i % ALT_COLORS.length],
+            distance: route.distance,
+            duration: route.duration,
+          }))
+          setPendingConnect(prev =>
+            prev && prev.fromId === snap.fromId && prev.toId === snap.toId
+              ? { ...prev, alternatives, loading: false }
+              : prev
+          )
+        }).catch(() => {
+          setPendingConnect(prev =>
+            prev && prev.fromId === snap.fromId && prev.toId === snap.toId
+              ? { ...prev, alternatives: [], loading: false }
+              : prev
+          )
+        })
       } else {
         setConnectingFrom(null)
       }
