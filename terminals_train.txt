@@ -1,0 +1,719 @@
+SAKAYAN TERMINALS — Train / LRT / MRT — 656 total
+Generated: 2026-04-09
+============================================================
+
+### Leyte / Samar (Eastern Visayas) (34)
+  3k Tours
+  Amandayehan Port
+  Basey
+  Borongan City Transport Terminal
+  Borongan Transport
+  Carigara Port
+  City Tours
+  Davao Metro Shuttle Bus depot
+  DLTB Bus Station
+  Duptours
+  Duptours Terminal
+  Duptours Terminal
+  Eagle Star Bus Station
+  GENMAC Transport Cooperative Booking Office
+  GUTSCO
+  GUTSCO BORONGAN TERMINAL
+  Habal-Habal Temporary Terminal
+  Habal-habal Terminal
+  Isabel Integrated Bus Terminal
+  Manoy's Peir
+  Port of Ando
+  Port of Borongan City
+  Port of Tacloban City
+  Provincial Bus
+  Public Transport Terminal
+  Reptours Transport Terminal
+  Sabang
+  San Jose, Almagro
+  Tacloban Pumboat Ferry Terminal
+  Terminal
+  Terminal Habal-habal
+  Turbanada
+  Van Terminal
+  Van Van's Terminal
+
+### Metro Manila (NCR) (199)
+  5th Avenue
+  Abad Santos
+  Alabang
+  Alma Jose Tricycle Terminal
+  Anonas
+  Antipolo
+  Araneta Center - Cubao
+  Asistio (10th) Avenue
+  Ayala
+  Baclaran
+  Balintawak
+  Bambang LRT Station
+  Barcads UVE Terminal
+  Bart house
+  Beta Terminal
+  Betty Go-Belmonte
+  Bicutan
+  Blumentritt
+  Bocaue
+  Boni
+  Bonifacio Global City
+  BP Toda Terminal
+  C-3 Road
+  CAAODA Cardona AUV Terminal
+  Caloocan
+  Caloocan PNR Station
+  Camp Aguinaldo
+  Carriedo
+  Cubao MRT
+  Del Rosario Transportation UV Express Service
+  Dela Rosa
+  Dela Rosa Station
+  Disiplina Village Transport Terminal
+  Dolores Loop
+  Don Antonio
+  Doña Carmen
+  Doroteo Jose
+  Dr. Santos
+  East Avenue
+  EDSA
+  EDSA
+  Espana
+  España
+  Franville IV Tricycle Terminal
+  FTI
+  FTI PNR Station Taguig City
+  FX Terminal
+  Gil Puyat
+  Gilmore Station
+  GMA Kamuning
+  GMA Kamuning MRT Station
+  Governor Pascual
+  GT Express to Ayala
+  Guadalupe
+  Homeland-Baluyot Tricycle Station
+  J. Ruiz
+  Jeepney Station to SM Manila and LRT Central Station
+  Jeepney Terminal: Litex-Montalban
+  Jeepneys to Maysawa, Sampaloc and Tanay
+  Kalayaan Avenue
+  Katipunan
+  Laon Laan
+  Laong Laan PNR Station
+  Lawton Avenue
+  Libertad
+  Light Rail Transit Authority- Line 2 Depot
+  LRT 1 - Dr. Santos Station - Parañaque City NCR
+  LRT 1 - MIA Station - Parañaque City NCR
+  LRT 1 - Ninoy Aquino Station - Parañaque City NCR
+  LRT 1 - Pedro Gil Station - Manila City
+  LRT 2 - BettyGo Belmonte Station - Quezon City
+  LRT 2 - Katipunan Station - Quezon City
+  LRT 2 - Legarda Station - Manila City
+  LRT 2 - Marikina–Pasig Station
+  LRT 2 - Pureza Station
+  LRT 2 - Recto Station
+  LRT 2 - V. Mapa Station - Manila City
+  Lrt Gil Puyat
+  LRT LIBERTAD STATION North Bound
+  LRT Line 1 Balintawak
+  LRT Monumento Station
+  LRT-1 Carriedo Station
+  LRT-2 Anonas Station
+  LRT1 Baclaran Station Entrance
+  LRTA Line 2 Depot
+  Magallanes
+  Malibay * MRT * LRT* SM MOA * Libertad Jeepney Terminal
+  Mambog Tricycle Terminal
+  Manggahan
+  Marikina
+  Marikina-Pasig
+  Marilao
+  Meycauayan
+  MIA Road
+  MIA Road LRT Station
+  Mindanao Avenue
+  Molino UV Express Terminal
+  MRT 3 NORTH AVENUE STATION
+  MRT 7 - Batasan Station
+  MRT 7 - Doña Carmen Station
+  MRT 7 - Manggahan Station
+  MRT 7 - North EDSA Station
+  MRT 7 - Sacred Heart Station
+  MRT 7 - San Jose Del Monte Station
+  MRT 7 - Tala Station
+  MRT 7 - Tandang Sora Station
+  MRT Boni Station
+  MRT-3 Ayala Avenue Station
+  MRT-3 Buendia Station
+  MRT-3 Gil Puyat Footbridge
+  MRT-3 Guadalupe Footbridge
+  MRT-3 Shaw Greenfield Platform
+  MRT-3 Shaw Shangrila Platform
+  MRT-GUADALUPE TRAIN STATION
+  MRT3 Quezon Avenue Station Entrance
+  MRT3 Santolan-Annapolis Station
+  MRT3 Taft Avenue Station Entrance (Taft Avenue)
+  Muntinlupa
+  Ninoy Aquino Avenue
+  North Avenue
+  North Triangle Common Station
+  Notetoda T. Samson Terminal
+  Old Paco Railway Station
+  Ortigas
+  Paco
+  Paco PNR Station
+  Pandacan
+  Pandacan Transport Services and MPC (E-jeep/Ordinary) Jeepney Terminal - Escoda Taft LRT
+  Pasay Road
+  Pedro Gil
+  PHILCOA Jeepney
+  Philippine National Railways
+  PNR Blumentritt Station
+  PNR EDSA
+  PNR FTI Station
+  PNR Governor Pascual Station
+  PNR Pasay Road Station
+  PNR San Andres Station
+  PNR Stabling
+  PNR Valenzuela Station
+  PUJ Cubao
+  Pureza
+  Quezon Avenue
+  Quezon Avenue Station
+  Quirino
+  Quirino Highway
+  Quirino Station
+  R. Papa
+  Recto
+  RedDoorz near LRT 2 Antipolo Station
+  Redemptorist–Aseana
+  Regalado Avenue
+  Roosevelt Station
+  Sacred Heart
+  San Andres
+  San Jose - Litex Jeepney Terminal
+  San Pedro
+  Santa Mesa
+  Santa Monica Shop & Ride
+  Santolan MRT-2 Station
+  Santolan-Annapolis
+  Santrans Terminal
+  SEBC station
+  Senate-DepEd
+  Shaw Boulevard
+  Shaw Boulevard
+  Shuttle Station
+  SM Fairview - Public Transport Terminal A
+  Solis
+  Sppa Toda Terminal
+  SSLTD Toda Terminal
+  St. Monique Shuttle
+  Sucat
+  Sucat - LRT Jeepney/E-jeep Terminal
+  Taft Avenue
+  Tala-Novaliches Jeep Terminal
+  Tandang Sora
+  Tandang Sora
+  Tayuman
+  Tayuman LRT Station
+  To mrt 3
+  Tricycle Terminal
+  Tumana-Balara Jeepney Terminal
+  United Nations
+  University Avenue
+  UV Express
+  UV Express  terminal, Antipolo
+  UV Express Terminal
+  Valenzuela
+  Valley Golf Shuttle Station
+  Valley View Phase 1-ABCD Shuttle Station
+  Valley View Phase 1&2 Shuttle Station
+  Valley View Phase 3 Shuttle Station
+  Vicas UV Terminal
+  Vito Cruz
+  Vito Cruz
+  VSMM Tricycle Terminal
+  Wawang Pulo
+  Yamaha Monumento
+
+### Albay / Sorsogon (Bicol) (34)
+  A. Arandia Line - Pio Duran Terminal
+  ALPS The Bus - Gubat Terminal
+  Arandia Bus Terminal
+  Baao
+  Bicol Isarog Passenger Pick Up/Drop-Off Station
+  Bulusan Public Terminal
+  Burabod
+  Bus Pick Up Station
+  Bus Terminal
+  Daraga Bus Station
+  Eaglestar - Naga Terminal
+  Elavil - Bacon Terminal
+  Elavil - Gubat Terminal
+  Gubat Jeepney Terminal
+  Guinobatan Bus and Food Terminal
+  Jeepney Station
+  Jeepney Station
+  Jeepney Station (To Barangay San Felipe) Naga City
+  Jeepney Station (To Barangays Concepcion and Del Rosario) Naga City
+  Jeepney Station/Stop from (Del Rosario, Naga City) to Downtown (Centro) Naga City via (1. Panganiban Drive), (2. Magsaysay Avenue), (3. Roxas Avenue (Diversion))
+  Jeepney Stop to Downtown (Centro) Naga City
+  Jeepney Terminal
+  Jeepney Terminal
+  Jeepney Terminal
+  Jeepney Terminal to Catarman
+  Jeepney terminal(pio duran - ligao city)
+  Mambulo Viejo
+  Ocampo Land Transport Terminal
+  Peñafrancia - Gubat Terminal
+  Polangui
+  Polangui Bus & Jeepney Terminal
+  Rongos
+  Sabang Port
+  UV Express Terminal - Ligao City
+
+### Quezon Province (11)
+  AB Liner - Tagkawayan Terminal
+  Agdangan
+  Bus Station
+  Candelaria
+  DLTB Co Bus Terminal - Pagbilao
+  General Luna Port
+  Gumaca
+  Hondagua
+  Lucena
+  Superlines Santa Elena Terminal
+  Tagkawayan
+
+### Bataan (5)
+  Abucay Fish Port
+  Morong Bus Terminal
+  Olongapo Bus Terminal
+  Philtranco - Subic Terminal
+  UV Express Balanga - Harbor Point
+
+### Bulacan (25)
+  Agila Bus Transport - Angat Terminal
+  Arayat PUJ Central Terminal
+  Camella Provence Shuttle Terminal
+  CCLKB TODA
+  First North Luzon Transit - Hagonoy Terminal
+  First North Luzon Transit - Macabebe Terminal
+  Francisco Homes Jeepney Terminal
+  Jackpherlin Bus Terminal
+  Jeepney Terminal
+  Jeepney Terminal to Malolos
+  Jeepney Terminal: Calumpit - Meycauayan
+  Jeepney Terminal: Hagonoy - BSU/Malolos Crossing
+  Jeepney Terminal: Hagonoy - Malolos Bayan
+  Jeepney Terminal: Hagonoy - Robinsons Malolos
+  Jeepney Terminal: Malolos - Paombong
+  Macabebe Plaza Waiting Shed
+  Macabebe Terminal
+  Mag-Asawang Sapa - Sta. Maria JODA
+  Mag-Asawang Sapa - Sta. Maria JODA
+  MS Toda
+  Norzagaray - Sta. Maria JODA
+  Parking
+  SCML Tricycle Terminal
+  UV Express
+  UV to DAU
+
+### Negros (6)
+  Agricultural Tramline
+  Ceres Liner - Las Castellana Terminal
+  Ceres Terminal
+  Dos Hermanas Jeepney Terminal
+  Manta-angan Ferry Terminal
+  Martesan Bus Terminal
+
+### Laguna (8)
+  Alabang Cavite Pala Pala
+  Bus/Jeep terminal
+  DLTBCo. Santa Cruz Terminal
+  El Joda Transport Service
+  Jeepney Station (bound for Tiaong, Quezon)
+  Lipa Batangas Terminal
+  LJODA Terminal
+  Sta.cruz Terminal
+
+### Davao (21)
+  All Aboard Transport Group Terminal
+  Cabutransco Terminal
+  Calinan Transport Service Cooperative Terminal
+  Dasutransco
+  Davsur Transport Workers Association
+  Delta Tours Terminal
+  GSSD Cooperative Van Terminal
+  Jeepney Terminal
+  Kitaotao New Bus Terminal
+  Lagao Public Terminal
+  M/B Espaldon
+  M/B RCFM
+  M/B Rocelcas
+  Maco Bus Terminal
+  Makibamag
+  Padada Transport Terminal
+  Pereyras Terminal Station 2
+  SMTTI Terminal
+  Tamayong Terminal
+  United Calinan L300 Terminal
+  Van Transport Operators & Associates of Digos City, Inc.
+
+### Iloilo / Panay (25)
+  Altavas Terminal
+  Banate Bus Terminal
+  Calinog Terminal Complex
+  Ceres Liner - Culasi Terminal
+  Concepcion Jeepney Terminal
+  Culasi Van Terminal
+  Dos Hermanas Jeepney Terminal
+  Dumarao Bus Stop
+  Filcab PUV Express
+  Iloilo Airport Passenger Terminal
+  Jeepney Station
+  Jeepney to Bacolod
+  LCC Express
+  LEJODA Transport Terminal
+  Leon - Robinson's Pavia Jeepney Terminal (LEJODA)
+  Leon Van & Trike Obstruction Terminal
+  Mabuhay Maritime Jetty Port Terminal
+  North Bound Terminal
+  Paquito Zaragoza Transport Terminal
+  SDL Express
+  Singon Waiting Shed 2
+  SM Strata Bus/Jeepney Terminal
+  Terminal de Cagay
+  Tubungan Passenger Parking Area
+  Waiting Shed
+
+### Pangasinan (17)
+  Anda Mini Bus Terminal
+  Bayambang Dagupan Bus Terminal
+  Bus Terminal
+  Cisco - Sta. Cruz Terminal
+  Dagupan Bus Co. - Alaminos Terminal
+  Five Star - Alaminos Terminal
+  Five Star - Manaoag Terminal
+  Mhel Bhen - Alaminos Terminal
+  Pangasinan Solid North Bus Depot
+  Road Master - Dagupan Terminal
+  San Carlos City Jeepney Terminal
+  San Carlos Jeepney Terminal
+  SM City Rosales Transport Terminal
+  Victory Liner - Alaminos Terminal
+  Viron
+  Viron Transit - Sison Terminal
+  Viron Transit - Tayug Terminal
+
+### Mountain Province / Cordillera (19)
+  Another van station to Banaue
+  Bontoc - Abatan - Bauko
+  Bontoc - Banaue
+  Bontoc - Buscalan
+  Bontoc - Maligcong
+  Bontoc - Sagada
+  Bontoc - Tocucan
+  Bus Stop
+  Coda Lines Bus terminal
+  D' Rising Sun Bus Station
+  D' Rising Sun Motorpool
+  Florida
+  GL Trans Motorpool
+  Immanuel Trans
+  Jeepneys to Batad
+  Maligcong and Mainit Jeepneys Station
+  Ohayami Bus Station and Booking
+  Ohayami Bus Terminal
+  Vans to Baguio, Bontoc
+
+### Other / Unclassified (70)
+  Aras-Asan Bus Terminal
+  Azucena
+  Bad-As Van Terminal
+  Bagong Silang Bus Station
+  Banisilan
+  Barangay Quezon Terminal
+  Barangay Tina Transport terminal, San Miguel, SDS
+  Bicol Isarog
+  Bolinao Express - Bolinao Terminal
+  Bus Terminal
+  Calbayog Bus Station
+  Calomotan Pier
+  Carmen Bus Terminal
+  Cawayan Port
+  Claver Integrated Terminal
+  Dapitan City Bus and Jeepney Terminal
+  Dolores Transport Terminal
+  Gelly Trucking
+  Grand Tours
+  Grand Tours Shuttle Service
+  H11 Astoria Station 1
+  H4 Emall Station 3
+  Hop-on Hop-off
+  HUSKY Tours - Cotabato Terminal
+  Isabela City West terminal
+  Jeepney station
+  Jeepney Terminal
+  Jetty Port
+  Jetty Port
+  Jf jeepney station (P.burgos vice versa)
+  Katipunan Terminal
+  Laoang Pier
+  Lupi Nuevo / Tapi
+  Malaguico
+  Marihatag Transport Terminal
+  Mindoro Transport (Van)
+  Mini Bus Station
+  Minivan to Roxas
+  Montenegro ferry(7.00 to Coron/El Nido)
+  New Turbanada
+  Pangpang Pier
+  Pantalan han Gen. McArthur
+  Pantalan Han Matarinao
+  Pavillion
+  Pikit Bus Station
+  Polanco Terminal
+  Port of Esperanza
+  Prosperidad Bus Terminal
+  Rawis Pier
+  Rawis Pier (2024 update)
+  Rawis-Laoang Bus Terminal
+  Raymond Bus Station
+  RODASTCO Terminal
+  Roxas Integrated Bus Terminal
+  Sakayan
+  San Fernando Local Seaport
+  San Isidro Terninal
+  Santa Teresa Passenger Terminal Building
+  Siasi Port
+  Station 3 Jetty
+  Superlines Bus Station
+  Tagbina Bus Terminal
+  Terminal 2 (to Maasin)
+  Trento Integrated Bus Terminal
+  Van Terminal
+  Van Terminal
+  Van Terminal
+  Van Terminal
+  Vans-Van Van Terminal
+  VS Grand Tours Terminal
+
+### Cebu (40)
+  Argao Bus Stop
+  Bantayan Municipal Wharf
+  Bus Station
+  Bus station to Ayala Mall
+  Bus Stop to Cebu and to Bato
+  Cadiz City Port
+  Cadiz Viejo
+  Calatrava Bus Terminal
+  Capitol BRT Station
+  Ceres Bus Stop
+  Ceres Liner Bus Terminal
+  CNU BRT Station
+  Cordova-SM V-hire Terminal
+  El Mar Resort and Spa Tram Station
+  Fuente BRT Station
+  G-Mall of Cebu Terminal
+  GT express/ V-Hire terminal
+  Guba-Ayala v.v. jeepney bus station
+  Hagnaya Bus Terminal
+  Jeepney Terminal (very colourful)
+  Jetti Laray jeepney bus station
+  Malapascua Pier
+  Mango Bus
+  Mantalongon Bus Terminal
+  Maya Bus Terminal
+  New Bogo City Bus Terminal
+  New Maya Port
+  Panoolan Stop
+  Parkmall - Lapu-lapu City Public market jeepney terminal
+  Parkmall - Liloan Jeepney terminal
+  Port of Calatrava
+  Shangrila's Main Gate
+  Southern Star Bus Terminal
+  Tabunok Alturas Terminal
+  Tintay PUJ Terminal
+  Toboso Port
+  Tubigon Transport Terminal
+  Uling jeepney terminal
+  V-hire terminal
+  Van to SM city
+
+### Camarines Norte / Sur (Bicol) (5)
+  BACAMTODA
+  Bus Stop
+  Daet Bus & Jeepney Terminal
+  Elavil - Daet Terminal
+  Superlines - Jose Panganiban Terminal
+
+### Cavite (11)
+  Bailen-Naic Jeepney Terminal
+  Jeep to Naic
+  Jeepney Terminal
+  Kersteen Transport Bus Station
+  Naic Jeepney Terminal
+  Pasinaya Homes West Tricycle Terminal
+  Precious Boat Station ( The Gateway to Taal Volacano)
+  Saulog Transit - Naic Terminal
+  Tagaytay Jeepney Terminal
+  Tagaytay-Mendez-Indang Transport Terminal
+  Tierra Vista Tricycle Station
+
+### La Union (13)
+  Bakakeng norte jeepney terminal
+  Carmen bus Terminal
+  Dagupan Bus terminal
+  Dominion Bus Lines - San Fernando Terminal
+  Irisan 3 pumping station
+  Jeepney
+  Jeepneys to San Fernando
+  Kias Station
+  Middle Quirino Hill Jeepney Station
+  Naguilian Bus Terminal
+  Scout Barrio Station
+  Tricycle Station Hydro #4
+  UV Express Garage
+
+### Cagayan de Oro / Misamis (16)
+  Balingoan Van Terminal
+  Barra Jeepney Station
+  Calamba Integrated Bus Terminal
+  CDO Eastbound Jeepney Terminal
+  Clarin Integrated Bus Terminal
+  Jimenez Integrated Jeepney and Bus Terminal
+  Kauswagan Integrated Transport Terminal
+  Kisanlu Terminal
+  MVC Public Transport Terminal
+  Salay Bus Terminal 1
+  Salay Bus Terminal 2
+  Sinacaban Integrated Bus and PUV Terminal
+  Sumilao Bus Terminal
+  UV Express Terminal
+  Van/Taxis To Cagayan De Oro Or Iligan
+  Zipline Launch Tower
+
+### Tarlac (17)
+  Baliwag Transit - San Antonio Terminal
+  Baliwag Transit Bus Stop
+  Bus Stop
+  Bus Terminal
+  Capas Junction
+  Cisco - Guimba Terminal
+  Five Star - San Antonio Terminal
+  Five Star Bus Stop
+  Gapan-San Antonio Jeepney Station
+  Gerona Bus Stop
+  Maligaya Tricycle Jeep Terminal Station
+  New RL Transport - San Antonio Terminal
+  Patling Jeepney Station
+  Patling Jeepney Terminal
+  Public Bus Station
+  San Antonio-Gapan Jeepney Terminal
+  Victory Liner Motorpool
+
+### Pampanga (20)
+  Barrack Ground, Costa station
+  Dau to San Fernando Jeep Station
+  Hermosa Van Terminal
+  Jeepney: Main Gate - Friendship Terminal
+  Madapdap - Angeles Jeepney Terminal
+  Manibuag Angeles Jeepney Terminal
+  Marisol - Pampang Terminal
+  PUJ: Bayanihan Terminal - AFC GP AVE - Picnic Ground
+  PUJ: San Jose via Sin Dalan
+  San Fernando, Pampanga
+  Saulog Transit Stop Over
+  School Bus
+  Sn. Fdo-Bulaon Jeep Terminal
+  toda
+  Transport Terminal 2
+  Tricycle Terminal
+  Trike Magalang-Dolores Terminal
+  Trike Terminal
+  TSF-TSCI - San Fernando Terminal
+  Villa Pampang Terminal
+
+### Batangas (8)
+  Batangas Port Jeepney Terminal
+  Crossing SAN LUIS Batangas
+  Galerian Ferry
+  Lemery Jeepney Terminal
+  Malabanan Jeepney Terminal
+  Passenger Van Station
+  Puerto Galera Jeepney Terminal (Sabang Bound)
+  SM Transport Terminal
+
+### Palawan (11)
+  Bebeladan,El Nido Jeepney Terminal Bus Station
+  Bus terminal to Sabang
+  Central Station
+  El Nido Transport  Terminal
+  Free shuttle bus to Lio beach
+  RORO bus (local bus to P.P)
+  Roro Bus Station
+  RTN CBNC
+  Shuttle to Nacpan several times each day
+  Sicud
+  Taytay Transport Terminal
+
+### Ilocos Norte (14)
+  Bus station, buses to Laoag
+  Dominion Bus Lines - Bengued Terminal
+  GV Florida Bus Pagudpud Station
+  GWM Trans - Vigan Terminal
+  Laoag - Paoay - Batac Ilocos Transport Cooperative Terminal
+  Laoag - Vigan
+  Laoag-Batac-Paoay Jeepney Terminal
+  Laoag-Batac-Paoay Terminal
+  LBPTGI Terminal (Laoag - Bacarra - Pasuquin)
+  Partas Bus-Terminal
+  RCJ Bus Line - Laoag Terminal
+  RCJ Trans
+  UV Express Van Terminal (Laoag - Claveria)
+  Viron Transit - Bengued Terminal
+
+### Mindoro (6)
+  Calapan Pier UV Express Terminal
+  Jeepney Terminal (to Puerto Galera)
+  RECODO Port
+  Roro Terminal
+  Van Terminal (to Puerto Galera)
+  Van Terminal to Roxas
+
+### Zamboanga (10)
+  Cerilles Bus station
+  Diplahan Integrated Bus Terminal
+  Imelda Van Terminal
+  Kalawit Integrated Bus Terminal
+  Lakewood - Pagadian Van Terminal
+  Pagadian Integrated Bus & Jeepney Terminal
+  Salug Integrated Bus Terminal
+  Sindangan Integrated Bus Station
+  Sindangan Integrated Bus Terminal
+  Tampilisan Bus Terminal
+
+### Nueva Ecija (4)
+  North East West Bound PUB Station
+  South Bound PUB Station
+  South East West Bound PUB Station
+  West Bound PUB Bus Station
+
+### Ilocos Sur (3)
+  Partas - Candon Terminal
+  Sta. Lucia - Candon Terminal
+  Van to Cervantes
+
+### Rizal (2)
+  Raymond Bus Parking Station
+  Sampaloc-Tanay Jeep Terminal
+
+### General Santos / South Cotabato (1)
+  T'Boli Public Terminal
+
+### Isabela (1)
+  Victory Liner Bus Station - Ilagan City

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GrabMaps Checklist – Sakayan</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: sans-serif; background: #f9fafb; color: #111; }
+  #header { position: sticky; top: 0; background: #fff; border-bottom: 1px solid #e5e7eb; padding: 12px 16px; z-index: 10; }
+  h2 { font-size: 18px; margin-bottom: 6px; }
+  #stats { font-size: 13px; color: #555; margin-bottom: 8px; }
+  #pct { color: #22c55e; font-weight: 700; margin-left: 6px; }
+  #bar-wrap { background: #e5e7eb; border-radius: 6px; height: 7px; overflow: hidden; margin-bottom: 10px; }
+  #bar { background: #22c55e; height: 100%; width: 0%; transition: width 0.3s; }
+  #list { padding: 10px 16px; display: flex; flex-direction: column; gap: 5px; }
+  .item { display: flex; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 8px; border: 1px solid #e5e7eb; background: #fafafa; cursor: pointer; }
+  .item.done { background: #f0fdf4; border-color: #86efac; }
+  .item input[type=checkbox] { width: 17px; height: 17px; accent-color: #22c55e; flex-shrink: 0; cursor: pointer; }
+  .item .name { flex: 1; font-size: 14px; }
+  .item.done .name { text-decoration: line-through; color: #86efac; }
+  .item .coords { font-size: 11px; color: #9ca3af; white-space: nowrap; }
+  #empty { text-align: center; color: #9ca3af; padding: 40px; }
+</style>
+</head>
+<body>
+<div id="header">
+  <h2>GrabMaps Checklist</h2>
+  <div id="stats">Loading...</div>
+  <div id="bar-wrap"><div id="bar"></div></div>
+</div>
+<div id="list"></div>
+<div id="empty" style="display:none">No terminals found</div>
+
+<script>
+let terminals = []
+let checked = {}
+let saveTimer = null
+
+async function load() {
+  const r = await fetch('/api/grabmaps-checklist')
+  const data = await r.json()
+  terminals = data.terminals
+  checked = data.checked || {}
+  renderList()
+}
+
+function renderList() {
+  const filtered = terminals
+  const total = terminals.length
+  const done = Object.keys(checked).length
+  document.getElementById('stats').innerHTML =
+    `<b>${done}</b> / ${total} done <span id="pct">(${total ? Math.round(done/total*100) : 0}%)</span>`
+  document.getElementById('bar').style.width = (total ? done/total*100 : 0) + '%'
+
+  const list = document.getElementById('list')
+  list.innerHTML = ''
+  document.getElementById('empty').style.display = filtered.length ? 'none' : 'block'
+
+  for (const t of filtered) {
+    const isDone = !!checked[t.id]
+    const div = document.createElement('label')
+    div.className = 'item' + (isDone ? ' done' : '')
+    div.innerHTML = `
+      <input type="checkbox" ${isDone ? 'checked' : ''} onchange="toggle('${t.id}', this.checked, this.closest('.item'))">
+      <span class="name">${t.name}</span>
+      <span class="coords">${Number(t.lat).toFixed(4)}, ${Number(t.lng).toFixed(4)}</span>
+    `
+    list.appendChild(div)
+  }
+}
+
+function toggle(id, val, el) {
+  if (val) checked[id] = true
+  else delete checked[id]
+  el.className = 'item' + (val ? ' done' : '')
+  el.querySelector('.name').style.textDecoration = val ? 'line-through' : 'none'
+  el.querySelector('.name').style.color = val ? '#86efac' : '#111'
+  // Update stats
+  const total = terminals.length
+  const done = Object.keys(checked).length
+  document.getElementById('stats').innerHTML =
+    `<b>${done}</b> / ${total} done <span id="pct">(${total ? Math.round(done/total*100) : 0}%)</span>`
+  document.getElementById('bar').style.width = (total ? done/total*100 : 0) + '%'
+  // Debounced save to disk
+  clearTimeout(saveTimer)
+  saveTimer = setTimeout(() => {
+    fetch('/api/grabmaps-checklist', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, value: val })
+    })
+  }, 500)
+}
+
+load()
+</script>
+</body>
+</html>

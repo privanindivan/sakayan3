@@ -1,0 +1,68 @@
+[dotenv@17.3.1] injecting env (20) from .env.local -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+Photo Review: http://localhost:7790
+^C[dotenv@17.3.1] injecting env (20) from .env.local -- tip: ⚡️ secrets for agents: https://dotenvx.com/as2
+Photo Review: http://localhost:7790
+C:\Users\jj\Downloads\cook\node_modules\pg-pool\index.js:45
+    Error.captureStackTrace(err)
+          ^
+
+Error: getaddrinfo ENOTFOUND aws-1-ap-southeast-1.pooler.supabase.com
+    at C:\Users\jj\Downloads\cook\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async loadTerminals (C:\Users\jj\Downloads\cook\scripts\photo_review_server.js:26:20)
+    at async Server.<anonymous> (C:\Users\jj\Downloads\cook\scripts\photo_review_server.js:208:18) {
+  errno: -3008,
+  code: 'ENOTFOUND',
+  syscall: 'getaddrinfo',
+  hostname: 'aws-1-ap-southeast-1.pooler.supabase.com'
+}
+
+Node.js v24.14.0
+[dotenv@17.3.1] injecting env (20) from .env.local -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+Photo Review: http://localhost:7790
+[dotenv@17.3.1] injecting env (20) from .env.local -- tip: ⚙️  suppress all logs with { quiet: true }
+Photo Review: http://localhost:7790
+[dotenv@17.3.1] injecting env (20) from .env.local -- tip: 🛡️ auth for agents: https://vestauth.com
+Photo Review: http://localhost:7790
+[dotenv@17.3.1] injecting env (20) from .env.local -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+Photo Review: http://localhost:7790
+C:\Users\jj\Downloads\cook\node_modules\pg-pool\index.js:45
+    Error.captureStackTrace(err)
+          ^
+
+Error: read ECONNRESET
+    at C:\Users\jj\Downloads\cook\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async loadTerminals (C:\Users\jj\Downloads\cook\scripts\photo_review_server.js:26:20)
+    at async Server.<anonymous> (C:\Users\jj\Downloads\cook\scripts\photo_review_server.js:208:18) {
+  errno: -4077,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+
+Node.js v24.14.0
+[dotenv@17.3.1] injecting env (24) from .env.local -- tip: ⚙️  write to custom object with { processEnv: myObject }
+Photo Review: http://localhost:7790
+[dotenv@17.3.1] injecting env (24) from .env.local -- tip: ⚙️  write to custom object with { processEnv: myObject }
+Photo Review: http://localhost:7790
+C:\Users\jj\Downloads\cook\node_modules\pg-pool\index.js:45
+    Error.captureStackTrace(err)
+          ^
+
+Error: read ECONNRESET
+    at C:\Users\jj\Downloads\cook\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async loadTerminals (C:\Users\jj\Downloads\cook\scripts\photo_review_server.js:26:20)
+    at async Server.<anonymous> (C:\Users\jj\Downloads\cook\scripts\photo_review_server.js:208:18) {
+  errno: -4077,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+
+Node.js v24.14.0
+[dotenv@17.3.1] injecting env (24) from .env.local -- tip: ⚙️  override existing env vars with { override: true }
+Photo Review: http://localhost:7790
+[dotenv@17.3.1] injecting env (24) from .env.local -- tip: ⚙️  suppress all logs with { quiet: true }
+Photo Review: http://localhost:7790
+[dotenv@17.3.1] injecting env (24) from .env.local -- tip: ⚙️  suppress all logs with { quiet: true }
+Photo Review: http://localhost:7790

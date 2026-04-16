@@ -1,0 +1,3484 @@
+SAKAYAN TERMINALS — Bus — 3417 total
+Generated: 2026-04-09
+============================================================
+
+### Metro Manila (NCR) (2218)
+  10 West Campus
+  10th Avenue/11th Street
+  10th Avenue/2nd Street
+  10th Avenue/5th Street
+  10th Avenue/8th Street
+  10th Avenue/Caloocan High School
+  10th Avenue/Heroes del '96 Street
+  10th Avenue/Kamantigue Street
+  10th Avenue/L. Nadurata Street
+  10th Avenue/La Consolacion College
+  10th Avenue/Luis de Leon Street
+  10th Avenue/M. Hizon Street
+  10th Avenue/P. Sevilla Street
+  10th Avenue/PNR Crossing
+  10th Avenue/Rizal Avenue
+  1301st Dental Dispensary
+  15th Avenue & Art In Island
+  15th Avenue & Aurora Boulevard
+  15th Avenue & Ermin Garcia Street
+  205 Santolan
+  20th Ave/Mirasol
+  20th Avenue & Aurora Boulevard
+  20th/P. Tuazon
+  2nd Avenue/J. Teodoro Street
+  4th Avenue/L. Nadurata Street
+  4th Avenue/P. Sevilla Street
+  5th Avenue
+  5th Avenue/8th Street
+  5th Avenue/A. del Mundo Street
+  5th Avenue/Baltazar Street
+  5th Avenue/La Loma Cemetery
+  5th Avenue/M.H. del Pilar Street
+  5th Avenue/Maria Clara Street
+  5th Avenue/Rizal Avenue
+  5th Street–8th Ave
+  5th Street–9th Ave
+  5th Street–Mabalacat
+  5th Street/12th Avenue
+  5th Street/5th Avenue
+  5th Street/Macabagdal Street
+  670 Epifanio de los Santos Ave, Malibay, Pasay, 1300 Metro Manila, Philippines
+  678 Wet & Dry Market
+  77 Freemont Arcade
+  8th Street/12th Avenue
+  8th Street/Macabagdal Street
+  9th Avenue
+  A. Bonifacio Avenue & 7th Avenue
+  A. Bonifacio Avenue & Ayala Malls Cloverleaf
+  A. Bonifacio Avenue & Banal Street
+  A. Bonifacio Avenue & Blumentritt Road
+  A. Bonifacio Avenue & Bulusan Street
+  A. Bonifacio Avenue & Del Monte Avenue North
+  A. Bonifacio Avenue & Del Monte Avenue South
+  A. Bonifacio Avenue & Iba Street
+  A. Bonifacio Avenue & Lunas Street
+  A. Bonifacio Avenue & Magnas Street
+  A. Bonifacio Avenue & Manila North Cemetery
+  A. Bonifacio Avenue & Marvex Street
+  A. Bonifacio Avenue & Mauban Street
+  A. Bonifacio Avenue & Selecta Drive
+  A. Bonifacio Avenue & Sergeant Rivera Street
+  A. Bonifacio Avenue/Puregold Cainta
+  A. Bonifacio Street & P. Paterno Street
+  A. Bonifacio Street/Naval Street
+  A. del Mundo Street/3rd Avenue
+  A. del Mundo Street/5th Avenue
+  A. Estrada Street/Arellano Avenue
+  A. Mabini Street/10th Avenue
+  A. Mabini Street/A. Bato Street
+  A. Mabini Street/C-3 Road
+  A. Mabini Street/Geronimo Street
+  A. Mabini Street/J.P. Rizal Street
+  A. Mabini Street/L. Lupa Street
+  A. Mabini Street/Lakas ng Mahirap Street
+  A. Mabini Street/Laon Laan Street
+  A. Mabini Street/Ospital ng Kalookan
+  A. Mabini Street/WalterMart
+  A. Mendoza Boulevard/Central Market
+  A. Mendoza Boulevard/Dapitan Street
+  A. Mendoza Boulevard/Laon Laan Street
+  A. Rivera Street/Tayuman Street
+  A. Rivera/Tayuman
+  A. Roces Transport Terminal
+  AB Liner - Sampaloc Terminal
+  Abad Santos
+  Abad Santos Avenue at A. Lopez Street
+  Abad Santos Avenue at Bambang Street
+  Abad Santos Avenue at Corregidor Street
+  Abad Santos Avenue at Dinalupihan Street
+  Abad Santos Avenue at Mayhaligue Street
+  Abad Santos Avenue at Morong Street
+  Abad Santos Avenue at New Antipolo Street
+  Abad Santos Avenue at P. Algue Street
+  Abad Santos Avenue at Quiricada Street
+  Abad Santos Avenue at Solis Street
+  Abad Santos Avenue at Tecson Street
+  Abad Santos Avenue at Villaruel Street
+  Abad Santos Avenue at Yuseco Street
+  Abad Santos Avenue/Tayuman Street
+  Abangan Norte
+  Acacia Avenue (in front of Alabang Country Club)
+  Acacia Avenue/Banaba Street
+  Acacia Avenue/Bauan Street
+  Acacia Avenue/University Avenue
+  Admiral
+  AFPVOVAI Phase 4/5
+  Africa Street & Benitez Hall
+  Aglipay/Kalentong
+  Agora
+  Airport Loop (Pasay City)
+  Airport Road - NAIA Terminal 3 Jeepney Terminal
+  Airport Road - Quirino
+  Airport Shuttle
+  Alabang Rotonda
+  Alabang South Station Bus Arrivals
+  Alabang Town Center
+  Alabang Town Center P2P Bus Station
+  Alabang Viaduct
+  Alabang West
+  Alabang-Zapote – Concha Cruz
+  Alabang-Zapote Road (at Westgate Center)
+  Alabang-Zapote Road/Don Manolo Drive (Alabang Hills)
+  Alabang-Zapote Road/Madrigal Avenue (at Molito)
+  Alabang-Zapote Road/Market Street (in front of Molito)
+  Alabang-Zapote Road/North Bridgeway (Northgate Cyberzone)
+  Alabang–Zapote Road/Saint Mary Street (in front of Alabang Town Center)
+  Alabang–Zapote Road/Theater Drive (Sitio Masagana)
+  Alabang–Zapote/Corporate Avenue
+  Alabang–Zapote/Filinvest Avenue
+  Alfonso Liner Bus Terminal
+  Allegro Center
+  Almanza
+  Almanza Elementary School
+  Alps Bus Terminal
+  AMA East Rizal Campus
+  Amaia Scapes
+  Ana Maria Waiting Shed
+  Anabu Kostal Bus Stop
+  Andrews - Tramo
+  Aniceto Bus Line - Sampaloc Terminal
+  Anonas Street & Chico Street
+  Anonas Street & K-10th Street
+  Anonas Street & Marang Street
+  Anonas Street & Tampoy Street
+  Antipolo FX Transport Terminal
+  Antipolo-Hormiga
+  Antipolo-PNR Crossing
+  Antipolo/Severino Reyes
+  Antonina Line Cubao Terminal
+  Apacible-Angel Linao
+  Apacible-Merced
+  Apacible/Agoncillo
+  Apacible/Estero de San Gregorio
+  Apacible/Justo Lukban Elementary School
+  Apacible/Perez
+  Apacible/Romualdez
+  Araneta Avenue/Caimito Road
+  Araneta Avenue/Gov. Pascual Avenue
+  Araneta Avenue/Mango Road
+  Araneta Center Bus Terminal
+  Araneta Center Jeepney Terminal
+  Araneta Center-Cubao
+  Araneta City Bus Station
+  Araneta City Cubao
+  Araneta City Jeepney Terminal
+  Araneta-Quezon
+  Araneta–Del Monte
+  Arayat/P. Bernardo
+  Arca South Transport Terminal
+  Archer Gate
+  ArcoVia City
+  ArcoVia City Transport Hub
+  ArcoVia Transport Hub
+  ArcoVia/Toyota Pasig
+  Arellano/Vito Cruz
+  Arnaiz – Amorsolo
+  Arnaiz – Mayor
+  Arnaiz/F.B. Harrison
+  Arnaiz/Leveriza
+  Arnaiz/LRT Libertad
+  Arroceros/Universidad de Manila
+  Arya Residences
+  Aurelia Residences
+  Aurora Boulevard & 15th Avenue
+  Aurora Boulevard & 20th Avenue
+  Aurora Boulevard & Anonas Street
+  Aurora Boulevard & Araneta Avenue
+  Aurora Boulevard & Balete Drive
+  Aurora Boulevard & Broadway Avenue
+  Aurora Boulevard & Doña Hemady Street
+  Aurora Boulevard & F. Castillo Street
+  Aurora Boulevard & Harvard Street
+  Aurora Boulevard & J.P. Rizal Street
+  Aurora Boulevard & La Salle Street
+  Aurora Boulevard & LRT Anonas Station
+  Aurora Boulevard & LRT Araneta Center-Cubao Station
+  Aurora Boulevard & LRT Betty Go-Belmonte Station
+  Aurora Boulevard & LRT Gilmore Station
+  Aurora Boulevard & LRT Katipunan Station
+  Aurora Boulevard & Manhattan Parkway
+  Aurora Boulevard & Miami Street
+  Aurora Boulevard & N. Domingo Street
+  Aurora Boulevard & University of the East Ramon Magsaysay Campus
+  Aurora Boulevard at A. Luna Street
+  Aurora Boulevard at LRT J. Ruiz Station
+  Aurora Boulevard at Veloso Street
+  Aurora/Katipunan
+  Avenida
+  Avenida Rizal
+  Avida Residences Santa Catalina
+  Avida Settings
+  Avida Sola Tower 1
+  Avida Towers Verte
+  Avida Vita Tower 2
+  Ayala - McKinley Stadium UV Station
+  Ayala - Sucat Bus Station
+  Ayala Avenue at Ayala Center
+  Ayala Avenue at Ayala Triangle
+  Ayala Avenue at Paseo de Roxas
+  Ayala Avenue at Salcedo Street
+  Ayala Boulevard/PNU
+  Ayala Boulevard/TUP
+  Ayala Center
+  Ayala Malls Cloverleaf
+  Ayala Malls Feliz
+  Ayala Malls Manila Bay
+  Ayala Malls Manila Bay Transport Terminal
+  Ayala Southvale
+  Ayala Terminal
+  Baclaran
+  Baclaran Rotonda
+  Bacood Street at Dalisay Street (Turning Point)
+  Bacood Street at Lubiran Street
+  Bacoor City Hall
+  Bacoor Doctors Medical Center
+  Bagong Barrio
+  Bagong Ilog
+  Bagong Silang
+  Bagong Silang Kaliwa Ph9 - Fairview
+  Bagong Silang Kaliwa Ph9 - Nova Bayan
+  Bagumbayan Jeepney Terminal
+  Balikatan Tricycle Terminal
+  Balintawak
+  Baliwag Transit - Caloocan Terminal
+  Baliwag Transit Cubao
+  Baliwag Transit, Inc. - Cubao Terminal
+  Balut
+  Bambang Street at Abad Santos Avenue
+  Bambang Street at Yakal Street
+  Bambang Street/Felix Huertas Street
+  Bambang Street/Rizal Avenue
+  Banahaw Street
+  Banga
+  Barangka
+  Barney Auto Lines Alabang Terminal
+  Barney Auto Lines PITX Terminal
+  Barney Autolines
+  Bataan Transit Avenida Terminal
+  Batasan
+  Batasan Road & DSWD Compound
+  Batasan Road & Filinvest 1 Road
+  Batasan Road & Kagandahan Street
+  Batasan Road & Litex Road
+  Batasan Road & QC University
+  Bayan-Bayanan
+  Bayani Interchange
+  Bayview Park Hotel
+  BBL Trans - Buendia Terminal
+  BBL Trans San Pedro Terminal
+  BDO Libertad
+  Beata/Liwasang Balagtas
+  Beata/PNR Crossing
+  Behrouz
+  Belen Street & Luz Street
+  Belfast Avenue & Quirino Highway
+  Belisario/O.B. Montessori
+  Belleza Cubao Terminal
+  Benavidez/Salcedo
+  Bernardino General Hospital
+  BFCT East Metro Manila Transport Terminal
+  BGC - Ayala Terminal
+  BGC Arts Centre
+  BGC Bus
+  BGC Bus - EDSA Terminal
+  Bicutan Exit
+  Bicutan Interchange
+  Binakayan Hospital and Medical Center
+  Blue Bay Walk
+  Blue Residences COMET terminal
+  Blumentritt Road/Aurora Boulevard
+  Blumentritt-NovaBayan
+  Blumentritt/Oroquieta
+  Boni Serrano at Katipunan
+  Boni–Pinatubo Terminal
+  Boni/Barangka Drive
+  Boni/F. Ortigas
+  Boni/Ligaya
+  Boni/Mandaluyong Elementary School
+  Boni/Maysilo Circle
+  Boni/Paraiso
+  Boni/Primo Cruz
+  Boni/Sacrepante
+  Boni/San Joaquin
+  Boni/San Rafael
+  Boni/Santo Rosario
+  Boni/Sikap
+  Bonifacio Drive at Anda Circle
+  Bonifacio Drive at Padre Burgos Avenue
+  Bonifacio Stopover
+  Bridgetowne
+  Bridgeway Avenue/Spectrum Midway
+  Buenamar Street & Lourdes Street
+  Buendia
+  Buendia Bus Term.
+  Buendia MOA transport Terminal
+  Buenos Aires
+  Bugallon/Ipil
+  Buhay na Tubig
+  Buhay na Tubig / CvSU Imus
+  Bulacan Street
+  Bulacan Street & West Avenue
+  Bulacan Street at Gregoria de Jesus Es
+  Bulacan/Del Rosario
+  Bus Station
+  Bus Stop (RFC to PITX)
+  Bus Terminal Arrival
+  Bustos Street at Plaza Santa Cruz
+  C-3
+  C-3 Road & A. Bonifacio Avenue
+  C-3 Road/A. Mabini Street
+  C-3 Road/Dagat-Dagatan Avenue
+  C-4 Road/Dagat-Dagatan Avenue
+  C-4 Road/Manapat Street
+  C-4 Road/P. Aquino Avenue
+  C-4 Road/P. Borromeo Street
+  C-5 Extension
+  C-5–Kalayaan
+  C-5–Ortigas
+  C. Arellano Street/Borja Street
+  C. Arellano Street/Col. Camus Integrated School
+  C. Arellano Street/E. Jacinto Street
+  C. Arellano Street/Eusebio Street
+  C. Arellano Street/Paez Street
+  C. Arellano Street/Sigwa Street
+  C. Benitez/Interstate Townhomes
+  C. Benitez/Mayor Diaz
+  C. Benitez/P. Tuazon
+  C. Benitez/Poh Chong Temple
+  C. Benitez/Santolan
+  CAA
+  Cagsawa Travel and Tours, Inc.
+  Calamba P2P Saint Rose
+  Camarin
+  Cambridge
+  Cambridge Street & Ermin Garcia Street
+  Cambridge Street & New York Avenue
+  Camella Daang Hari
+  Camella Homes Bacoor
+  Candon Bus Line
+  Capitol Commons
+  Capri Oasis
+  Cartimar
+  Casimiro
+  Casimiro Village/Dow Chemical
+  Casmiro
+  Cathedral of Praise
+  Catmon
+  Cavalry Drive
+  Cavite - Batangas Bus Terminal
+  Cavite Commuter Buses
+  Cavite Jeepney Station
+  Cavite Street/Leonor Rivera Street
+  CCP
+  Cembo
+  Cementina - Libertad
+  Centennial Village
+  Central Avenue
+  Central Terminal
+  Ceres Bus Station to Batangas
+  Ceres Bus terminal
+  Ceres Liner Terminal - Cubao
+  Ceres/Gold Star Pasay Terminal
+  Champaca Gate
+  Chino Roces - Dela Rosa
+  Chino Roces - Malugay
+  Chino Roces-J.P. Rizal
+  Choice Market Ortigas
+  Circuit Makati
+  Circuit Makati Transport Terminal
+  Citi Centre
+  Cittadini School
+  City Bus Terminal
+  City Hall
+  Cityland
+  Cityland Apartment
+  CityMall Imus
+  Citywalk - Showroom
+  Civic Drive (at Landmark)
+  Civic Drive (in front of Landmark)
+  Civic Drive (near Festival Alabang South Wing)
+  Civic Drive/Centennial Lane (at Civic Prime)
+  Civic Drive/Centennial Lane (in front of Asian Hospital)
+  Civic Drive/Centennial Lane (near Asian Hospital)
+  Civic Drive/Centennial Lane (near Civic Prime)
+  Civic Drive/Corporate Avenue (behind Entrata)
+  Coastal Mall Metro Bus Station
+  Coda Lines Terminal
+  Colegio de San Benildo-Rizal
+  Columbia Street & Yale Street
+  Commerce Avenue/AAV Mindanao Gate (at Virgin Mary Immaculate School)
+  Commerce Avenue/Madrigal Avenue
+  Commonwealth Avenue & Atherton Street
+  Commonwealth Avenue & Batasan Road
+  Commonwealth Avenue & Central Avenue
+  Commonwealth Avenue & Commission on Audit
+  Commonwealth Avenue & Commonwealth Market
+  Commonwealth Avenue & Diliman Doctors Hospital
+  Commonwealth Avenue & Don Diosdado Street
+  Commonwealth Avenue & Doña Carmen Subdivision
+  Commonwealth Avenue & Ever Gotesco
+  Commonwealth Avenue & Litex
+  Commonwealth Avenue & Luzon Avenue
+  Commonwealth Avenue & Mindanao Avenue
+  Commonwealth Avenue & Philcoa
+  Commonwealth Avenue & Quirino Highway
+  Commonwealth Avenue & Regalado Avenue
+  Commonwealth Avenue & St. Peter's Parish
+  Commonwealth Avenue & Tandang Sora Avenue
+  Commonwealth Avenue & Tandang Sora Avenue Nearside
+  Commonwealth Avenue & UP Ayala Techno Hub
+  Commonwealth/Fairlane
+  Commonwealth/Regalado Highway
+  Congressional Avenue & Abra Street
+  Congressional Avenue & Jupiter Street
+  Congressional Avenue & Mindanao Avenue
+  Congressional Avenue & Senatorial Drive
+  Congressional Avenue & Shorthorn Street
+  Congressional Avenue & Visayas Avenue
+  Congressional Avenue Extension & Tandang Sora Extension
+  Congressional Avenue Extension & Virginia Street
+  Cordillera Street at Lubiran Street
+  Coronado-San Francisco
+  Corporate Avenue/Bridgeway Avenue
+  Corporate Avenue/Commerce Avenue
+  Corporate Avenue/Parkway Avenue
+  Corregidor Street at Ilocos Sur Street
+  Country Club Drive/Caimito Drive
+  Country Club Drive/Mango Drive
+  Crescent North Park
+  Crescent Park West
+  Crismor Subdivision
+  Crossing Bocaue
+  Crossing Casimiro
+  Crossings
+  Cubao - Divisoria Jeepney Terminal
+  Cubao - Roces Ave Jeepney Terminal
+  CUBAO BUS TERMINAL
+  Cubao Terminal Complex
+  Cubao, Quezon City
+  Cuenca Street/Nasugbu Street (near St. James Parish)
+  D. Tuazon Street & E. Rodriguez Sr. Avenue
+  D. Tuazon Street & Quezon Avenue
+  Daang Hari
+  Dagat-Dagatan Avenue/Alamang Street
+  Dagat-Dagatan Avenue/C-3 Road
+  Dagat-Dagatan Avenue/C-4 Road
+  Dagat-Dagatan Avenue/Langaray Street
+  Dagat-Dagatan Avenue/Maya-Maya Street
+  Dagat-Dagatan Avenue/P. Aquino Avenue
+  Dagat-Dagatan Avenue/Pusit Street
+  Dagat-Dagatan Avenue/Tanigue Street
+  Dagupan Bus Terminal
+  Dagupan Street/Moriones Street
+  Dalandanan
+  DALIN Bus Line - Sampaloc Terminal
+  Damar Village
+  Danny Floro
+  Dapitan Street & Iba Street
+  Dapitan Street at Musa Street
+  Dapitan Street/Algeciras Street
+  Dapitan Street/Juaning Street
+  Dapitan Street/Maceda Street
+  Dapitan Street/Maria Cristina Street
+  Dasmariñas/Burke
+  Dasmariñas/Juan Luna
+  Dasmariñas/Quintin Paredes
+  Del Carmen Bus Terminal
+  Del Fierro Street at T. Earnshaw Street
+  Del Monte Avenue & Cooper Street
+  Del Monte Avenue & FPJ Avenue
+  Del Monte Avenue & Kanlaon Street
+  Del Monte–Araneta
+  Del Monte–Banawe
+  Del Monte–Cordillera
+  Del Monte–Malac
+  Del Monte–Masambong
+  Del Monte–Matutum
+  Del Monte–Salac
+  Del Monte–San Pedro Bautista
+  Del Monte–Siena College
+  Dela Fuente Street/España Boulevard
+  Dela Rosa Bus Terminal / Silver Star Bus
+  Dela Rosa/Legazpi
+  Dela Rosa/Rufino
+  Delpan Street at Delpan Flyover
+  DePed
+  DFA
+  Diamond Road
+  Dimasalang Street/Aurora Boulevard
+  Dimasalang Street/Dangwa Market
+  Dimasalang Street/Maceda Street
+  Dimasalang Street/R. S. Cristobal Street
+  District 4 Action Center
+  Diversion Road/Golden City 1
+  Diversion Road/Kaytikling Junction
+  Diversion Road/Monte Vista Subdivision
+  Diversion Road/SM City Taytay
+  Divisoria (Tutuban)
+  Divisoria/Asuncion
+  Divisoria/Ilaya Turning Point
+  DLSZ Bus stop
+  DLTB Bus Co.
+  DLTB Bus Company
+  DLTB Bus Terminal Cubao
+  DLTBCo Buendia/Gil Puyat Terminal
+  Domestic Road - AIAC
+  Domestic Road - Cebu Pacific
+  Domestic Road - MIA Road
+  Don A. Roces Avenue & Scout Reyes Street
+  Don A. Roces Avenue & Scout Tobias Street
+  Don A. Roces Avenue & South AA Street
+  Don Aldrin (Pasay City)
+  Don Alejandro Roces, Sr. Science and Technology High School
+  Don Basilio Bautista Boulevard/Gov. Andres Gabriel Street North
+  Don Basilio Bautista Boulevard/Gov. Andres Gabriel Street South
+  Don Basilio Bautista Boulevard/M. Blas Street
+  Doña Hemady/E. Rodriguez Sr. Avenue
+  Doña Hemady/Robinsons Magnolia
+  Doña Julita
+  Doña Manuela
+  Dotcom Drive/Plaza Building E
+  Double Dragon Plaza
+  Dr. A Santos/Doña Irenea
+  Dr. A Santos/SM Hypermarket
+  Dr. A. Santos/A. Canaynay
+  Dr. A. Santos/Aristocrat Compound
+  Dr. A. Santos/Gatchalian
+  Dr. A. Santos/Greenheights
+  Dr. A. Santos/Headline
+  Dr. A. Santos/Kay Talices
+  Dr. A. Santos/Kay Talise
+  Dr. A. Santos/Loyola Memorial Park
+  Dr. A. Santos/Manila Memorial Park
+  Dr. A. Santos/Meliton Espiritu
+  Dr. A. Santos/N. Lopez
+  Dr. A. Santos/Presidents Ave
+  Dr. A. Santos/Ramos Compound
+  Dr. A. Santos/Sampaloc
+  Dr. A. Santos/San Antonio Ave
+  Dr. A. Santos/Santa Rita
+  Dr. A. Santos/Schilling
+  Dr. A. Santos/Shopwise
+  Dr. Pilapil
+  DSWD/PCPD
+  Duhat Tricycle Terminal
+  Duplex Subdivision
+  E-jeep AGS Station
+  E. Rodriguez at Boni Serrano
+  E. Rodriguez Jr. Avenue & Calle Industria
+  E. Rodriguez Jr. Avenue & Green Meadows Avenue
+  E. Rodriguez Jr. Avenue & Green Meadows Gate 6 Footbridge
+  E. Rodriguez Jr. Avenue & Mercury Avenue
+  E. Rodriguez Jr. Avenue & Richmond Drive
+  E. Rodriguez Sr. Avenue & Araneta Avenue
+  E. Rodriguez Sr. Avenue & Balete Drive
+  E. Rodriguez Sr. Avenue & Betty Go-Belmonte Street
+  E. Rodriguez Sr. Avenue & Christ the King Mission Seminary
+  E. Rodriguez Sr. Avenue & D. Tuazon Street
+  E. Rodriguez Sr. Avenue & Hillcrest Street
+  E. Rodriguez Sr. Avenue & Lopez Jaena Street
+  E. Rodriguez Sr. Avenue & Monte de Piedad Street
+  E. Rodriguez Sr. Avenue & New York Street
+  E. Rodriguez Sr. Avenue & St. Luke's Medical Center
+  E. Rodriguez Sr. Avenue & Trinity University of Asia
+  E. Rodriguez Sr. Avenue & Welcome Rotonda
+  E. Zobel-J.P. Rizal
+  Eagle Street
+  Eaglestar Bus
+  East Avenue & East Avenue Medical Center
+  East Avenue & EDSA
+  East Avenue & Matalino Street
+  East Avenue & National Kidney Transplant Institue
+  East Avenue & NIA Road
+  East Avenue & V. Luna Road
+  East Service Road/Freshtex
+  East Service Road/Sitio Tuklas
+  East Zamora/Padre Jacinto Zamora Elementary School
+  Eastwood Mall
+  EDSA - Harrison
+  EDSA - Quezon Avenue Jeepney Station Westbound
+  EDSA & Solaire Resort North
+  EDSA at MRT Ayala
+  EDSA Busway
+  EDSA Carousel Bus Stop - Ayala
+  EDSA Carousel Bus Stop - Bagong Barrio - Caloocan City NCR
+  EDSA Carousel Bus Stop - Guadalupe
+  EDSA Carousel Bus Stop - Main Avenue - Quezon City NCR
+  EDSA Carousel Bus Stop - Monumento - Caloocan City NCR
+  EDSA Carousel Bus Stop - Quezon Ave. - Quezon City NCR
+  EDSA Carousel Bus Stop - Taft Ave.
+  EDSA Carousel Bus Stop - Tramo
+  Edsa Carousel Bus Terminal - Paranaque Integrated Terminal Exchange
+  EDSA Taft Avenue Bus Station Eastbound Northbound
+  EDSA-Jupiter Jeepney Terminal
+  EDSA-Ortigas
+  EDSA-Roxas Boulevard (northbound
+  EDSA/P. Tuazon
+  Eduardson
+  EGBC Terminal
+  Eighty One Mall
+  El Grande
+  Elavil Bus Terminal
+  Elavil Pasay Bus Station
+  Elias Aldana
+  Elizalde/Cabarrus
+  Elizalde/Concha Cruz
+  Elizalde/Conrado Benitez
+  Elizalde/Ramona Tirona
+  Elizalde/Tropical Palace
+  Elizalde/V. Madrigal
+  Elliptical Road & Department of Agrarian Reform
+  Elliptical Road & Lung Center of the Philippines
+  Elliptical Road & North Avenue
+  ELMS Bus compound
+  Elvinda
+  Emapalico/Zarate Hospital
+  Emerald
+  Emilio Aguinaldo Highway
+  Enderun Colleges
+  Escolta/Pinpin
+  Escopa/Padre Burgos
+  España Boulevard at Josefina Street
+  España Boulevard at Vicente Cruz Street
+  España Boulevard/Antipolo Street
+  España Boulevard/Blumentritt Street
+  España Boulevard/Lacson Avenue
+  España Boulevard/Maceda Street
+  España Boulevard/P. Campa Street
+  España Boulevard/P. Noval Street
+  España Boulevard/Ramon Magsaysay High School
+  España Boulevard/University of Santo Tomas
+  España Boulevard/Vicente Cruz Street
+  Esperanza/Paseo de Roxas
+  Esteban Dela Rama
+  Eterton Multi Resources
+  Eton Centris
+  Eusebio High School
+  Ever Jeepney Terminal
+  Evia
+  F. Castillo Street & Aurora Boulevard
+  F. Cayco Street/F. Jhocson Street
+  F. Cayco Street/Loyola Street
+  F. Cayco Street/M. Earnshaw Street
+  F. Huertas/Bulacan
+  F. Jhocson Street/M. Earnshaw Street
+  F. Maria Guerrero Street & Romulo Hall
+  F. Zobel-S. Osmeña
+  F.B. Harrison/M. Santos
+  F.B. Harrison/Sinciego
+  FamilyMart Alabang West
+  Fariñas - Sampaloc Terminal
+  Farinas Bus Station
+  Farmers Market UV Express Station
+  Farmers Plaza UV Express Station
+  Felix Avenue/Cainta Junction
+  Felix Huertas Street/A. Lorenzo Jr. (Batangas) Street
+  Felix Huertas Street/Bambang Street
+  Felix Huertas Street/Lacson Avenue
+  Felix Huertas Street/Mayhaligue Street
+  Felix Huertas Street/Quiricada Street
+  Felix Huertas Street/San Lazaro Street
+  Felix Huertas Street/Tayuman Street
+  Festival Alabang
+  Festival Mall Jeepney Terminal
+  Filinvest Avenue/Commerce Avenue
+  First North Luzon Transit
+  First North Luzon Transit - Caloocan Station
+  Five Star Bus
+  five star bus and cisco arrival
+  Five Star Bus Co.
+  Five Star Bus Co. Cubao
+  Five Star Bus Depot
+  Five Star Cubao
+  Florida Bus Terminal Sampaloc Manila
+  Fort Bonifacio Gate 1
+  Fort Victoria
+  Fortune Market & Transport Terminal
+  FPJ Avenue & Attorney Pat Senador Sr. Avenue
+  FPJ Avenue & Baler Street
+  FPJ Avenue & Batangas Street
+  FPJ Avenue & Coca-Cola Warehouse
+  FPJ Avenue & De Vera Street
+  FPJ Avenue & Del Monte Avenue
+  FPJ Avenue & F. Bautista Street
+  FPJ Avenue & M.H. del Pilar Street
+  FPJ Avenue & Metrobank
+  FPJ Avenue & Muñoz Market
+  FPJ Avenue & Paraiso Road
+  FPJ Avenue & PMI Colleges
+  FPJ Avenue & Road B
+  FPJ Avenue & Watchtower Compound
+  Francisco Motors
+  Franco Street/Herbosa Street
+  FTI Integrated Transport Terminal
+  FTI Integrated Transport Terminal (Closed)
+  Fugoso Street at Oroquieta Street
+  FX to SM Megamall
+  G. Tuazon Street/Bataan Street
+  G. Tuazon Street/Gerardo Street
+  G. Tuazon Street/M. Arenas Street
+  G. Tuazon Street/M. Jhocson Street
+  G. Tuazon Street/Masbate Street
+  G. Tuazon Street/Vicente Cruz Street
+  G. Tuazon Street/Wellcome Balic-Balic
+  Gahak
+  Galvez-Park Ave
+  Gasat Roro Bus Terminal
+  Gastambide/Dela Rosa
+  Gastambide/UE
+  Gate 2
+  Gate 3
+  Gate 3 Plaza
+  Gate 4
+  Gate 6
+  Gateway Mall 2
+  Gaya-Gaya
+  General Luis Street & Susano Road
+  General Luna Street/A. Bonifacio Street
+  General Luna Street/Bernardo Street
+  General Luna Street/E. Jacinto Street
+  General Luna Street/Ilang-Ilang Street
+  General Luna Street/INC Lokal ng Malabon
+  General Luna Street/Malabon SDA Church
+  General Luna Street/Malabon United Methodist Church
+  General Luna Street/Paez Street
+  General Luna Street/St. James Academy
+  General Luna Street/Vidal Street
+  General Romulo Avenue & General Malvar Avenue
+  General V. Lim
+  Genesis (Pasay City)
+  Genesis Avenida Terminal
+  Genesis Bus Terminal
+  Georgia
+  German Espiritu Liner Cubao
+  Geronimo Street & Our Lady of Mercy Parish Church
+  Geronimo Street & Sarmiento Street
+  Gil Puyat -  Harrison
+  Gil Puyat - Paseo de Roxas
+  Gil Puyat at Dominga Street
+  Gil Puyat Avenue & Dian Street
+  Gil Puyat Avenue & Makati Avenue
+  Gil Puyat Avenue & Nicanor Garcia Street
+  Gil Puyat Avenue & Paseo de Roxas
+  Gil Puyat Avenue & Petron Megaplaza
+  Gil Puyat Avenue & Tordesillas Street
+  Gil Puyat Avenue at F.B. Harrison Street
+  Gil Puyat Avenue at Leveriza Street
+  Gil Puyat Avenue at LRT Gil Puyat Station
+  Gil Puyat Avenue at Roxas Boulevard
+  Gil Puyat Avenue/Ayala Avenue
+  Gil Puyat Avenue/Bautista Street
+  Gil Puyat Avenue/Bautista Street nearside
+  Gil Puyat Avenue/Chino Roces Avenue
+  Gil Puyat Avenue/Chino Roces Avenue nearside
+  Gil Puyat Avenue/Fillmore Street
+  Gil Puyat Avenue/Geronimo Street
+  Gil Puyat Avenue/Osmeña Highway
+  Gil Puyat Avenue/P. Medina Street (near PNR Buendia Station)
+  Gil Puyat Avenue/Urban Avenue
+  Gil Puyat/F.B. Harrison
+  Gilmore/1st Street
+  Gilmore/N. Domingo
+  Globe Tower
+  Glorietta 3
+  Golden City
+  Golden Valley
+  Gov. Pascual Avenue/Arellano University
+  Gov. Pascual Avenue/Dampa sa Paseo
+  Gov. Pascual Avenue/General Luna Street
+  Gov. Pascual Avenue/Goldenrod Avenue
+  Gov. Pascual Avenue/Industrial Avenue
+  Gov. Pascual Avenue/M.H. del Pilar Street
+  Gov. Pascual Avenue/Maria Clara Street
+  Gov. Pascual Avenue/Nangka Road
+  Gov. Pascual Avenue/Sisa Street
+  Gov. Pascual Avenue/Tinajeros Market
+  Gov. Pascual Avenue/University Avenue
+  Governor Santos
+  Granada/Castilla
+  Granada/Santolan
+  Grand Eastwood Palazzo
+  Grand Star
+  Green Meadows Gate 6
+  Green Valley
+  Greenbelt 1
+  Greystone
+  Grotto
+  Grotto Shop N Ride
+  GSIS Complex
+  GSIS Road
+  Guadalupe - Ayala Jeepney Terminal
+  Guadalupe - Delpan Jeepney Terminal
+  Guadalupe Jeepney Terminal
+  Guazon Street at Quirino Avenue
+  Guazon/Isuzu Otis
+  Guazon/Robinsons Place Otis
+  GV Florida Manila Bus Station
+  GV Florida Sampaloc Terminal
+  H. Lopez Boulevard at Gamban Street
+  H. Lopez Boulevard at Guidote Street
+  H. Lopez Boulevard at Immaculate Conception Academy
+  H. Lopez Boulevard at Juan Luna Street
+  H. Lopez Boulevard at Tondo Medical Center
+  H. Lopez/Rodriguez
+  Habay
+  Harrison - Libertad
+  Harrison/Arnaiz
+  HBC San Pedro Jeepney Terminal
+  Herbosa Street/Trinidad Rizal Street
+  Heritage- Monumento Terminal
+  Herrera (Camarines) Street/Felix Huertas Street
+  Hidalgo Street/Manuel L. Quezon University
+  High Park Tower 1
+  High Park Tower 2
+  Holiday Park
+  Homeowners'
+  Honoris Bus Terminal
+  Hotel 101 Manila
+  Hotel Jen
+  HSBC
+  Hulo
+  Hulo PUJ & Tricycle Terminal
+  Hulong Duhat Plaza
+  Hybrid Bus Station - J.W. Diokno Boulevard Station 5
+  IBM Tower
+  IBP Road & QC University
+  ICITE
+  Imart Bacoor
+  Imus City Proper
+  Imus jeepney terminal
+  Imus Public Jeepney Terminal
+  Imus Terminal Plaza
+  Imus Transport Terminal
+  Imus via Alabang UV Express Terminal
+  Intramuros
+  Investment Drive (at Parktrade Centre)
+  Investment Drive (near Parktrade Centre)
+  Investment Drive/Alabang-Zapote Road (at Honda Alabang)
+  Investment Drive/Alabang-Zapote Road (in front of Honda Alabang)
+  IPI
+  Isarog Lines
+  ITC Road
+  J. Elizalde/President's Ave
+  J. Fajardo Street/E. Quintos Street
+  J. Fajardo Street/Instruccion Street
+  J. Fajardo Street/Maria Cristina Street
+  J. P. Rizal
+  J. P. Rizal Avenue/Leoño Street
+  J. President's Ave/Elizalde
+  J.P Rizal - City Hall
+  J.P Rizal - Villena
+  J.P Rizal Avenue/Hulo Tawiran
+  J.P Rizal Street/A. Mabini Street
+  J.P Rizal Street/Camia Street
+  J.P Rizal Street/Waterfront Drive
+  J.P Rizal-Antipolo Street
+  J.P Rizal-Chino Roces
+  J.P Rizal-Circuit Makati
+  J.P Rizal-Constancia
+  J.P Rizal-Del Pan
+  J.P Rizal-J.B Roxas
+  J.P Rizal-Makati Ave
+  J.P Rizal-Pasong Tirad
+  J.P Rizal-Pertierra
+  J.P Rizal-Pililia Street
+  J.P Rizal-PRC
+  J.P Rizal-Trabajo
+  J.P Rizal-Zapote
+  J.P. Bautista Street/Caimito Road
+  J.P. Rizal Avenue/Guadalupe BLISS
+  J.P. Rizal Avenue/Guadalupe Cloverleaf
+  J.P. Rizal Avenue/Guadalupe Condominiums Gate 1
+  J.P. Rizal Avenue/Guadalupe Condominiums Gate 2
+  J.P. Rizal Avenue/Guadalupe Condominiums Gate 3
+  J.P. Rizal Avenue/Magsaysay Street
+  J.P. Rizal Street & E. Aguinaldo Street
+  J.P. Rizal Street & Santa Lucia High School
+  J.P. Rizal Street & Visayas Street
+  J.P. Rizal Street/Carballo Street
+  J.P. Rizal Street/Guadalupe Cloverleaf
+  J.P. Rizal-H. Santos
+  J.P. Rizal-Zobel Roxas
+  JAC/JAM Buendia Terminal
+  JAM Liner
+  Jam Liner Buendia Bus Station
+  Jeepney Nagtahan-Otis
+  Jeepney Station
+  Jeepney Terminal
+  Jeepney Terminal
+  Jeepney Terminal
+  Jeepney Terminal
+  Jeepney Terminal to Robinson Otis
+  Jesus is Lord Colleges
+  Jesus Street at Quirino Avenue
+  Jose Abad Santos Street & J. Basa Street
+  Jose Abad Santos Street & J.P. Rizal Street
+  Joy Bus Station
+  JPL High School
+  JRU / Kalentong-Starmall / EDSA Central
+  Juan Luna Street at Corcuera Street
+  Juan Luna Street/Florentino Torres HS
+  Juan Luna Street/Gagalangin Fire Station
+  Juan Luna Street/Hermosa Street
+  Juan Luna Street/Jose Corazon de Jesus ES
+  Juan Luna Street/Manila Faith Assembly of God
+  Juan Luna Street/Padre Herrera Street
+  Juan Luna Street/Padre Rada Street
+  Juan Luna Street/Pritil Intersection
+  Juan Luna Street/Pritil Market
+  Juan Luna Street/Raxabago Street
+  Juan Luna Street/Ricafort Street
+  Juan Luna Street/Saint Joseph School
+  Judge D. Jimenez Street & K-2nd Street
+  Judge D. Jimenez Street & K-5th Street
+  Judge D. Jimenez Street & Kamuning Road
+  Judge D. Jimenez Street & Magsaysay Avenue
+  Judge Juan Luna
+  Julia Vargas
+  Julia Vargas
+  Jupiter-Bel Air 2
+  Jupiter-BPI
+  Jupiter-ECC
+  Jupiter-N. Garcia
+  Jupiter-NAPOLCOM
+  Justinville
+  K-1st Street & Judge D. Jimenez Street
+  K-5th Street & Tomas Morato Elementary School
+  K-I/Kamias
+  K-J Street & Ermin Garcia Street
+  Kabihasnan
+  Kabisig MPTSC UVE Terminal
+  Kaingin
+  Kalawag
+  Kalayaan Avenue & Kamias Road
+  Kalayaan Avenue & Masigla Street
+  Kalayaan Avenue & Matino Street
+  Kalayaan Avenue & V. Luna Road
+  Kalayaan Avenue & V. Luna Road
+  Kalayaan Avenue/Acacia Street
+  Kalayaan Avenue/Commercio Street
+  Kalayaan Avenue/Lawton Avenue
+  Kalayaan Avenue/Sergeant Fabian Yabut Street
+  Kalayaan Interchange
+  Kalayaan Residence Hall
+  Kalayaan-Bel Air 2
+  Kalayaan-Century City
+  Kalayaan-Chino Roces
+  Kalayaan-J.B Roxas
+  Kalayaan-Kamagong
+  Kalayaan-N. Garcia
+  Kalayaan-Pasong Tirad
+  Kalayaan-Pililia
+  Kalayaan-South Avenue
+  Kalayaan-Zapote
+  Kalayaan/Mapagsangguni
+  Kalentong - Starmall
+  Kalentong Jeepney Terminal
+  Kalentong-Don Bosco
+  Kalentong-Shaw
+  Kalentong–Sevilla
+  Kamantigue Street/11th Avenue
+  Kamias Road & Anonas Street
+  Kamias Road & Colonel Salgado Street
+  Kamias Road & K-I Street
+  Kamias Road & Kalayaan Avenue
+  Kamias Road & Kasing-kasing Street
+  Kamias Road & Maliksi Street
+  Kamuning Road & 11th Jamboree Street
+  Kamuning Road & Dr. Jesus C. Delgado Memorial Hospital
+  Kamuning Road & Judge Jimenez Street
+  Kamuning Road & Scout Rallos Street
+  Kamuning Road & T. Gener Street
+  Kamuning/K-E
+  Kapasigan
+  Karuhatan
+  Katarungan Village
+  Katihan Street/Poblacion Public Market
+  Katihan Street/Southernside Montessori School
+  Katipunan Avenue & ADMU Gate 2
+  Katipunan Avenue & Aurora Boulevard South
+  Katipunan Avenue & B. Gonzales Street
+  Katipunan Avenue & Magsaysay Avenue
+  Katipunan Avenue & Miriam College
+  Katipunan Avenue & Miriam College Unloading Bay
+  Katipunan Avenue & P. Tuazon Boulevard
+  Katipunan Avenue & Pansol Avenue
+  Katipunan Avenue & Rajah Matanda Street
+  Katipunan Avenue & UP Town Center
+  Kitanlad Street & Quezon Institute
+  KM 13 East Service Road
+  Krus na Ligas
+  L. Sanghio Street & K-3rd Street
+  L. Sanghio Street & Kamuning Road
+  La Salle Green Hills
+  La Salle Green Hills (School Buses Only)
+  Labores-Hilum
+  Labores/Pandacan Church
+  Lacson Avenue at Laon Laan Street
+  Lacson Avenue at Nagtahan Interchange
+  Lacson Avenue/A. Mendoza Boulevard
+  Lacson Avenue/Dapitan Street
+  Lacson Avenue/España Boulevard
+  Lacson Avenue/G. Tuazon Street
+  Lacson Avenue/J. Fajardo Street
+  Lacson Avenue/Nagtahan Interchange
+  Lacson Avenue/Piy Margal Street
+  Lacson Avenue/UST Gate 2
+  Lagro
+  Laguna Street at Rizal Avenue
+  Lakandula Street & Albert Hall
+  Lampas BDO Libertad
+  Lancaster Filcab Station
+  Lancaster Transport Hub
+  Landayan
+  Landmark
+  Lantana Street & Cubao Cathedral
+  Laon Laan Street/C. Namie Street
+  Laon Laan Street/Concepcion Street
+  Laon Laan Street/Instruccion Street
+  Laon Laan Street/Maria Cristina Street
+  Laon Laan/San Diego
+  Lardizabal Street/Vicente Cruz Street
+  Las Piñas City Hall
+  Las Piñas Elementary School
+  Laurel Avenue & F. Agoncillo Street
+  Laurel Avenue & UP Coop
+  Laurel Avenue & UP Shopping Center
+  Lawton
+  Lawton Avenue/J.P. Rizal Avenue
+  Lawton Terminal
+  Legarda Street at M. Jhocson Street
+  Legarda Street/Figueras Street
+  Legarda Street/Mendiola Street
+  Legarda Street/Nagtahan Interchange
+  Legazpi/Paseo de Roxas
+  Leon Guinto Street/A. Estrada Street
+  Leon Guinto Street/C. Aragon Street
+  Leon Guinto Street/Congressman A. Francisco Street
+  Leon Guinto Street/Nakpil Street
+  Leon Guinto Street/Pedro Gil Street
+  Leon Guinto Street/Quirino Avenue
+  Leon Guinto/Apacible
+  Leveriza - Dancel
+  Leveriza - Gil Puyat
+  Leveriza - Libertad
+  Lexus Manila
+  Libertad - Tramo
+  Little Baguio - Romualdez
+  Liwasang Bonifacio
+  Lolomboy
+  Lopez Pickup Point
+  Loyola Street/Bilibid Viejo Street
+  Loyola Street/Dos Castillas Street
+  Loyola Street/E. Quintos Street
+  Loyola Street/P. Noval Street
+  Loyola Street/R. Papa Street
+  Loyola Street/Trabajo Market
+  LRT Dr. Santos Terminal
+  LRT Marikina
+  LRT Ninoy Aquino
+  Lubiran Street at Bagumbayan Street
+  Lubiran Street at Magistrado Abad Santos Street
+  Lubiran Street at Magistrado Mapa Street
+  Lucena Bus
+  Lumang Palengke
+  Lumiere
+  Luzon Avenue & Commonwealth Avenue
+  Luzon Avenue & Tandang Sora Avenue
+  M. dela Fuente Street/Firmeza Street
+  M. dela Fuente Street/G. Tuazon Street
+  M. dela Fuente Street/J. Fajardo Street
+  M. Roxas Avenue & Vinzons Hall
+  M.H. del Pilar St./Libertad St.
+  M.H. del Pilar Street/Angela Street
+  M.H. del Pilar Street/Comercio Street
+  M.H. del Pilar Street/Dionisio Street
+  M.H. del Pilar Street/Gov. Pascual Avenue
+  M.H. del Pilar Street/Heart of Mary Villa Convent
+  M.H. del Pilar Street/Mejorada Street
+  M.H. del Pilar Street/Mesina Street
+  M.H. del Pilar Street/Panghulo Road
+  M.H. del Pilar Street/Rodriguez Street
+  M.H. del Pilar Street/Sitio Uno
+  M.H. del Pilar Street/Yanga Street
+  M.H. del Pilar Street/Zinc Street
+  M.H. del Pilar/Dr. Quintos
+  M.H. del Pilar/Ermita Shrine
+  M.H. del Pilar/Padre Faura
+  M.H. del Pilar/Salas
+  M.H. del Pilar/San Andres
+  M.H. del Pilar/Sinagoga
+  M.H. del Pilar/T.M. Kalaw
+  Mabini/Alonzo
+  Mabini/Bangko Sentral ng Pilpinas
+  Mabini/Ocampo
+  Mabini/Padre Faura
+  Mabini/Pedro Gil
+  Mabini/Quirino
+  Mabini/San Andres
+  Mabini/Santa Monica
+  Mabini/UN Avenue
+  Mabolo
+  Macapagal - Aseana Square
+  Macapagal - City of Dreams
+  Macapagal - DFA
+  MacArthur Highway/Calle Cuatro
+  MacArthur Highway/Del Monte Street
+  MacArthur Highway/Grand Hotel
+  MacArthur Highway/Pinagtipunan Circle
+  MacArthur Highway/Victoneta Avenue
+  Madison/Pioneer
+  Madrid/Lara
+  Madrid/Muelle de la Industria
+  Madrid/Peñarubia
+  Madrigal Avenue/Balabac Street
+  Madrigal Avenue/San Enrique Street
+  Magallanes
+  Magallanes Interchange
+  Magsaysay Avenue & G. Apacible Street
+  Magsaysay Avenue & Ylanan Street
+  Magsaysay Boulevard & Araneta Avenue
+  Magsaysay Boulevard & Paltoc Street
+  Magsaysay Boulevard & PNR Crossing
+  Magsaysay Boulevard & Pureza Street
+  Magsaysay Boulevard at Altura Street
+  Magsaysay Boulevard at LRT V. Mapa Station
+  Magsaysay Boulevard at V. Mapa Street
+  Main Avenue
+  Main Avenue - EDSA Carousel SB
+  Main Avenue Bus Stop
+  Makati Ave-Kalayaan
+  Makati Ave-Valdez
+  Makati Ave/Parkway Road
+  Makati-Pasay Boundary
+  Malabon Market
+  Malanday
+  Malaria
+  Malinta
+  Mall of Asia
+  Maly Jeepney Terminal
+  Mambog 4
+  Mambog-Bayanan
+  Manapat Street/C-4 Road
+  Manila Central Post Office
+  Manila City Hall
+  Manila Hotel
+  Manila Multi-modal Terminal
+  Manila Multimodal Terminal
+  Manila Tytana College
+  Manuel Roxas Gate
+  Mapayapa Village
+  Marcos Highway & Katipunan Avenue
+  Maria Clara Street/Dimasalang Street
+  Maria de leon bus terminal
+  Maria de Leon Trans
+  Maria Orosa/Luneta
+  Maria Orosa/Padre Burgos
+  Maria Orosa/T.M. Kalaw
+  Marikina Bayan
+  Marikina City Transport Terminal
+  Marikina Transport Terminal
+  Marilag
+  Mariposa Arcade
+  Market Road
+  Market! Market!
+  Marulas
+  Masangkay Street at Bambang Street
+  Masaya Street & Nenita Street
+  Masaya Street & San Agustin Street
+  Masinag
+  Matapang Street & East Avenue
+  Matatag Street & Matapang Street
+  Matimyas Street/Instruccion Street
+  Matrinco Hub
+  Matutum
+  Mayhaligue Street at Balintawak Street
+  Mayhaligue Street at Masangkay Street
+  Mayon Street & Calamba Street
+  Mayon Street & Maria Clara Street
+  Mayon Street & N.S. Amoranto Avenue
+  Mayon Street & Nicanor Roxas Street
+  Mayon Street & Santa Catalina Street
+  Mayon Street & Santa Teresita Barangay Hall
+  Mayon Street & Scout Alcaraz Street
+  Mayon/Del Monte
+  Mayor I.S. Diaz Street & N. Doming Street
+  Maysilo Circle/Martinez
+  McDonald's Caniogan
+  McDonald's Eastwood
+  McKinley
+  McKinley Hill Station
+  McKinley Hill Transport Hub
+  McKinley Parkway
+  McKinley West
+  Mcl Bus Terminal
+  Mel Lopez Boulevard at Anda Circle
+  Mel Lopez Boulevard at Bonifacio Street
+  Mel Lopez Boulevard at Manila North Harbor
+  Mel Lopez Boulevard at Moriones Street
+  Mel Lopez Boulevard at Viva Road
+  Mel Lopez Boulevard/Capulong Street
+  Mel Lopez Boulevard/Don Bosco Tondo
+  Mel Lopez Boulevard/Herbosa Street
+  Mel Lopez Boulevard/Moriones Street
+  Mendoza
+  Meralco
+  Meralco
+  Meralco Avenue
+  Mercury Drug
+  Metro Link Avenida Terminal
+  Metro South Medical Center
+  MetroExpress Connect Inc
+  MEXBus(P2P) NOMO
+  Meycauayan Common Terminal
+  Meycauayan Poblacion
+  Meycauyan - Santo Niño Terminal
+  MIA Road/CAAP
+  MIA Road/Domestic Road
+  MIAA Administration, Engineering
+  Mileguas Street/10th Avenue
+  Miller
+  Mindanao Ave & Congressional Avenue
+  Mindanao Avenue & Belfast Avenue
+  Mindanao Avenue & D. Muñoz Avenue
+  Mindanao Avenue & North Avenue
+  Mindanao Avenue & Old Sauyo Road
+  Mindanao Avenue & Puregold
+  Mindanao Avenue & Quirino Highway
+  Mindanao Avenue & Road 20
+  Mindanao Avenue & Road 3
+  Mindanao Avenue & Tandang Sora Avenue
+  Minerva Tyre Gallery
+  Miriam Defensor-Santiago Avenue & East Avenue
+  Miriam Defensor-Santiago Avenue & NAPOCOR Compound
+  Miriam Defensor-Santiago Avenue & NIA Road
+  Miriam Defensor-Santiago Avenue & Quezon Avenue
+  MMDA Complex
+  MMG Industrial Complex II
+  MOA/Corporate Building F
+  MOA/North Wing
+  MOA/North Wing Terminal
+  MOA/South Wing
+  MOA/South Wing Terminal
+  Molave Residence Hall
+  Molave Street & Anonas Street
+  Molave Street & Lauan Street
+  Molave Street & Yakal Street
+  Molino 3 Proper
+  Molino Central Transport Terminal
+  Molino Elementary School
+  Molino Town Center
+  Mon-el
+  Montillano Street (at Muntinlupa Public Market)
+  Montreal
+  Monumento
+  Monumento - Malinta Exit Jeepney Terminal
+  Monumento - St. Francis and Malinta Jeepney Terminal
+  Monumento - Sta. Maria Jeepney Terminal
+  Monumento–Acacia–Malabon Jeepney Terminal
+  Monumento–Polo Jeepney Terminal
+  Monumento/MCU
+  Moonwalk
+  Morayta - Fairview
+  Morayta - Project 6
+  Moriones Street/Juan Luna Street
+  Moriones Street/Masinop Street
+  Moriones Street/Santa Maria Street
+  Moriones Street/Tondo High School
+  Moriones/Abad Santos
+  MRT Boni
+  Muelle de la Industria/Madrid
+  Multicab - Honda Terminal
+  Munich
+  N. Domingo Street & Aurora Boulevard
+  N. Domingo/Balete Drive
+  N. Domingo/Horseshoe Drive
+  N. Garcia-J.P. Rizal
+  N. Garcia-Jupiter
+  N. Garcia-Kalayaan
+  N. Garcia-SPI Global
+  N. Lopez/San Marcelino
+  N. Zamora Street/Concha Street
+  N. Zamora Street/Isabelo delos Reyes ES
+  N. Zamora Street/Peñalosa Street
+  NAIA bus terminal (direct to et from airport)
+  NAIA Domestic Jeepney Terminal
+  NAIA T1 Arrivals
+  NAIA T1 Departures
+  NAIA Terminal 1
+  NAIA Terminal 2
+  NAIA Terminal 2 Departures
+  NAIA Terminal 3
+  NAIA Terminal 3 Arrivals Bay 1
+  NAIA Terminal 3 Arrivals Bay 11
+  NAIA Terminal 3 Arrivals Bay 13
+  NAIA Terminal 3 Arrivals Bay 3
+  NAIA Terminal 3 Arrivals Bay 5
+  NAIA Terminal 3 Arrivals Bay 7
+  NAIA Terminal 3 Arrivals Bay 9
+  NAIA Terminal 3 Departures Bay 9
+  NAMRIA
+  Narra Street & Aguho Street
+  Narra Street & Batino Alley
+  Narra Street & Tanguile Street
+  Natib Street & P. A. Bernardo Avenue
+  National Road/Agro Homes
+  National Road/Alabang Exit South
+  National Road/Centennial Avenue
+  National Road/Country Homes
+  National Road/INC Lokal ng Putatan
+  National Road/Landbank Putatan
+  National Road/Luzon Street (at Ayala Malls South Mall)
+  National Road/Luzon Street (in front of Ayala Malls South Mall)
+  National Road/Lyceum of Alabang
+  National Road/Muntinlupa BLISS
+  National Road/Muntinlupa City Hall of Justice
+  National Road/Nav's Building
+  National Road/Planas Compound
+  National Road/Poblacion Intersection
+  National Road/Puregold Putatan
+  National Road/Santo Niño Village
+  National Road/SM Center Muntinlupa
+  National Road/Summitville
+  National Road/Super 8 Bayanan
+  National Road/Susana Heights Exit
+  National Road/Tunasan Intersection
+  National Road/Villa Carolina I
+  Naval Station Jose Francisco
+  Navotas
+  NCR/Bulacan Commuter Buses
+  Nepa Q-Mart
+  Net One
+  New Antipolo Street at Oroquieta Street
+  New Elavil Bus Terminal in Pasay
+  New Panaderos Street & Lamayan Street
+  New Panaderos Street & Old Panaderos Street
+  New Panaderos Street at Puregold Kalentong
+  New Panaderos–Aglipay
+  New Panaderos–Lubiran
+  New York Street & E. Rodriguez Sr. Avenue
+  NIA Road & BIR Compound
+  NIA Road & Eton Centris
+  NIA Road & NIA South Road
+  NIA South Road & EDSA
+  Nicanor Reyes (Morayta) Street at Lerma Street
+  Nicanor Reyes (Morayta) Street at P. Paredes Street
+  Nicanor Reyes Street at Far Eastern University
+  Nicanor Reyes Street at Recto Avenue
+  Nicanor Roxas Street & Blumentritt Street
+  Nicanor Roxas Street & Dr. Alejos Street
+  Nichols
+  Ninoy Aquino/A. Bonifacio
+  Ninoy Aquino/Chapel Road
+  Ninoy Aquino/Duty Free
+  Ninoy Aquino/Olivarez Plaza
+  Ninoy Aquino/Sun Valley Drive
+  Niog
+  NLEX
+  NoMo
+  North Avenue
+  North Avenue & Philippine Medical Association
+  North Avenue & Veterans Memorial Medical Center
+  North EDSA - Katipunan/LRTA
+  North Luzon Express Terminal
+  North Springville Yellow Multicab Terminal
+  North Station
+  Northern Luzon Bus Line - Sampaloc Terminal
+  Nova Public Terminal
+  Novaliches Public Terminal
+  NPF Vaccination Facility
+  Nueva
+  NutriAsia
+  OBCH TODA
+  Ocampo/Mabini
+  Ohayami Transit
+  Old Antipolo Street/Oroquieta Street
+  Old Santa Mesa Street at Teresa Street
+  Old Santa Mesa Street at V. Mapa Street
+  One Ayala
+  One Eastwood Avenue Tower
+  One Orchard Road
+  One San Miguel Avenue
+  Onyx/Pedro Gil
+  Opp CvSU Imus
+  Oranbo
+  Oroquieta Street/Bambang Street
+  Oroquieta Street/Lope de Vega Street
+  Oroquieta Street/Malabon Street
+  Oroquieta Street/Mayhaligue Street
+  Oroquieta Street/Quiricada Street
+  Oroquieta Street/Tayuman Street
+  Oroquieta Street/Yuseco (Tayabas) Street
+  Oroquieta/Doroteo Jose
+  Ortigas Avenue Extension
+  Ortigas Avenue Extension/Don C. Tuason Ave
+  Ortigas Avenue Extension/Kaytikling Junction
+  Ortigas Avenue Extension/Kenny Rogers Roasters
+  Ortigas Avenue Extension/Noli Pascual Street
+  Ortigas Avenue Extension/Palmera Hills
+  Ortigas Avenue Extension/Pasig Boundary
+  Ortigas Avenue Extension/Robinsons Place Cainta
+  Ortigas Avenue Extension/Sunset Drive
+  Ortigas Avenue Extension/WalterMart Taytay
+  Ortigas East
+  Ortigas Extension/Cainta Junction
+  Ortigas Extension/Panasonic Manufacturing Plant
+  Ortigas-C. Raymundo
+  Ortigas/Club Filipino Drive
+  Ortigas/Greenhills
+  Ortigas/Madison
+  Ortigas/Santolan
+  Ortigas/Wilson
+  Osmeña Avenue & School of Economics
+  Osmeña Avenue & UP Film Hall
+  Osmeña Avenue & Villamor Hall
+  Osmeña Highway & Finlandia Street
+  Osmeña Highway & General Tinio Street
+  Osmeña Highway at Arnaiz Avenue
+  Osmeña Highway at Dela Rosa Street
+  Osmeña Highway at Pablo Ocampo Street
+  Osmeña Highway at San Andres Street
+  Osmeña Highway at Zobel Roxas Street
+  P. A. Bernardo Avenue & C. Benitez Street (Turning Point)
+  P. Algue Street at A. Rivera Street
+  P. Algue Street at Narra Street
+  P. Aquino Avenue/Dagat-Dagatan Avenue
+  P. Aquino Avenue/Our Lady of Lourdes Memorial Park
+  P. Aquino Avenue/Sanciangko Street
+  P. Burgos Street/Sergeant Fabian Yabut Street
+  P. Burgos/G. Villanueva
+  P. Burgos/Gil Puyat
+  P. Burgos/South Western College
+  P. Casal Street/Arlegui Street
+  P. Dandan Street/Teodoro R. Yangco ES
+  P. Reyes-P. Villanueva
+  P. Sanchez/3rd
+  P. Sanchez/Bagumbayan
+  P. Tuazon at 15th
+  P. Tuazon Boulevard & 15th Avenue
+  P. Tuazon Boulevard & Ali Mall
+  P. Tuazon/20th Ave
+  P. Tuazon/Planas
+  P. Tuazon/Planas Site
+  P. Tuazon/Ponciano Bernardo ES
+  P. Zamora/Arnaiz
+  P. Zamora/Celeridad
+  P. Zamora/Tengco
+  P2P Bus Terminal - Imus to Makati
+  P2P Bus Terminal (Starmall Alabang-Ortigas Line)
+  P2P Bus to Makati
+  P2P One Ayala Bus Terminal
+  Pablo Ocampo Street/Leon Guinto Street
+  Pablo Roman
+  Padre Burgos-National Museum
+  Padre Faura
+  Padre Faura/Taft
+  PAL Gate 1
+  PAL Gate 2/3
+  Palace
+  Palar
+  Palar-Blueboz
+  Palico
+  Palumpong/Pandacan Oil Depot
+  Pamplona
+  Panapaan
+  Panapaan Police
+  Pandacan Bus Terminal
+  Pandayan
+  Park & Ride Lawton
+  Park Avenue at Galvez
+  Park McKinley West
+  Park Square (PUJ)
+  Park Triangle
+  Parking
+  Parklea Jeepney Terminal
+  Parklinks
+  Parkson E-com Imus
+  Parkway Avenue/East Asia Drive (at La Vie)
+  Partas Bus Terminal
+  Partas Bus Terminal Cubao
+  Partas Bus Terminal Pasay
+  Partas Sampaloc Terminal
+  Pasay
+  Pasay Arrivals Terminal
+  Pasay Bus Station ceres
+  Pasay City
+  Pasay City Hall
+  Pasay Sabungan
+  Pasay Substation
+  Paseo de Roxas/Esperanza
+  Pasig Boulevard
+  Pasig Cathedral
+  Pasig Palengke
+  Pasong Buaya
+  Pasong Tirad-J.P. Rizal
+  Payatas B
+  Pearl Street
+  Pedro Gil Street at Angel Linao Street
+  Pedro Gil Street at Concordia College
+  Pedro Gil Street at F.M. Gernale Street
+  Pedro Gil Street at Fabie Street
+  Pedro Gil Street at Felix Street
+  Pedro Gil Street at O.B. Montessori Center Santa Ana
+  Pedro Gil Street at Plaza Calderon
+  Pedro Gil Street at Union Street
+  Pedro Gil/Benitez
+  Pedro Gil/San Marcelino
+  Peñafrancia/Apacible
+  Perdigon Street at Peñafrancia Street
+  Perpetual Las Piñas
+  Petron
+  Petron Rotonda
+  PetTransPRO Philippines, Inc.
+  Phil. Rabbit Bus Lines Terminal
+  Philam QC
+  Philcoa Terminal
+  Philcoa Terminal at Masaya Street
+  Philippine Navy
+  Philippine Rabbit - Avenida Terminal
+  Philippine Rabbit Bus Lines
+  PhilPlans
+  Philtranco
+  PICC
+  Pili Ave.
+  Pinagsama Phases 1-2
+  Pines/Fibisco
+  Pioneer/Quad Alpha Centrum
+  Pioneer/Robinsons Cybergate
+  Pioneer/Sheridan
+  Pitx
+  PITX - Gate 4 (2/F)
+  PITX Arrivals
+  PITX Arrivals/Transfers
+  PITX LRT Interchange
+  PITX- Gate 7
+  Piy Margal Street/Dos Castillas Street
+  Plaza 66
+  Plaza Amado V. Hernandez
+  Plaza Santa Cruz at Escolta Street
+  PLTODA / CAA Tricycle Terminal
+  PNB Main Office
+  PNR Tutuban
+  PRB Building
+  PRC-Kabayo
+  PRC-Libertad Jeepney Terminal
+  PRC-Mantrade/Kayamanan C Jeepney Terminal
+  Presentation of the Child Jesus Parish Church
+  President's Ave/Arturo
+  President's Ave/Magdalena
+  President's Ave/Maywood Village 1
+  Primo Cruz/Ballesteros
+  Primo Cruz/Boni
+  Primo Cruz/I. Lopez
+  Primo Cruz/R.O. Santos
+  Progressive Village 14,16
+  Promenade
+  PTT Libertad
+  Public Transport Terminal
+  PUC-Balintawak Jeepney Terminal
+  PUC-Blumentritt Jeepney Terminal
+  PUJ
+  PUJ Marikina
+  PUJ Morong-Tanay
+  Pulang Lupa
+  Puregold Anabu
+  Puregold Bocaue
+  Puregold Las Piñas
+  Puregold/Mandarin Palace
+  Q CityBus Terminal Station
+  QC Bus Cubao - Quezon City Hall
+  QC Bus Terminal - Libreng Sakay Katipunan
+  QC CityBus North Ave. Vertis North Bus Stop
+  Queen's Row Central Jeepney Station
+  Quezon Avenue
+  Quezon Avenue & Apo Street
+  Quezon Avenue & Banawe Street
+  Quezon Avenue & D. Tuazon Street
+  Quezon Avenue & Dr. Jose Fabella Hospital
+  Quezon Avenue & EDSA
+  Quezon Avenue & Examiner Street
+  Quezon Avenue & Fisher Mall
+  Quezon Avenue & FPJ Avenue
+  Quezon Avenue & Lung Center of the Philippines
+  Quezon Avenue & Philippine Children's Medical Center
+  Quezon Avenue & Santo Domingo Church
+  Quezon Avenue & Scout Borromeo Street
+  Quezon Avenue & Scout Chuatoco Street
+  Quezon Avenue & Scout Magbanua Street
+  Quezon Avenue & Timog Avenue
+  Quezon Avenue & Welcome Rotonda
+  Quezon Avenue Provincial Bus Stop
+  Quezon Boulevard/Gonzalo Puyat Street
+  Quezon Boulevard/Recto Avenue
+  Quezon City Hall
+  Quezon City Hall Interchange
+  Quezon City Hall Lagoon, Diliman, Quezon City, Metro Manila, Philippines
+  Quezon City Libreng Sakay Bus Terminal
+  Quezon Memorial Circle
+  Quezon Street/Coral Street
+  Quezon Street/Dandan Street
+  Quezon Street/Herbosa Street
+  Quiapo (Barbosa) Turning Point
+  Quiapo (GLiner)
+  Quiapo Church Plaza Miranda
+  Quiricada Street at Abad Santos Avenue
+  Quiricada Street at Almeda Street
+  Quiricada Street at Ipil Street
+  Quirino - Bagong Ilog
+  Quirino Avenue & Africa Street
+  Quirino Avenue & NSRI
+  Quirino Avenue & Sampaguita Residence Hall
+  Quirino Avenue at East Zamora Street
+  Quirino Avenue at Guazon Street
+  Quirino Avenue at Jesus Street
+  Quirino Avenue at Osmeña Highway
+  Quirino Avenue at Pedro Gil Street
+  Quirino Avenue at West Zamora Street
+  Quirino Highway & Baesa Cemetery
+  Quirino Highway & Baesa Road
+  Quirino Highway & Baesa Town Center
+  Quirino Highway & Chowking Sangandaan
+  Quirino Highway & Commonwealth Avenue
+  Quirino Highway & Don Julio Gregorio Street
+  Quirino Highway & Greenfield Subdivision
+  Quirino Highway & INC Lokal ng Baesa
+  Quirino Highway & Kalapati Street
+  Quirino Highway & Lucas R. Pascual Street
+  Quirino Highway & Masagana Street
+  Quirino Highway & Maximina Drive
+  Quirino Highway & Mindanao Avenue
+  Quirino Highway & Novaliches Elementary School
+  Quirino Highway & Piko Street
+  Quirino Highway & Plaza Novaliches
+  Quirino Highway & Production Street
+  Quirino Highway & QC University
+  Quirino Highway & Ramirez Street
+  Quirino Highway & Rockville Avenue
+  Quirino Highway & Rodriguez Drive
+  Quirino Highway & S. Gonzales Drive
+  Quirino Highway & Sarmiento Street
+  Quirino Highway & SM City Nova
+  Quirino Highway & SM Hypermarket Baesa
+  Quirino Highway & St. John of Beverly
+  Quirino Highway & T. Carreon Street
+  Quirino Highway & Talipapa Proper
+  Quirino Highway & Villaflor Avenue
+  Quirino Highway & Villareal Street
+  Quirino Highway & Zabarte Road
+  Quirino/4 de Julio
+  Quirino/Abad Santos
+  Quirino/Airport Road
+  Quirino/C. Santos
+  Quirino/Divi Mall
+  Quirino/J. Gabriel
+  Quirino/J.P. Rizal
+  Quirino/Katigbak Drive
+  Quirino/Lopez de Leon
+  Quirino/Macdonough
+  Quirino/Manila Zoo
+  Quirino/Meralco
+  Quirino/MIA Road
+  Quirino/Pinaglabanan
+  Quirino/T. Alonzo
+  R Villanueva Street
+  R. Humabon Street & A. Mabini Street
+  R. Humabon Street & Jose Abad Santos Street
+  Ramon Magsaysay Boulevard at M. dela Fuente Street
+  Ramon Magsaysay Boulevard/Nagtahan Interchange
+  Ramon Magsaysay Hall
+  Raon/F. Torres
+  Raon/Porvenir
+  RCJ Bus Line - Sampaloc Terminal
+  Recto Avenue at Dagupan Street
+  Recto Avenue at Ilaya Street
+  Recto Avenue at Legarda Street
+  Recto Avenue at Masangkay Street
+  Recto Avenue at Rizal Avenue
+  Recto Avenue at Santo Cristo Street
+  Recto Avenue at Soler Street
+  Recto Avenue at Tutuban Mall
+  Recto Avenue/Abad Santos Avenue
+  Recto Avenue/LRT Recto Station
+  Recto Avenue/Nicanor Reyes (Morayta) Street
+  Recto Avenue/T. Alonzo Street
+  Recto/Camba
+  Recto/Delpan
+  Reinalyn Bus Station
+  Reliance/Pioneer
+  Rest Haven
+  Retiro/Blumentritt
+  Revilla Business Park
+  Richlane
+  River Drive
+  Riverbanks
+  Riverside Terminal
+  Rizal Avenue at LRT Carriedo Station
+  Rizal Avenue at Recto Avenue
+  Rizal Avenue at Yuseco Street
+  Rizal Avenue/11th Avenue
+  Rizal Avenue/1st Avenue
+  Rizal Avenue/5th Avenue
+  Rizal Avenue/7th Avenue
+  Rizal Avenue/8th Avenue
+  Rizal Avenue/9th Avenue
+  Rizal Avenue/Abad Santos Avenue
+  Rizal Avenue/Aurora Boulevard
+  Rizal Avenue/Bulacan Street
+  Rizal Avenue/Cavite Street
+  Rizal Avenue/LRT Abad Santos Station
+  Rizal Avenue/LRT Blumentritt Station
+  Rizal Avenue/LRT Monumento Station
+  Rizal Avenue/LRT R. Papa Station
+  Rizal High School
+  Rizal Medical Center
+  Rizza Diergos Street
+  RJ Express - Caloocan Terminal
+  Road 10 at C-3
+  Road 10/Lakandula
+  Road A & Dangay Street
+  robinson antipolo
+  Robinson Place Las Piñas
+  Robinsons Galleria
+  Robinsons Galleria South
+  Robinsons Molino
+  Robinsons Place Ermita
+  Robinsons Place Imus Transport Terminal
+  Rockwell Business Center
+  Romualdez - Little Baguio
+  Ronquillo Street at Ongpin Street
+  Roosevelt
+  Roosevelt Street
+  Rosario
+  Route 101
+  Route 102
+  Route 103
+  Route 104
+  Roxas - NAIA Bus Station Northbound
+  Roxas Boulevard
+  Roxas Boulevard - Gil Puyat
+  Roxas Boulevard at Arnaiz Avenue
+  Roxas Boulevard at Pablo Ocampo Street
+  Roxas Boulevard at Pedro Gil Street
+  Roxas Boulevard at Plaza Rajah Sulayman
+  Roxas Boulevard at Quirino Avenue
+  Roxas Boulevard at T.M. Kalaw Avenue
+  Roxas Boulevard/Airport Road
+  Roxas Boulevard/MIA Road
+  Roxas Boulevard/Vito Cruz
+  RRCG Parking Lot
+  RRCG transport terminal
+  S. Osmeña-City Hall
+  S&R Libis
+  Sabater Hospital
+  Saint Joseph/Puregold
+  Saint Therese Doctors Hospital
+  Salawag Elementary School
+  Salcedo/Dela Rosa
+  Salcedo/Gamboa
+  Salcedo/Rufino
+  Salitran Bridge
+  Salitran/Central Mall
+  Sampaguita
+  Sampoda Terminal AV II
+  Samson Road/Angelus Funeral Homes
+  Samson Road/Buklod ng Nayon Street
+  Samson Road/Caloocan City Fire Station
+  Samson Road/Heroes del '96 Street
+  Samson Road/Lapu-Lapu Street
+  Samson Road/Sangandaan PCP
+  Samson Road/SM Center Sangandaan
+  Samson Road/University of the East
+  San Antonio Street at Plaza Dilao
+  San Bartolome Cemetery
+  San Dionisio TSC Sucat Terminal
+  San Francisco de Sales School
+  San Francisco-Coronado
+  San Francisco/Maysilo Circle
+  San Lorenzo Place
+  San Marcelino Street at General Malvar Street
+  San Marcelino/Apacible
+  San Martin de Porres
+  San Miguel
+  San Miguel Avenue at Julia Vargas
+  San Pedro Town Center
+  San Pedro Transport Cooperative Former HBC December 2019-2020 HBC G.Garcia St. Jeepney Terminal
+  San Quintin Bus Line Inc. - Cubao Terminal
+  San Urbano Arcade
+  San Vicente/Quintin Paredes
+  Santa Lucia Bus Terminal
+  Santa Lucia Mall
+  Santa Quiteria Tricycle Operators & Drivers Association
+  Santa Trinidad Street & Sumilang Street
+  Santo Niño
+  Santo Niño Terminal
+  Santo Niño-Monumento Terminal
+  Santo Tomas Street/Plaza Noli
+  Santolan
+  Santolan LRT2 Kalumpang Access
+  Santolan/Valentina
+  Santos Homes
+  Sapang Palay - PITX Bus Stop - Parañaque Integrated Terminal Exchange
+  Sarmiento Street & Novaliches LDS Church
+  Sarmiento Street & Ramirez Street
+  Saulog Bus Terminal
+  Saulog Transit Bus Terminal
+  Saulog Transit Inc
+  Saulog Transit Terminal
+  SaveMore Salawag
+  SB Road & General Luis Street
+  School of the Deaf
+  School of Urban and Regional Planning
+  Scout Chuatoco Avenue & Scout Tobias Street
+  Scout Tobias & Don A. Roces Avenue
+  Scout Ybardolaza Street & Scout Fernandez Street
+  Seattle Street & N. Domingo Street
+  Segundo at Boni Serrano
+  Sergeant Fabian Yabut Street/Maranatha Christian Academy
+  Sergeant Fabian Yabut Street/Orense Street
+  Sergeant J. Catolos Street & Monte de Piedad Street
+  Sergeant Rivera Street & A. Bonifacio Avenue
+  Seven One Building
+  Severina Diamond
+  Severino Reyes Street/Alvarez Street
+  Severino Reyes Street/Fugoso Street
+  Severino Reyes Street/Lope de Vega Street
+  Severino Reyes Street/Recto Avenue
+  Severino Reyes Street/Remigio Street
+  Shaw–Kalentong
+  Shaw/A. Fabella
+  Shaw/Araullo
+  Shaw/Gomezville
+  Shaw/JRU
+  Shaw/Nueve de Febrero
+  Shell Residences
+  Shuttle terminal
+  Signal Village
+  Silang phase 9
+  Sitio Crossing
+  Sixto Antonio
+  Skyway Entrance (near Wilcon Alabang)
+  SM Angono
+  SM Aura
+  Sm Bacoor
+  SM Bacoor Transport Terminal
+  SM BF
+  SM Bicutan UV & Jeepney Terminal
+  SM Center Las Piñas
+  SM Center Muntinlupa
+  SM Center Pasig
+  SM City Bacoor
+  SM City Bicutan
+  SM City Bicutan Terminal
+  SM City East Ortigas
+  SM City Fairview
+  SM City Marilao
+  SM City Marilao Transport Terminal
+  SM City Molino
+  SM City North EDSA
+  SM City North EDSA Bus Terminal
+  SM City Novaliches
+  SM City San Jose del Monte
+  SM City San Lazaro
+  SM Fairview - Public Transport Terminal B
+  SM Hypermart
+  SM Mall of Asia
+  SM Marikina
+  SM Megamall
+  SM Megamall Transport Terminal
+  SM MOA Globe EDSA
+  SM Molino Passenger Terminal Bus Stop
+  SM North EDSA Arrivals
+  SM Southmall
+  SM Sucat
+  SM Sucat Building A
+  SM Sucat Building B
+  SM Transport Terminal
+  SM Transport Terminal
+  SM Valenzuela
+  Smart Bus Corp. Pasay Terminal
+  Sofitel Philippine Plaza
+  Solaire Resort North
+  Solaire Shuttle
+  Solid North Transit Inc.
+  Solis Station
+  Solis Street/F. Benitez ES
+  SoMo
+  SOUTH City bus terminal
+  South City Express Pasay Terminal
+  South East Asian Medical Center
+  South Park P2P Bus Terminal
+  South Peak
+  South Station
+  South Station Jeepney/Multicab Terminal
+  South Station Transport Terminal
+  South Supermarket
+  South Supermarket Filcab Station
+  South West Integrated Provincial Transport Terminal
+  South Wing Terminal
+  Southville International School/Las Piñas Doctors/CAA High School
+  SPCBA
+  Springville
+  Springville
+  SPS Homes
+  SPTC Jeepney Terminal
+  St. Dominic College
+  St. Francis
+  St. Joseph/Puregold
+  St. Jude Bus Terminal
+  St. Michael
+  St. Peter at Andrews
+  Sta. Lucia Express Terminal
+  Star City
+  Starmall / EDSA Central - JRU / JRC / Kalentong
+  Starmall Alabang Transport Terminal
+  Starmall Las Piñas
+  Statefields School
+  Station 1
+  Station 2
+  Station 3
+  Station 4
+  Sucat - Market Market Terminal
+  Sucat Exit
+  Sucat Highway - Lawton - Baclaran Terminal
+  Sucat Tatawid Terminal
+  Super 8 Molino
+  Susana Heights Exit
+  Susana Street & San Jose Street
+  T. Earnshaw Street at H. Lopez Boulevard
+  T. Gener Street & K-1st Street
+  T. Mapua Street at Ongpin Street
+  T. Mapua Street at Recto Avenue
+  T. Mapua Street/Doroteo Jose Street
+  T. Mapua Street/Fugoso Street
+  T. Mapua Street/Herrera (Camarines) Street
+  T. Mapua Street/Remigio Street
+  T. Mapua/Cavite
+  T. S. Cruz
+  T. San Luis-Victorino
+  T. San Luis/Santo Niño Church
+  T. Santiago
+  T.M. Kalaw Street & Office of the University Registrar
+  T.M. Kalaw/Maria Orosa
+  T.S. Cruz Ilang-Ilang Gate
+  T.S. Cruz Sampaguita Gate
+  Tabing Ilog Market and Transport Terminal
+  Taft Avenue
+  Taft Avenue at LRT Gil Puyat Station
+  Taft Avenue at LRT Gil Puyat Station Nearside
+  Taft Avenue at Luneta
+  Taft Avenue at Padre Faura Street
+  Taft Avenue at Philippine General Hospital
+  Taft Avenue at T.M. Kalaw Avenue
+  Taft Avenue at United Nations Avenue
+  Taft Avenue/Castro Street
+  Taft Avenue/General Malvar Street
+  Taft Avenue/LRT Pedro Gil Station
+  Taft Avenue/LRT Vito Cruz Station
+  Taft Avenue/Nakpil Street
+  Taft Avenue/Quirino Avenue
+  Taft Extension/Cuneta Ave
+  Taft Extension/LRT Baclaran
+  Taft/Ayala Boulevard
+  Taft/College Road
+  Taft/Finance Road
+  Taft/Leogardo
+  Taft/LRT EDSA
+  Taft/LRT Libertad
+  Taft/Menlo
+  Taft/Protacio
+  Taft/Vergel
+  Tahanan Village
+  Talaba
+  Talon
+  Tambo Elementary School
+  Tamsui Avenue
+  Tandang Sora - Quezon City Hall Jeepney Terminal
+  Tandang Sora Avenue & Banlat Road
+  Tandang Sora Avenue & Capitol Hills Subdivision
+  Tandang Sora Avenue & Cenacle Drive
+  Tandang Sora Avenue & Congresional Avenue
+  Tandang Sora Avenue & Congresional Avenue
+  Tandang Sora Avenue & Congresional Avenue Nearside
+  Tandang Sora Avenue & Culiat High School
+  Tandang Sora Avenue & Demetria Reynaldo Street
+  Tandang Sora Avenue & Don Felipe Street
+  Tandang Sora Avenue & Dr. Carlos Lanting College
+  Tandang Sora Avenue & General Avenue
+  Tandang Sora Avenue & Golden Street
+  Tandang Sora Avenue & Magnolia Place
+  Tandang Sora Avenue & McDonald's Sangandaan
+  Tandang Sora Avenue & Mindanao Avenue
+  Tandang Sora Avenue & New Era Elementary School
+  Tandang Sora Avenue & Pasong Tamo Elementary School
+  Tandang Sora Avenue & San Miguel Street
+  Tandang Sora Avenue & Tierra Pura Homes
+  Tandang Sora Avenue & University Lane
+  Tandang Sora Avenue & Visayas Avenue
+  Tanghalang Pasigueño
+  Tañong
+  Tapat BDO Libertad
+  Tapat Pasay Sabungan
+  Taysan Street/Talisay Street
+  Taytay Hills
+  Tayuman Street at Felix Huertas Street
+  Tayuman Street/A. Bonifacio Elementary School
+  Tayuman Street/Abad Santos Avenue
+  Tayuman Street/Dr. Jose Fabella Memorial Hospital
+  Tayuman Street/Manila Cathedral School
+  Tayuman Street/Perfecto Street
+  Tayuman Street/Pritil Intersection
+  Tayuman Street/Rizal Avenue
+  Tecson Street at Abad Santos Avenue
+  Tejeron-Garrido
+  Tejeron-Zamora
+  Tejeron/Pedro Gil
+  Tejeron/Syquia
+  Tenement
+  Tennis Court
+  Terminal 3
+  The District Dasmariñas
+  The Eastwood Lafayette
+  The Fort Strip
+  The Medical City
+  Tiendesitas
+  Times Square/Ali Mall
+  Timog Avenue & EDSA
+  Timog Avenue & Mother Ignacia Avenue
+  Timog Avenue & Quezon Avenue
+  Timog Avenue & Scout Tobias Street
+  Timog Avenue & Scout Tuason Street
+  Timog Avenue & Scout Ybardolaza Street
+  Timog Avenue & Tomas Morato Avenue
+  Tindalo Street & Narra Street
+  Tirona
+  Tirona Highway
+  To Cavite City
+  Tomas Morato Avenue & E. Rodriguez Sr. Avenue
+  Tomas Morato Avenue & Marathon Extension
+  Tomas Morato Avenue & Scout Castor Street
+  Tomas Morato Avenue & Scout De Guia Street
+  Tomas Morato Avenue & Scout Limbaga Street
+  Tordesillas
+  Total P. Tuazon
+  Tramo
+  Tramo
+  Tramo
+  Transport Terminal
+  Trasierra
+  Tricycle Station
+  Tricycle Terminal
+  Tricycle Terminal
+  Tricycle Terminal
+  Tricycle Terminal
+  Tricycle Terminal
+  Tricycle Terminal
+  Tricycle Terminal
+  Tricycle Terminal
+  TriNoma
+  Trinoma P2P Bus Terminal
+  Trinoma Public Transport Terminal
+  TRIPKO
+  Tropical Ave/Elizalde
+  TS Cruz Tricycle Terminal
+  Tumana
+  Tumana-Balara Jeepney Terminal
+  Tungko
+  U.V. Express Terminal - To SM Fairview
+  UBE Bus
+  UN Ave/San Marcelino
+  UN Ave/Unilever
+  Unang Hakbang Street/Luzon Avenue
+  Union/Madison
+  United Hills
+  United San Pedro Subdivision
+  University Avenue & UP Checkpoint
+  University Parkway
+  University Road/Mango Road
+  Uniwide Metromall
+  UP Ikot Philcoa Terminal
+  UP Toki
+  UP Town Center
+  UP-Katipunan Jeepney Terminal
+  Upper McKinley
+  Uptown Bonifacio Transport Terminal
+  Uptown Mall
+  Uptown Parade
+  Uptown Parksuites
+  Uptown Transport Hub
+  Urban Deca Homes Ortigas
+  UV Exp - Market Market
+  UV Express
+  UV Express - Sta Rosa
+  UV Express (Pasig-Quiapo)
+  UV Express South Bound
+  UV Express Terminal
+  UV Express Terminal
+  UV Express Terminal - Victoria RV1 to Alabang
+  UV Express to Ayala and Megamall
+  UV Expresss Terminal
+  UV Public Transport Terminal
+  V. Luna Road & AFP Medical Center
+  V. Luna Road & East Avenue
+  V. Luna Road & Matatag Street
+  V. Mapa Street at Valenzuela Street
+  V. Mapa/2nd
+  V. Mapa/Guadalcanal
+  V. Mapa/Valenzuela
+  Valderama – M. Reyes
+  Valdez-Century City
+  Valdez-Makati Avenue
+  Valenzuela City Hall
+  Valenzuela Modernized Jeepney Terminal
+  Valenzuela Street at Cordillera Street
+  Valenzuela Street at Old Santa Mesa Street
+  Valenzuela Street at Paco-Santa Mesa Road
+  Van Terminal
+  Van Terminal Balayan
+  Van Terminal Bound for Balayan Batangas
+  Velasquez Street/Emilio Jacinto ES
+  Velasquez Street/Lallana Street
+  Velasquez Street/Navarro Street
+  Velasquez Street/Nepomuceno Street
+  Velasquez Street/Trinidad Street
+  Velasquez/Herbosa
+  Velasquez/Peñalosa
+  Venice/BF International Central
+  Veraville 1/Aurora Drive
+  Vermosa
+  Vermosa Transport Terminal
+  Versailles
+  Vertis North
+  VGC Bus Terminal
+  VGC Jeepney Terminal
+  Viaduct Provincial Transport Terminal
+  Vicente Cruz Street at Lardizabal Street
+  Vicente Cruz Street at Sobriedad Street
+  Vicente Cruz Street/Florentino Street
+  Vicente Cruz Street/Laon Laan Street
+  Vicente Cruz Street/Maria Clara Street
+  Vicente Cruz Street/Piy Margal Street
+  Victory Bus Liner | Edsa Pasay Terminal
+  Victory Liner Caloocan Bus Terminal
+  Victory Liner Caloocan Terminal
+  Victory Liner Sampaloc Terminal
+  Victory Lines Incorporation
+  Villa Miranda
+  Vinzons Hall
+  Viron Transit
+  Viron Transit - Sampaloc Terminal
+  Viron Transit Cubao Terminal
+  Vista Mall Imus
+  Vista Mall Taguig
+  Vitas Road/Urban Deca Homes
+  Vitas Road/Vitas Slaughterhouse
+  VTX - Vista Terminal Exchange Alabang
+  VTX Arrivals
+  W.Mall
+  Walter Mart Sucat
+  WalterMark Bacoor
+  WalterMart Bacoor
+  WalterMart Quirino
+  WalterMart Sucat
+  Warsaw
+  WebJet Complex
+  Welcome Bacoor City
+  West
+  West Avenue & Baler Street
+  West Avenue & Bulacan Street
+  West Avenue & Bulletin Street
+  West Avenue & Catanduanes Street
+  West Avenue & Cavite Street
+  West Avenue & Del Monte Avenue
+  West Avenue & Landbank
+  West Avenue & North EDSA
+  West Avenue & Quezon Avenue
+  West Avenue & St. Vincent School
+  West Parc
+  West Rembo Overpass
+  West Service Road/W.Mall Sucat
+  West Zamora/Bagong Barangay
+  West Zamora/Burgos
+  West Zamora/Estero de Pandacan
+  West Zamora/Quirino Extension
+  Westbank Road
+  Western Bicutan
+  Wilcon City Center
+  XentroMall Antipolo
+  Yuseco Street at Rizal Avenue
+  Zabarte
+  Zabarte Road & Quirino Highway
+  Zapote
+  Zapote Bus Stop
+  Zapote Kabila
+  Zapote Public Market
+  Zapote Terminal
+  Zapote-Longos
+  Zaragoza Street at Delpan Street
+  Zeus
+
+### Cebu (153)
+  17B
+  5 Stars Terminal Bus Stop
+  Academia de San Pedro Calungsod
+  Alumnos
+  Asian College of Technology
+  Asian College of Technology (unahan)
+  atubangan F. Vestil
+  atubangan R. Padilla
+  Ayala Center Cebu
+  Ayala Public Utility Vehicle Terminal
+  Ayala Terminal
+  B. Aranas
+  Basilica Minore del Santo Niño
+  Bogo Bus Terminal
+  Brgy. Mabini Terminal
+  Bus Station (To Mandaue Market)
+  Bus stop
+  Bus Stop
+  Bus Stop Bato
+  Bus Stop Opposite PNB Bank Pajo
+  Bus Stop sa South Bus Terminal
+  Bus Terminal
+  Carbon
+  Carlock
+  Carlock (kahuman)
+  Carlock/Tres de Abril
+  Carmen
+  CCMC
+  Cebu
+  Cebu bus terminal going bacolod via don salvador
+  Cebu Center Medical City
+  Cebu City Hall
+  Cebu Daily New
+  Cebu Daily News
+  Cebu IT Park Transport Terminal
+  Cebu Kentcycle
+  Cebu Metropolitan Cathedral
+  Cebu North Bus Terminal
+  Cebu North Bus Terminal
+  Cebu North Bus Terminal (SM City Cebu)
+  Cebu North Bus Terminal (SM City)
+  Cebu Progress Commercial
+  Cebu South Bus Terminal
+  Cebu Technological University
+  Ceres Bus
+  Ceres Bus Garage
+  Ceres Bus Garage
+  Ceres Liner
+  CIT
+  CITI Car & Truck Services
+  City Hall
+  CityMall South Bus Terminal Cebu City
+  Clynn Transit
+  COA
+  Colon Obelisk
+  Colonade
+  Colonade Mall
+  Colonnade
+  CSBT BRT Station
+  CSCR/Labuca
+  CSCR/Labuca Street
+  CTS-C
+  CTU
+  Elizabeth Mall
+  F. Cabahug Street
+  Freedom Park
+  Gaisano Capital South
+  Gaisano Main/University of the Visayas
+  Gothong High School
+  GT Express Terminal Bus Stop H-Mall
+  Hotel Fortuna
+  Hotel Sogo
+  Inabanga Bus Terminal
+  J Mall Terminal Bus Stop
+  Jai Alai
+  Junquera
+  kaatbang COA
+  kaatbang Jai Alai
+  kahuman F. Vestil
+  kahuman Mambaling Flyover
+  kahuman R. Padilla
+  kahuman USJ Recoletos
+  Katipunan Lumber
+  KNKV Cebu Car Rental and Tours
+  La Nueva
+  La Nueva Supermarket
+  Lapu- Lapu City Public Transport Terminal
+  Lapu-Lapu Cebu Transport Terminal 2
+  Lapu-Lapu City Central School
+  Lapu-Lapu City PUJ Terminal
+  Lapu-Lapu City Shangri-La Mactan Cebu
+  Lapulapu City Public Market
+  Librando Transit Terminal
+  LUYM
+  Mactan Shrine
+  Mambaling Flyover
+  Manalili
+  Metro Colon
+  MyBus Anjo World Terminal
+  MyBus Bus Stop (to SM seaside, Robinson Galeria,...)
+  MyBus Rabaya Station
+  MyBus San Isidro
+  MyBus SM SeaSide Terminal
+  MyBus Talisay City Hall
+  MyBus Terminal
+  Newtown Public Transit Terminal
+  Osmeña
+  Osmeña Boulevard
+  Osmeña–Jakosalem
+  Pajo terminal habal habal station
+  Palma
+  Panganiban
+  Pardo
+  Pasilong sa Naga
+  Plaridel at Magallanes
+  Plaza Independencia
+  Plaza Sugbo
+  Public Transport Terminal (Ceres Terminal)
+  Public Transport Terminal & Farmers Market
+  Pueblo Verde Terminal
+  Rotunda Bus Stop
+  Sagay Public Bus Terminal
+  Salazar Colleges
+  San Carlos Public Transport Terminal
+  Shopwise
+  SM City Cebu
+  SM Seaside
+  Sotto
+  South Bus Terminal
+  South Bus Terminal - CSBT
+  South General Hospital
+  Super Metro/Shopwise
+  Taboan Palengke
+  Tabunok
+  Tabunok Terminal
+  Tamiya Terminal
+  Toledo City Bus Terminal
+  Toledo Land Transportation Terminal
+  Tupas/Lakandula
+  UC Pardo & Talisay
+  UC Pardo & Talisay (unahan)
+  Unitop
+  University of Cebu
+  University of the Visayas
+  USC Main
+  USJ Recoletos
+  USJ Recoletos (kahuman)
+  USJ Recoletos Basak
+  V-Hire South Bound Terminal (Cebu to Toledo)
+  V-Hire Station
+  V. Rama
+  Visayan Educational Supply Corporation
+  Zamora
+
+### Cavite (35)
+  22nd Kensington
+  3rd Manchester
+  Arnaldo Highway
+  Balibago Jeepney Station
+  Bethel Academy
+  F. Manalo
+  First San Jose Transport Service Cooperative (FSJTSC) -Jeepney Terminal
+  Kensington 12th
+  Kensington 17
+  Kensington Ave.
+  Kensington Fifth
+  Lancaster
+  Mahogany Ave - Manila Bus Stop
+  Manchester Fifth and North Ave.
+  McDonald's Sunterra
+  Mendez Crossing - Manila Bus Stop
+  Olivarez Bus Stop
+  Pasong Camachile
+  Primark Town Center Noveleta
+  Puregold Noveleta
+  Santa Clara Bridge
+  Savemore Bus Stop
+  Silang Jeepney Transport
+  Sky Ranch
+  Sky Ranch Transport Terminal
+  Solid Star Bus Terminal
+  Somerset West/Kensington West
+  St. Edward: Hope Campus and Fourth Manchester
+  Sunterra/Camachile
+  Tagaytay City
+  Tagaytay Olivarez Plaza Bus Stop
+  Tagaytay Rotunda - Manila Bus Stop
+  Transport Terminal (Divi Mart)
+  Trece Martires City Public Transport Terminal
+  Vista Mall Kawit
+
+### Tarlac (59)
+  3M TERMINAL
+  Aliaga Bus Station
+  Aliaga Poblacion
+  Alua
+  Aurora Trans
+  Baliwag Bus
+  Baliwag Transit / Golden Bee Transport Bus Stop
+  Baliwag Transit Depot
+  Baliwag Transit, Inc.
+  Baliwag Transit, Inc. - Cabanatuan Terminal
+  Bucot
+  Bus Station
+  Cabanatuan
+  Cabanatuan City Central Terminal
+  Cabanatuan City Central Transport Terminal
+  Cabanatuan Jeepney Terminal
+  Cabiao Jeep Terminal
+  Carmen
+  CLSU
+  Dagupan Bus Terminal
+  ES Trans
+  First North Luzon Transit - San Isidro Terminal
+  Five star
+  Five Star
+  Five Star Bus Co.
+  Five Star Bus Stop
+  Five Star Depot
+  Fort Magsaysay-Cabanatuan Transport Service Cooperative Jeepney Terminal
+  Gapan
+  Genesis
+  Genesis Rest Stop
+  Gerona
+  Gerona Bus Stop To Baguio
+  GV Florida - Pura Terminal
+  Jeepney Transport Terminal
+  La Paz
+  La Paz
+  Maligaya/PhilRice
+  MTCBTSC Terminal
+  Pangasinan Solid North Transit
+  Philippine Rabbit Bus Lines
+  RJ Express
+  San Antonio
+  San Antonio-Cabanatuan Jeepney Terminal
+  San Isidro
+  San Isidro - San Antonio Jeepney Terminal
+  SM City Cabanatuan Transport Terminal
+  Tarlac City
+  Tarlac City
+  Travelgate Bus Stop
+  Victoria Jeepney Terminal
+  Victoria Public Terminal
+  Victoria Stop
+  Victory Liner Siesta Bus Stop
+  Victory Liner, Inc. - Motorway Tarlac
+  Walter Mart Cabanatuan Transport Terminal
+  Waltermart Cabanatuan Transport Terminal
+  Ybanag
+  Zaragoza
+
+### Quezon Province (16)
+  A&B Liner Inc. Bus Stop
+  Barney Auto Lines Lucena Grand Central Terminal
+  DLTBCo
+  Gumaca
+  Gumaca
+  JAC Liner Terminal - Lucena
+  JAM Bus Terminal
+  Jeepney Terminal
+  Lucena City
+  Lucena Grand Central Terminal
+  Lucena Grand Central Terminal Toilet
+  Mogpog - Boac
+  Supreme Bus Lines
+  SVA SM VAN TERMINAL LUCENA
+  Tayabas Lucban Terminal
+  To Talao Terminal
+
+### Other / Unclassified (72)
+  A2Z Utilitity Van Terminal
+  Amas
+  AVA Southbound Terminal
+  Bad-as Bus Terminal
+  Balasan Transport Terminal
+  Balilahan Bus Terminal
+  Boac Jeepney Terminal
+  Bulakan - Malolos Jeepney Terminal
+  Bus and Jeepney Terminal Building
+  Bus Terminal Sara Iloilo
+  Butuan Bus Terminal
+  Butuan Transport Terminal
+  Calbayog Bus Terminal
+  Caticlan Airport Bus Terminal
+  Ceres Bus Terminal
+  Ceres Bus Terminal – Roxas
+  Ceres Liner Bus Terminal
+  Cotabato Bus Terminal
+  Cotabato bus terminal. Sprunkitown/Oppu Route
+  Cotabato City
+  Cotabato City - Parang Van Terminal
+  Cotabato City Integrated Public Terminal
+  Dagupan Bus Terminal
+  DAMAVODA Van Terminal
+  Damulog Bus Terminal
+  Dimple Star Bus Terminal
+  Dipolog City Bus Terminal
+  DOSCST Waiting Shed Bus Stop
+  Dumaguete-Dauin Terminal
+  Dumaguete-Siaton Terminal
+  Dumaguete-Valencia Terminal
+  ER Mall Van Termenal
+  Eva Macapagal Passenger Terminal
+  Gaisano Surigao
+  Gandara Transport Terminal
+  German Espiritu Liner Bus Terminal
+  Husky Bus Terminal
+  Isabela Bus Terminal
+  Jeepney Terminal to Balagtas and Malolos City
+  Kabacan Terminal Complex
+  Kutoco Terminal
+  Lebak Terminal
+  Levi's® Robinsons Place Dumaguete
+  Libungan
+  M'lang New Terminal
+  Mangagoy Jeepney Terminal
+  Masctoda Bus Stop
+  Matalam Public Terminal
+  Mati Centennial Transport Terminal Complex
+  Mati City
+  Nasipit Bus Terminal
+  North Bound Terminal
+  Northbound Bus Terminal
+  Parang Terminal
+  Philtranco Bus Terminal
+  Pigcawayan Overland Transport Terminal
+  Puerto de Romblón
+  Roro Bus Terminal
+  Saint Anthony of Padua Bus Terminal
+  San Agustin Bus Terminal
+  San Andres Terminal
+  San Jose Bus Terminal
+  San Jose North Bound Terminal
+  San Jose North Bus Terminal
+  San Jose-Roxas Van Terminal
+  Sharif Aguak Public Transport Terminal
+  Sison
+  Surigao Bus and Jeepney Terminal
+  Surigao City
+  Surigao City Integrated Land Transport Terminal
+  TDG01 - Tandag
+  The Masctoda Area Bus Stop
+
+### Davao (93)
+  Ablog Terminal
+  Agdao Public Market
+  Agdao Public Market Bus Stop
+  Airport Bus Stop
+  Ateneo de Davao University
+  Ateneo de Davao University
+  Bachelor Express
+  Bachelor Express Inc. Bus Garage
+  Bankerohan Public Market Bus Stop
+  Bansalan Bus Terminal
+  Benigno Aquino Hall of Justice
+  Boton St / San Perdro St
+  Buhangin Bus Stop
+  Buhangin Public Market Bus Stop
+  Bulaong Terminal
+  Bus Stop
+  Bus Terminal
+  Cabantian Road Jeepney and Bus Stop
+  Calinan Transit Terminal
+  canocotan bus stop
+  CM Terminal
+  Crossing Matina
+  Davao City Hall Bus Stop
+  Davao City Overland Transport Terminal
+  Davao City Recreation Center
+  Davao Light Power & Cop
+  Davao Metro Shuttle
+  Davao Public Cemetery Bus Stop
+  DC Bus Garage (Davao Interim Bus Service)
+  DCWD Bus Stop
+  Digos City Bus Terminal
+  Digos City New Bus Terminal
+  Digos City Satellite Bus Terminal
+  Ecoland Bus Terminal - Davao to Gensan
+  Ecoland Bus Terminal, Davao to Cagayan De Oro
+  Fatima Bus Terminal Cooperative
+  Gaisano Mall Bus Stop
+  Gaisano South Citimall Bus Stop
+  General Santos
+  General Santos City Public Terminal
+  General Santos City Van Terminal
+  Gensan - Glan Terminal
+  Husky Bus Garage
+  Island City Express Bus Terminal
+  Island City Express Bus Terminal
+  Kidapawan City
+  Kidapawan Old Land Terminal
+  labus terminal
+  Lagao Terminal
+  Lanang Bus Stop
+  Libby Road Bus Stop
+  Madaum Public Terminal
+  Matina Aplaya Public Market Transit Stop
+  Matina Bus Stop
+  Maya Street
+  Metro Mercado
+  Mindanao AUV Public Transport Terminal
+  Mintranssco
+  MSU Jeepney Terminal
+  Old Reyes Terminal Bus Stop
+  Overland Terminal
+  Panabo City Integrated Bus and Jeepney Terminal
+  Panacan Bus stop
+  Panacan Public Market Bus Stop
+  Pereyras Terminal
+  Philtranco Service Enterprise, Incorporated@Davao City
+  Polomolok
+  Quezon Boulevard Bus Stop
+  Quimpo Blvd / Tulip Dr
+  Roxas Avenue Bus Stop
+  Rural Transit (Mindanao), Incorporated
+  Santa Maria Public Transport Terminal
+  Silway 7
+  SM City Davao
+  SM City Davao Bus Stop
+  SM Davao Van Transit Station
+  SM Lanang Davao
+  Sta. Ana Parish Church Bus Stop
+  Sulop Overland Transport Terminal
+  Sulop Overland Transport Terminal
+  Summerlite
+  Tagum
+  Tagum City
+  Tagum City Overland Transport Integrated Terminal - Module II
+  Tagum Overland Transport Integrated Terminal
+  Tagum Terminal to Butuan
+  Tagum Terminal to Davao City
+  USEP Bus Stop
+  Victoria Plaza Bus Stop
+  VODTRANSCO Terminal
+  Yellow Bus Line, Inc.
+  Yellow Bus Line, Inc. Passenger Lounge
+  Yellow Bus Terminal
+
+### Iloilo / Panay (58)
+  Acacia Terminal
+  Acacia Terminal Roxas
+  Aleosan Transport Terminal
+  ALPS Bus Terminal - Iloilo
+  Bacolod City South Terminal
+  Bacolod New Southbound Terminal Lot
+  Bacolod North Bus Terminal
+  Bacolod Northbound Terminal
+  Baldoza Land Transport Terminal
+  Brgy. San Pedro, Molo Terminal
+  Cabacungan - Bacolod Bus Terminal
+  Calinog
+  Ceres Libertad Bus Terminal
+  Ceres Liner
+  Ceres Liner Bus Terminal
+  Ceres Liner Terminal - Kalibo
+  Ceres Northbound Terminal Iloilo City
+  Ceres Terminal Antique Bound
+  CityMall Kalibo Transport Terminal
+  Don Benito Acap Southern Iloilo Line Jeepney Terminal
+  Don Salvador Benedicto via Sagay - Bacolod Bus Terminal
+  Dumangas Ro-Ro Passenger Terminal
+  Escalante - Bacolod Bus Terminal
+  Festive Walk Transport HUB
+  GT Express V-Hire Eastbound Terminal
+  GT Express V-Hire Southbound Terminal
+  Iloilo
+  Iloilo Central Line Bus & Jeepney Terminal
+  Iloilo City
+  Iloilo Terminal and General Services Inc.
+  Joroshely Motors
+  Kalibo- Banga Transport Terminal
+  Kalibo-Libacao Bus & Jeepney Terminal
+  Leganes
+  Mambucal - Bacolod Bus Terminal 2
+  Mohon Terminal
+  New Ceres Terminal
+  Passi City Bus Stop
+  Pavia People's Terminal
+  Pertoda Ceres Northbound Terminal
+  Plazleta Gay Jeepney Stop
+  Pontevedra Roxas Bus Terminal
+  Provincial Transport Terminal
+  Roadstar Bacolod Bus Terminal
+  Robinsons Pavia Transport Terminal
+  Roxas City
+  Roxas City Integrated Transport Terminal
+  Roxas City Integrated Transport Terminal
+  San Carlos via Don Salvador Terminal
+  San Jose de Buenavista Bus Terminal
+  San Jose North Terminal
+  SILAY AIRPORT SHUTTLE
+  Silay to Patag Jeepney Terminal
+  SM Jeepney Terminal and Traveler's Lounge
+  Tagbak Bus Terminal
+  Ticud Terminal
+  Vallacar Transit Incorporated (V.T.I)
+  Zarraga
+
+### La Union (41)
+  Agoo Busterminal North
+  Baguio Bus Line
+  Baguio City
+  Baguio Terminal
+  Baguio Victory Liner Terminal
+  Baguio-Banaue Van Terminal
+  Baguio-La Trinidad Bus Stop
+  Baguio-Loakan Jeepney Terminal
+  Bataan Transit Bus Terminal San Fernando City La Union
+  BGH Campo Sioco Terminal
+  Brookside Terminal
+  Dagsian Terminal
+  Dangwa Terminal
+  Florida Bus Terminal
+  Former Launion Pangasinan Transport Hub
+  Gabriel Trans Baguio Terminal
+  Gabriela Silang Terminal
+  Genesis Bus Terminal
+  Guisad/Ferguson Jeepney Terminal
+  La Trinidad Jeepney Terminal
+  Lucnab Terminal
+  Mines View Park Jeepney Terminal
+  Ohayami Bus Terminus
+  Pangasinan Solid North Bus Terminal, Baguio Terminal
+  Pangasinan Solid North Transit, Inc.
+  PARTAS Bus Garage
+  Partas Bus Terminal
+  Partas Bus Terminal San Fernando City La Union
+  Pines Garage GT Transport, Inc.
+  Rapid KL Bus Station 1
+  San Fernando
+  San Fernando Plaza Waiting Shed
+  San Fernando, La Union
+  SM City La Union Transport Terminal
+  Sto. Nino Bus Terminal
+  Sunshine Bus Terminal
+  Tanqui Jeepney Terminal (Brgy. Tanqui)
+  Times Transit Terminal
+  Victory Liner Bus Terminal
+  Victory Liner Inc. Baguio City
+  Viron Transit Terminal
+
+### Cagayan de Oro / Misamis (70)
+  Agora Bus Terminal
+  Agora Bus Terminal (EastBound Terminal
+  Bachelor Express
+  Bagong Lipunan Transit
+  Bayanihan Bus Stop (COOP Modern Jeepney)
+  BSMODAI Terminal
+  Buena Oro Jeepney Terminal
+  Bulua - Highway Jeepney Stop
+  Bulua Cagayan De Oro City Bus Terminal
+  Bus Stop
+  Bus stop gingoog
+  Bus Terminal to Xavier Heights
+  C2 route
+  Cagayan De Oro
+  Cagayan De Oro
+  Cagayan De Oro Agora Terminal
+  Cagayan De Oro City
+  Cagayan de Oro SM City CDO Uptown
+  Cagayan-Phillips Van Terminal
+  Cargo Terminal
+  Carmen Integrated Bus Terminal
+  Claveria Puj Terminal
+  De Oro Home Plus Jeepney Stop, Bulua
+  Ditucalan Terminal
+  Gaisano City Jeepney Stop
+  Gingoog City Integrated Bus Terminal
+  Gingoog City West-Bound Terminal
+  Iligan
+  Iligan Bus and Jeepney South Bound Terminal
+  Iligan Bus Jeepney Terminal South Bound
+  Iligan City Westbound Jeepney and Bus Terminal
+  Iligan Integrated Bus Terminal
+  Iligan NSC Bus Terminal
+  Iligan-Cagayan Bus Stop
+  Integrated Bus and Jeepney Terminal
+  Integrated Bus Terminal Tangub City
+  Lantapan Bus and Jeepney Terminal
+  LIBONA PUJ TERMINAL
+  Linamon Economic Center and Bus Terminal
+  Lumbo Bus Stop
+  Magnum Express Terminal
+  Malaybalay City
+  Malaybalay City Bus Terminal
+  Manolo Fortich Jeepney Terminal
+  MOGCHS Jeepney Stop
+  Ororama Bus and Jeepney Terminal
+  Ozamiz
+  Ozamiz IBJT (Agora)
+  Public Bus Stop
+  Pugaan Terminal
+  Rural Bus Terminal
+  Rural Transit Mindanao Inc.
+  Rural Transit Mindanao, Inc.
+  Rural Transit/ Bachelor Express Bus Depot
+  SM TRANSPORT TERMINAL
+  Super 5 Bus Terminal
+  Super 5 Bus Terminal
+  Super Five Bus Depot
+  Tambo Gerona Bus Stop
+  Tambo Integrated Bus Terminal
+  Tambo Terminal Iligan City
+  Tangub City Integrated Bus and Jeepney Terminal
+  Valencia City
+  Valencia City New Terminal
+  Valencia Integrated Terminal
+  Valencia Integrated Transport Terminal
+  Van Terminal CDO-Pangantucan
+  Westbound Integrated Bus and Jeepney Terminal
+  Westbound Public Market
+  Yacapin St / Osmena St
+
+### Rizal (6)
+  AH Bus Terminal
+  AH TERMINAL
+  grand terminal
+  Infanta-Siniloan Jeepney Terminal
+  Infanta, Quezon, Philippines
+  Lucena-Infanta Van Terminal
+
+### Laguna (44)
+  Alabang - Biñan via Mamplasan Jeepney Terminal
+  Balibago (Sta Rosa) - (Ulat)Tagaytay City Jeepney Terminal
+  Balibago Complex- Jeepney Terminal
+  BBL Bus Terminal
+  Calamba Central Terminal
+  Crossing Starmall Van Terminal Bus Stop
+  Dela Rosa Transit - Pacita Terminal
+  Famy - Siniloan Crossing
+  HM Bus Terminal - Calamba
+  JAC Liner Terminal - Binan
+  JAM Bus Terminal
+  Jam Liner Bus Stop
+  JAM Terminal
+  Jam Transit Inc. Terminal - Penta
+  JRC Starbus / First North Luzon Transit - Santa Rosa Bus Depot
+  LBATSC Shuttle Terminal
+  LLI Bus Company - Calamba Terminal
+  LLi Bus Terminal
+  Los Baños UPLB Terminal
+  Nuvali Transport Terminal
+  Pacita Bus Terminal
+  Pacita Complex terminal
+  Pagsanjan - Calamba Jeep Terminal
+  Paseo de Sta Rosa - Calamba Jeepney Terminal
+  Paseo De StaRosa
+  Plaza Pacita Bus Terminal
+  RAYMOND BUS TERMINAL
+  Saint Rose Transit Terminal
+  San Pablo
+  San Pablo City Central Terminal
+  Santa Cruz
+  Santa Rosa Integrated Terminal (SRIT)
+  Shuttle Service Terminal
+  SM City Sto. Tomas Transport Terminal
+  SM Jeepney Bus Terminal
+  SM Transport Terminal
+  Sta. Rosa Complex Central Terminal
+  Sto.Tomas Bus Stop
+  Tanauan Transport Terminal
+  Tower Heroes Terminal
+  Turbina Bus Terminal
+  UBE Express - Robinsons Sta. Rosa
+  Van terminal
+  Xpert Sta. Rosa / Jam Liner Vehicles Bus Terminal Incorporated
+
+### Bohol (39)
+  Alburquerque
+  Baclayon
+  Bohol Car Van Rentals
+  Bool East Bound Bus Stop
+  Bus station
+  Bus Stop
+  bus terminal
+  Bus to Alicia
+  Cogon Bus Terminal
+  Dimiao
+  Erico B. Aumentado Integrated Bus Terminal
+  Garcia Hernandez
+  GVOA Terminal
+  habal-habal
+  Habal-Habal Terminal
+  Habal-Habal Terminal
+  Integrated Bus Terminal
+  Jagna
+  Jeepney and Metrovan Parking
+  Jeepneys station
+  Lila
+  Loay
+  Loboc PUJ Terminal
+  Minivans Station
+  Multicab terminal for ICM
+  Pickup point
+  Poblacion Terminal
+  Salazar
+  Sierra Bullones Bus Terminal
+  Southern Star ("Ceres") big bus departures
+  Tagbilaran - Baclayon Bus Terminal
+  Tagbilaran - Corella Bus Terminal
+  Tagbilaran - Lindaville Bus Terminal
+  Tagbilaran - Sikatuna Bus Terminal
+  Tagbilaran Bus terminal
+  Tagbilaran Panglao Bus Terminal
+  Talibon
+  Talibon Integrated Transport Terminal
+  Valencia
+
+### Nueva Ecija (29)
+  Alfonso Castañeda
+  Baliwag Transit
+  Baliwag Transit - Papaya Terminal
+  Baliwag Transit, Inc. Malasin, San Jose City Garage
+  Bantrans SJC-Baguio terminal
+  BUS STOP going to CAGAYAN VALLEY
+  Cisco Bus terminal
+  Core Gateway College
+  DTE Bus Stop
+  Genesis San Jose City Terminal
+  Genesis Transport Bus Stop
+  Lupao
+  Maria Aurora
+  Marzen Kambingan
+  Pantabangan
+  Rizal
+  San Jose - Umingan Terminal
+  San Jose City Central Terminal
+  San Jose City Hall of Justice
+  San Jose City Public Cemetery/SJCC
+  San Jose City Public Market
+  Shakey's San Jose City
+  Victory Liner Bus Stop
+  Victory Liner San Jose Terminal
+  Victory Liner Terninal San Jose Nueva Ecija
+  Waiting Shed
+  Waititng Shed
+  Walter Mart San Jose
+  Waltermart San Jose transport terminal
+
+### Isabela (42)
+  Alicia
+  Aurora
+  Baliwag Transit Inc.
+  Bus Station
+  Cauayan
+  Cauayan City
+  Cauayan City Central Bus Terminal
+  Cauayan Integrated Bus Terminal
+  Cauayan-Reina Mercedes Boundary
+  Cordon
+  Dalin Bus Line
+  DALIN Bus Line Depot
+  Dalin Bus Line, Inc. Terminal
+  DALIN BUS TALYER SHOP
+  Dalin JD Transport, Inc. Terminal
+  FIRST ISABELA TRANSPORT COOPERATIVE
+  Five Star Bus Company, Inc. (Santiago City Terminal)
+  FLORIDA
+  FLORIDA BUS
+  Florida Bus Stop
+  Florida Bus Terminal
+  GV Florida - Santiago Terminal
+  HillTop Waiting Shade
+  Ilagan
+  Integrated Transport Terminal and Commercial Complex
+  Integrated Transport Terminal Complex - Santiago City
+  Isabela
+  Macsand Van Terminal
+  NOLTRANSCO Van Terminal
+  North Luzon Bus Station
+  Northern Luzon Bus Line Santiago Terminal
+  Roxas
+  Santiago City
+  Santiago City Integrated Bus Terminal
+  Santiago Public Market Bus Terminal
+  SM Transport Terminal
+  Victory Liner - Ilagan Terminal
+  Victory Liner - Roxas Terminal
+  Victory Liner Bus Stop
+  Victory Liner Bus Terminal
+  Victory Liner Cauayan Terminal
+  Victory Liner Terminal
+
+### Batangas (28)
+  ALPS COMPLEX MAIN OFFICE OF ALPS THE BUS, INC
+  Alps The Bus
+  ALPS the Bus
+  Batangas
+  Batangas City Grand Terminal
+  Batangas Express / KL Liner
+  Batangas Grand Terminal
+  Bus & Van Terminal
+  Bus Terminal to PITX, Cubao and Pasay
+  CAVITE
+  Ceres Liner Terminal - Batangas
+  City Lipa Grand Transport Terminal
+  Cubao terminal
+  Jam Bus Station
+  JAM Liner Inc. Batangas Garage
+  Lipa Grand terminal
+  Lipa to Ibaan Jeepney Terminal
+  LIPA- TIAONG TERMINAL
+  Lobo Jeepney Terminal
+  Marawoy Transport Terminal
+  Passenger Terminal 1
+  Passenger Terminal 2
+  Passenger Terminal 3
+  Puerto Galera Grand Terminal (Calapan Bound)
+  SM City Lipa
+  SM Grand Transport Terminal
+  SM Terminal
+  SM Transport Terminal
+
+### Bulacan (69)
+  Angat Bus Terminal
+  Angeles
+  Anyatam
+  Anyatam
+  Apalit
+  Arayat
+  Arayat
+  Bagbaguin
+  Baliwag Transit
+  Baliwag Transit San Miguel
+  Baliwag Transit, INC. - Malolos City Garage
+  Bocaue Exit
+  Bulualto
+  Bus terminal
+  Cabiao
+  Caingin
+  Camias
+  Camias Junction
+  Candaba
+  Crossing Bagbaguin
+  Cruz na Daan
+  Dau SM Clark Main Gate
+  First North Luzon
+  First North Luzon Transit - Arayat Terminal
+  First North Luzon Transit - Cabiao Terminal
+  Five Star
+  Florida
+  Francisco Homes
+  Gasat Bus Terminal
+  JoGrad bus stop
+  Laug
+  Longos
+  Maasim
+  Macabebe Masantol
+  Magalang
+  Mahipon
+  Malipangpang
+  Malolos Central Integrated Terminal
+  Malolos Central Transport Terminal
+  Malolos Crossing Bus Stop
+  Malolos-Pulilan Jeepney Terminal
+  Mexico
+  Muzon
+  Oriente
+  Precious Grace Transport - Malolos Terminal (P2P Bus)
+  Precious Grace Transport P2P Bus Terminal - Balagtas
+  Public Jeepney Transportation (To Hagonoy)
+  Puregold Santa Maria
+  RAM Trans. Bus Terminal
+  Robinsons Malolos
+  San Fernando Norte
+  San Fernando Sur
+  San Ildefonso
+  San Isidro
+  San Jose City Hall
+  San Juan Mexico
+  San Mateo
+  San Miguel
+  San Pablo
+  San Roque
+  Santa Ana
+  Santa Maria
+  Santo Cristo
+  Santo Domingo
+  Santrans Bus Depot
+  SM Center Pulilan Transport Terminal
+  SM City Pampanga Jeepney Terminal II
+  Starmall San Jose del Monte
+  UV Dau/Angeles Pampanga station
+
+### Pampanga (97)
+  Angeles - Porac Jeepney Terminal
+  Angeles Arayat Terminal
+  Angeles City - Manibaug Jeepney Terminal
+  Angeles San Fernando
+  Angeles San Fernando
+  Angeles San Fernando
+  Angeles Sapangbato Jeepney Terminal
+  Angeles Terminal
+  Araneta City
+  Bacolor
+  Balanga, Bataan
+  Bastiagan
+  Bataan Transit - San Fernando Terminal
+  BIR
+  Brgy. Ninoy Aquino - 3rd Gate
+  BSP San Fernando
+  Bulaon Terminal
+  Bus Terminal
+  Capas - Angeles Transport Terminal
+  City of San Fernando Central Bus Terminal
+  Clark - Mabalacat Jeepney Terminal
+  Clark Global City (M.A. Roxas)
+  Clark International Airport Bus Terminal
+  Clark Loop - Philexcel
+  Clark Pampanga
+  Coca Cola San Fernando
+  Crossing Baliti
+  Crossing Sindalan
+  Crossing Telabastagan
+  CSFP Central Terminal
+  Dau - SM Clark Jeepney Terminal
+  Dau Bus Terminal
+  Dau Integrated Bus Terminal
+  De La Paz Norte
+  DPWH
+  East Bound Terminal
+  Florida Bus Station
+  Friendship Maingate Jeepney Terminal
+  Genesis Premium P2P Bus Service - SM City Clark
+  GSIS Pampanga
+  Hacienda Royale/Colegio de San Rafael
+  Henson Ville Terminal
+  Holy Angel Village
+  Jeep Terminal to SM City Pampanga
+  Jeepney and Mini Bus Transport Terminal
+  Jeepney Terminal
+  Mabalacat City Bus Terminal Complex
+  Magalang-Mabalacat Terminal
+  Magnificat
+  Manarang Road
+  Manibaug Terminal Bus Stop
+  Marlboro
+  Marquee Mall Bus Terminal
+  Marquee Mall Shuttle Service Terminal
+  NEW BUS TERMINAL, SAN FERNANDO, PAMPANGA
+  New Era University
+  OFW Hospital
+  Olongapo
+  Our Lady of Fatima University/Greenfields Plaza
+  Pampang Telabastagan
+  Pampanga State Agricultural University Jeepney Terminal
+  Parulog
+  Pentagon Asphalt
+  Philexcel Jeepney Bus Stop
+  Philexcel Jeepney Stop
+  Philexcel Terminal
+  Philippine Rabbit Bus Terminal
+  Philippine Rabbit Bus Terminal
+  Philippine Rabbit Motorpole Busline
+  PhilTranco Bus DAU - Garage
+  Porac - SM Clark Jeepney Terminal
+  Porac Central Terminal
+  Public Transport Terminal
+  PUJ: Pampang Telabastagan (Going to Angeles)
+  Rich Town I
+  Robinsons Starmills Bus Terminal
+  Robinsons Transport Terminal
+  Rockwood Homes
+  Sacred Heart Parish
+  San Fernando Central Bus Terminal
+  San Fernando City
+  San Fernando terminal
+  San Jose, SM City Terminal, San Fernando, Pampanga
+  Shell Telabastagan
+  SM City Pampanga
+  SM Telabastagan Terminal
+  SM Transport Terminal
+  Telabastagan Integrated School
+  Transport Hub
+  Trike Magalang - San Miguel Terminal
+  Union Galvasteel
+  Victory Liner Bus Terminal - San Fernando
+  Victory Liner Inc. - Dau
+  Victory Liner Terminal
+  Vista Mall Pampanga
+  Vivencio Cuyugan Terminal
+  West Bus Terminal
+
+### Ilocos Norte (32)
+  Aniceto Bus Line (Vigan Terminal)
+  Baguio Bus Lines - Bengued Terminal
+  Bangui
+  Bangui
+  Bangui Windmills
+  Baruyen
+  Bus Terminal
+  Central Terminal
+  Claveria Tours
+  FARIÑAS TERMINAL (Laoag)
+  Flash Express Bangui
+  Florida Bus Booking Office
+  Florida Bus Terminal
+  Florida Bus Terminal (Laoag City)
+  GV Florida / GMW Trans Laoag City Garage and Depot
+  GV Florida Bus Station
+  Laoag
+  Laoag - San Nicolas TERMINAL EXPRESS
+  Laoag Dingras Terminal
+  Laoag-Banna-Nueva Era Jeep Terminal (New)
+  Laoag-Pagudpud Bus Terminal
+  Laoag-Vigan Bus Terminal (New)
+  New Laoag-Pagudpud Bus Terminal
+  Partas Bus
+  Partas Bus Terminal Laoag City Ilocos Norte
+  Partas Bus Terminal Vigan City Ilocos Sur
+  Sta. Lucia / Chona Patrick Liner Laoag Terminal
+  Van Terminal
+  Vigan City
+  Vigan City
+  Vigan Terminal
+  Viron Terminal
+
+### Bataan (19)
+  Atoling upholstery shop
+  Balanga
+  Bataan Terminal Complex
+  Bataan Transit
+  Bataan-Olongapo Terminal
+  Blue Jeepney Terminal
+  Harbor Point Mall
+  Mega Subic Terminal Services Incorporated
+  Morong-SBMA Jeepney Terminal
+  Olongapo Balanga Terminal Bus
+  Olongapo City
+  Pasay
+  Rabbit bus line in olongapo
+  Red Jeepney Terminal
+  RedDoorz near Olongapo Bus Terminal
+  Saulog Transit - Olongapo Terminal
+  Victory Liner - Olongapo Terminal
+  Victory Liner Bus Terminal - Balanga
+  Victory Liner, Inc.
+
+### Cagayan (52)
+  Autobus
+  Ballesteros Bus Line - Ballesteros Terminal
+  Bus Station
+  Cabagan Junction
+  CABAGAN PASSENGER LOADING AND UNLOADING
+  Dagupan Bus Line
+  Dalin Bus
+  DALIN Bus Line
+  Dalin Bus Line Terminal Tuguegarao
+  Dalin Bus Line/Universal Guiding Star
+  Dangwa Tranco - Tabuk Terminal
+  Dugo Multicab Terminal
+  EMC LBS Bus Terminal
+  EMC-LBS (Santa Ana to Cubao, QC) Bus Terminal
+  EMC-LBS Bus Terminal to Manila
+  Five Star Bus Company Tuguegarao Terminal
+  Florida Bus Terminal
+  Florida Bus Terminal
+  Florida Bus Terminal
+  Gonzaga Terminal
+  GV Florida - Ballesteros Terminal
+  GV Florida - Santa Ana Terminal
+  GV Florida - Tuguegarao Terminal
+  GV Florida (Santa Ana to Manila) & GMV (Santa Ana to Baguio via Laoag) Bus Terminal
+  GV Florida & GMW Santa Ana Terminal
+  GV Florida Bus Station
+  JD Dalin Bus Terminal
+  Jeepneys to Jct. Luna
+  Jeepneys to Lasam
+  Jeepneys to Santa Ana
+  Jeepneys to Solana
+  Lallo Bus Line Terminal
+  Magno Lim Bus and Jeepney Terminal
+  Piat Van Terminal
+  Santa Ana Public Market Terminal
+  SAVTOSCO
+  Tabuk Tuguegarao Terminal
+  Tabuk Van Terminal
+  Taguegarao Terminal
+  Tuguegarao City Central Van Terminal
+  Tuguegarao Integrated Transport Terminal
+  UV Express Service
+  Van Terminal (Santa Ana to Aparri & Tuguegarao City)
+  VAN TERMINAL TRACSS VAN ASSOSSIATION TERMINAL
+  Van/Bus Terminal
+  Van/Bus Terminal For Alcala
+  Victory Liner
+  Victory Liner - Bus garage (Tuguegarao)
+  Victory Liner - Tabuk Terminal
+  Victory Liner - Tuao Terminal
+  Victory Liner - Tuguegarao City
+  Victory Liner Aparri Terminal
+
+### Zamboanga (16)
+  Ayala Terminal
+  Baliwasan Terminal
+  Diplahan Bus and Van Terminal
+  Ipil Bus Terminal
+  Ipil Integrated Bus Terminal
+  Labuan Limpapa
+  Lakewood Integrated Bus Terminal
+  Pagadian CIty Integrated Bus Terminal
+  Pagadian Intergrated Bus Terminal
+  San Pablo Terminal
+  San Roque Terminal
+  Southcom Terminal
+  Sta.Maria and Pasonanca Terminal
+  Sta.Maria Terminal
+  Terminal bus
+  Tungawan Integrated Bus Terminal
+
+### Leyte / Samar (Eastern Visayas) (19)
+  Babatngon terminal bus
+  Baybay City Land Transportation Terminal
+  Borongan Transport Terminal - Abucay Station
+  Bus Terminal and Traffic Management Office(BTTMO)
+  City Bus Terminal
+  City Jeepney Terminal
+  Eagle Star Terminal
+  Libre Sakay North Bus Terminal
+  Libreng Sakay South Bus Terminal
+  Robinsons Ormoc Transport Terminal
+  Robinsons Tacloban Transport Terminal
+  Robinsons Terminal
+  Silver Star Bus Terminal
+  Tacloban Bus Terminal
+  Tacloban City
+  Tacloban New Transport Terminal
+  TAPATCO TERMINAL
+  Van Van's Terminal
+  VS Grand Tours Tacloban City Terminal
+
+### Nueva Vizcaya (9)
+  Bagabag junction
+  Belance-BambangTerminal
+  Bus Stop
+  DALIN AND OHAYAMI TRANS BUS STOP
+  FirstNorthLuzonBusTransport..Incorporated
+  Solano
+  Solano
+  Solano Jeepney Terminal
+  Solano Transport Terminal
+
+### Aurora (2)
+  Baler Central Terminal
+  Genesis Transport - Baler Terminal
+
+### Pangasinan (20)
+  Baliwag Transit Terminal
+  BAMACADA Bus Terminal ( BAYAMBANG - DAGUPAN )
+  Camiling-Dagupan Bus Terminal
+  Carmen Rosales Central Transportation Terminal
+  Dagupan Bus
+  Dagupan Bus Co. - Manaoag Terminal
+  Dagupan Bus Co. Inc.
+  Dagupan Bus Terminal
+  Dagupan City
+  Dagupan City Transport Terminal
+  Dominion Bus Terminal
+  Five Star - Tayug Terminal
+  Five Star Bus Stop
+  Lingayen Bus Station
+  Malico
+  SM Rosales
+  SM Rosales Transport Terminal
+  Solid North - Asingan Terminal
+  Victory Liner
+  Victory Liner Dagupan Terminal
+
+### General Santos / South Cotabato (28)
+  Banga Public Terminal
+  Blue Diamond Terminal
+  Bus Terminal
+  Centro Bus Stop - San Isidro Loop
+  Crossing Kablon
+  Datu Paglas Bus Terminal
+  Husky Bus Terminal
+  Isulan Land Transport Terminal
+  Kiamba Public Terminal
+  Koronadal
+  Koronadal City Integrated Public Transport Terminal
+  Koronadal City Integrated Transport Terminal
+  Lake Sebu Public Terminal
+  Norala Public Terminal
+  President Quirino
+  Surallah Integrated Public Terminal
+  Surallah Terminal
+  T'boli Public Terminal
+  Tacorong roral bus terminal
+  Tacurong
+  Tacurong City Integrated Public Terminal
+  Tacurong City Integrated Transport Terminal
+  tacurong city public terminal
+  Tacurong terminal
+  Tupi Public Terminal
+  Yellow Bus Line, Incorporated
+  Yellow Bus terminal
+  Yellow Bus Terminal
+
+### Mountain Province / Cordillera (5)
+  Batad Bus Stop
+  Batad Jump-off
+  Buscalan
+  Lagawe Terminal
+  Tatakkan, Jump Off to Patukan
+
+### Albay / Sorsogon (Bicol) (23)
+  Bicol Isarog - Virac Terminal
+  Bicol Isarog Naga
+  Bulan Integrated Bus Terminal
+  CIGI Bus Stop
+  D L T B Co.
+  Iriga City
+  Iriga City Central Bus Terminal
+  Jeepney to Baras
+  LCC Transport Terminal
+  Legazpi City
+  Legazpi Grand Central Terminal
+  Legazpi Van Terminal
+  Naga City
+  Naga City East Bound Terminal
+  Ninoy and Cory Ave
+  Pangpang Bus Stop
+  Phitranco Iriga City
+  Raymond Bus Terminal
+  SITEX (Sorsogon Integrated Terminal Exchange)
+  Sorsogon
+  Sorsogon Central Terminal
+  Sorsogon City Grand Terminal Bus Stop
+  Virac Jeep and Bus Terminal
+
+### Negros (3)
+  Binalbagan Ceres Bus Terminal
+  Ceres Liner Terminal - Hinigaran
+  Kabankalan Ceres Bus Terminal
+
+### Mindoro (9)
+  Calintaan Bus Terminal
+  Centro Van Transport Terminal
+  Dimple Star Bus Terminal
+  Mamburao
+  Mamburao Grand Terminal
+  MATSCO San Jose
+  Mimaropa Transport Terminal
+  PVans Terminal
+  Van Terminal
+
+### Palawan (11)
+  Centro Transport Terminal
+  Cherry Bus
+  Cherry Bus Terminal El Nido
+  El Nido Bus Terminal
+  El Nido Old Bus Terminal
+  Irawan Bus Terminal
+  Puerto Princesa Central Land Transport Terminal
+  Puerto Princesa Land Transportation Terminal Irawan
+  San Isidro Bus Garage
+  SBE bus terminal
+  Seatours Palawan

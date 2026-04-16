@@ -1,0 +1,674 @@
+[10:08:56] Tracker at http://localhost:7790
+[10:08:56] === OSM Nationwide Import Starting ===
+[10:08:56] Loading terminals from DB...
+[10:08:57] Loaded 5538 terminals
+[10:08:57] Loading existing connections...
+[10:08:57] Found 128 existing connections
+[10:08:57] 
+--- Fetching North Luzon ---
+[10:08:57]   Querying Overpass (attempt 1)...
+[10:12:15]   Got 95063 elements
+[10:12:15]   194 route relations found
+[10:12:16]   Inserting 168 connections for North Luzon...
+[10:12:16]   Inserted 168 connections for North Luzon
+[10:12:16]   North Luzon complete
+[10:12:16] 
+--- Fetching South Luzon + NCR ---
+[10:12:16]   Querying Overpass (attempt 1)...
+[10:13:32]   Error: Parse error: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" lan. Waiting 60s...
+[10:14:32]   Querying Overpass (attempt 2)...
+[10:15:35]   Got 267296 elements
+[10:15:35]   1015 route relations found
+[10:15:38]   Inserting 2825 connections for South Luzon + NCR...
+[10:15:41]   Inserted 2825 connections for South Luzon + NCR
+[10:15:41]   South Luzon + NCR complete
+[10:15:41] 
+--- Fetching Visayas ---
+[10:15:41]   Querying Overpass (attempt 1)...
+[10:17:38]   Error: Parse error: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" lan. Waiting 60s...
+[10:18:38]   Querying Overpass (attempt 2)...
+[10:19:34]   Got 102715 elements
+[10:19:34]   243 route relations found
+[10:19:35]   Inserting 36 connections for Visayas...
+[10:19:35]   Inserted 36 connections for Visayas
+[10:19:35]   Visayas complete
+[10:19:35] 
+--- Fetching Mindanao ---
+[10:19:35]   Querying Overpass (attempt 1)...
+[10:20:28]   Got 89518 elements
+[10:20:28]   74 route relations found
+[10:20:28]   Inserting 22 connections for Mindanao...
+[10:20:29]   Inserted 22 connections for Mindanao
+[10:20:29]   Mindanao complete
+[10:20:29] 
+=== Import Complete ===
+[10:20:29] Routes processed: 1526
+[10:20:29] Routes skipped (old): 148
+[10:20:29] Stops matched: 8239
+[10:20:29] Connections inserted: 3051
+[10:20:29] Duplicates skipped: 3240
+node:events:486
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::7790
+    at Server.setupListenHandle [as _listen2] (node:net:1948:16)
+    at listenInCluster (node:net:2005:12)
+    at Server.listen (node:net:2110:7)
+    at Object.<anonymous> (C:\Users\jj\Downloads\cook\scripts\osm_import.js:319:8)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1984:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 7790
+}
+
+Node.js v24.14.0
+[10:27:37] Tracker at http://localhost:7790
+[10:27:37] === OSM Nationwide Import Starting ===
+[10:27:37] Loading terminals from DB...
+[10:27:38] Loaded 5538 terminals
+[10:27:38] Loading existing connections...
+[10:27:38] Found 128 existing connections
+[10:27:38] 
+--- Fetching North Luzon ---
+[10:27:38]   Querying Overpass (attempt 1)...
+[10:28:53]   Error: Parse error: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" lan. Waiting 60s...
+[10:29:53]   Querying Overpass (attempt 2)...
+[10:30:44]   Got 94196 elements
+[10:30:44]   194 route relations found
+[10:30:44]   Inserting 52 connections for North Luzon...
+[10:30:44]   Inserted 52 connections for North Luzon
+[10:30:44]   North Luzon complete
+[10:30:44] 
+--- Fetching South Luzon + NCR ---
+[10:30:44]   Querying Overpass (attempt 1)...
+[10:30:45]   Error: Parse error: <html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+<hr><center>nginx/1.18.0</center>
+</body>
+</html>
+. Waiting 60s...
+[10:31:45]   Querying Overpass (attempt 2)...
+[10:32:17]   Got 267297 elements
+[10:32:18]   1015 route relations found
+[10:32:18]   Inserting 409 connections for South Luzon + NCR...
+[10:32:19]   Inserted 409 connections for South Luzon + NCR
+[10:32:19]   South Luzon + NCR complete
+[10:32:19] 
+--- Fetching Visayas ---
+[10:32:19]   Querying Overpass (attempt 1)...
+[10:33:22]   Error: Parse error: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" lan. Waiting 60s...
+[10:34:22]   Querying Overpass (attempt 2)...
+[10:35:02]   Got 102248 elements
+[10:35:02]   243 route relations found
+[10:35:03]   Inserting 16 connections for Visayas...
+[10:35:03]   Inserted 16 connections for Visayas
+[10:35:03]   Visayas complete
+[10:35:03] 
+--- Fetching Mindanao ---
+[10:35:03]   Querying Overpass (attempt 1)...
+[10:35:45]   Got 89750 elements
+[10:35:46]   74 route relations found
+[10:35:46]   Inserting 10 connections for Mindanao...
+[10:35:46]   Inserted 10 connections for Mindanao
+[10:35:46]   Mindanao complete
+[10:35:46] 
+=== Import Complete ===
+[10:35:46] Routes processed: 1526
+[10:35:46] Routes skipped (old): 170
+[10:35:46] Stops matched: 1426
+[10:35:46] Connections inserted: 487
+[10:35:46] Duplicates skipped: 76
+[10:42:25] Tracker at http://localhost:7790
+[10:42:25] === OSM Nationwide Import Starting ===
+[10:42:25] Loading terminals from DB...
+[10:42:25] Loaded 5538 terminals
+[10:42:26] Loading existing connections...
+[10:42:26] Found 128 existing connections
+[10:42:26] 
+--- Fetching North Luzon ---
+[10:42:26]   Querying Overpass (attempt 1)...
+[10:42:45]   Got 95015 elements
+[10:42:45]   194 route relations found
+[10:42:45]   Inserting 56 connections for North Luzon...
+[10:42:46]   Inserted 56 connections for North Luzon
+[10:42:46]   North Luzon complete
+[10:42:46] 
+--- Fetching South Luzon + NCR ---
+[10:42:46]   Querying Overpass (attempt 1)...
+[10:44:09]   Got 267304 elements
+[10:44:09]   1015 route relations found
+[10:44:09]   Inserting 370 connections for South Luzon + NCR...
+[10:44:10]   Inserted 370 connections for South Luzon + NCR
+[10:44:10]   South Luzon + NCR complete
+[10:44:10] 
+--- Fetching Visayas ---
+[10:44:10]   Querying Overpass (attempt 1)...
+[10:44:17]   Got 102248 elements
+[10:44:17]   243 route relations found
+[10:44:17]   Inserting 15 connections for Visayas...
+[10:44:18]   Inserted 15 connections for Visayas
+[10:44:18]   Visayas complete
+[10:44:18] 
+--- Fetching Mindanao ---
+[10:44:18]   Querying Overpass (attempt 1)...
+[10:44:38]   Got 89473 elements
+[10:44:38]   74 route relations found
+[10:44:38]   Inserting 9 connections for Mindanao...
+[10:44:38]   Inserted 9 connections for Mindanao
+[10:44:38]   Mindanao complete
+[10:44:38] 
+=== Import Complete ===
+[10:44:38] Routes processed: 1526
+[10:44:38] Routes skipped (old): 330
+[10:44:38] Stops matched: 1326
+[10:44:38] Connections inserted: 450
+[10:44:38] Duplicates skipped: 70
+[10:57:36] Tracker at http://localhost:7790
+[10:57:36] === OSM Nationwide Import Starting ===
+[10:57:36] Loading terminals from DB...
+[10:57:37] Loaded 5538 terminals
+[10:57:37] Loading existing connections...
+[10:57:37] Found 128 existing connections
+[10:57:37] 
+--- Fetching North Luzon ---
+[10:57:37]   Querying Overpass (attempt 1)...
+[10:59:34]   Got 95015 elements
+[10:59:34]   194 route relations found
+[10:59:34]   Inserting 56 connections for North Luzon...
+[10:59:35]   Inserted 56 connections for North Luzon
+[10:59:35]   North Luzon complete
+[10:59:35] 
+--- Fetching South Luzon + NCR ---
+[10:59:35]   Querying Overpass (attempt 1)...
+[11:01:07]   Got 266563 elements
+[11:01:07]   1014 route relations found
+[11:01:07]   Inserting 364 connections for South Luzon + NCR...
+[11:01:08]   Inserted 364 connections for South Luzon + NCR
+[11:01:08]   South Luzon + NCR complete
+[11:01:08] 
+--- Fetching Visayas ---
+[11:01:08]   Querying Overpass (attempt 1)...
+[11:03:07]   Error: Parse error: <html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+<hr><center>nginx/1.18.0</center>
+</body>
+</html>
+. Waiting 60s...
+[11:04:07]   Querying Overpass (attempt 2)...
+[11:05:15]   Error: Parse error: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" lan. Waiting 60s...
+[11:06:15]   Querying Overpass (attempt 3)...
+[11:06:56]   Got 102715 elements
+[11:06:56]   243 route relations found
+[11:06:56]   Inserting 16 connections for Visayas...
+[11:06:56]   Inserted 16 connections for Visayas
+[11:06:56]   Visayas complete
+[11:06:56] 
+--- Fetching Mindanao ---
+[11:06:56]   Querying Overpass (attempt 1)...
+[11:07:15]   Got 89564 elements
+[11:07:15]   74 route relations found
+[11:07:15]   Inserting 9 connections for Mindanao...
+[11:07:15]   Inserted 9 connections for Mindanao
+[11:07:15]   Mindanao complete
+[11:07:15] 
+=== Import Complete ===
+[11:07:15] Routes processed: 1525
+[11:07:15] Routes skipped (old): 347
+[11:07:15] Stops matched: 1303
+[11:07:15] Connections inserted: 445
+[11:07:15] Duplicates skipped: 69
+[11:35:45] Tracker at http://localhost:7790
+[11:35:45] === OSM Nationwide Import Starting ===
+[11:35:45] Loading terminals from DB...
+[11:35:46] Loaded 5538 terminals
+[11:35:46] Loading existing connections...
+[11:35:46] Found 128 existing connections
+[11:35:46] 
+--- Fetching North Luzon ---
+[11:35:46]   Querying Overpass (attempt 1)...
+[11:36:09]   Got 94196 elements
+[11:36:09]   194 route relations found
+[11:36:09]   Inserting 42 connections for North Luzon...
+[11:36:09]   Inserted 42 connections for North Luzon
+[11:36:09]   North Luzon complete
+[11:36:09] 
+--- Fetching South Luzon + NCR ---
+[11:36:09]   Querying Overpass (attempt 1)...
+[11:37:27]   Error: Parse error: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" lan. Waiting 60s...
+[11:38:27]   Querying Overpass (attempt 2)...
+[11:43:28]   Error: Timeout. Waiting 60s...
+[11:44:28]   Querying Overpass (attempt 3)...
+[11:46:24]   Error: Parse error: <html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+<hr><center>nginx/1.18.0</center>
+</body>
+</html>
+. Waiting 60s...
+[11:46:24]   Giving up on South Luzon + NCR
+[11:46:24] 
+--- Fetching Visayas ---
+[11:46:24]   Querying Overpass (attempt 1)...
+[11:47:01]   Got 102460 elements
+[11:47:01]   243 route relations found
+[11:47:01]   Inserting 21 connections for Visayas...
+[11:47:01]   Inserted 21 connections for Visayas
+[11:47:01]   Visayas complete
+[11:47:01] 
+--- Fetching Mindanao ---
+[11:47:01]   Querying Overpass (attempt 1)...
+[11:48:54]   Error: Parse error: <html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+<hr><center>nginx/1.18.0</center>
+</body>
+</html>
+. Waiting 60s...
+[11:49:54]   Querying Overpass (attempt 2)...
+[11:50:09]   Got 89564 elements
+[11:50:09]   74 route relations found
+[11:50:09]   Inserting 9 connections for Mindanao...
+[11:50:10]   Inserted 9 connections for Mindanao
+[11:50:10]   Mindanao complete
+[11:50:10] 
+=== Import Complete ===
+[11:50:10] Routes processed: 511
+[11:50:10] Routes skipped (old): 198
+[11:50:10] Stops matched: 256
+[11:50:10] Connections inserted: 72
+[11:50:10] Duplicates skipped: 18
+[12:31:55] Tracker at http://localhost:7790
+[12:31:55] === OSM Nationwide Import Starting ===
+[12:31:55] Loading terminals from DB...
+[12:31:55] Loaded 5538 terminals
+[12:31:55] Loading existing connections...
+[12:31:56] Found 128 existing connections
+[12:31:56] 
+--- Fetching North Luzon ---
+[12:31:56]   Querying Overpass (attempt 1)...
+[12:33:01]   Got 94196 elements
+[12:33:01]   194 route relations found
+[12:33:01]   Inserting 42 connections for North Luzon (with OSRM geometry)...
+[12:33:12]   North Luzon: 10/42 inserted
+[12:33:23]   North Luzon: 20/42 inserted
+[12:33:33]   North Luzon: 30/42 inserted
+[12:33:45]   North Luzon: 40/42 inserted
+[12:33:48]   Inserted 42 connections for North Luzon
+[12:33:48]   North Luzon complete
+[12:33:48] 
+--- Fetching South Luzon + NCR ---
+[12:33:48]   Querying Overpass (attempt 1)...
+[12:35:19]   Got 269501 elements
+[12:35:19]   1024 route relations found
+[12:35:20]   Inserting 381 connections for South Luzon + NCR (with OSRM geometry)...
+[12:35:31]   South Luzon + NCR: 10/381 inserted
+[12:35:41]   South Luzon + NCR: 20/381 inserted
+[12:35:52]   South Luzon + NCR: 30/381 inserted
+[12:36:03]   South Luzon + NCR: 40/381 inserted
+[12:36:13]   South Luzon + NCR: 50/381 inserted
+[12:36:23]   South Luzon + NCR: 60/381 inserted
+[12:36:33]   South Luzon + NCR: 70/381 inserted
+[12:36:43]   South Luzon + NCR: 80/381 inserted
+[12:36:54]   South Luzon + NCR: 90/381 inserted
+[12:37:05]   South Luzon + NCR: 100/381 inserted
+[12:37:15]   South Luzon + NCR: 110/381 inserted
+[12:37:25]   South Luzon + NCR: 120/381 inserted
+[12:37:35]   South Luzon + NCR: 130/381 inserted
+[12:37:46]   South Luzon + NCR: 140/381 inserted
+[12:37:56]   South Luzon + NCR: 150/381 inserted
+[12:38:09]   South Luzon + NCR: 160/381 inserted
+[12:38:19]   South Luzon + NCR: 170/381 inserted
+[12:38:29]   South Luzon + NCR: 180/381 inserted
+[12:38:40]   South Luzon + NCR: 190/381 inserted
+[12:38:50]   South Luzon + NCR: 200/381 inserted
+[12:39:00]   South Luzon + NCR: 210/381 inserted
+[12:39:10]   South Luzon + NCR: 220/381 inserted
+[12:39:20]   South Luzon + NCR: 230/381 inserted
+[12:39:30]   South Luzon + NCR: 240/381 inserted
+[12:39:41]   South Luzon + NCR: 250/381 inserted
+[12:39:51]   South Luzon + NCR: 260/381 inserted
+[12:40:10]   South Luzon + NCR: 270/381 inserted
+[12:40:23]   South Luzon + NCR: 280/381 inserted
+[12:40:33]   South Luzon + NCR: 290/381 inserted
+[12:40:44]   South Luzon + NCR: 300/381 inserted
+[12:40:54]   South Luzon + NCR: 310/381 inserted
+[12:41:04]   South Luzon + NCR: 320/381 inserted
+[12:41:14]   South Luzon + NCR: 330/381 inserted
+[12:41:24]   South Luzon + NCR: 340/381 inserted
+[12:41:39]   South Luzon + NCR: 350/381 inserted
+[12:41:49]   South Luzon + NCR: 360/381 inserted
+[12:42:04]   South Luzon + NCR: 370/381 inserted
+[12:42:13]   South Luzon + NCR: 380/381 inserted
+[12:42:15]   Inserted 381 connections for South Luzon + NCR
+[12:42:15]   South Luzon + NCR complete
+[12:42:15] 
+--- Fetching Visayas ---
+[12:42:15]   Querying Overpass (attempt 1)...
+[12:43:59]   Got 102716 elements
+[12:43:59]   243 route relations found
+[12:43:59]   Inserting 16 connections for Visayas (with OSRM geometry)...
+[12:44:12]   Visayas: 10/16 inserted
+[12:44:19]   Inserted 16 connections for Visayas
+[12:44:19]   Visayas complete
+[12:44:19] 
+--- Fetching Mindanao ---
+[12:44:19]   Querying Overpass (attempt 1)...
+[12:44:55]   Error: Parse error: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" lan. Waiting 60s...
+[12:45:55]   Querying Overpass (attempt 2)...
+[12:47:15]   Got 89751 elements
+[12:47:15]   74 route relations found
+[12:47:15]   Inserting 9 connections for Mindanao (with OSRM geometry)...
+[12:47:41]   Insert error: Connection terminated unexpectedly
+[12:47:52]   Inserted 8 connections for Mindanao
+[12:47:52]   Mindanao complete
+[12:47:52] 
+=== Import Complete ===
+[12:47:52] Routes processed: 1535
+[12:47:52] Routes skipped (old): 359
+[12:47:52] Stops matched: 1290
+[12:47:52] Connections inserted: 447
+[12:47:52] Duplicates skipped: 71
+[14:57:29] Tracker at http://localhost:7790
+[14:57:29] === OSM Nationwide Import Starting ===
+[14:57:29] Loading terminals from DB...
+[14:57:30] Loaded 5538 terminals
+[14:57:30] Loading existing connections...
+[14:57:30] Found 129 existing connections
+[14:57:30] 
+--- Fetching North Luzon ---
+[14:57:30]   Querying Overpass (attempt 1)...
+[14:57:31]   Error: Parse error: Please include a meaningful User-Agent string with your requests to avoid rate-limiting.
+. Waiting 60s...
+[15:08:38] Tracker at http://localhost:7790
+[15:08:38] === OSM Nationwide Import Starting ===
+[15:08:38] Loading terminals from DB...
+[15:08:39] Loaded 5538 terminals
+[15:08:39] Loading existing connections...
+[15:08:39] Found 129 existing connections
+[15:08:39] 
+--- Fetching North Luzon ---
+[15:08:39]   Querying Overpass (attempt 1)...
+[15:08:55]   Got 95068 elements
+[15:08:55]   194 route relations found
+[15:08:55]   TEST MODE: picked longest route "Bus Route: NLET → Laoag" (380.6km)
+[15:08:55]   From: "North Luzon Express Terminal" → To: "Partas Bus Terminal Laoag City Ilocos Norte"
+[15:08:55]   Inserting 1 connections for North Luzon (with OSRM geometry)...
+[15:08:59]   Inserted 1 connections for North Luzon
+[15:08:59]   North Luzon complete
+[15:08:59]   TEST MODE: stopping after 1 route. Check your site to verify the connection.
+[15:08:59] 
+=== Import Complete ===
+[15:08:59] Routes processed: 194
+[15:08:59] Routes skipped (old): 15
+[15:08:59] Stops matched: 241
+[15:08:59] Connections inserted: 1
+[15:08:59] Duplicates skipped: 13
+[03:34:01] Tracker at http://localhost:7790
+[03:34:01] === OSM Nationwide Import Starting ===
+[03:34:01] Loading terminals from DB...
+[03:34:02] Loaded 5538 terminals
+[03:34:02] Loading existing connections...
+[03:34:02] Found 130 existing connections
+[03:34:02] 
+--- Fetching North Luzon ---
+[03:34:02]   Querying Overpass (attempt 1)...
+[03:34:07]   Error: Parse error: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" lan. Waiting 60s...
+[03:35:07]   Querying Overpass (attempt 2)...
+[03:35:08]   Error: Parse error: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" lan. Waiting 60s...
+[03:35:09] Tracker at http://localhost:7790
+[03:35:09] === OSM Nationwide Import Starting ===
+[03:35:09] Loading terminals from DB...
+[03:35:10] Loaded 5538 terminals
+[03:35:10] Loading existing connections...
+[03:35:10] Found 130 existing connections
+[03:35:10] 
+--- Fetching North Luzon ---
+[03:35:10]   Querying Overpass (attempt 1)...
+[03:35:11]   Error: Parse error: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" lan. Waiting 60s...
+[03:36:11]   Querying Overpass (attempt 2)...
+[03:36:12]   Error: Parse error: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" lan. Waiting 60s...
+[03:37:12]   Querying Overpass (attempt 3)...
+[03:37:13]   Error: Parse error: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" lan. Waiting 60s...
+[03:37:13]   Giving up on North Luzon
+[03:37:13] 
+--- Fetching South Luzon + NCR ---
+[03:37:13]   Querying Overpass (attempt 1)...
+[03:37:13]   Error: Parse error: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" lan. Waiting 60s...
+[03:38:13]   Querying Overpass (attempt 2)...
+[03:38:15]   Error: Parse error: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" lan. Waiting 60s...
+[03:39:15]   Querying Overpass (attempt 3)...
+[03:39:16]   Error: Parse error: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" lan. Waiting 60s...
+[03:39:16]   Giving up on South Luzon + NCR
+[03:39:16] 
+--- Fetching Visayas ---
+[03:39:16]   Querying Overpass (attempt 1)...
+[03:39:16]   Error: Parse error: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" lan. Waiting 60s...
+[03:39:21] Tracker at http://localhost:7790
+[03:39:21] === OSM Nationwide Import Starting ===
+[03:39:21] Loading terminals from DB...
+[03:39:22] Loaded 5538 terminals
+[03:39:22] Loading existing connections...
+[03:39:22] Found 130 existing connections
+[03:39:22] 
+--- Fetching North Luzon ---
+[03:39:22]   Querying Overpass (attempt 1)...
+[03:39:28]   Error: Parse error: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" lan. Waiting 60s...
+[03:40:28]   Querying Overpass (attempt 2)...
+[03:40:41]   Got 95068 elements
+[03:40:41]   194 route relations found
+[03:40:41]   TEST MODE: picked route with most stops "Jeepney: Agoo → Baguio" (59 stops, 25.9km)
+[03:40:41]   From: "Baguio PUJ Terminal" → To: "Taloy PUJ Terminal"
+[03:40:41]   Inserting 1 connections for North Luzon (with OSRM geometry)...
+[03:40:43]   Inserted 1 connections for North Luzon
+[03:40:43]   North Luzon complete
+[03:40:43]   TEST MODE: stopping after 1 route. Check your site to verify the connection.
+[03:40:43] 
+=== Import Complete ===
+[03:40:43] Routes processed: 194
+[03:40:43] Routes skipped (old): 15
+[03:40:43] Stops matched: 241
+[03:40:43] Connections inserted: 1
+[03:40:43] Duplicates skipped: 14
+[03:40:52] Tracker at http://localhost:7790
+[03:40:52] === OSM Nationwide Import Starting ===
+[03:40:52] Loading terminals from DB...
+[03:40:53] Loaded 5538 terminals
+[03:40:53] Loading existing connections...
+[03:40:53] Found 131 existing connections
+[03:40:53] Skipping North Luzon (already done)
+[03:40:53] 
+--- Fetching South Luzon + NCR ---
+[03:40:53]   Querying Overpass (attempt 1)...
+[03:41:05]   Got 1024 relations
+[03:41:05]   1024 route relations found
+[03:41:13]   Warning: node fetch batch failed: Parse error: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3
+[03:41:13]   Fetched coords for 0/740 stop nodes
+[03:41:13]   Inserting 0 connections for South Luzon + NCR (with OSRM geometry)...
+[03:41:13]   Inserted 0 connections for South Luzon + NCR
+[03:41:13]   South Luzon + NCR complete
+[03:41:13]   TEST MODE: stopping after 1 route. Check your site to verify the connection.
+[03:41:13] 
+=== Import Complete ===
+[03:41:13] Routes processed: 1024
+[03:41:13] Routes skipped (old): 164
+[03:41:13] Stops matched: 0
+[03:41:13] Connections inserted: 0
+[03:41:13] Duplicates skipped: 0
+[03:42:33] Tracker at http://localhost:7790
+[03:42:33] === OSM Nationwide Import Starting ===
+[03:42:33] Loading terminals from DB...
+[03:42:34] Loaded 5538 terminals
+[03:42:34] Loading existing connections...
+[03:42:34] Found 131 existing connections
+[03:42:34] 
+--- Fetching North Luzon ---
+[03:42:34]   Querying Overpass (attempt 1)...
+[03:42:45]   Got 194 relations
+[03:42:45]   194 route relations found
+[03:43:00]   Fetched coords for 220/220 stop nodes
+[03:43:00]   TEST MODE: picked route with most stops "Jeepney: Baguio → Agoo" (58 stops, 25.9km)
+[03:43:00]   From: "Taloy PUJ Terminal" → To: "Baguio PUJ Terminal"
+[03:43:00]   Inserting 1 connections for North Luzon (with OSRM geometry)...
+[03:43:02]   Inserted 1 connections for North Luzon
+[03:43:02]   North Luzon complete
+[03:43:02]   TEST MODE: stopping after 1 route. Check your site to verify the connection.
+[03:43:02] 
+=== Import Complete ===
+[03:43:02] Routes processed: 194
+[03:43:02] Routes skipped (old): 15
+[03:43:02] Stops matched: 241
+[03:43:02] Connections inserted: 1
+[03:43:02] Duplicates skipped: 15
+[04:38:46] Tracker at http://localhost:7790
+[04:38:46] === OSM Nationwide Import Starting ===
+[04:38:46] Loading terminals from DB...
+[04:38:47] Loaded 5538 terminals
+[04:38:47] Loading existing connections...
+[04:38:47] Found 131 existing connections
+[04:38:47] 
+--- Fetching North Luzon ---
+[04:38:47]   Querying Overpass (attempt 1)...
+[04:39:57]   Got 194 relations
+[04:39:57]   194 route relations found
+[04:40:28]   Fetched coords for 220/220 stop nodes
+[04:40:28]   TEST MODE: picked route with most stops "Jeepney: Baguio → Trancoville" (36 stops, 0.1km)
+[04:40:28]   From: "Aurora Hill PUJ Terminal" → To: "Lucnab Terminal"
+[04:40:28]   Inserting 1 connections for North Luzon (with OSRM geometry)...
+[04:40:30]   Inserted 1 connections for North Luzon
+[04:40:30]   North Luzon complete
+[04:40:30]   TEST MODE: stopping after 1 route. Check your site to verify the connection.
+[04:40:30] 
+=== Import Complete ===
+[04:40:30] Routes processed: 194
+[04:40:30] Routes skipped (old): 15
+[04:40:30] Stops matched: 241
+[04:40:30] Connections inserted: 1
+[04:40:30] Duplicates skipped: 39
+[04:47:12] Tracker at http://localhost:7790
+[04:47:12] === OSM Nationwide Import Starting ===
+[04:47:12] Loading terminals from DB...
+[04:47:13] Loaded 5538 terminals
+[04:47:13] Loading existing connections...
+[04:47:13] Found 131 existing connections
+[04:47:13] 
+--- Fetching North Luzon ---
+[04:47:13]   Querying Overpass (attempt 1)...
+[04:47:24]   Got 194 relations
+[04:47:24]   194 route relations found
+[04:47:52]   Fetched coords for 220/220 stop nodes
+[04:47:53]   TEST MODE: picked route with most stops "Jeepney: Baguio → PMA Kias" (23 stops, 6.4km)
+[04:47:53]   From: "PMA Kias PUJ Terminal" → To: "Kias Station"
+[04:47:53]   Inserting 1 connections for North Luzon (with OSRM geometry)...
+[04:47:54]   Inserted 1 connections for North Luzon
+[04:47:54]   North Luzon complete
+[04:47:54]   TEST MODE: stopping after 1 route. Check your site to verify the connection.
+[04:47:54] 
+=== Import Complete ===
+[04:47:54] Routes processed: 194
+[04:47:54] Routes skipped (old): 16
+[04:47:54] Stops matched: 241
+[04:47:54] Connections inserted: 1
+[04:47:54] Duplicates skipped: 39

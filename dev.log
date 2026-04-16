@@ -395,3 +395,1517 @@ Error [NeonDbError]: new row for relation "comments" violates check constraint "
  ✓ Compiled in 91ms (114 modules)
  ✓ Compiled in 78ms (114 modules)
 [?25h
+
+> sakayan@1.0.0 dev
+> next dev
+
+   ▲ Next.js 15.5.12
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.254.110:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 11.2s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 1323ms (114 modules)
+ ○ Compiling /status ...
+ ✓ Compiled /status in 7s (584 modules)
+ GET /status 200 in 8500ms
+ ✓ Compiled in 411ms (236 modules)
+ ✓ Compiled in 191ms (236 modules)
+ ○ Compiling /api/status ...
+ ✓ Compiled /api/status in 2.8s (810 modules)
+ ○ Compiling /api/health ...
+ ✓ Compiled /api/health in 518ms (812 modules)
+ GET /api/health 200 in 725ms
+ GET /api/status 200 in 5393ms
+ ✓ Compiled in 259ms (236 modules)
+ GET /status 200 in 138ms
+ ✓ Compiled in 203ms (236 modules)
+ GET /status 200 in 45ms
+ ✓ Compiled in 195ms (236 modules)
+ GET /status 200 in 78ms
+ ✓ Compiled in 188ms (236 modules)
+ ✓ Compiled in 302ms (236 modules)
+ GET /status 200 in 319ms
+ GET /status 200 in 52ms
+ ✓ Compiled in 150ms (236 modules)
+ ✓ Compiled in 161ms (236 modules)
+ GET /status 200 in 168ms
+ GET /status 200 in 43ms
+^C^C
+> sakayan@1.0.0 dev
+> next dev
+
+   ▲ Next.js 15.5.12
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.254.110:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 3s
+^C^C
+> sakayan@1.0.0 dev
+> next dev
+
+   ▲ Next.js 15.5.12
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.254.110:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 4.2s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 988ms (114 modules)
+ ○ Compiling /grabmaps ...
+ ✓ Compiled /grabmaps in 4.7s (549 modules)
+ GET /grabmaps 200 in 6523ms
+ ○ Compiling /api/grabmaps-checklist ...
+ ✓ Compiled /api/grabmaps-checklist in 1270ms (573 modules)
+ GET /grabmaps 200 in 178ms
+ GET /api/grabmaps-checklist 200 in 5499ms
+ GET /grabmaps 200 in 304ms
+ GET /api/grabmaps-checklist 200 in 2044ms
+ ✓ Compiled in 227ms (236 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /grabmaps 200 in 283ms
+ GET /api/grabmaps-checklist 200 in 1242ms
+ ✓ Compiled in 1408ms (573 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 319ms (236 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /grabmaps 200 in 577ms
+ GET /api/grabmaps-checklist 200 in 1260ms
+ ✓ Compiled in 182ms (236 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /grabmaps 200 in 78ms
+ GET /api/grabmaps-checklist 200 in 739ms
+ ✓ Compiled in 291ms (236 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /grabmaps 200 in 119ms
+ GET /api/grabmaps-checklist 200 in 2144ms
+ GET /grabmaps 200 in 80ms
+ GET /api/grabmaps-checklist 200 in 2229ms
+ GET /grabmaps 200 in 161ms
+ GET /api/grabmaps-checklist 200 in 776ms
+ GET /grabmaps 200 in 105ms
+ GET /api/grabmaps-checklist 200 in 1725ms
+ GET /grabmaps 200 in 135ms
+ GET /api/grabmaps-checklist 200 in 1228ms
+ GET /grabmaps 200 in 86ms
+ GET /grabmaps 200 in 93ms
+ GET /grabmaps 200 in 88ms
+ GET /grabmaps 200 in 119ms
+ GET /grabmaps 200 in 88ms
+ GET /grabmaps 200 in 96ms
+ GET /grabmaps 200 in 105ms
+ GET /grabmaps 200 in 92ms
+ GET /api/grabmaps-checklist 200 in 856ms
+ ✓ Compiled in 608ms (236 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /grabmaps 200 in 90ms
+ ✓ Compiled in 251ms (236 modules)
+ GET /grabmaps 200 in 59ms
+ GET /api/grabmaps-checklist 200 in 977ms
+ ✓ Compiled in 264ms (236 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /grabmaps 200 in 143ms
+ GET /api/grabmaps-checklist 200 in 974ms
+ ✓ Compiled in 155ms (236 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /grabmaps 200 in 87ms
+ GET /api/grabmaps-checklist 200 in 666ms
+ ✓ Compiled in 178ms (236 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /grabmaps 200 in 92ms
+ GET /api/grabmaps-checklist 200 in 819ms
+ ✓ Compiled in 229ms (236 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /grabmaps 200 in 78ms
+ GET /api/grabmaps-checklist 200 in 652ms
+ ✓ Compiled in 167ms (236 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /grabmaps 200 in 79ms
+ GET /api/grabmaps-checklist 200 in 711ms
+ ✓ Compiled in 197ms (236 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /grabmaps 200 in 69ms
+ GET /api/grabmaps-checklist 200 in 681ms
+ ✓ Compiled in 210ms (236 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /grabmaps 200 in 80ms
+ GET /api/grabmaps-checklist 200 in 886ms
+ ✓ Compiled in 330ms (236 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /grabmaps 200 in 109ms
+ GET /api/grabmaps-checklist 200 in 994ms
+ GET /api/grabmaps-checklist 200 in 755ms
+ GET /api/grabmaps-checklist 200 in 902ms
+ GET /api/grabmaps-checklist 200 in 353ms
+ ✓ Compiled in 205ms (236 modules)
+ ✓ Compiled in 158ms (236 modules)
+ ✓ Compiled in 406ms (550 modules)
+ ✓ Compiled in 175ms (236 modules)
+ ✓ Compiled in 164ms (236 modules)
+ ✓ Compiled in 179ms (236 modules)
+ ✓ Compiled /api/grabmaps-checklist in 221ms (337 modules)
+ GET /api/grabmaps-checklist 200 in 1241ms
+ ✓ Compiled in 256ms (236 modules)
+ ✓ Compiled in 184ms (236 modules)
+ ✓ Compiled in 343ms (236 modules)
+ GET /api/grabmaps-checklist 200 in 1163ms
+ ✓ Compiled in 208ms (236 modules)
+ ✓ Compiled in 167ms (236 modules)
+ ✓ Compiled in 146ms (236 modules)
+ ✓ Compiled in 210ms (236 modules)
+ ✓ Compiled in 248ms (236 modules)
+ ✓ Compiled in 327ms (236 modules)
+ ✓ Compiled in 349ms (236 modules)
+ ✓ Compiled in 207ms (236 modules)
+ ✓ Compiled in 190ms (236 modules)
+ ✓ Compiled in 205ms (236 modules)
+ ✓ Compiled in 163ms (236 modules)
+ ✓ Compiled in 202ms (236 modules)
+ ✓ Compiled in 217ms (236 modules)
+ ✓ Compiled in 195ms (236 modules)
+ ✓ Compiled in 346ms (236 modules)
+ ✓ Compiled in 450ms (236 modules)
+ ✓ Compiled in 188ms (236 modules)
+ ✓ Compiled in 189ms (236 modules)
+ ✓ Compiled in 422ms (236 modules)
+ ✓ Compiled in 167ms (236 modules)
+ ✓ Compiled in 217ms (236 modules)
+ ✓ Compiled in 200ms (236 modules)
+ ✓ Compiled in 185ms (236 modules)
+ ✓ Compiled in 148ms (236 modules)
+ ✓ Compiled in 244ms (236 modules)
+ ✓ Compiled in 195ms (236 modules)
+ ✓ Compiled in 148ms (236 modules)
+ ✓ Compiled in 202ms (236 modules)
+ ✓ Compiled in 145ms (236 modules)
+ ✓ Compiled in 137ms (236 modules)
+ ✓ Compiled in 225ms (236 modules)
+ ✓ Compiled in 168ms (236 modules)
+ ✓ Compiled in 143ms (236 modules)
+ ✓ Compiled in 204ms (236 modules)
+ ✓ Compiled in 284ms (236 modules)
+ ✓ Compiled in 157ms (236 modules)
+ ✓ Compiled in 253ms (236 modules)
+ ✓ Compiled in 172ms (236 modules)
+ ✓ Compiled in 181ms (236 modules)
+ ✓ Compiled in 240ms (236 modules)
+ ✓ Compiled in 188ms (236 modules)
+ ✓ Compiled in 228ms (236 modules)
+ ✓ Compiled in 193ms (236 modules)
+ ✓ Compiled in 217ms (236 modules)
+ ✓ Compiled in 323ms (236 modules)
+ ✓ Compiled in 201ms (236 modules)
+ ✓ Compiled in 183ms (236 modules)
+ ✓ Compiled in 280ms (236 modules)
+ ✓ Compiled in 180ms (236 modules)
+ ✓ Compiled in 195ms (236 modules)
+ ✓ Compiled in 195ms (236 modules)
+ ✓ Compiled in 290ms (236 modules)
+ ✓ Compiled in 147ms (236 modules)
+ ✓ Compiled in 141ms (236 modules)
+ ✓ Compiled in 174ms (236 modules)
+ ✓ Compiled in 152ms (236 modules)
+ ✓ Compiled in 300ms (236 modules)
+ ✓ Compiled in 148ms (236 modules)
+ ✓ Compiled in 192ms (236 modules)
+ ✓ Compiled in 172ms (236 modules)
+ ✓ Compiled in 143ms (236 modules)
+ ✓ Compiled in 198ms (236 modules)
+ ✓ Compiled in 208ms (236 modules)
+ ✓ Compiled in 314ms (236 modules)
+ ✓ Compiled in 146ms (236 modules)
+ ✓ Compiled in 218ms (236 modules)
+ ✓ Compiled in 160ms (236 modules)
+ ✓ Compiled in 194ms (236 modules)
+ ✓ Compiled in 166ms (236 modules)
+ ✓ Compiled in 134ms (236 modules)
+ ✓ Compiled in 149ms (236 modules)
+ ✓ Compiled in 217ms (236 modules)
+ ✓ Compiled in 161ms (236 modules)
+ ✓ Compiled in 133ms (236 modules)
+ ✓ Compiled in 200ms (236 modules)
+ ✓ Compiled in 254ms (236 modules)
+ ✓ Compiled in 185ms (236 modules)
+ ✓ Compiled in 153ms (236 modules)
+ ✓ Compiled in 273ms (236 modules)
+ ✓ Compiled in 199ms (236 modules)
+ ✓ Compiled in 182ms (236 modules)
+ ✓ Compiled in 196ms (236 modules)
+ ✓ Compiled in 207ms (236 modules)
+ ✓ Compiled in 158ms (236 modules)
+ ✓ Compiled in 149ms (236 modules)
+ ✓ Compiled in 172ms (236 modules)
+ ✓ Compiled in 152ms (236 modules)
+ ✓ Compiled in 208ms (236 modules)
+ ✓ Compiled in 147ms (236 modules)
+ ✓ Compiled in 215ms (236 modules)
+ ✓ Compiled in 189ms (236 modules)
+ ✓ Compiled in 166ms (236 modules)
+ ✓ Compiled in 368ms (236 modules)
+ ✓ Compiled in 310ms (236 modules)
+ ✓ Compiled in 195ms (236 modules)
+ ✓ Compiled in 202ms (236 modules)
+ ✓ Compiled in 182ms (236 modules)
+ ✓ Compiled in 199ms (236 modules)
+ ✓ Compiled in 184ms (236 modules)
+ ✓ Compiled in 195ms (236 modules)
+ ✓ Compiled in 314ms (236 modules)
+ ✓ Compiled in 196ms (236 modules)
+ ✓ Compiled in 182ms (236 modules)
+ ✓ Compiled in 180ms (236 modules)
+ ✓ Compiled in 199ms (236 modules)
+ ✓ Compiled in 174ms (236 modules)
+ ✓ Compiled in 180ms (236 modules)
+ ✓ Compiled in 201ms (236 modules)
+ ✓ Compiled in 186ms (236 modules)
+ ✓ Compiled in 249ms (236 modules)
+ ✓ Compiled in 198ms (236 modules)
+ ✓ Compiled in 185ms (236 modules)
+ ✓ Compiled in 181ms (236 modules)
+ ✓ Compiled in 235ms (236 modules)
+ ✓ Compiled in 233ms (236 modules)
+ ✓ Compiled in 307ms (236 modules)
+ ✓ Compiled in 197ms (236 modules)
+ ✓ Compiled in 204ms (236 modules)
+ ✓ Compiled in 176ms (236 modules)
+ ✓ Compiled in 180ms (236 modules)
+ ✓ Compiled in 270ms (236 modules)
+ ✓ Compiled in 204ms (236 modules)
+ ✓ Compiled in 212ms (236 modules)
+ ✓ Compiled in 251ms (236 modules)
+ ✓ Compiled in 197ms (236 modules)
+ ✓ Compiled in 204ms (236 modules)
+ ✓ Compiled in 179ms (236 modules)
+ ✓ Compiled in 280ms (236 modules)
+ ✓ Compiled in 169ms (236 modules)
+ ✓ Compiled in 310ms (236 modules)
+ ✓ Compiled in 208ms (236 modules)
+
+> sakayan@1.0.0 dev
+> next dev
+
+   ▲ Next.js 15.5.12
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.254.112:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 16.1s
+ ✓ Compiled /middleware in 285ms (114 modules)
+ ○ Compiling /status ...
+ ✓ Compiled /status in 2.5s (554 modules)
+ GET /status 200 in 3361ms
+ ○ Compiling /api/status ...
+ ✓ Compiled /api/status in 1036ms (824 modules)
+ ✓ Compiled /api/health in 452ms (812 modules)
+ GET /api/health 200 in 716ms
+ GET /status 200 in 732ms
+ GET /api/status 200 in 3175ms
+ ✓ Compiled in 301ms (236 modules)
+ GET /status 200 in 56ms
+ ✓ Compiled in 253ms (236 modules)
+ GET /status 200 in 53ms
+ ✓ Compiled in 322ms (236 modules)
+ ✓ Compiled in 233ms (236 modules)
+ GET /status 200 in 127ms
+ GET /status 200 in 58ms
+ ✓ Compiled in 275ms (236 modules)
+ GET /status 200 in 59ms
+ ✓ Compiled in 213ms (236 modules)
+ GET /status 200 in 53ms
+ ✓ Compiled in 172ms (236 modules)
+ GET /status 200 in 46ms
+ ✓ Compiled in 157ms (236 modules)
+ GET /status 200 in 46ms
+ ✓ Compiled in 202ms (236 modules)
+ GET /status 200 in 48ms
+ ✓ Compiled in 243ms (236 modules)
+ GET /status 200 in 44ms
+ ✓ Compiled in 230ms (236 modules)
+ GET /status 200 in 46ms
+ ✓ Compiled in 204ms (236 modules)
+ GET /status 200 in 63ms
+ ✓ Compiled in 160ms (236 modules)
+ GET /status 200 in 44ms
+ ✓ Compiled in 188ms (236 modules)
+ GET /status 200 in 50ms
+ ✓ Compiled in 182ms (236 modules)
+ GET /status 200 in 45ms
+ ✓ Compiled in 192ms (236 modules)
+ GET /status 200 in 48ms
+ ✓ Compiled in 175ms (236 modules)
+ GET /status 200 in 45ms
+ ✓ Compiled in 157ms (236 modules)
+ GET /status 200 in 44ms
+ ✓ Compiled in 171ms (236 modules)
+ GET /status 200 in 44ms
+ ✓ Compiled in 184ms (236 modules)
+ GET /status 200 in 46ms
+ ✓ Compiled in 188ms (236 modules)
+ GET /status 200 in 46ms
+ ✓ Compiled in 207ms (236 modules)
+ GET /status 200 in 51ms
+ ✓ Compiled in 177ms (236 modules)
+ GET /status 200 in 45ms
+ ✓ Compiled in 188ms (236 modules)
+ GET /status 200 in 47ms
+ ✓ Compiled in 219ms (236 modules)
+ GET /status 200 in 48ms
+ ✓ Compiled in 192ms (236 modules)
+ GET /status 200 in 48ms
+ ✓ Compiled in 216ms (236 modules)
+ GET /status 200 in 56ms
+ ✓ Compiled in 317ms (236 modules)
+ GET /status 200 in 55ms
+ ✓ Compiled in 462ms (236 modules)
+ GET /status 200 in 70ms
+ ✓ Compiled in 196ms (236 modules)
+ GET /status 200 in 49ms
+
+> sakayan@1.0.0 dev
+> next dev
+
+   ▲ Next.js 15.5.12
+   - Local:        http://localhost:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 4.3s
+
+> sakayan@1.0.0 dev
+> next dev
+
+   ▲ Next.js 15.5.12
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.254.112:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 10.2s
+ ✓ Compiled /middleware in 305ms (114 modules)
+ ○ Compiling /status ...
+ ✓ Compiled /status in 2.9s (554 modules)
+ GET /status 200 in 3780ms
+ ○ Compiling /api/status ...
+ ✓ Compiled /api/status in 1269ms (824 modules)
+ ✓ Compiled /api/health in 464ms (812 modules)
+ GET /api/health 200 in 702ms
+ GET /status 200 in 723ms
+ GET /api/status 200 in 3511ms
+ ✓ Compiled in 248ms (236 modules)
+
+> sakayan@1.0.0 dev
+> next dev
+
+   ▲ Next.js 15.5.12
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.254.112:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 5.6s
+
+> sakayan@1.0.0 dev
+> next dev
+
+   ▲ Next.js 15.5.12
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.254.110:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 4.9s
+
+> sakayan@1.0.0 dev
+> next dev
+
+   ▲ Next.js 15.5.12
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.254.105:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 15.5s
+ ✓ Compiled /middleware in 326ms (114 modules)
+ ○ Compiling /status ...
+ ✓ Compiled /status in 3.2s (554 modules)
+ GET /status 200 in 4228ms
+ GET /status 200 in 306ms
+ ○ Compiling /api/status ...
+ ✓ Compiled /api/status in 1173ms (824 modules)
+ ✓ Compiled /api/health in 449ms (812 modules)
+ GET /api/health 200 in 687ms
+ GET /status 200 in 707ms
+ GET /api/status 200 in 3513ms
+   Reload env: .env.local
+ ✓ Compiled in 301ms (926 modules)
+ GET /status 200 in 225ms
+ ✓ Compiled in 248ms (236 modules)
+ GET /status 200 in 56ms
+ ✓ Compiled in 225ms (236 modules)
+ GET /status 200 in 80ms
+ ✓ Compiled in 259ms (236 modules)
+ GET /status 200 in 54ms
+ ✓ Compiled in 276ms (236 modules)
+ GET /status 200 in 53ms
+ ✓ Compiled in 190ms (236 modules)
+ GET /status 200 in 48ms
+ ✓ Compiled in 181ms (236 modules)
+ GET /status 200 in 49ms
+ ✓ Compiled in 180ms (236 modules)
+ GET /status 200 in 57ms
+ ✓ Compiled in 199ms (236 modules)
+ GET /status 200 in 62ms
+ ✓ Compiled in 147ms (236 modules)
+ GET /status 200 in 44ms
+ ✓ Compiled in 175ms (236 modules)
+ GET /status 200 in 53ms
+ ✓ Compiled in 193ms (236 modules)
+ GET /status 200 in 46ms
+ ✓ Compiled in 182ms (236 modules)
+ GET /status 200 in 48ms
+ GET /status 200 in 401ms
+ ✓ Compiled in 239ms (236 modules)
+ GET /status 200 in 91ms
+ GET /api/health 200 in 29ms
+ GET /api/status 200 in 1603ms
+ ✓ Compiled in 184ms (236 modules)
+ GET /status 200 in 91ms
+ GET /status 200 in 74ms
+ ✓ Compiled in 165ms (236 modules)
+ GET /status 200 in 83ms
+ GET /status 200 in 82ms
+ ✓ Compiled in 205ms (236 modules)
+ GET /status 200 in 86ms
+ GET /status 200 in 90ms
+ ✓ Compiled in 175ms (236 modules)
+ GET /status 200 in 100ms
+ GET /status 200 in 103ms
+ ✓ Compiled in 168ms (236 modules)
+ GET /status 200 in 79ms
+ GET /status 200 in 79ms
+ ✓ Compiled in 179ms (236 modules)
+ GET /status 200 in 75ms
+ GET /status 200 in 75ms
+ ✓ Compiled in 159ms (236 modules)
+ GET /status 200 in 75ms
+ GET /status 200 in 75ms
+ ✓ Compiled in 157ms (236 modules)
+ GET /status 200 in 82ms
+ GET /status 200 in 81ms
+ ✓ Compiled in 147ms (236 modules)
+ GET /status 200 in 89ms
+ GET /status 200 in 92ms
+ ✓ Compiled in 199ms (236 modules)
+ GET /status 200 in 78ms
+ GET /status 200 in 78ms
+ ✓ Compiled in 168ms (236 modules)
+ GET /status 200 in 80ms
+ GET /status 200 in 81ms
+ ✓ Compiled in 160ms (236 modules)
+ GET /status 200 in 82ms
+ GET /status 200 in 81ms
+ ✓ Compiled in 177ms (236 modules)
+ GET /status 200 in 79ms
+ GET /status 200 in 80ms
+ ✓ Compiled in 156ms (236 modules)
+ GET /status 200 in 93ms
+ GET /status 200 in 93ms
+ ✓ Compiled in 181ms (236 modules)
+ GET /status 200 in 93ms
+ GET /status 200 in 97ms
+ ✓ Compiled in 403ms (554 modules)
+ GET /status 200 in 277ms
+ GET /status 200 in 277ms
+ ✓ Compiled in 174ms (236 modules)
+ GET /status 200 in 121ms
+ GET /status 200 in 121ms
+ ✓ Compiled in 192ms (236 modules)
+ GET /status 200 in 78ms
+ GET /status 200 in 79ms
+ ✓ Compiled in 205ms (236 modules)
+ GET /status 200 in 84ms
+ GET /status 200 in 84ms
+ ✓ Compiled in 232ms (236 modules)
+ GET /status 200 in 81ms
+ GET /status 200 in 80ms
+ ✓ Compiled in 927ms (554 modules)
+ GET /status 200 in 272ms
+ GET /status 200 in 272ms
+ ✓ Compiled /api/status in 263ms (588 modules)
+ ✓ Compiled /api/health in 211ms (590 modules)
+ GET /api/health 200 in 545ms
+ GET /api/health 200 in 655ms
+ GET /status 200 in 685ms
+ GET /status 200 in 684ms
+ GET /api/status 200 in 1967ms
+ GET /api/status 200 in 2704ms
+ ✓ Compiled in 396ms (826 modules)
+ GET /status 200 in 241ms
+ GET /status 200 in 243ms
+ GET /api/health 200 in 40ms
+ GET /api/health 200 in 46ms
+ GET /api/status 200 in 1290ms
+ GET /api/status 200 in 1402ms
+ ✓ Compiled in 157ms (236 modules)
+ GET /status 200 in 81ms
+ GET /status 200 in 82ms
+ ✓ Compiled in 257ms (236 modules)
+ GET /status 200 in 95ms
+ GET /status 200 in 96ms
+ ✓ Compiled in 447ms (826 modules)
+ GET /status 200 in 205ms
+ GET /status 200 in 205ms
+ GET /api/health 200 in 43ms
+ GET /api/health 200 in 51ms
+ ✓ Compiled in 195ms (236 modules)
+ GET /status 200 in 85ms
+ GET /status 200 in 85ms
+ GET /api/status 200 in 2073ms
+ GET /api/status 200 in 2273ms
+ ✓ Compiled in 409ms (826 modules)
+ GET /status 200 in 232ms
+ GET /status 200 in 237ms
+ GET /api/health 200 in 34ms
+ GET /api/health 200 in 40ms
+ GET /api/status 200 in 1243ms
+ GET /api/status 200 in 1349ms
+ ✓ Compiled in 523ms (826 modules)
+ GET /status 200 in 218ms
+ GET /status 200 in 220ms
+ GET /api/health 200 in 41ms
+ GET /api/health 200 in 57ms
+ ✓ Compiled in 181ms (236 modules)
+ GET /status 200 in 91ms
+ GET /status 200 in 91ms
+ GET /api/status 200 in 1508ms
+ GET /api/status 200 in 2046ms
+ GET /api/health 200 in 24ms
+ GET /api/status 200 in 2918ms
+ ✓ Compiled in 192ms (236 modules)
+ GET /status 200 in 84ms
+ GET /status 200 in 85ms
+ ✓ Compiled in 223ms (236 modules)
+ GET /status 200 in 87ms
+ GET /status 200 in 89ms
+ ✓ Compiled in 168ms (236 modules)
+ GET /status 200 in 88ms
+ GET /status 200 in 87ms
+ ✓ Compiled in 383ms (826 modules)
+ GET /status 200 in 155ms
+ GET /status 200 in 155ms
+ ✓ Compiled in 158ms (236 modules)
+ GET /status 200 in 79ms
+ GET /status 200 in 79ms
+ ✓ Compiled in 436ms (826 modules)
+ GET /status 200 in 270ms
+ GET /status 200 in 270ms
+ ✓ Compiled in 389ms (236 modules)
+ GET /api/health 200 in 64ms
+ GET /api/health 200 in 67ms
+ GET /status 200 in 147ms
+ GET /status 200 in 148ms
+ GET /api/status 200 in 1789ms
+ GET /api/status 200 in 2149ms
+ GET /api/health 200 in 24ms
+ GET /api/status 200 in 1213ms
+ GET /api/health 200 in 20ms
+ GET /api/status 200 in 1167ms
+ ✓ Compiled in 233ms (236 modules)
+ GET /status 200 in 93ms
+ GET /status 200 in 95ms
+ ✓ Compiled in 169ms (236 modules)
+ GET /status 200 in 84ms
+ GET /status 200 in 84ms
+ GET /status 200 in 411ms
+ GET /api/health 200 in 24ms
+ GET /api/status 200 in 1429ms
+ ✓ Compiled in 169ms (236 modules)
+ GET /status 200 in 76ms
+ GET /status 200 in 76ms
+ ✓ Compiled in 158ms (236 modules)
+ GET /status 200 in 77ms
+ GET /status 200 in 76ms
+ ✓ Compiled in 193ms (236 modules)
+ GET /status 200 in 129ms
+ GET /status 200 in 128ms
+ ✓ Compiled in 168ms (236 modules)
+ GET /status 200 in 77ms
+ GET /status 200 in 77ms
+ GET /status 200 in 242ms
+ GET /api/health 200 in 21ms
+ GET /api/status 200 in 1192ms
+ ✓ Compiled in 243ms (236 modules)
+ GET /status 200 in 82ms
+ GET /status 200 in 82ms
+ ✓ Compiled in 171ms (236 modules)
+ GET /status 200 in 82ms
+ GET /status 200 in 82ms
+ ✓ Compiled in 170ms (236 modules)
+ GET /status 200 in 86ms
+ GET /status 200 in 86ms
+ ✓ Compiled in 154ms (236 modules)
+ GET /status 200 in 92ms
+ GET /status 200 in 94ms
+ ✓ Compiled in 154ms (236 modules)
+ GET /status 200 in 77ms
+ GET /status 200 in 79ms
+ ✓ Compiled in 161ms (236 modules)
+ GET /status 200 in 84ms
+ GET /status 200 in 87ms
+ ✓ Compiled in 161ms (236 modules)
+ GET /status 200 in 140ms
+ GET /status 200 in 142ms
+ ✓ Compiled in 159ms (236 modules)
+ GET /status 200 in 80ms
+ GET /status 200 in 80ms
+ ✓ Compiled in 166ms (236 modules)
+ GET /status 200 in 74ms
+ GET /status 200 in 78ms
+ ✓ Compiled in 164ms (236 modules)
+ GET /status 200 in 80ms
+ GET /status 200 in 79ms
+ ✓ Compiled in 137ms (236 modules)
+ GET /status 200 in 90ms
+ GET /status 200 in 93ms
+ ✓ Compiled in 138ms (236 modules)
+ GET /status 200 in 168ms
+ GET /status 200 in 168ms
+ ✓ Compiled in 182ms (236 modules)
+ GET /status 200 in 83ms
+ GET /status 200 in 83ms
+ ✓ Compiled in 158ms (236 modules)
+ GET /status 200 in 79ms
+ GET /status 200 in 81ms
+ ✓ Compiled in 205ms (236 modules)
+ GET /status 200 in 126ms
+ GET /status 200 in 125ms
+ ✓ Compiled in 202ms (236 modules)
+ GET /status 200 in 127ms
+ GET /status 200 in 126ms
+ ✓ Compiled in 165ms (236 modules)
+ GET /status 200 in 80ms
+ GET /status 200 in 79ms
+ ✓ Compiled in 184ms (236 modules)
+ GET /status 200 in 131ms
+ GET /status 200 in 133ms
+ ✓ Compiled in 147ms (236 modules)
+ GET /status 200 in 83ms
+ GET /status 200 in 85ms
+ ✓ Compiled in 163ms (236 modules)
+ GET /status 200 in 74ms
+ GET /status 200 in 75ms
+ ✓ Compiled in 151ms (236 modules)
+ GET /status 200 in 69ms
+ GET /status 200 in 72ms
+ ✓ Compiled in 152ms (236 modules)
+ GET /status 200 in 78ms
+ GET /status 200 in 78ms
+ ✓ Compiled in 245ms (236 modules)
+ GET /status 200 in 76ms
+ GET /status 200 in 77ms
+ ✓ Compiled in 200ms (236 modules)
+ GET /status 200 in 81ms
+ GET /status 200 in 80ms
+ ✓ Compiled in 155ms (236 modules)
+ GET /status 200 in 81ms
+ GET /status 200 in 81ms
+ ✓ Compiled in 181ms (236 modules)
+ GET /status 200 in 137ms
+ GET /status 200 in 136ms
+ ✓ Compiled in 154ms (236 modules)
+ GET /status 200 in 82ms
+ GET /status 200 in 82ms
+ ✓ Compiled in 154ms (236 modules)
+ GET /status 200 in 72ms
+ GET /status 200 in 72ms
+ ✓ Compiled in 288ms (236 modules)
+ GET /status 200 in 148ms
+ GET /status 200 in 111ms
+ ✓ Compiled in 281ms (236 modules)
+ GET /status 200 in 82ms
+ GET /status 200 in 82ms
+ ✓ Compiled in 189ms (236 modules)
+ GET /status 200 in 109ms
+ GET /status 200 in 109ms
+ ✓ Compiled in 164ms (236 modules)
+ GET /status 200 in 108ms
+ GET /status 200 in 110ms
+ ✓ Compiled in 179ms (236 modules)
+ GET /status 200 in 101ms
+ GET /status 200 in 101ms
+ ✓ Compiled in 174ms (236 modules)
+ GET /status 200 in 83ms
+ GET /status 200 in 85ms
+ ✓ Compiled in 299ms (236 modules)
+ GET /status 200 in 87ms
+ GET /status 200 in 89ms
+ ✓ Compiled in 198ms (236 modules)
+ GET /status 200 in 83ms
+ GET /status 200 in 85ms
+ ✓ Compiled in 178ms (236 modules)
+ GET /status 200 in 81ms
+ GET /status 200 in 83ms
+ ✓ Compiled in 172ms (236 modules)
+ GET /status 200 in 138ms
+ GET /status 200 in 141ms
+ ✓ Compiled in 210ms (236 modules)
+ GET /status 200 in 156ms
+ GET /status 200 in 155ms
+ ✓ Compiled in 1309ms (236 modules)
+ GET /status 200 in 94ms
+ GET /status 200 in 94ms
+ ✓ Compiled in 185ms (236 modules)
+ GET /status 200 in 162ms
+ GET /status 200 in 161ms
+ ✓ Compiled in 160ms (236 modules)
+ GET /status 200 in 79ms
+ GET /status 200 in 78ms
+ ✓ Compiled in 430ms (236 modules)
+ ✓ Compiled in 202ms (236 modules)
+ GET /status 200 in 207ms
+ GET /status 200 in 210ms
+ GET /status 200 in 75ms
+ GET /status 200 in 76ms
+ ✓ Compiled in 145ms (236 modules)
+ GET /status 200 in 88ms
+ GET /status 200 in 88ms
+ ✓ Compiled in 157ms (236 modules)
+ GET /status 200 in 123ms
+ GET /status 200 in 123ms
+ ✓ Compiled in 204ms (236 modules)
+ GET /status 200 in 86ms
+ GET /status 200 in 86ms
+ ✓ Compiled in 166ms (236 modules)
+ GET /status 200 in 79ms
+ GET /status 200 in 81ms
+ ✓ Compiled in 188ms (236 modules)
+ GET /status 200 in 148ms
+ GET /status 200 in 148ms
+ ✓ Compiled in 172ms (236 modules)
+ GET /status 200 in 77ms
+ GET /status 200 in 79ms
+ ✓ Compiled in 156ms (236 modules)
+ GET /status 200 in 71ms
+ GET /status 200 in 72ms
+ ✓ Compiled in 174ms (236 modules)
+ GET /status 200 in 144ms
+ GET /status 200 in 147ms
+ ✓ Compiled in 150ms (236 modules)
+ GET /status 200 in 75ms
+ GET /status 200 in 75ms
+ ✓ Compiled in 166ms (236 modules)
+ GET /status 200 in 80ms
+ GET /status 200 in 81ms
+ ✓ Compiled in 153ms (236 modules)
+ GET /status 200 in 79ms
+ GET /status 200 in 79ms
+ ✓ Compiled in 140ms (236 modules)
+ GET /status 200 in 74ms
+ GET /status 200 in 75ms
+ ✓ Compiled in 154ms (236 modules)
+ GET /status 200 in 157ms
+ GET /status 200 in 177ms
+ ✓ Compiled in 186ms (236 modules)
+ GET /status 200 in 75ms
+ GET /status 200 in 77ms
+ ✓ Compiled in 161ms (236 modules)
+ GET /status 200 in 75ms
+ GET /status 200 in 76ms
+ ✓ Compiled in 168ms (236 modules)
+ GET /status 200 in 155ms
+ GET /status 200 in 154ms
+ ✓ Compiled in 165ms (236 modules)
+ GET /status 200 in 69ms
+ GET /status 200 in 71ms
+ ✓ Compiled in 160ms (236 modules)
+ GET /status 200 in 75ms
+ GET /status 200 in 77ms
+ ✓ Compiled in 159ms (236 modules)
+ GET /status 200 in 87ms
+ GET /status 200 in 87ms
+ ✓ Compiled in 159ms (236 modules)
+ GET /status 200 in 79ms
+ GET /status 200 in 79ms
+ ✓ Compiled in 158ms (236 modules)
+ GET /status 200 in 77ms
+ GET /status 200 in 80ms
+ ✓ Compiled in 153ms (236 modules)
+ GET /status 200 in 70ms
+ GET /status 200 in 69ms
+ ✓ Compiled in 149ms (236 modules)
+ GET /status 200 in 80ms
+ GET /status 200 in 83ms
+ ✓ Compiled in 152ms (236 modules)
+ GET /status 200 in 113ms
+ GET /status 200 in 116ms
+ ✓ Compiled in 192ms (236 modules)
+ GET /status 200 in 83ms
+ GET /status 200 in 85ms
+ ✓ Compiled in 158ms (236 modules)
+ GET /status 200 in 72ms
+ GET /status 200 in 74ms
+ ✓ Compiled in 154ms (236 modules)
+ GET /status 200 in 129ms
+ GET /status 200 in 128ms
+ ✓ Compiled in 165ms (236 modules)
+ GET /status 200 in 74ms
+ GET /status 200 in 76ms
+ ✓ Compiled in 166ms (236 modules)
+ GET /status 200 in 83ms
+ GET /status 200 in 83ms
+ ✓ Compiled in 144ms (236 modules)
+ GET /status 200 in 87ms
+ GET /status 200 in 87ms
+ ✓ Compiled in 150ms (236 modules)
+ GET /status 200 in 75ms
+ GET /status 200 in 75ms
+ ✓ Compiled in 161ms (236 modules)
+ GET /status 200 in 86ms
+ GET /status 200 in 88ms
+ ✓ Compiled in 156ms (236 modules)
+ GET /status 200 in 70ms
+ GET /status 200 in 69ms
+ ✓ Compiled in 153ms (236 modules)
+ GET /status 200 in 70ms
+ GET /status 200 in 72ms
+ ✓ Compiled in 154ms (236 modules)
+ GET /status 200 in 166ms
+ GET /status 200 in 167ms
+ ✓ Compiled in 202ms (236 modules)
+ GET /status 200 in 79ms
+ GET /status 200 in 79ms
+ ✓ Compiled in 164ms (236 modules)
+ GET /status 200 in 74ms
+ GET /status 200 in 76ms
+ ✓ Compiled in 171ms (236 modules)
+ GET /status 200 in 154ms
+ GET /status 200 in 155ms
+ ✓ Compiled in 168ms (236 modules)
+ GET /status 200 in 72ms
+ GET /status 200 in 74ms
+ ✓ Compiled in 164ms (236 modules)
+ GET /status 200 in 82ms
+ GET /status 200 in 82ms
+ ✓ Compiled in 155ms (236 modules)
+ GET /status 200 in 70ms
+ GET /status 200 in 74ms
+ ✓ Compiled in 171ms (236 modules)
+ GET /status 200 in 159ms
+ GET /status 200 in 161ms
+ ✓ Compiled in 154ms (236 modules)
+ GET /status 200 in 88ms
+ GET /status 200 in 89ms
+ ✓ Compiled in 152ms (236 modules)
+ GET /status 200 in 71ms
+ GET /status 200 in 71ms
+ ✓ Compiled in 156ms (236 modules)
+ GET /status 200 in 74ms
+ GET /status 200 in 76ms
+ ✓ Compiled in 131ms (236 modules)
+ GET /status 200 in 84ms
+ GET /status 200 in 86ms
+ ✓ Compiled in 127ms (236 modules)
+ GET /status 200 in 73ms
+ GET /status 200 in 73ms
+ ✓ Compiled in 173ms (236 modules)
+ GET /status 200 in 161ms
+ GET /status 200 in 163ms
+ ✓ Compiled in 198ms (236 modules)
+ GET /status 200 in 77ms
+ GET /status 200 in 79ms
+ ✓ Compiled in 171ms (236 modules)
+ GET /status 200 in 79ms
+ GET /status 200 in 79ms
+ ✓ Compiled in 158ms (236 modules)
+ GET /status 200 in 76ms
+ GET /status 200 in 78ms
+ ✓ Compiled in 175ms (236 modules)
+ GET /status 200 in 77ms
+ GET /status 200 in 79ms
+ ✓ Compiled in 146ms (236 modules)
+ GET /status 200 in 66ms
+ GET /status 200 in 68ms
+ ✓ Compiled in 150ms (236 modules)
+ GET /status 200 in 79ms
+ GET /status 200 in 79ms
+ ✓ Compiled in 232ms (236 modules)
+ GET /status 200 in 78ms
+ GET /status 200 in 78ms
+ ✓ Compiled in 144ms (236 modules)
+ GET /status 200 in 83ms
+ GET /status 200 in 85ms
+ ✓ Compiled in 132ms (236 modules)
+ GET /status 200 in 85ms
+ GET /status 200 in 87ms
+ ✓ Compiled in 153ms (236 modules)
+ GET /status 200 in 69ms
+ GET /status 200 in 71ms
+ ✓ Compiled in 146ms (236 modules)
+ GET /status 200 in 78ms
+ GET /status 200 in 78ms
+ ✓ Compiled in 221ms (236 modules)
+ GET /status 200 in 76ms
+ GET /status 200 in 78ms
+ ✓ Compiled in 200ms (236 modules)
+ GET /status 200 in 84ms
+ GET /status 200 in 84ms
+ ✓ Compiled in 167ms (236 modules)
+ GET /status 200 in 72ms
+ GET /status 200 in 74ms
+ ✓ Compiled in 156ms (236 modules)
+ GET /status 200 in 77ms
+ GET /status 200 in 80ms
+ ✓ Compiled in 218ms (236 modules)
+ GET /status 200 in 76ms
+ GET /status 200 in 78ms
+ ✓ Compiled in 148ms (236 modules)
+ GET /status 200 in 83ms
+ GET /status 200 in 83ms
+ ✓ Compiled in 141ms (236 modules)
+ GET /status 200 in 76ms
+ GET /status 200 in 78ms
+ ✓ Compiled in 156ms (236 modules)
+ GET /status 200 in 69ms
+ GET /status 200 in 71ms
+ ✓ Compiled in 156ms (236 modules)
+ GET /status 200 in 73ms
+ GET /status 200 in 73ms
+ ✓ Compiled in 177ms (236 modules)
+ GET /status 200 in 114ms
+ GET /status 200 in 114ms
+ ✓ Compiled in 193ms (236 modules)
+ GET /status 200 in 81ms
+ GET /status 200 in 81ms
+ ✓ Compiled in 162ms (236 modules)
+ GET /status 200 in 72ms
+ GET /status 200 in 74ms
+ ✓ Compiled in 157ms (236 modules)
+ GET /status 200 in 85ms
+ GET /status 200 in 85ms
+ ✓ Compiled in 167ms (236 modules)
+ GET /status 200 in 75ms
+ GET /status 200 in 78ms
+ ✓ Compiled in 164ms (236 modules)
+ GET /status 200 in 74ms
+ GET /status 200 in 75ms
+ ✓ Compiled in 159ms (236 modules)
+ GET /status 200 in 91ms
+ GET /status 200 in 94ms
+ ✓ Compiled in 170ms (236 modules)
+ GET /status 200 in 70ms
+ GET /status 200 in 72ms
+ ✓ Compiled in 153ms (236 modules)
+ GET /status 200 in 70ms
+ GET /status 200 in 69ms
+ ✓ Compiled in 166ms (236 modules)
+ GET /status 200 in 78ms
+ GET /status 200 in 80ms
+ ✓ Compiled in 137ms (236 modules)
+ GET /status 200 in 81ms
+ GET /status 200 in 82ms
+ ✓ Compiled in 143ms (236 modules)
+ GET /status 200 in 75ms
+ GET /status 200 in 75ms
+ ✓ Compiled in 181ms (236 modules)
+ GET /status 200 in 167ms
+ GET /status 200 in 169ms
+ ✓ Compiled in 193ms (236 modules)
+ GET /status 200 in 80ms
+ GET /status 200 in 80ms
+ ✓ Compiled in 158ms (236 modules)
+ GET /status 200 in 78ms
+ GET /status 200 in 78ms
+ ✓ Compiled in 159ms (236 modules)
+ GET /status 200 in 78ms
+ GET /status 200 in 78ms
+ ✓ Compiled in 182ms (236 modules)
+ GET /status 200 in 74ms
+ GET /status 200 in 74ms
+ ✓ Compiled in 151ms (236 modules)
+ GET /status 200 in 68ms
+ GET /status 200 in 70ms
+ ✓ Compiled in 156ms (236 modules)
+ GET /status 200 in 92ms
+ GET /status 200 in 95ms
+ ✓ Compiled in 169ms (236 modules)
+ GET /status 200 in 71ms
+ GET /status 200 in 73ms
+ ✓ Compiled in 160ms (236 modules)
+ GET /status 200 in 75ms
+ GET /status 200 in 75ms
+ ✓ Compiled in 164ms (236 modules)
+ GET /status 200 in 74ms
+ GET /status 200 in 76ms
+ ✓ Compiled in 131ms (236 modules)
+ GET /status 200 in 80ms
+ GET /status 200 in 82ms
+ ✓ Compiled in 136ms (236 modules)
+ GET /status 200 in 69ms
+ GET /status 200 in 70ms
+ ✓ Compiled in 177ms (236 modules)
+ GET /status 200 in 170ms
+ GET /status 200 in 170ms
+ ✓ Compiled in 202ms (236 modules)
+ GET /status 200 in 80ms
+ GET /status 200 in 80ms
+ ✓ Compiled in 162ms (236 modules)
+ GET /status 200 in 76ms
+ GET /status 200 in 76ms
+ ✓ Compiled in 167ms (236 modules)
+ GET /status 200 in 67ms
+ GET /status 200 in 69ms
+ GET /api/health 200 in 40ms
+ GET /api/status 200 in 1396ms
+ ✓ Compiled in 209ms (236 modules)
+ GET /status 200 in 85ms
+ GET /status 200 in 85ms
+ ✓ Compiled in 164ms (236 modules)
+ GET /status 200 in 71ms
+ GET /status 200 in 74ms
+ ✓ Compiled in 158ms (236 modules)
+ GET /status 200 in 64ms
+ GET /status 200 in 64ms
+
+> sakayan@1.0.0 dev
+> next dev
+
+   ▲ Next.js 15.5.12
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.254.105:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 6.5s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 1154ms (114 modules)
+ ○ Compiling /status ...
+ ✓ Compiled /status in 4.7s (554 modules)
+ GET /status 200 in 6117ms
+ ✓ Compiled in 314ms (236 modules)
+ ✓ Compiled in 231ms (236 modules)
+ ✓ Compiled in 176ms (236 modules)
+ ✓ Compiled in 176ms (236 modules)
+ ✓ Compiled in 197ms (236 modules)
+ ✓ Compiled in 234ms (236 modules)
+ ✓ Compiled in 174ms (236 modules)
+ ✓ Compiled in 212ms (236 modules)
+ ✓ Compiled in 185ms (236 modules)
+ ✓ Compiled in 193ms (236 modules)
+ ✓ Compiled in 178ms (236 modules)
+ ✓ Compiled in 157ms (236 modules)
+ ✓ Compiled in 149ms (236 modules)
+ ✓ Compiled in 209ms (236 modules)
+ ✓ Compiled in 181ms (236 modules)
+ ✓ Compiled in 188ms (236 modules)
+ ✓ Compiled in 211ms (236 modules)
+ ✓ Compiled in 145ms (236 modules)
+ ✓ Compiled in 164ms (236 modules)
+ ✓ Compiled in 155ms (236 modules)
+ ✓ Compiled in 140ms (236 modules)
+ ✓ Compiled in 136ms (236 modules)
+ ✓ Compiled in 144ms (236 modules)
+ ✓ Compiled in 196ms (236 modules)
+ ✓ Compiled in 159ms (236 modules)
+ ✓ Compiled in 162ms (236 modules)
+ ✓ Compiled in 174ms (236 modules)
+ ✓ Compiled in 159ms (236 modules)
+ ✓ Compiled in 149ms (236 modules)
+ ✓ Compiled in 174ms (236 modules)
+ ✓ Compiled in 185ms (236 modules)
+ ✓ Compiled in 163ms (236 modules)
+ ✓ Compiled in 189ms (236 modules)
+ ✓ Compiled in 163ms (236 modules)
+ ✓ Compiled in 168ms (236 modules)
+ ✓ Compiled in 165ms (236 modules)
+ ✓ Compiled in 181ms (236 modules)
+ ✓ Compiled in 158ms (236 modules)
+ ✓ Compiled in 165ms (236 modules)
+ ✓ Compiled in 204ms (236 modules)
+ ✓ Compiled in 161ms (236 modules)
+ ✓ Compiled in 507ms (236 modules)
+ ✓ Compiled in 220ms (236 modules)
+ ✓ Compiled in 146ms (236 modules)
+ ✓ Compiled in 159ms (236 modules)
+ ✓ Compiled in 150ms (236 modules)
+ ✓ Compiled in 153ms (236 modules)
+ ✓ Compiled in 197ms (236 modules)
+ ✓ Compiled in 169ms (236 modules)
+ ✓ Compiled in 162ms (236 modules)
+ ✓ Compiled in 162ms (236 modules)
+ ✓ Compiled in 161ms (236 modules)
+ ✓ Compiled in 156ms (236 modules)
+ ✓ Compiled in 174ms (236 modules)
+ ✓ Compiled in 143ms (236 modules)
+ ✓ Compiled in 157ms (236 modules)
+ ✓ Compiled in 153ms (236 modules)
+ ✓ Compiled in 147ms (236 modules)
+ ✓ Compiled in 186ms (236 modules)
+ ✓ Compiled in 188ms (236 modules)
+ ✓ Compiled in 177ms (236 modules)
+ ✓ Compiled in 167ms (236 modules)
+ ✓ Compiled in 229ms (236 modules)
+ ✓ Compiled in 1763ms (236 modules)
+ ✓ Compiled in 404ms (236 modules)
+ ✓ Compiled in 257ms (236 modules)
+ ✓ Compiled in 238ms (236 modules)
+ ✓ Compiled in 340ms (236 modules)
+ ✓ Compiled in 174ms (236 modules)
+ ✓ Compiled in 142ms (236 modules)
+ ✓ Compiled in 158ms (236 modules)
+ ✓ Compiled in 187ms (236 modules)
+ ✓ Compiled in 161ms (236 modules)
+ ✓ Compiled in 149ms (236 modules)
+ ✓ Compiled in 166ms (236 modules)
+ ✓ Compiled in 203ms (236 modules)
+ ✓ Compiled in 189ms (236 modules)
+ ✓ Compiled in 181ms (236 modules)
+ ✓ Compiled in 156ms (236 modules)
+ ✓ Compiled in 189ms (236 modules)
+ ✓ Compiled in 145ms (236 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 2.1s (666 modules)
+ GET / 200 in 2566ms
+ ○ Compiling /api/connections ...
+ ✓ Compiled /api/connections in 1761ms (777 modules)
+ GET /api/auth/me 200 in 2173ms
+ ✓ Compiled in 205ms (303 modules)
+ GET / 200 in 153ms
+ GET /api/connections 200 in 4205ms
+ GET /api/terminals 200 in 4343ms
+ ✓ Compiled in 238ms (303 modules)
+ GET / 200 in 43ms
+ ✓ Compiled in 219ms (303 modules)
+ GET / 200 in 51ms
+ ✓ Compiled in 195ms (303 modules)
+ GET / 200 in 79ms
+ ✓ Compiled in 188ms (303 modules)
+ GET / 200 in 45ms
+ ✓ Compiled in 232ms (303 modules)
+ GET / 200 in 50ms
+ ✓ Compiled in 194ms (303 modules)
+ GET / 200 in 44ms
+ ✓ Compiled in 201ms (303 modules)
+ GET / 200 in 43ms
+ ✓ Compiled in 180ms (303 modules)
+ ✓ Compiled in 173ms (303 modules)
+ ✓ Compiled in 187ms (303 modules)
+ ✓ Compiled in 165ms (303 modules)
+ ✓ Compiled in 209ms (303 modules)
+ ✓ Compiled in 180ms (303 modules)
+ ✓ Compiled in 611ms (680 modules)
+ ✓ Compiled in 177ms (303 modules)
+ ✓ Compiled in 180ms (303 modules)
+ GET / 200 in 805ms
+ ✓ Compiled /api/connections in 158ms (483 modules)
+ ✓ Compiled (488 modules)
+ GET /api/auth/me 200 in 609ms
+ ✓ Compiled in 764ms (303 modules)
+ GET / 200 in 138ms
+ GET /api/connections 200 in 2386ms
+ GET /api/terminals 200 in 2938ms
+ ✓ Compiled in 208ms (303 modules)
+ GET / 200 in 43ms
+ ✓ Compiled in 749ms (303 modules)
+ GET / 200 in 41ms
+ ✓ Compiled in 203ms (303 modules)
+ GET / 200 in 74ms
+ ✓ Compiled in 192ms (303 modules)
+ GET / 200 in 37ms
+ ✓ Compiled in 190ms (303 modules)
+ GET / 200 in 87ms
+ ✓ Compiled in 183ms (303 modules)
+ GET / 200 in 44ms
+ ✓ Compiled in 168ms (303 modules)
+ GET / 200 in 39ms
+ ✓ Compiled in 176ms (303 modules)
+ GET / 200 in 39ms
+ ✓ Compiled in 175ms (303 modules)
+ GET / 200 in 60ms
+ ✓ Compiled in 183ms (303 modules)
+ GET / 200 in 40ms
+ ✓ Compiled in 181ms (303 modules)
+ GET / 200 in 38ms
+ ✓ Compiled in 173ms (303 modules)
+ GET / 200 in 39ms
+ ✓ Compiled in 217ms (303 modules)
+ GET / 200 in 44ms
+ ✓ Compiled in 170ms (303 modules)
+ GET / 200 in 39ms
+ ✓ Compiled in 157ms (303 modules)
+ GET / 200 in 50ms
+ ✓ Compiled in 142ms (303 modules)
+ GET / 200 in 46ms
+ ✓ Compiled in 189ms (303 modules)
+ GET / 200 in 41ms
+ ✓ Compiled in 165ms (303 modules)
+ GET / 200 in 40ms
+ ✓ Compiled in 156ms (303 modules)
+ GET / 200 in 38ms
+ ✓ Compiled in 167ms (303 modules)
+ GET / 200 in 39ms
+ ✓ Compiled in 169ms (303 modules)
+ GET / 200 in 39ms
+ ✓ Compiled in 254ms (303 modules)
+ GET / 200 in 39ms
+ ✓ Compiled in 221ms (303 modules)
+ GET / 200 in 41ms
+ ✓ Compiled in 199ms (303 modules)
+ GET / 200 in 73ms
+ ✓ Compiled in 201ms (303 modules)
+ GET / 200 in 42ms
+ ✓ Compiled in 183ms (303 modules)
+ GET / 200 in 41ms
+ ✓ Compiled in 250ms (303 modules)
+ GET / 200 in 41ms
+ ✓ Compiled in 169ms (303 modules)
+ GET / 200 in 41ms
+ ✓ Compiled in 173ms (303 modules)
+ GET / 200 in 40ms
+ ✓ Compiled in 176ms (303 modules)
+ GET / 200 in 40ms
+ ✓ Compiled in 199ms (303 modules)
+ GET / 200 in 41ms
+ ✓ Compiled in 211ms (303 modules)
+ GET / 200 in 41ms
+ ✓ Compiled in 188ms (303 modules)
+ GET / 200 in 68ms
+ ✓ Compiled in 188ms (303 modules)
+ GET / 200 in 37ms
+ ✓ Compiled in 177ms (303 modules)
+ GET / 200 in 40ms
+ ✓ Compiled in 208ms (303 modules)
+ GET / 200 in 43ms
+ ✓ Compiled in 203ms (303 modules)
+ GET / 200 in 49ms
+ ✓ Compiled in 171ms (303 modules)
+ GET / 200 in 40ms
+ ✓ Compiled in 179ms (303 modules)
+ GET / 200 in 38ms
+ ✓ Compiled in 171ms (303 modules)
+ GET / 200 in 41ms
+ ✓ Compiled in 214ms (303 modules)
+ GET / 200 in 42ms
+ ✓ Compiled in 188ms (303 modules)
+ GET / 200 in 66ms
+ ✓ Compiled in 185ms (303 modules)
+ GET / 200 in 39ms
+ ✓ Compiled in 168ms (303 modules)
+ GET / 200 in 44ms
+ ✓ Compiled in 237ms (303 modules)
+ GET / 200 in 40ms
+ ✓ Compiled in 204ms (303 modules)
+ GET / 200 in 43ms
+ ✓ Compiled in 168ms (303 modules)
+ GET / 200 in 40ms
+ ✓ Compiled in 181ms (303 modules)
+ GET / 200 in 52ms
+ ✓ Compiled in 167ms (303 modules)
+ GET / 200 in 39ms
+ ✓ Compiled in 156ms (303 modules)
+ GET / 200 in 52ms
+ ✓ Compiled in 210ms (303 modules)
+ GET / 200 in 41ms
+ ✓ Compiled in 180ms (303 modules)
+ GET / 200 in 44ms
+ ✓ Compiled in 182ms (303 modules)
+ GET / 200 in 40ms
+ ✓ Compiled in 175ms (303 modules)
+ GET / 200 in 39ms
+ ✓ Compiled in 207ms (303 modules)
+ GET / 200 in 45ms
+ ✓ Compiled in 186ms (303 modules)
+ GET / 200 in 37ms
+ ✓ Compiled in 175ms (303 modules)
+ GET / 200 in 40ms
+ ✓ Compiled in 172ms (303 modules)
+ GET / 200 in 40ms
+ ✓ Compiled in 157ms (303 modules)
+ GET / 200 in 37ms
+ ✓ Compiled in 193ms (303 modules)
+ GET / 200 in 44ms
+ ✓ Compiled in 208ms (303 modules)
+ GET / 200 in 41ms
+ ✓ Compiled in 184ms (303 modules)
+ GET / 200 in 43ms
+ ✓ Compiled in 206ms (303 modules)
+ GET / 200 in 45ms
+ ✓ Compiled in 197ms (303 modules)
+ GET / 200 in 39ms
+ ✓ Compiled in 206ms (303 modules)
+ GET / 200 in 48ms
+ ✓ Compiled in 178ms (303 modules)
+ GET / 200 in 38ms
+ ✓ Compiled in 257ms (303 modules)
+ GET / 200 in 45ms
+ ✓ Compiled in 185ms (303 modules)
+ GET / 200 in 38ms
+ ✓ Compiled in 185ms (303 modules)
+ GET / 200 in 42ms
+ ✓ Compiled in 167ms (303 modules)
+ GET / 200 in 49ms
+ ✓ Compiled in 155ms (303 modules)
+ GET / 200 in 51ms
+ ✓ Compiled in 210ms (303 modules)
+ GET / 200 in 40ms
+ ✓ Compiled in 175ms (303 modules)
+ GET / 200 in 41ms
+ ✓ Compiled in 181ms (303 modules)
+ GET / 200 in 43ms
+ ✓ Compiled in 182ms (303 modules)
+ GET / 200 in 37ms
+ ✓ Compiled in 177ms (303 modules)
+ GET / 200 in 41ms
+ ✓ Compiled in 216ms (303 modules)
+ GET / 200 in 74ms
+ ✓ Compiled in 250ms (303 modules)
+ GET / 200 in 81ms
+ ✓ Compiled in 198ms (303 modules)
+ GET / 200 in 43ms
+ ✓ Compiled in 189ms (303 modules)
+ GET / 200 in 37ms
+ ✓ Compiled in 180ms (303 modules)
+ GET / 200 in 38ms
+ ✓ Compiled in 168ms (303 modules)
+ GET / 200 in 63ms
+ ✓ Compiled in 225ms (303 modules)
+ GET / 200 in 39ms
+ ✓ Compiled in 179ms (303 modules)
+ GET / 200 in 40ms
+ ✓ Compiled in 202ms (303 modules)
+ GET / 200 in 67ms
+ ✓ Compiled in 183ms (303 modules)
+ GET / 200 in 37ms
+ ✓ Compiled in 172ms (303 modules)
+ GET / 200 in 36ms
+ ✓ Compiled in 194ms (303 modules)
+ GET / 200 in 70ms
+ ✓ Compiled in 205ms (303 modules)
+ GET / 200 in 39ms
+ ✓ Compiled in 1346ms (303 modules)
+ GET / 200 in 41ms
+ ✓ Compiled in 226ms (303 modules)
+ GET / 200 in 47ms
+ GET /?lat=14.5547&lng=121.0244&zoom=17 200 in 234ms
+ GET /api/auth/me 200 in 55ms
+ GET /api/connections 200 in 2900ms
+ GET /api/terminals 200 in 3489ms
+ ✓ Compiled in 186ms (303 modules)
+ GET /?lat=14.5547&lng=121.0244&zoom=17 200 in 66ms
+ ✓ Compiled in 219ms (303 modules)
+ GET /?lat=14.5547&lng=121.0244&zoom=17 200 in 42ms
+ ✓ Compiled in 169ms (303 modules)
+ GET /?lat=14.5547&lng=121.0244&zoom=17 200 in 37ms
+ ✓ Compiled in 166ms (303 modules)
+ GET /?lat=14.5547&lng=121.0244&zoom=17 200 in 38ms
+ ✓ Compiled in 200ms (303 modules)
+ GET /?lat=14.5547&lng=121.0244&zoom=17 200 in 41ms
+ ✓ Compiled in 160ms (303 modules)
+ GET /?lat=14.5547&lng=121.0244&zoom=17 200 in 76ms
+ ✓ Compiled in 216ms (303 modules)
+ GET /?lat=14.5547&lng=121.0244&zoom=17 200 in 42ms
+ ✓ Compiled in 188ms (303 modules)
+ GET /?lat=14.5547&lng=121.0244&zoom=17 200 in 49ms
+ ✓ Compiled in 191ms (303 modules)
+ GET /?lat=14.5547&lng=121.0244&zoom=17 200 in 73ms
+ ✓ Compiled in 506ms (680 modules)
+ GET /?lat=14.5547&lng=121.0244&zoom=17 200 in 207ms
+ ✓ Compiled in 174ms (303 modules)
+ GET /?lat=14.5547&lng=121.0244&zoom=17 200 in 41ms
+ ✓ Compiled in 170ms (303 modules)
+ GET /?lat=14.5547&lng=121.0244&zoom=17 200 in 40ms
+ ✓ Compiled in 427ms (693 modules)
+ GET /?lat=14.5547&lng=121.0244&zoom=17 200 in 134ms
+ GET / 200 in 253ms
+ ✓ Compiled /api/connections in 131ms (483 modules)
+ ✓ Compiled (488 modules)
+ GET /api/auth/me 200 in 689ms
+ GET /api/connections 200 in 2967ms
+ GET /api/terminals 200 in 3324ms
+ ✓ Compiled in 341ms (303 modules)
+ ✓ Compiled in 2.9s (700 modules)
+ ✓ Compiled in 744ms (687 modules)
+ ✓ Compiled in 431ms (700 modules)
+ ✓ Compiled in 211ms (307 modules)
+ GET / 200 in 385ms
+ ✓ Compiled /api/connections in 154ms (486 modules)
+ ✓ Compiled (491 modules)
+ GET /api/auth/me 200 in 821ms
+ GET /api/connections 200 in 2421ms
+ GET /api/terminals 200 in 2977ms
+ ✓ Compiled in 807ms (687 modules)
+ GET / 200 in 268ms
+ ✓ Compiled /api/connections in 176ms (486 modules)
+ ✓ Compiled (491 modules)
+ GET /api/auth/me 200 in 628ms
+ GET /api/connections 200 in 2585ms
+ GET /api/terminals 200 in 2992ms
+ ✓ Compiled in 824ms (798 modules)
+ GET / 200 in 162ms
+
+> sakayan@1.0.0 dev
+> next dev
+
+   ▲ Next.js 15.5.12
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.254.108:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 11.9s
+
+> sakayan@1.0.0 dev
+> next dev
+
+   ▲ Next.js 15.5.12
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.254.108:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 7.3s
+ ✓ Compiled /middleware in 319ms (114 modules)
+ ○ Compiling /status ...
+ ✓ Compiled /status in 3.3s (567 modules)
+ GET /status 200 in 4249ms
+ ○ Compiling /api/status ...
+ ✓ Compiled /api/status in 1190ms (824 modules)
+ ○ Compiling /api/health ...
+ ✓ Compiled /api/health in 505ms (812 modules)
+ GET /api/health 200 in 734ms
+ GET /status 200 in 754ms
+ GET /api/status 200 in 3384ms
+ ✓ Compiled in 970ms (554 modules)
+ ✓ Compiled /api/status in 186ms (588 modules)
+ GET /status 200 in 860ms
+ ✓ Compiled /api/health in 221ms (590 modules)
+ GET /api/health 200 in 363ms
+ GET /api/status 200 in 3197ms
+ ✓ Compiled in 444ms (826 modules)
+ GET /status 200 in 161ms
+ GET /api/health 200 in 30ms
+ GET /api/status 200 in 1310ms
+ ✓ Compiled in 407ms (826 modules)
+ GET /status 200 in 140ms
+ GET /api/health 200 in 73ms
+ GET /api/status 200 in 6148ms
+ ✓ Compiled in 549ms (826 modules)
+ GET /status 200 in 145ms
+ GET /api/health 200 in 27ms
+ GET /api/status 200 in 1325ms
+ ✓ Compiled in 444ms (826 modules)
+ GET /status 200 in 139ms
+ GET /api/health 200 in 23ms
+ GET /api/status 200 in 1161ms
+ ✓ Compiled in 504ms (579 modules)
+ GET /status 200 in 136ms
+ ✓ Compiled in 516ms (579 modules)
+ GET /status 200 in 122ms
+ GET /status 200 in 390ms
+ GET /api/health 200 in 26ms
+ GET /api/status 200 in 3280ms

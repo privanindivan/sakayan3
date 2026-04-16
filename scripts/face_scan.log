@@ -1,0 +1,141 @@
+Listing all images from Cloudinary...
+Using cached image list: 325 images
+node:events:486
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::7788
+    at Server.setupListenHandle [as _listen2] (node:net:1948:16)
+    at listenInCluster (node:net:2005:12)
+    at Server.listen (node:net:2110:7)
+    at Object.<anonymous> (C:\Users\jj\Downloads\cook\scripts\face_scan_runner.js:228:4)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1984:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 7788
+}
+
+Node.js v24.14.0
+C:\Users\jj\Downloads\cook\scripts\face_scan_runner.js:155
+    infoText=`Scan complete — ${d.checked.toLocaleString()} images checked`
+              ^^^^
+
+SyntaxError: Unexpected identifier 'Scan'
+    at wrapSafe (node:internal/modules/cjs/loader:1743:18)
+    at Module._compile (node:internal/modules/cjs/loader:1786:20)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+
+Node.js v24.14.0
+Listing all images from Cloudinary...
+Using cached image list: 325 images
+Tracker: http://localhost:7788
+Total Cloudinary images: 325
+Enriching with terminal names...
+Total: 325 | Already checked: 14444 | Remaining: 0
+
+Done! Checked: 14444 | Flagged: 208
+Open http://localhost:7788 to review and delete flagged images.
+Listing all images from Cloudinary...
+Tracker: http://localhost:7788
+  Cloudinary page 1: 500 images listed so far
+  Cloudinary page 2: 1000 images listed so far
+  Cloudinary page 3: 1500 images listed so far
+  Cloudinary page 4: 2000 images listed so far
+  Cloudinary page 5: 2500 images listed so far
+  Cloudinary page 6: 3000 images listed so far
+  Cloudinary page 7: 3500 images listed so far
+  Cloudinary page 8: 4000 images listed so far
+  Cloudinary page 9: 4500 images listed so far
+  Cloudinary page 10: 5000 images listed so far
+  Cloudinary page 11: 5500 images listed so far
+  Cloudinary page 12: 6000 images listed so far
+  Cloudinary page 13: 6500 images listed so far
+  Cloudinary page 14: 7000 images listed so far
+  Cloudinary page 15: 7500 images listed so far
+  Cloudinary page 16: 7717 images listed so far
+Image list cached to disk (7717 images)
+Total Cloudinary images: 7717
+Enriching with terminal names...
+Total: 7717 | Already checked: 0 | Remaining: 7717
+FLAG [1 face(s)]: (orphaned) pjk8vc4flo2mclakuyre
+FLAG [1 face(s)]: (orphaned) tsv0hcjizi0hihwfuvla
+FLAG [2 face(s)]: (orphaned) oa8ms5aytxx7fb0fod51
+FLAG [1 face(s)]: (orphaned) im4wdrgnvrcfnry6fi9i
+FLAG [3 face(s)]: (orphaned) axslnh0jnnpfxx2f12rd
+FLAG [2 face(s)]: (orphaned) njbzzfdihnrbx7tolnqc
+FLAG [1 face(s)]: (orphaned) acwvejmku95r5hpronlw
+FLAG [3 face(s)]: (orphaned) zcselayxskzqyi4uc8uw
+FLAG [1 face(s)]: (orphaned) atxahsjfmwot7fcunazf
+[50/7717] flagged: 9
+FLAG [1 face(s)]: (orphaned) kbfxd9ix1ksnwxzpaw2f
+FLAG [1 face(s)]: (orphaned) ftjcpjacsbhjmengr9el
+FLAG [1 face(s)]: (orphaned) qsa9mumqgjehpdfilkhc
+FLAG [1 face(s)]: (orphaned) rpjglumtct5xjtrw2cpc
+FLAG [1 face(s)]: (orphaned) bv7iszheaqdjyvlncetp
+FLAG [1 face(s)]: (orphaned) eain4uvvgxrb8kwmw6xk
+FLAG [5 face(s)]: (orphaned) gttmcfnrj09qtxpjuuuw
+[100/7717] flagged: 16
+Listing all images from Cloudinary...
+Using cached image list: 7717 images
+Tracker: http://localhost:7788
+Total Cloudinary images: 7717
+Enriching with terminal names...
+Total: 7717 | Already checked: 2400 | Remaining: 7717
+Rate limited. Waiting until 1:06:57 PM...
+Listing all images from Cloudinary...
+Using cached image list: 7717 images
+Tracker: http://localhost:7788
+Total Cloudinary images: 7717
+Enriching with terminal names...
+Error: getaddrinfo ENOTFOUND aws-1-ap-southeast-1.pooler.supabase.com
+    at C:\Users\jj\Downloads\cook\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async enrichWithTerminalNames (C:\Users\jj\Downloads\cook\scripts\face_scan_runner.js:369:20)
+    at async runScan (C:\Users\jj\Downloads\cook\scripts\face_scan_runner.js:407:3) {
+  errno: -3008,
+  code: 'ENOTFOUND',
+  syscall: 'getaddrinfo',
+  hostname: 'aws-1-ap-southeast-1.pooler.supabase.com'
+}
+Listing all images from Cloudinary...
+Using cached image list: 7717 images
+Tracker: http://localhost:7788
+Total Cloudinary images: 7717
+Enriching with terminal names...
+Total: 7717 | Already checked: 2800 | Remaining: 7717
+FLAG [1 face(s)]: (orphaned) pjk8vc4flo2mclakuyre
+FLAG [1 face(s)]: (orphaned) tsv0hcjizi0hihwfuvla
+FLAG [2 face(s)]: (orphaned) oa8ms5aytxx7fb0fod51
+FLAG [1 face(s)]: (orphaned) im4wdrgnvrcfnry6fi9i
+FLAG [3 face(s)]: (orphaned) axslnh0jnnpfxx2f12rd
+FLAG [2 face(s)]: (orphaned) njbzzfdihnrbx7tolnqc
+FLAG [1 face(s)]: (orphaned) acwvejmku95r5hpronlw
+FLAG [3 face(s)]: (orphaned) zcselayxskzqyi4uc8uw
+FLAG [1 face(s)]: (orphaned) atxahsjfmwot7fcunazf
+[2850/7717] flagged: 117
+FLAG [1 face(s)]: (orphaned) kbfxd9ix1ksnwxzpaw2f
+FLAG [1 face(s)]: (orphaned) ftjcpjacsbhjmengr9el
+FLAG [1 face(s)]: (orphaned) qsa9mumqgjehpdfilkhc
+FLAG [1 face(s)]: (orphaned) rpjglumtct5xjtrw2cpc
+FLAG [1 face(s)]: (orphaned) bv7iszheaqdjyvlncetp
+FLAG [1 face(s)]: (orphaned) eain4uvvgxrb8kwmw6xk
+FLAG [5 face(s)]: (orphaned) gttmcfnrj09qtxpjuuuw
+
+Done! Checked: 10517 | Flagged: 124
+Open http://localhost:7788 to review and delete flagged images.
+^C

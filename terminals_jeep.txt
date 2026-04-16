@@ -1,0 +1,609 @@
+SAKAYAN TERMINALS — Jeepney / UV Express — 550 total
+Generated: 2026-04-09
+============================================================
+
+### Metro Manila (NCR) (159)
+  (SPBSBJODAI) San Pedro - Bayan Bayanan Jeepney Terminal
+  5th Ave to Araneta Ave Jeepney Terminal
+  AFPMBAI
+  Alabang
+  Alabang South Station Jeepney Unloading Area
+  Anabu 2-D
+  Anabu Elementary School/SM Hypermarket
+  Anabu Hills
+  Anabu Kostal
+  annapolis jeepney terminal
+  Antipolo Hills - Bayan Jeepney Station
+  Antipolo Hills - Bayan Jeepney Terminal
+  Antipolo Transport Cooperative Terminal
+  Antipolo-Cubao Jeepney Terminal
+  Antipolo-Marikina Jeepney Terminal
+  Araneta City Busport
+  AYALA - MARKET MARKET JEEPNEY TERMINAL
+  Ayala Malls Vermosa
+  Ayala Market Jeepney Terminal
+  Ayala-Landmark Jeepney Terminal
+  Baclaran Jeepney Terminal
+  Bagumbayan Jeepney Terminal
+  Bagumbayan-Sucat Hi-Way Jeepney Terminal
+  Balintawak / Novaliches Jeepney Terminal
+  Belair - Washington Jeepney Terminal
+  Bignay Jeep Terminal
+  Binangonan - Megamall Terminal
+  Binangonan Jeepney Terminal / Parking
+  Carmen Eatery
+  Circuit Makati Jeepney Loading Area
+  City of Imus Doctors Hospital
+  Cogeo - Antipolo Simbahan Jeepney Terminal
+  Crame
+  Cubao - San Juan Jeepney Terminal
+  Daang Hari
+  Dasmariñas City-Imus City Border
+  Dominga-Libertad Jeep Terminal
+  E-Jeep Waiting Shed
+  EDSA Pioneer Pasig Pateros Jeepney Terminal
+  G-liner Terminal
+  Gabby's Kaliwa Jeepney Terminal
+  Gil Puyat Jeepney Stand
+  Golden City Food Center
+  Guadalupe Fort Bonifacio Jeepney Terminal
+  Guadalupe FTI Jeepney Terminal
+  Guadalupe L. Guinto Jeepney Terminal
+  Guadalupe-Cartimar Jeepney Terminal
+  Guadalupe-Pateros Jeepney Stop
+  Heritage Homes Jeepney Terminal
+  Housing terminal jeep
+  Ilalim Camachile Jeep Terminal
+  Jeepney & Tricylcle Terminal
+  Jeepney Market Karuhatan
+  Jeepney Montalban Cubao
+  Jeepney Montalban Wawa
+  Jeepney stop
+  jeepney terminal
+  Jeepney Terminal
+  Jeepney Terminal
+  Jeepney Terminal
+  Jeepney Terminal
+  Jeepney Terminal
+  Jeepney Terminal
+  Jeepney Terminal
+  Jeepney Terminal - NAIA Terminal 4
+  Jeepney Terminal - San Pedro Boundary
+  Jeepney Terminal - VGC
+  Jeepney Terminal (Brgy. Moonwalk & Judea)
+  Jeepney Terminal (Pasay/Alabang Route)
+  Jeepney Terminal going to Binakayan
+  Jeepney terminal to kalentong
+  Karuhatan Jeepney Terminal
+  Katipunan Jeepney Stop
+  Kimston Terminal
+  L.Guinto - Guadalupe Jeepney Terminal
+  Libtong Jeepney Terminal
+  Licao-Licao Jeepney Terminal
+  Litex, IBP Road, Quezon City, Metro Manila, Philippines
+  Lozada Jeepney Terminal
+  Malagasang II-C Intersection
+  Malinta(Kaliwa)-Novaliches Jeepney Terminal
+  Mantrade Jeepney Terminal
+  Maynilad Depot
+  Meycauayan - Sto. Niño Jeepney Terminal
+  Meycauyan - Bignay Jeep Terminal
+  Monumento SM circle Polo Jeep Terminal
+  Murphy Public Market
+  MUZON CENTRAL TERMINAL
+  Muzon Terminal
+  Nagtahan Jeepney Terminal
+  Napindan Jeepney Terminal
+  Nichols Jeepney Terminal
+  Nichols Jeepney Terminal 3
+  North Luzon Express Terminal (NLET)
+  One Ayala Terminal
+  One Cainta Terminal Parola
+  Opposite Robinsons Place Imus
+  Ortigas Flyover
+  OTB / Jeepney Terminal
+  Paco - Sta. Mesa Jeepney Terminal
+  Paco-Munumento Jeepney Terminal
+  Palanas
+  Palanas - Sun City Plaza
+  Palmjoda-Piston Jeepney Terminal (Pacita - Alabang - Muntinlupa route)
+  Parañaque Integrated Terminal Exchange (PITx)
+  Pasay Rotonda-Alabang Jeepney Terminal
+  Pasig-Cainta Jeepney Terminal
+  Pasong Buaya
+  Philtranco- Pasay Terminal
+  Pilar Jeepney Station
+  Pililla Bus Terminal, Teresa, Rizal
+  Puregold Talon Tres Jeepney Terminal
+  Q-Mart Quezon City
+  Quezon City Hall, Mayaman St, Diliman, Quezon City, 1101 Metro Manila, Philippines
+  Quezon City University - San Francisco, Bago Bantay, Quezon City, Metro Manila, Philippines
+  Quiapo - Santol Jeepney Terminal
+  Robinsons Cainta
+  Robinsons Place Imus
+  Rotonda Terminal Pasay
+  S&R Imus
+  San Fransisco TODA Terminal
+  San Miguel Yamamura
+  San Pedro - Biñan Jeepney Terminal
+  San Pedro - GMA Cavite JeepneyTerminal
+  Santa Lucia Jeepney Terminal
+  SCANJODA Jeepney Terminal
+  SELFBVJODAI San Pedro Jeepney Terminal
+  Sillas
+  Silvertowne 4/Mandarin Homes
+  SM Southmall Jeepney Terminal
+  Somerset 1 and 2
+  Somerset 4, 8, and 16
+  Somerset North/Kensington
+  St. Francis & Malinta Jeepney Terminal
+  Sta. Maria Jeep Terminal Monumento
+  Sterling Jeepney Stop
+  Sto Nino Jeepney Terminal
+  Sucat - Pacita (San Pedro, Laguna) via SLEX Jeepney Terminal
+  Summer Pointe
+  Susana Jeepney Terminal
+  TAS Transit
+  TAYTAY TERMINAL
+  Taytay Terminal to South
+  TAYTAY- CROSSING (TACJODA)
+  The District Imus
+  Tipas Jeep Terminal
+  Toki Jeepney Stop
+  Tungkong Mangga - San Jose Jeepney Station
+  UCCP Imus
+  UP Campus-Philcoa Jeep Terminal
+  UP IKOT Jeepney Stop - Maginhawa
+  Venice Grand Canal E-Jeep Terminal
+  Vermosa Boulevard
+  Victory Liner (Pasay Terminal)
+  Villa Leticia
+  Villar Sipag Jeep Terminal
+  Washington - Libertad Jeepney Terminal
+  Wilcon Bacoor
+  Yazaki-EMI
+
+### Leyte / Samar (Eastern Visayas) (6)
+  ABUCAY TERMINAL PARKING AREA
+  Benjamin Romualdez Avenue/Savers Depot
+  Jeepney from Ormoc drop off
+  Quezon Boulevard/Justice Romualdez Street (Pump Boat Terminal)
+  Tacloban_Marabaras_Jeepney
+  Van-vans Downtown Tacloban Terminal
+
+### Davao (51)
+  Acacia - Mandug Jeepney Terminal
+  ADU Terminal
+  Aunmoda Terminal
+  Bachelor Express - Santo Tomas Terminal
+  Bago Aplaya
+  Bo. Obrero
+  Buhangin via Dacudao
+  Buhangin via JP Laurel
+  Bunawan via Buhangin
+  Bunawan via Sasa
+  Calinan
+  Calinan Public Market Jeepney Stop
+  Camp Catitipan via JP Laurel
+  Catalunan Grande
+  Catalunan Grande Jeepney Station
+  Doña Pilar Jeep Terminal
+  Ecoland
+  El Rio
+  Emily Homes
+  Jade Valley
+  Jeep Terminal (Sta. Cruz - Digos City)
+  Jeepney Terminal for Barangay Indangan
+  Jeepney Terminal Mintal & Davao
+  Jeepney Terminal Tigatto - UM
+  Lasang via Buhangin
+  Lasang via Sasa
+  Maa - Agdao
+  Maa - Bankerohan
+  Magtuod
+  Matina
+  Matina Aplaya
+  Matina Crossing
+  Matina Pangi
+  Mintal
+  Panabo-Davao Jeepney Terminal
+  Panacan - SM City Davao
+  Panacan via Cabaguio
+  Pedicab and Jeepney Terminal
+  Puan
+  Sasa via Cabaguio
+  Sasa via JP Laurel
+  Sasa via R. Castillo
+  Sinawal Habal2x Terminal
+  Talomo
+  Tibungco via Buhangin
+  Tibungco via Cabaguio
+  Tibungco via R. Castillo
+  Toril
+  Ulas
+  Unittrasco Terminal
+  Wa-an
+
+### La Union (51)
+  Acupan PUJ Terminal
+  Ampucao PUJ Terminal
+  Asin km6 Terminal
+  Aurora Hill PUJ Terminal
+  Baguio PUJ Terminal
+  Balacbac PUJ Terminal
+  Banig Terminal
+  Brookside Jeepney Terminal
+  Camp 1 PUJ Terminal
+  Camp 7 PUJ Terminal
+  Camp 8 Jitney Terminal
+  Camp Dangwa PUJ Terminal
+  City Camp District PUJ Terminal
+  Country Club Village PUJ Terminal
+  Housing PUJ Terminal
+  Irisan Fernandino PUJ Terminal
+  Itogon / Sangilo PUJ Terminal
+  J.E.T store, Baguio, Benguet, Philippines
+  Jeepney Stop
+  Jeepney Stop
+  Jeepney Stop
+  Jeepney Stop
+  La Trinidad-Bokawkan Terminal
+  Liteng PUJ Terminal
+  Longlong PUJ Terminal
+  Lourdes Dominican PUJ Terminal
+  Lucnab PUJ Terminal
+  Lusob Terminal
+  Motorpool Terminal
+  Motorpool/Swamp Terminal
+  Nangalisan PUJ Terminal
+  Navy Base PUJ Terminal
+  Navy Base Terminal, Baguio
+  Philex Mines PUJ Terminal
+  Pico-Lamtang Jeepney Loading Station
+  Pines Park Tawang PUJ Terminal
+  Pinget Jeepney Terminal
+  PMA Kias PUJ Terminal
+  Pozorrubio PUJ Terminal
+  Quezon Hill Extension PUJ Terminal
+  Quezon Hill Proper First Street Terminal
+  Sablan PUJ Terminal
+  Saint Patrick NPC / PUJ Terminal
+  San Carlos Heights Extension PUJ Terminal
+  San Fernando PUJ Terminal
+  San Luis Terminal
+  Taloy PUJ Terminal
+  Tam-Awan PUJ Terminal
+  Techno Hub
+  UP Village PUJ Terminal
+  Upper Pinget Jeepney Terminal
+
+### Pangasinan (13)
+  Aguilar PUJ Terminal
+  Bonuan Binloc PUJ Terminal
+  Dagupan PUJ Terminal
+  Drop and Go Urdaneta (Victory Liner Cargo Padala)
+  Extreme San Carlos Dagupan Terminal
+  Five Star - Dagupan Terminal
+  Five Star Bus Terminal - San Carlos
+  Mapandan - Dagupan Jeepney Terminal
+  PINES GARAGE GT TRANSPORT, INC.
+  SM Urdaneta
+  Terminal San Carlos
+  Umingan Jeepney Terminal
+  Urdaneta City
+
+### Laguna (38)
+  Alabang Jeepney Terminal
+  ASTC (Sto. Tomas Central Terminal)
+  Balibago Jeep Terminal
+  Balibago–Tanauan Terminal
+  Biñan-Loma-Timbao Jeepney Terminal
+  Calamba Checkpoint SB PUV Stop
+  Carmona Bayan Terminal
+  Central Mall Jeepney Terminal (Central Mall Olivarez - SM Calamba vice versa via mamplasan toll )
+  Jeep Terminal (Complex, Cabuyao, Highway)
+  Jeepney Pick Up Station
+  Jeepney Station (bound for Dolores, Quezon)
+  Jeepney Stop
+  Jeepney Terminal
+  Jeepney Terminal
+  Landers Nuvali
+  Longos to San Antonio Jeepney Terminal
+  Los Banos
+  Lucban-Sta.Cruz Jeepney Terminal
+  Majayiay jeep terminal
+  Marinig Gulod Jeepney Terminal
+  Meralco Canlubang EB PUV Stop
+  Pacita - Sucat Jeepney Terminal
+  Palo-Alto Jeepney Terminal
+  San Jose (jeepney stop)
+  San Pablo - Sta. Cruz Jeepney Terminal
+  San Pablo-Candelaria Jeepney Terminal
+  San Pablo-Liliw Jeepney Terminal
+  Seda Nuvali
+  SM Savemore Siniloan, Pakil - Pangil - Mabitac Road, Famy, Laguna, Philippines
+  SNODLOB (Elbeep) UPLB Terminal
+  Southwoods Mall Transport Terminal
+  SPC Jeepney Terminal - San Pablo to Calamba
+  Sta. Cruz - Cavinti Jeep Terminal
+  Sta. Cruz - San Pablo Jeep Terminal
+  Sta. Cruz - Siniloan Jeep Terminal
+  Suero's Transport Terminal (Canlubang)
+  Tanauan - San Pablo Jeep Terminal
+  Waltermart carmona
+
+### Cavite (42)
+  Alabang Metrolink Dasma Cubao Robinsons Dasmarinas Terminal
+  ALATIRIS TERMINAL
+  BIR Trece Martires
+  Brgy. Memije, Pulido and Malia Terminal
+  Buenavista 1
+  Bulihan - Alabang Jeepney Terminal
+  Cabuco
+  Capipisa
+  Dasma Bayan Jeepney Terminal
+  Dasma-Imus Jeppney Terminal
+  Dasmarinas Jeepney Interchange
+  Dasmarinas Terminal
+  Dasmariñas-to-Tejero Terminal
+  Estrella Jeepney Terminal
+  Filinvest West Avenue
+  Gregoria
+  Hugo Perez
+  Jeep Terminal (Tejero to Dasma Pala-pala, Manggahan Gen. Trias)
+  Jeep Terminal (Tejero to Trece)
+  Jeepney Terminal
+  Jeepney Terminal
+  Jeepney Terminal To Lemery
+  Korea-Philippines Friendship Hospital
+  LUMANG TERMINAL PA BAYAN
+  Malabon Jeep Terminal
+  Metrogate Trece Martires
+  New GMA Jeepney Terminal
+  Osorio/Conchu
+  Puregold/WalterMart Trece Martires
+  Salawag Depot
+  Sherwood Hills
+  Silang - Tagaytay Jeepney Station
+  Silang Plaza Jeepney Terminal
+  SM City Trece Martires
+  Sunshine - Alabang Jeepney Terminal
+  Suntrust Ecotown Terminal
+  Tanauan Jeepney Terminal
+  The M-Hub at GenTri
+  Trece
+  Trece Martires City Hall
+  Van Terminal Pala-Pala
+  WalterMart Trece Martires
+
+### Pampanga (23)
+  Angeles - Pandan Jeepney Terminal
+  Angeles - Sapang Bato Jeepney Terminal
+  Angeles, Guagua, Palawi - Jeepney Termial
+  Arayat - Jeepney Terminal
+  Assumption-Poblacion Jeepney Terminal
+  Bayanihan Jeepney Terminal
+  Dapdap bamban jeepney terminal
+  Dau - San Fernando Jeepney Terminal
+  Dolores Jeep Terminal
+  Dolores Jeepney Terminal
+  Florida/Porac Jeepney Terminal
+  Friendship - Telabastagan Jeepney Terminal
+  Friendship Jeepney Terminal
+  Holy Angel University PUJ Terminal
+  Jeep Terminal (Mabalacat/Main Gate)
+  Jeepney Stop
+  Jeepney Terminal
+  Mexico - Jeepney Terminal
+  Parksons Jeepney Stand
+  San Jose - Jeepney Terminal
+  San Pilipe, Assumption - Jeepney Terminal
+  Sapang Bato Jeepney Terminal
+  St. Jude Jeepney Terminal
+
+### Iloilo / Panay (34)
+  Ayala Malls Capitol Central Jeep Terminal
+  Banago - Libertad Jeep Terminal
+  Bangga Bante Jeepney Terminal
+  Bata - Libertad Jeep Terminal 1
+  Bredco Port - Northbound (San Juan St. Banago) Jeep Terminal
+  Bus and Jeepney Waiting Area
+  Bus-Jeepney to tubungan
+  Cabatuan Terminal
+  Ceres Northbound Terminal
+  Eroreco - Central Market Jeep Terminal
+  Fastcraft Terminal
+  Granada - Burgos Jeep Terminal
+  Homesite - Central Market (Burgos) Jeep Terminal
+  Jeepney (jaro liko nfa)
+  Jeepney to leganes
+  Jeepney to tagbak
+  LEON JEEP TERMINAL
+  Magsungay - Central Market Jeep Terminal
+  Mandalagan (Northbound) - Libertad (Central Market) Jeep Terminal
+  Mandalagan (Northbound) - Libertad Jeep Terminal
+  Mansilingan - Central Market Jeep Terminal
+  Murcia - Bacolod Jeep Terminal
+  Northbound Lacson St. at Ceres North Terminal
+  Pahanocoy Cegasco - BCGC New Govt. Center Jeep Terminal
+  Parc Regency - Monticello Jeepney Service
+  Parc Regency - Monticello Jeepney Service
+  Parc Regency - Monticello Jeepney Service
+  Parc Regency - Monticello Jeepney Service
+  San Dionisio (Santa Fe) - Central Market Jeep Terminal
+  Shopping - Northbound (Burgos) Jeep Terminal
+  Shopping (La Salle) - Libertad Jeep Terminal
+  Taculing - Central Market (Libertad) Jeep Terminal
+  Taculing - Central Market Jeep Terminal
+  Triumph Home Depot
+
+### Albay / Sorsogon (Bicol) (27)
+  Bacacay Jeepney Terminal
+  Bicol Central Station
+  Bulan Transco Terminal
+  Carolina-Panicuason Jeepney Station
+  Eastbound Jeep Terminal
+  Gainza Jeep Terminal
+  Gubat Pamana Terminal
+  Jeepney Terminal
+  Jeepney Terminal
+  Jeepney to Virac
+  Jovellar Jeep Terminal
+  LCC Mall Jeep Terminal
+  LIBTRASCO Jeepney Terminal
+  Ligao to Tabaco Jeep Terminal
+  Magarao Jeep Terminal
+  Milaor Jeepney Terminal
+  Multicab Terminal Nabua to Iriga
+  Naga City Central Jeep Terminal
+  NAGA TERMINAL
+  Northbound Jeepney Terminal
+  Pacol Jeep Terminal
+  Pamplona Jeepney Terminal
+  Presentacion Jeepney Terminal
+  Pulangui Jeepney Terminal
+  Tabaco City
+  Tabaco City
+  Tabaco City Central Terminal
+
+### Ilocos Norte (6)
+  Bacarra-Laoag Jeepney Terminal
+  Gabu-Laoag Jeep Terminal
+  GV Florida - Pagudpud Terminal
+  Laoag - Sarrat Jeepney Terminal
+  Laoag-San Nicolas Jeep Terminal (Robinson)
+  Viron Transit - Narvacan Terminal
+
+### Batangas (10)
+  Balagbag Jeepney Terminal
+  Banaybanay II PUV Stop (for Batangas City)
+  Cuatro Santos Jeepney Terminal
+  Cuta Terminal
+  Dagatan Jeepney Terminal
+  Festival Mall X-Site Entrance Driveway, Festival Supermall Pedestrian Walkway, Alabang, Muntinlupa, Metro Manila, Philippines
+  Jeepney Terminal going to Mabini, Batangas
+  Jeepney terminal to Batangas
+  Lipa City Grand Terminal
+  Robinsons Place Lipa Passenger Terminal
+
+### Bulacan (17)
+  Balagtas - Bulakan Jeepney Terminal
+  Cacarong Matanda Jeepney Terminal
+  Halang and Santa Maria to Pandi-Angat-Baliuag Jeepney Terminal
+  Jeepney Terminal
+  Jeepney Terminal
+  Jeepney Terminal (Baliwag-Pulo)
+  Jeepney Terminal Halang (HAPATUJODA)
+  Jeepney Terminal to Bulakan
+  Malolos-San Fernando Jeepney Terminal
+  Matimbo - Marilao Jeepney Terminal
+  Muzon-Sta. Maria Jeep Terminal
+  New Santa Maria Jeepney Terminal
+  Pulo-Baliwag Jeepney Terminal
+  Sapang Palay - Sta Maria Jeep Terminal
+  SJDM - Marilao Jeepney Terminal
+  SJDM - Tungko Jeepney Terminal
+  Walter Mart to Malolos Jeepney Terminal
+
+### Bataan (6)
+  BATAAN JEEPNEY OPERATORS AND DRIVERS TRANSPORT SERVICE COOPERATIVE
+  Hanjin Terminal Parking Garage
+  MEXJeep VistaMall Bataan
+  RED JEEPNEY (J03) Terminal
+  RED JEEPNEY (J03) TERMINAL
+  Subic Town Central Terminal
+
+### Quezon Province (3)
+  Bayan Jeepney Terminal
+  Jeepney Terminal To Laiya, Batangas
+  Lucena City Grand Central Terminal (unloading)
+
+### Other / Unclassified (18)
+  Boac-Balanacan Jeepney Terminal
+  Bulacan - Obando Jeepney Terminal
+  Bulakan - Balagtas Jeepney Terminal
+  Burgos Terminal
+  Butuan Jeepney Terminal
+  Cantilan Terminal
+  Carmen Bus Terminal
+  Carrascal Bus Terminal
+  Caticlan
+  Caticlan
+  Dapa Terminal
+  Dapitan City
+  DGT-TNJY Jeepney Terminal
+  Five Star - Anda Terminal
+  General Luna Integrated Terminal, New location for Datsco bus to Dapa
+  Jeepney Terminal to Sibulan
+  Marawi-Iligan Terminal
+  Upi Terminal
+
+### Cebu (15)
+  Bogo City Central Terminal
+  Carcar
+  Cebu South Harbor & Container Terminal Corporation
+  Danao City
+  Danao Terminal
+  Guihulngan Terminal
+  J Mall Jeepney Terminal
+  Jeepney and V-Hire Terminal
+  Jeepney stop
+  Jeepney Stop
+  Jeepney Stop for 10H - Bulacao to SM City and vice versa
+  Kalunasan Jeep Terminal
+  Mango Jeep
+  Mango Jeep Booth
+  Tintay Jeepney Terminal
+
+### Mountain Province / Cordillera (1)
+  Bontoc Jeepney Terminal
+
+### Cagayan de Oro / Misamis (5)
+  Brgy. Sta. Elena Jeepney Terminal
+  Marawi-Iligan Terminal
+  Modern Jeepney Terminal
+  Puga-an Jeepney Terminal
+  Tipanoy Landless Jeepney Terminal
+
+### Zamboanga (4)
+  Cabatangan Jeepney Terminal
+  Starlight Express Terminal
+  Tetuan Jeep Terminal
+  Zamboanga City Integrated Bus Terminal
+
+### Tarlac (5)
+  Capas Tarlac Jeepney TSC
+  Licab - Cabanatuan Jeepney Terminal
+  Paniqui-Tarlac Jeep Terminal
+  Quezon Jeepney Terminal
+  Sto. Domingo Jeepney Transport Terminal
+
+### Negros (3)
+  Granada Jeepney Terminal
+  Himamaylan
+  San Dionisio (Santa Fe Bagul) - Central Market (Burgos) Jeep Terminal
+
+### Isabela (2)
+  Ilagan City
+  Ilagan City Central Terminal
+
+### Camarines Norte / Sur (Bicol) (1)
+  Jeepney Terminal
+
+### Bohol (4)
+  Jeepney to Tagbilaran
+  Jeepney to Tagbilaran
+  Jeepney to Tagbilaran
+  Terminal Jeepney pour Loboc 50 P
+
+### Rizal (3)
+  Mr. Diy infanta, Brgy Comon Road, Infanta, Quezon, Philippines
+  Sampaloc - Tanay Jeepney Terminal
+  Sampaloc Terminal
+
+### Nueva Ecija (2)
+  Palayan
+  Rizal-Cabanatuan jeepney Terminal
+
+### Palawan (1)
+  San Jose Terminal

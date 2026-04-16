@@ -24,11 +24,11 @@ function buildAdjacency(connections) {
   }
   return adj
 }
-function findAllPaths(startId, endId, adj, maxDepth = 40) {
+function findAllPaths(startId, endId, adj, maxDepth = 10, maxResults = 30) {
   const results      = []
   const visitedStops = new Set()
-  const usedConns    = new Set()
   function dfs(current, stopPath, colors, connPath) {
+    if (results.length >= maxResults) return
     if (stopPath.length > maxDepth) return
     if (current === endId) {
       results.push({ stopIds: [...stopPath], colors: [...colors], connIds: [...connPath] })
@@ -37,9 +37,8 @@ function findAllPaths(startId, endId, adj, maxDepth = 40) {
     const edges = adj[current]
     if (!edges) return
     for (const { connId, neighborId, color } of edges) {
-      if (!usedConns.has(connId) && !visitedStops.has(neighborId)) {
+      if (!visitedStops.has(neighborId)) {
         visitedStops.add(neighborId)
-        usedConns.add(connId)
         stopPath.push(neighborId)
         colors.push(color)
         connPath.push(connId)
@@ -47,7 +46,6 @@ function findAllPaths(startId, endId, adj, maxDepth = 40) {
         stopPath.pop()
         colors.pop()
         connPath.pop()
-        usedConns.delete(connId)
         visitedStops.delete(neighborId)
       }
     }
@@ -222,19 +220,23 @@ export default function DirectionPanel({
   const toCandidates   = toExact   ? [toExact,   ...findKNearest(toPoint,   markers, 7).filter(m => m.id !== toExact.id)]   : findKNearest(toPoint,   markers, 8)
 
   // Try all from/to candidate pairs and collect unique routes
-  const seenConnIds = new Set()
+  const seenStopKeys = new Set()
   const allFoundRoutes = []
   for (const fc of fromCandidates) {
     for (const tc of toCandidates) {
       if (fc.id === tc.id) continue
-      const paths = findAllPaths(fc.id, tc.id, adj, 10)
+      const paths = findAllPaths(fc.id, tc.id, adj, 10, 20)
       for (const path of paths) {
-        const key = (path.connIds ?? []).join(',')
-        if (seenConnIds.has(key)) continue
-        seenConnIds.add(key)
+        // Deduplicate by stop sequence — same stops = same route regardless of conn IDs
+        const key = (path.stopIds ?? []).join(',')
+        if (seenStopKeys.has(key)) continue
+        seenStopKeys.add(key)
         allFoundRoutes.push({ ...path, fromMarker: fc, toMarker: tc })
+        if (allFoundRoutes.length >= 8) break // cap total results shown
       }
+      if (allFoundRoutes.length >= 8) break
     }
+    if (allFoundRoutes.length >= 8) break
   }
 
   const routes = allFoundRoutes.map(({ stopIds, connIds, colors, fromMarker, toMarker }, i) => {

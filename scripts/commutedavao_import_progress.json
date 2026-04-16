@@ -1,0 +1,872 @@
+{
+  "created_terminals": [
+    {
+      "name": "Matina Crossing City Stop",
+      "id": "bb0b0bc3-702b-4f08-b6cc-561d7801b9c7"
+    },
+    {
+      "name": "Route 1",
+      "id": "b0bfc7b5-cd34-4781-9b59-5a2c8be30626"
+    },
+    {
+      "name": "Route 1 City Stop",
+      "id": "2acee623-1ec1-4734-ac42-c60d33af4082"
+    },
+    {
+      "name": "Route 4",
+      "id": "0010e13a-27f6-4fca-979b-dae0ba026582"
+    },
+    {
+      "name": "Route 7 City Stop",
+      "id": "615f9670-d80a-461b-b281-2a59878878f3"
+    },
+    {
+      "name": "Route 8",
+      "id": "063f8548-1e2a-4d67-9a99-1c2eaf193423"
+    },
+    {
+      "name": "Route 9",
+      "id": "693e80e4-6748-4112-83f7-63a034fec426"
+    }
+  ],
+  "created_connections": [
+    {
+      "routeName": "Bago Aplaya",
+      "dir": "out",
+      "id": "db5b5512-a0bd-4119-ac5e-37a527b14d93"
+    },
+    {
+      "routeName": "Bago Aplaya",
+      "dir": "in",
+      "id": "ddb018b8-8f47-47aa-b1fa-f067fa6f66e6"
+    },
+    {
+      "routeName": "Bangkal",
+      "dir": "out",
+      "id": "ae8e4467-1193-4203-9ce6-f470455d800f"
+    },
+    {
+      "routeName": "Bangkal",
+      "dir": "in",
+      "id": "1ac03b04-c469-4b47-8658-97e48ad62107"
+    },
+    {
+      "routeName": "Bo. Obrero",
+      "dir": "out",
+      "id": "d3522c62-1374-4166-a906-720b25131df9"
+    },
+    {
+      "routeName": "Bo. Obrero",
+      "dir": "in",
+      "id": "401ca1ca-edf2-4ce0-a722-e6d9a110d1b5"
+    },
+    {
+      "routeName": "Buhangin via Dacudao",
+      "dir": "out",
+      "id": "fe8d24c3-54fe-4ab5-bbc4-388f23846389"
+    },
+    {
+      "routeName": "Buhangin via Dacudao",
+      "dir": "in",
+      "id": "a181d48f-7ab4-45b4-a109-757b8171522d"
+    },
+    {
+      "routeName": "Buhangin via JP Laurel",
+      "dir": "out",
+      "id": "a6510e5d-759f-4d51-bae2-2d4beca17ad3"
+    },
+    {
+      "routeName": "Buhangin via JP Laurel",
+      "dir": "in",
+      "id": "7d931f71-a52b-47d1-8016-151c60612e01"
+    },
+    {
+      "routeName": "Bunawan via Buhangin",
+      "dir": "out",
+      "id": "e76dbde0-d8b3-4c61-9c63-4074d0a333a6"
+    },
+    {
+      "routeName": "Bunawan via Buhangin",
+      "dir": "in",
+      "id": "de593ef2-d119-4bf4-b868-861151d097cb"
+    },
+    {
+      "routeName": "Bunawan via Sasa",
+      "dir": "out",
+      "id": "646153f1-0bb7-425e-97dd-e7cbf6803203"
+    },
+    {
+      "routeName": "Bunawan via Sasa",
+      "dir": "in",
+      "id": "b50ad203-4273-4f5b-b8b0-34c64a255b0e"
+    },
+    {
+      "routeName": "Calinan",
+      "dir": "out",
+      "id": "0ec46e19-d266-4898-a516-d8e7ad916f01"
+    },
+    {
+      "routeName": "Calinan",
+      "dir": "in",
+      "id": "523db332-a95f-4320-a840-9b613a7f9750"
+    },
+    {
+      "routeName": "Camp Catitipan via JP Laurel",
+      "dir": "out",
+      "id": "f7a6ce29-9757-4604-b9a6-45570ac7085d"
+    },
+    {
+      "routeName": "Camp Catitipan via JP Laurel",
+      "dir": "in",
+      "id": "341f707d-5e23-482c-bc1e-1799fd7177d6"
+    },
+    {
+      "routeName": "Catalunan Grande",
+      "dir": "out",
+      "id": "cfba6a23-2cae-41b2-9461-cc46fbd4e5d9"
+    },
+    {
+      "routeName": "Catalunan Grande",
+      "dir": "in",
+      "id": "524bb573-7c18-4699-96cb-ddfb5ef98c5a"
+    },
+    {
+      "routeName": "Ecoland",
+      "dir": "out",
+      "id": "9f470162-b2ab-4977-895d-83042b7d814e"
+    },
+    {
+      "routeName": "Ecoland",
+      "dir": "in",
+      "id": "e23f97bd-5ebf-4768-868f-2e3d5c60d653"
+    },
+    {
+      "routeName": "El Rio",
+      "dir": "out",
+      "id": "71155179-4388-4776-8190-e4a53edea63e"
+    },
+    {
+      "routeName": "El Rio",
+      "dir": "in",
+      "id": "be3affc2-9dd4-411b-8941-8dcdb40b97fb"
+    },
+    {
+      "routeName": "Emily Homes",
+      "dir": "out",
+      "id": "9ae7819a-67ce-4c0d-9072-7b52d4a11953"
+    },
+    {
+      "routeName": "Emily Homes",
+      "dir": "in",
+      "id": "ed273882-be3b-403f-9121-bb720168752a"
+    },
+    {
+      "routeName": "Jade Valley",
+      "dir": "out",
+      "id": "20c7a6c7-9ab2-4c11-9306-8f36d912e453"
+    },
+    {
+      "routeName": "Jade Valley",
+      "dir": "in",
+      "id": "0874d647-6e7e-4cc6-afe0-29b2460741d5"
+    },
+    {
+      "routeName": "Lasang via Buhangin",
+      "dir": "out",
+      "id": "64c04bd6-0125-4fb8-92bc-4978286da425"
+    },
+    {
+      "routeName": "Lasang via Buhangin",
+      "dir": "in",
+      "id": "c36f738f-0530-43ff-b0c4-f12290919593"
+    },
+    {
+      "routeName": "Lasang via Sasa",
+      "dir": "out",
+      "id": "fa1741e7-ba56-49d1-856a-89c1943dd28a"
+    },
+    {
+      "routeName": "Lasang via Sasa",
+      "dir": "in",
+      "id": "f9bebdee-1087-4ff2-b00f-0f2ab62a3f0c"
+    },
+    {
+      "routeName": "Maa - Agdao",
+      "dir": "out",
+      "id": "a3510cda-79c7-4920-b9e8-a4a3bc7f0806"
+    },
+    {
+      "routeName": "Maa - Agdao",
+      "dir": "in",
+      "id": "8f47bcf2-db59-4c27-96bd-11c1ec291ce4"
+    },
+    {
+      "routeName": "Maa - Bankerohan",
+      "dir": "out",
+      "id": "97f023ce-24e3-4775-92e6-a9a89f2cae26"
+    },
+    {
+      "routeName": "Maa - Bankerohan",
+      "dir": "in",
+      "id": "c8f7301e-c421-496c-be5a-0f5ffec1f0d3"
+    },
+    {
+      "routeName": "Magtuod",
+      "dir": "out",
+      "id": "8f407993-32c8-43ea-8cfa-99f208005597"
+    },
+    {
+      "routeName": "Magtuod",
+      "dir": "in",
+      "id": "c0f2b1fc-85e8-4e2a-a624-091484c301da"
+    },
+    {
+      "routeName": "Matina",
+      "dir": "out",
+      "id": "7541afaf-b848-48d3-bd23-9d54d8a04f5d"
+    },
+    {
+      "routeName": "Matina",
+      "dir": "in",
+      "id": "1724c9d8-1b19-476b-87d5-d658ce9d33fb"
+    },
+    {
+      "routeName": "Matina Aplaya",
+      "dir": "out",
+      "id": "9293471e-4dcf-45b3-bed8-d710a49f063f"
+    },
+    {
+      "routeName": "Matina Aplaya",
+      "dir": "in",
+      "id": "17552134-5121-4389-a2ec-682ce52d33ca"
+    },
+    {
+      "routeName": "Matina Crossing",
+      "dir": "out",
+      "id": "d42fce40-d504-4780-9706-727a13c17867"
+    },
+    {
+      "routeName": "Matina Crossing",
+      "dir": "in",
+      "id": "b51f6054-3f87-429c-90f9-a15f593fe82d"
+    },
+    {
+      "routeName": "Matina Pangi",
+      "dir": "out",
+      "id": "556f2b83-11f6-441d-a81c-1014a1361979"
+    },
+    {
+      "routeName": "Matina Pangi",
+      "dir": "in",
+      "id": "6c179d72-cb35-4531-ab5f-ae0c324e763f"
+    },
+    {
+      "routeName": "Mintal",
+      "dir": "out",
+      "id": "afa06001-30df-418d-8f43-882461e73127"
+    },
+    {
+      "routeName": "Mintal",
+      "dir": "in",
+      "id": "ca45bf35-dcf6-493f-9fde-992a6b43ffa7"
+    },
+    {
+      "routeName": "Panacan via Cabaguio",
+      "dir": "out",
+      "id": "7df7dc38-4ce7-432a-8d9e-90706cd13ae6"
+    },
+    {
+      "routeName": "Panacan via Cabaguio",
+      "dir": "in",
+      "id": "33a25bba-7d3c-415a-8933-ac39752b343c"
+    },
+    {
+      "routeName": "Panacan - SM City Davao",
+      "dir": "out",
+      "id": "7bee11f0-4acd-402b-9491-3bb251c8d97f"
+    },
+    {
+      "routeName": "Panacan - SM City Davao",
+      "dir": "in",
+      "id": "ba48a663-31a5-4707-9135-55b15ca14baf"
+    },
+    {
+      "routeName": "Puan",
+      "dir": "out",
+      "id": "fcf8c3f9-731a-4387-92c7-c8d186a7e231"
+    },
+    {
+      "routeName": "Puan",
+      "dir": "in",
+      "id": "74a71f72-0776-406b-b409-2dbfb24530e9"
+    },
+    {
+      "routeName": "Route 1",
+      "dir": "out",
+      "id": "46530c1d-7e61-4881-8726-24ea2c06645b"
+    },
+    {
+      "routeName": "Route 1",
+      "dir": "in",
+      "id": "ece93dcb-1830-4d07-8a16-ff521c702886"
+    },
+    {
+      "routeName": "Route 2",
+      "dir": "out",
+      "id": "c1b5a520-45bf-4734-9a95-9b202e6e80cb"
+    },
+    {
+      "routeName": "Route 2",
+      "dir": "in",
+      "id": "aceb9b93-9d26-4d39-ade0-3052be5ef057"
+    },
+    {
+      "routeName": "Route 3",
+      "dir": "out",
+      "id": "99c9d2b4-f573-4f85-890a-a4882587f760"
+    },
+    {
+      "routeName": "Route 3",
+      "dir": "in",
+      "id": "643d4c7a-39ad-4220-8dca-0c156f03feaa"
+    },
+    {
+      "routeName": "Route 4",
+      "dir": "out",
+      "id": "3adf7e6e-873a-4326-a537-2120a1546f5f"
+    },
+    {
+      "routeName": "Route 4",
+      "dir": "in",
+      "id": "a90a9cc1-9e71-476b-8cb9-10dc11cd5d3b"
+    },
+    {
+      "routeName": "Route 5",
+      "dir": "out",
+      "id": "7a105e22-49fc-4f45-b5d5-90ac21243551"
+    },
+    {
+      "routeName": "Route 5",
+      "dir": "in",
+      "id": "ac8361b3-4391-41f8-a9c7-1125c5c4eb75"
+    },
+    {
+      "routeName": "Route 6",
+      "dir": "out",
+      "id": "350fb021-21c5-4a84-b870-e649d0ec8769"
+    },
+    {
+      "routeName": "Route 6",
+      "dir": "in",
+      "id": "4d78bc90-6ffa-46ce-9dde-c1cabe0473b7"
+    },
+    {
+      "routeName": "Route 7",
+      "dir": "out",
+      "id": "da0e58fc-3124-49f8-8f49-454cd600227c"
+    },
+    {
+      "routeName": "Route 7",
+      "dir": "in",
+      "id": "27f413be-7e63-4702-92fa-cb3ab177e47c"
+    },
+    {
+      "routeName": "Route 8",
+      "dir": "out",
+      "id": "245a3429-9d3c-47d2-aca2-5391485f0bd5"
+    },
+    {
+      "routeName": "Route 8",
+      "dir": "in",
+      "id": "2495542d-5fcb-44a3-b5a6-79c1419f491c"
+    },
+    {
+      "routeName": "Route 9",
+      "dir": "out",
+      "id": "f2053038-3764-4c3e-a5a0-cfc6c7e39e6d"
+    },
+    {
+      "routeName": "Route 9",
+      "dir": "in",
+      "id": "a2850a24-8ea7-4adc-b7e7-b0b9aef02b0e"
+    },
+    {
+      "routeName": "Route 10",
+      "dir": "out",
+      "id": "936dd7a8-2f70-4b74-b79b-87a67bfaae2c"
+    },
+    {
+      "routeName": "Route 10",
+      "dir": "in",
+      "id": "3950f4cb-7ff4-455e-b9ab-e1bca9907b15"
+    },
+    {
+      "routeName": "Route 11",
+      "dir": "out",
+      "id": "8d942066-58dd-4d80-8905-f49aa8f685e4"
+    },
+    {
+      "routeName": "Route 11",
+      "dir": "in",
+      "id": "ff49e68c-c92d-4803-ab9e-5042e789fc3e"
+    },
+    {
+      "routeName": "Route 12",
+      "dir": "out",
+      "id": "db9dde09-5f42-4f1e-8d8b-732dea4ba350"
+    },
+    {
+      "routeName": "Route 12",
+      "dir": "in",
+      "id": "f0e62921-10c2-497e-8c0e-4f3af64b12ad"
+    },
+    {
+      "routeName": "Route 13",
+      "dir": "out",
+      "id": "b0b3129d-39a9-42f8-9315-ba319b10d06a"
+    },
+    {
+      "routeName": "Route 13",
+      "dir": "in",
+      "id": "d49c3795-ef56-408d-9268-1678ced04976"
+    },
+    {
+      "routeName": "Route 14",
+      "dir": "out",
+      "id": "1ec81283-5d55-468e-875f-76e3e7a469df"
+    },
+    {
+      "routeName": "Route 14",
+      "dir": "in",
+      "id": "8a7143eb-90b0-44cf-8571-8231ee9a9630"
+    },
+    {
+      "routeName": "Route 15",
+      "dir": "out",
+      "id": "db3aeb47-ca1f-4223-89ef-b735c210117d"
+    },
+    {
+      "routeName": "Route 15",
+      "dir": "in",
+      "id": "3a1326cb-daa9-4113-be5a-45ea98c99520"
+    },
+    {
+      "routeName": "Sasa via Cabaguio",
+      "dir": "out",
+      "id": "0558f0e5-d655-43d7-b6f4-b009d6e05076"
+    },
+    {
+      "routeName": "Sasa via Cabaguio",
+      "dir": "in",
+      "id": "6508232c-8b49-44f0-8909-dd36de7165cf"
+    },
+    {
+      "routeName": "Sasa via JP Laurel",
+      "dir": "out",
+      "id": "11f95583-53b3-481e-9dac-809875ffbd6f"
+    },
+    {
+      "routeName": "Sasa via JP Laurel",
+      "dir": "in",
+      "id": "0d4c58fb-fbcc-49ec-80aa-d8266a3d725c"
+    },
+    {
+      "routeName": "Sasa via R. Castillo",
+      "dir": "out",
+      "id": "d7c74a92-e47b-4e65-8fba-53dac819f1ed"
+    },
+    {
+      "routeName": "Sasa via R. Castillo",
+      "dir": "in",
+      "id": "8fcf5cc9-6f1e-441e-aaa6-fbb60563e1f9"
+    },
+    {
+      "routeName": "Talomo",
+      "dir": "out",
+      "id": "38b136c6-e729-4bd8-b229-bd26c70313f0"
+    },
+    {
+      "routeName": "Talomo",
+      "dir": "in",
+      "id": "b5637bb2-6d65-4787-a389-9a77128d7987"
+    },
+    {
+      "routeName": "Tibungco via Buhangin",
+      "dir": "out",
+      "id": "8b95426e-0bd3-4abb-9c84-6dd6f3dbca57"
+    },
+    {
+      "routeName": "Tibungco via Buhangin",
+      "dir": "in",
+      "id": "1635a56e-21d0-4262-bed6-f4e87322a0e6"
+    },
+    {
+      "routeName": "Tibungco via Cabaguio",
+      "dir": "out",
+      "id": "19912e69-2581-476f-acd7-a10372179c34"
+    },
+    {
+      "routeName": "Tibungco via Cabaguio",
+      "dir": "in",
+      "id": "748a3999-ba29-4f1e-a0f4-88f73482fd93"
+    },
+    {
+      "routeName": "Tibungco via R. Castillo",
+      "dir": "out",
+      "id": "8521eaf8-2821-4874-9c8d-b1d460aa2c8e"
+    },
+    {
+      "routeName": "Tibungco via R. Castillo",
+      "dir": "in",
+      "id": "0e828d71-cc99-4614-885e-6d31ea43fee0"
+    },
+    {
+      "routeName": "Toril",
+      "dir": "out",
+      "id": "772e325f-681b-4b35-abe9-1fc97218bc1a"
+    },
+    {
+      "routeName": "Toril",
+      "dir": "in",
+      "id": "659c15a0-298d-4719-9bb8-4315838737c2"
+    },
+    {
+      "routeName": "Ulas",
+      "dir": "out",
+      "id": "09262c03-890e-4511-a40d-f2c8956a7d98"
+    },
+    {
+      "routeName": "Ulas",
+      "dir": "in",
+      "id": "36d2ad1e-add2-416b-a918-2dac24f51433"
+    },
+    {
+      "routeName": "Wa-an",
+      "dir": "out",
+      "id": "c9f29c77-d0a3-403e-9bde-648bd6d791dd"
+    },
+    {
+      "routeName": "Wa-an",
+      "dir": "in",
+      "id": "644d4d51-d8e5-4fa1-a15b-c8533297039c"
+    }
+  ],
+  "skipped": [],
+  "errors": [
+    {
+      "route": "Lasang via Sasa",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Lasang via Sasa",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Maa - Agdao",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Maa - Agdao",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Maa - Bankerohan",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Maa - Bankerohan",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Magtuod",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Magtuod",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Matina",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Matina",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Matina Aplaya",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Matina Aplaya",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Matina Crossing",
+      "step": "to-terminal",
+      "error": "POST /api/terminals → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Matina Pangi",
+      "step": "to-terminal",
+      "error": "POST /api/terminals → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Mintal",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Mintal",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Panacan via Cabaguio",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Panacan via Cabaguio",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Panacan - SM City Davao",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Panacan - SM City Davao",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Puan",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Puan",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Route 1",
+      "step": "from-terminal",
+      "error": "POST /api/terminals → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Route 2",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Route 2",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Route 3",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Route 3",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Route 4",
+      "step": "from-terminal",
+      "error": "POST /api/terminals → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Route 5",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Route 5",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Route 6",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Route 6",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Route 7",
+      "step": "to-terminal",
+      "error": "POST /api/terminals → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Route 8",
+      "step": "from-terminal",
+      "error": "POST /api/terminals → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Route 9",
+      "step": "from-terminal",
+      "error": "POST /api/terminals → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Route 10",
+      "step": "to-terminal",
+      "error": "POST /api/terminals → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Route 11",
+      "step": "to-terminal",
+      "error": "POST /api/terminals → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Route 12",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Route 12",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Route 13",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Route 13",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Route 14",
+      "step": "from-terminal",
+      "error": "POST /api/terminals → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Route 15",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Route 15",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Sasa via Cabaguio",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Sasa via Cabaguio",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Sasa via JP Laurel",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Sasa via JP Laurel",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Sasa via R. Castillo",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Sasa via R. Castillo",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Talomo",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Talomo",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Tibungco via Buhangin",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Tibungco via Buhangin",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Tibungco via Cabaguio",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Tibungco via Cabaguio",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Tibungco via R. Castillo",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Tibungco via R. Castillo",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Toril",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Toril",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Ulas",
+      "step": "to-terminal",
+      "error": "POST /api/terminals → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Wa-an",
+      "step": "outbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    },
+    {
+      "route": "Wa-an",
+      "step": "inbound",
+      "error": "POST /api/connections → 429: {\"error\":\"Too many requests. Please slow down.\"}"
+    }
+  ]
+}
