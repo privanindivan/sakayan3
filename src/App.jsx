@@ -313,16 +313,15 @@ export default function App() {
           .then(r => r.json())
           .then(data => {
             const routes = data.routes || []
-            const manualOpt = { id: 'manual', positions: [[fromM.lat, fromM.lng], [marker.lat, marker.lng]], color: '#9CA3AF', distance: null, manual: true }
             const alternatives = routes.length > 0
-              ? [...routes.map((route, i) => ({
+              ? routes.map((route, i) => ({
                   id: i,
                   positions: route.geometry.coordinates.map(([lng, lat]) => [lat, lng]),
                   color: ALT_COLORS[i % ALT_COLORS.length],
                   distance: route.distance,
                   duration: route.duration,
-                })), manualOpt]
-              : [manualOpt]
+                }))
+              : []
             setPendingConnect(prev =>
               prev && prev.fromId === snap.fromId && prev.toId === snap.toId
                 ? { ...prev, alternatives, loading: false }
@@ -332,7 +331,7 @@ export default function App() {
           .catch(() => {
             setPendingConnect(prev =>
               prev && prev.fromId === snap.fromId && prev.toId === snap.toId
-                ? { ...prev, alternatives: [{ id: 'manual', positions: [[fromM.lat, fromM.lng], [marker.lat, marker.lng]], color: '#9CA3AF', distance: null, manual: true }], loading: false }
+                ? { ...prev, alternatives: [], loading: false }
                 : prev
             )
           })
@@ -414,6 +413,32 @@ export default function App() {
       return remaining.length === 0 ? null : { ...prev, alternatives: remaining }
     })
   }, [])
+
+  const handleDrawManually = useCallback(async () => {
+    if (!pendingConnect) return
+    const fromM = markers.find(m => m.id === pendingConnect.fromId)
+    const toM   = markers.find(m => m.id === pendingConnect.toId)
+    if (!fromM || !toM) return
+    const positions = [[fromM.lat, fromM.lng], [toM.lat, toM.lng]]
+    const color = TYPE_COLORS[fromM?.type] || '#4A90D9'
+    const loadId = showToast('Saving connection…', 'loading')
+    try {
+      const res = await apiFetch('/api/connections', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fromId: pendingConnect.fromId, toId: pendingConnect.toId, geometry: positions, color, fare: null, duration_secs: null, waypoints: [] }),
+      })
+      dismissToast(loadId)
+      if (res.ok) {
+        const data = await res.json()
+        const conn = data.connection
+        setConnections(prev => [...prev, { id: conn.id, fromId: conn.from_id || conn.fromId, toId: conn.to_id || conn.toId, geometry: positions, color, fare: null, duration: null, waypoints: [], likes: 0, created_by: user?.id }])
+        showToast('Connection saved — tap it to add waypoints along the correct path', 'success', 4000)
+      } else { showToast('Failed to save connection', 'error') }
+    } catch { dismissToast(loadId); showToast('Failed to save connection', 'error') }
+    setPendingConnect(null)
+    setFocusedSegment(null)
+  }, [pendingConnect, markers, user])
 
   const handleCancelPendingConnect = useCallback(() => {
     setPendingConnect(null)
@@ -814,6 +839,7 @@ export default function App() {
           onConfirm={handleConfirmAlt}
           onReject={handleRejectAlt}
           onCancel={handleCancelPendingConnect}
+          onDrawManually={handleDrawManually}
         />
       )}
 
