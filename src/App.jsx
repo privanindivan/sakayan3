@@ -337,22 +337,31 @@ export default function App() {
           [fetch(directUrl), ...viaUrls.map(u => fetch(u))]
             .map(p => p.then(r => r.json()).catch(() => ({ routes: [] })))
         ).then(results => {
-          // Collect all routes, deduplicate by mid-coordinate proximity (<400m apart)
+          // Deduplicate: sample each route at 25%, 50%, 75% and treat as duplicate
+          // if the average sample distance vs any already-kept route is < ~700m
+          const sample = (coords, t) => coords[Math.floor(t * (coords.length - 1))]
+          const similar = (c1, c2) => {
+            const avg = [0.25, 0.5, 0.75].reduce((sum, t) => {
+              const [ax, ay] = sample(c1, t)
+              const [bx, by] = sample(c2, t)
+              return sum + Math.hypot(ax - bx, ay - by)
+            }, 0) / 3
+            return avg < 0.007  // ~700m average across 3 sample points
+          }
           const seen = []
           const unique = []
           for (const data of results) {
             for (const route of (data.routes || [])) {
               const coords = route.geometry.coordinates
-              const mid = coords[Math.floor(coords.length / 2)]
-              const isDupe = seen.some(s =>
-                Math.hypot(s[0] - mid[0], s[1] - mid[1]) < 0.004  // ~400m in degrees
-              )
-              if (!isDupe) { seen.push(mid); unique.push(route) }
+              if (!seen.some(s => similar(s, coords))) {
+                seen.push(coords)
+                unique.push(route)
+              }
             }
           }
-          // Sort by distance ascending so shortest appears first
+          // Sort by distance ascending; cap at 4 options
           unique.sort((a, b) => a.distance - b.distance)
-          const alternatives = unique.slice(0, 5).map((route, i) => ({
+          const alternatives = unique.slice(0, 4).map((route, i) => ({
             id: i,
             positions: route.geometry.coordinates.map(([lng, lat]) => [lat, lng]),
             color: ALT_COLORS[i % ALT_COLORS.length],
