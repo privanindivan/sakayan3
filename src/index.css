@@ -2307,6 +2307,71 @@ html, body, #root {
   font-weight: 400;
   color: #64748b;
 }
+
+/* ── Draw-path toolbar ───────────────────────────────────────── */
+.draw-toolbar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: #1e293b;
+  border-radius: 18px 18px 0 0;
+  padding: 14px 16px 28px;
+  z-index: 1100;
+  box-shadow: 0 -4px 24px rgba(0,0,0,.4);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.draw-toolbar-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #e2e8f0;
+  font-size: 14px;
+}
+.draw-toolbar-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: #F59E0B;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgba(245,158,11,.25);
+}
+.draw-toolbar-actions {
+  display: flex;
+  gap: 8px;
+}
+.draw-toolbar-undo {
+  flex: 1;
+  padding: 9px 0;
+  border-radius: 10px;
+  border: 1px solid #475569;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 13px;
+  cursor: pointer;
+}
+.draw-toolbar-undo:disabled { opacity: 0.4; cursor: default; }
+.draw-toolbar-cancel {
+  flex: 1;
+  padding: 9px 0;
+  border-radius: 10px;
+  border: 1px solid #475569;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 13px;
+  cursor: pointer;
+}
+.draw-toolbar-done {
+  flex: 2;
+  padding: 9px 0;
+  border-radius: 10px;
+  border: none;
+  background: #22C55E;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.draw-toolbar-done:disabled { opacity: 0.4; cursor: default; }
 .route-alt-dist {
   font-size: 12px;
   color: #64748b;

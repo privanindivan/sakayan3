@@ -114,6 +114,7 @@ export default function App() {
   const [showDrawer,     setShowDrawer]     = useState(false)
   const [isFullscreen,   setIsFullscreen]   = useState(false)
   const [toasts,         setToasts]         = useState([])
+  const [drawPath,       setDrawPath]       = useState(null)  // {fromId, toId, points:[{lat,lng},...]}
   const shownAuthPrompt = useRef(false)
 
   const showToast = useCallback((message, type = 'success', duration = 2000) => {
@@ -228,8 +229,9 @@ export default function App() {
 
   const handleMapClick = useCallback((latlng) => {
     if (showForm) { setPendingLatLng(latlng); return }
+    if (drawPath) { setDrawPath(prev => prev ? { ...prev, points: [...prev.points, latlng] } : prev); return }
     if (addingWaypoint && !pendingWpLatLng) { setPendingWpLatLng(latlng) }
-  }, [showForm, addingWaypoint, pendingWpLatLng])
+  }, [showForm, addingWaypoint, pendingWpLatLng, drawPath])
 
   const handleStartConnect = useCallback((markerId) => {
     setConnectingFrom(markerId)
@@ -414,31 +416,53 @@ export default function App() {
     })
   }, [])
 
-  const handleDrawManually = useCallback(async () => {
+  const handleDrawManually = useCallback(() => {
     if (!pendingConnect) return
     const fromM = markers.find(m => m.id === pendingConnect.fromId)
-    const toM   = markers.find(m => m.id === pendingConnect.toId)
+    if (!fromM) return
+    setPendingConnect(null)
+    setDrawPath({ fromId: pendingConnect.fromId, toId: pendingConnect.toId, points: [{ lat: fromM.lat, lng: fromM.lng }] })
+    showToast('Tap along the route path on the map. Hit Done when finished.', 'success', 5000)
+  }, [pendingConnect, markers])
+
+  const handleDrawUndo = useCallback(() => {
+    setDrawPath(prev => {
+      if (!prev || prev.points.length <= 1) return prev
+      return { ...prev, points: prev.points.slice(0, -1) }
+    })
+  }, [])
+
+  const handleDrawDone = useCallback(async () => {
+    if (!drawPath || drawPath.points.length < 2) {
+      showToast('Tap at least 2 points on the map first', 'error'); return
+    }
+    const fromM = markers.find(m => m.id === drawPath.fromId)
+    const toM   = markers.find(m => m.id === drawPath.toId)
     if (!fromM || !toM) return
-    const positions = [[fromM.lat, fromM.lng], [toM.lat, toM.lng]]
+    const positions = [...drawPath.points.map(p => [p.lat, p.lng]), [toM.lat, toM.lng]]
     const color = TYPE_COLORS[fromM?.type] || '#4A90D9'
     const loadId = showToast('Saving connection…', 'loading')
     try {
       const res = await apiFetch('/api/connections', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fromId: pendingConnect.fromId, toId: pendingConnect.toId, geometry: positions, color, fare: null, duration_secs: null, waypoints: [] }),
+        body: JSON.stringify({ fromId: drawPath.fromId, toId: drawPath.toId, geometry: positions, color, fare: null, duration_secs: null, waypoints: [] }),
       })
       dismissToast(loadId)
       if (res.ok) {
         const data = await res.json()
         const conn = data.connection
         setConnections(prev => [...prev, { id: conn.id, fromId: conn.from_id || conn.fromId, toId: conn.to_id || conn.toId, geometry: positions, color, fare: null, duration: null, waypoints: [], likes: 0, created_by: user?.id }])
-        showToast('Connection saved — tap it to add waypoints along the correct path', 'success', 4000)
+        showToast('Connection saved!', 'success')
       } else { showToast('Failed to save connection', 'error') }
     } catch { dismissToast(loadId); showToast('Failed to save connection', 'error') }
-    setPendingConnect(null)
+    setDrawPath(null)
     setFocusedSegment(null)
-  }, [pendingConnect, markers, user])
+  }, [drawPath, markers, user])
+
+  const handleDrawCancel = useCallback(() => {
+    setDrawPath(null)
+  }, [])
 
   const handleCancelPendingConnect = useCallback(() => {
     setPendingConnect(null)
@@ -645,6 +669,7 @@ export default function App() {
         onWaypointClick={(fromId, toId) => setFocusedSegment({ fromId, toId })}
         onStreetViewClick={(img) => setStreetViewImg(img)}
         showStreetPhotos={showStreetPhotos}
+        drawPath={drawPath}
       />
 
       {/* Menu button — top left (hidden in fullscreen) */}
@@ -828,6 +853,21 @@ export default function App() {
           onCancel={handleCancelForm}
           saving={savingMarker}
         />
+      )}
+
+      {/* Draw-path toolbar — shown when user is tracing a route manually */}
+      {drawPath && (
+        <div className="draw-toolbar">
+          <div className="draw-toolbar-info">
+            <span className="draw-toolbar-dot" />
+            <span>Tap map to trace route · <strong>{drawPath.points.length}</strong> point{drawPath.points.length !== 1 ? 's' : ''}</span>
+          </div>
+          <div className="draw-toolbar-actions">
+            <button type="button" className="draw-toolbar-undo" onClick={handleDrawUndo} disabled={drawPath.points.length <= 1} title="Undo last point">↩ Undo</button>
+            <button type="button" className="draw-toolbar-cancel" onClick={handleDrawCancel}>Cancel</button>
+            <button type="button" className="draw-toolbar-done" onClick={handleDrawDone} disabled={drawPath.points.length < 2}>Done ✓</button>
+          </div>
+        </div>
       )}
 
       {pendingConnect && (

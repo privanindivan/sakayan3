@@ -438,6 +438,7 @@ export default function MapView({
   onWaypointClick,
   onStreetViewClick,
   showStreetPhotos,
+  drawPath,
 }) {
   const [mapBounds, setMapBounds] = useState(null)
   const [mapZoom, setMapZoom] = useState(DEFAULT_ZOOM)
@@ -615,6 +616,29 @@ export default function MapView({
             color={alt.color}
             weight={6}
             opacity={0.7}
+            interactive={false}
+          />
+        ))}
+
+        {/* Draw-path live preview */}
+        {drawPath && drawPath.points.length >= 2 && (
+          <Polyline
+            positions={drawPath.points.map(p => [p.lat, p.lng])}
+            color="#F59E0B"
+            weight={5}
+            opacity={0.9}
+            dashArray="8 6"
+            interactive={false}
+          />
+        )}
+        {drawPath && drawPath.points.map((p, i) => (
+          <Marker
+            key={`dp-${i}`}
+            position={[p.lat, p.lng]}
+            icon={i === 0
+              ? L.divIcon({ className: '', html: '<div style="width:14px;height:14px;border-radius:50%;background:#22C55E;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,.4)"></div>', iconSize: [14, 14], iconAnchor: [7, 7] })
+              : L.divIcon({ className: '', html: '<div style="width:10px;height:10px;border-radius:50%;background:#F59E0B;border:2px solid white;box-shadow:0 1px 3px rgba(0,0,0,.3)"></div>', iconSize: [10, 10], iconAnchor: [5, 5] })
+            }
             interactive={false}
           />
         ))}
