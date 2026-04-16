@@ -913,7 +913,6 @@ export default function App() {
           onConfirm={handleConfirmAlt}
           onReject={handleRejectAlt}
           onCancel={handleCancelPendingConnect}
-          onDrawManually={handleDrawManually}
         />
       )}
 
