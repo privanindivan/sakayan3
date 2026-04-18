@@ -78,6 +78,26 @@ function haversineKm(a, b) {
   const s = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * Math.PI / 180) * Math.cos(b.lat * Math.PI / 180) * Math.sin(dLng / 2) ** 2
   return R * 2 * Math.asin(Math.sqrt(s))
 }
+// Check if point is within thresholdKm of any geometry coordinate (samples every 3rd point)
+function geometryNear(point, geometry, thresholdKm = 1.5) {
+  if (!geometry || !geometry.length) return false
+  for (let i = 0; i < geometry.length; i += 3) {
+    const [lat, lng] = geometry[i]
+    if (haversineKm(point, { lat, lng }) <= thresholdKm) return true
+  }
+  return false
+}
+// Walk time from point to nearest geometry coordinate
+function walkSecsToGeometry(point, geometry) {
+  if (!geometry || !geometry.length) return null
+  let minKm = Infinity
+  for (let i = 0; i < geometry.length; i += 2) {
+    const [lat, lng] = geometry[i]
+    const d = haversineKm(point, { lat, lng })
+    if (d < minKm) minKm = d
+  }
+  return Math.round((minKm * WALK_FACTOR / WALK_KMH) * 3600)
+}
 function estimateSecs(fromM, toM) {
   return Math.round((haversineKm(fromM, toM) * ROAD_FACTOR / (SPEED_KMH[fromM.type] ?? 25)) * 3600)
 }
@@ -239,14 +259,44 @@ export default function DirectionPanel({
     if (allFoundRoutes.length >= 8) break
   }
 
-  const routes = allFoundRoutes.map(({ stopIds, connIds, colors, fromMarker, toMarker }, i) => {
+  // Circular routes: check if any circular connection's geometry passes near both points
+  if (allFoundRoutes.length < 8) {
+    for (const conn of connections) {
+      if (conn.fromId !== conn.toId) continue
+      if (allFoundRoutes.length >= 8) break
+      const key = `circ:${conn.id}`
+      if (seenStopKeys.has(key)) continue
+      const terminal = markers.find(m => m.id === conn.fromId)
+      if (!terminal) continue
+      const fromNear = geometryNear(fromPoint, conn.geometry, 1.5)
+      const toNear   = geometryNear(toPoint,   conn.geometry, 1.5)
+      if (fromNear && toNear) {
+        seenStopKeys.add(key)
+        allFoundRoutes.push({
+          stopIds: [terminal.id, terminal.id],
+          colors: [conn.color || '#4A90D9'],
+          connIds: [conn.id],
+          fromMarker: terminal,
+          toMarker: terminal,
+          isCircular: true,
+        })
+      }
+    }
+  }
+
+  const routes = allFoundRoutes.map(({ stopIds, connIds, colors, fromMarker, toMarker, isCircular }, i) => {
     const fare     = pathFare(connIds ?? [], connections)
     const rideDur  = pathDuration(connIds ?? [], connections, markers)
-    const wIn      = walkSecs(fromPoint, fromMarker)
-    const wOut     = walkSecs(toMarker, toPoint)
-    const duration = rideDur != null ? rideDur + wIn + wOut : null
+    const circConn = isCircular ? connections.find(c => c.id === connIds?.[0]) : null
+    const wIn      = isCircular && circConn?.geometry
+      ? walkSecsToGeometry(fromPoint, circConn.geometry)
+      : walkSecs(fromPoint, fromMarker)
+    const wOut     = isCircular && circConn?.geometry
+      ? walkSecsToGeometry(toPoint, circConn.geometry)
+      : walkSecs(toMarker, toPoint)
+    const duration = rideDur != null ? rideDur + wIn + wOut : (wIn != null && wOut != null ? wIn + wOut : null)
     return {
-      stopIds, connIds, colors, fromMarker, toMarker,
+      stopIds, connIds, colors, fromMarker, toMarker, isCircular,
       walkInSecs: wIn, walkOutSecs: wOut,
       color: colors[0] || ROUTE_COLORS[i % ROUTE_COLORS.length],
       label: `Route ${i + 1}`,
@@ -293,6 +343,15 @@ export default function DirectionPanel({
   }
 
   const buildSteps = (route) => {
+    if (route.isCircular) {
+      const conn = connections.find(c => c.id === route.connIds?.[0])
+      const color = route.colors[0] || '#4A90D9'
+      return [
+        { kind: 'walk', label: `Walk to boarding point`, secs: route.walkInSecs },
+        { kind: 'ride', from: route.fromMarker, to: route.toMarker, segColor: color, connId: route.connIds?.[0], circular: true },
+        { kind: 'walk', label: `Walk to ${toPoint.name || 'destination'}`, secs: route.walkOutSecs },
+      ]
+    }
     const stops = route.stopIds.map(id => markers.find(m => m.id === id)).filter(Boolean)
     if (!stops.length) return []
     const steps = [{ kind: 'walk', label: `Walk to ${route.fromMarker.name}`, secs: route.walkInSecs }]
@@ -346,11 +405,11 @@ export default function DirectionPanel({
         {routes.length > 0 && (
           <div className="dir-snap-row">
             <span className="dir-snap-stop" style={{ borderColor: TYPE_COLORS[routes[0].fromMarker.type] || '#888' }}>
-              {routes[0].fromMarker.name}
+              {routes[0].isCircular ? (fromCandidates[0]?.name || routes[0].fromMarker.name) : routes[0].fromMarker.name}
             </span>
             <span className="dir-snap-arrow">→</span>
             <span className="dir-snap-stop" style={{ borderColor: TYPE_COLORS[routes[0].toMarker.type] || '#888' }}>
-              {routes[0].toMarker.name}
+              {routes[0].isCircular ? (toCandidates[0]?.name || routes[0].toMarker.name) : routes[0].toMarker.name}
             </span>
           </div>
         )}
@@ -416,7 +475,7 @@ export default function DirectionPanel({
               >
                 <span className="dir-route-dot" style={{ background: route.color }} />
                 <span className="dir-route-title">{route.label}</span>
-                <span className="dir-route-hops">{route.stopIds.length - 1} hop{route.stopIds.length - 1 !== 1 ? 's' : ''}</span>
+                <span className="dir-route-hops">{route.isCircular ? 'Circular' : `${route.stopIds.length - 1} hop${route.stopIds.length - 1 !== 1 ? 's' : ''}`}</span>
                 {fmtDuration(duration) && <span className="dir-route-fare">{fmtDuration(duration)}</span>}
                 {fare != null && <span className="dir-route-fare">₱{Math.round(fare)}</span>}
                 <span className="dir-route-chevron">{open ? '▲' : '▼'}</span>
@@ -452,7 +511,7 @@ export default function DirectionPanel({
                             {segDurStr  && <span className="dir-step-fare"> · {segDurStr}</span>}
                             {segFareVal != null && <span className="dir-step-fare"> · ₱{segFareVal}</span>}
                           </span>
-                          <span className="dir-ride-route">{step.from.name} → {step.to.name}</span>
+                          <span className="dir-ride-route">{step.circular ? `Circular route via ${step.from.name}` : `${step.from.name} → ${step.to.name}`}</span>
                         </div>
                         <span className="dir-step-arrow">›</span>
                       </div>

@@ -947,6 +947,21 @@ export default function App() {
             setActiveStopIds(stopIds)
             setActiveConnIds(connIds)
             setFocusedSegment(null)
+            // Fly map to the active route's bounding box
+            const pts = []
+            for (const id of connIds) {
+              const conn = connections.find(c => c.id === id)
+              if (!conn) continue
+              if (conn.geometry?.length) {
+                for (let i = 0; i < conn.geometry.length; i += 5) pts.push(conn.geometry[i])
+              } else {
+                const f = markers.find(m => m.id === conn.fromId)
+                const t = markers.find(m => m.id === conn.toId)
+                if (f) pts.push([f.lat, f.lng])
+                if (t) pts.push([t.lat, t.lng])
+              }
+            }
+            if (pts.length >= 2) setFitBoundsPoints(pts)
           }}
           onSegmentFocus={(fromId, toId, connId) => setFocusedSegment({ fromId, toId, connId })}
         />
