@@ -5,7 +5,6 @@ import SearchBar              from './components/SearchBar'
 import AddMarkerForm          from './components/AddMarkerForm'
 import MarkerModal            from './components/MarkerModal'
 import UserProfile            from './components/UserProfile'
-import DirectionPanel         from './components/DirectionPanel'
 import RouteAlternativesSheet from './components/RouteAlternativesSheet'
 import AuthModal              from './components/AuthModal'
 import { DURATION_FACTORS, TYPE_COLORS } from './data/sampleData'
@@ -91,21 +90,15 @@ export default function App() {
   const [pendingLatLng,  setPendingLatLng]  = useState(null)
   const [showForm,       setShowForm]       = useState(false)   // add mode active
   const [showAddForm,    setShowAddForm]    = useState(false)   // full detail form visible
-  const [fromPoint,      setFromPoint]      = useState(null)
-  const [toPoint,        setToPoint]        = useState(null)
   const [userLocation,   setUserLocation]   = useState(null)
   const [locating,       setLocating]       = useState(false)
   const [connectingFrom, setConnectingFrom] = useState(null)
   const [pendingConnect, setPendingConnect] = useState(null)
   const [flyTarget,      setFlyTarget]      = useState(null)
-  const [fitBoundsPoints,setFitBoundsPoints] = useState(null)
   const [searchResetKey, setSearchResetKey] = useState(0)
   const [profileUserId,  setProfileUserId]  = useState(null)
   const [streetViewImg,  setStreetViewImg]  = useState(null)
-  const [activeStopIds,  setActiveStopIds]  = useState([])
-  const [activeConnIds,  setActiveConnIds]  = useState([])
   const [focusedSegment, setFocusedSegment] = useState(null)
-  const [routePrefill,   setRoutePrefill]   = useState(null)
   const [addingWaypoint, setAddingWaypoint] = useState(null)
   const [pendingWpLatLng, setPendingWpLatLng] = useState(null)
   const [showStreetPhotos, setShowStreetPhotos] = useState(false)
@@ -223,11 +216,6 @@ export default function App() {
     return () => clearTimeout(t)
   }, [flyTarget])
 
-  const handleRoute = useCallback((from, to) => {
-    setFromPoint(from)
-    setToPoint(to)
-  }, [])
-
   const handleMapClick = useCallback((latlng) => {
     if (showForm) { setPendingLatLng(latlng); return }
     if (drawPath) { setDrawPath(prev => prev ? { ...prev, points: [...prev.points, latlng] } : prev); return }
@@ -299,7 +287,6 @@ export default function App() {
 
   const handleMarkerClick = useCallback((marker) => {
     if (showForm) return
-    if (fromPoint && toPoint) return   // direction panel active — ignore marker taps
     if (connectingFrom !== null) {
       if (connectingFrom !== marker.id) {
         const fromM = markers.find(m => m.id === connectingFrom)
@@ -392,9 +379,7 @@ export default function App() {
       .filter(c => c.fromId === marker.id || c.toId === marker.id)
       .map(c => c.fromId === marker.id ? c.toId : c.fromId)
     const allPts = [marker, ...connectedIds.map(id => markers.find(m => m.id === id)).filter(Boolean)]
-    if (allPts.length > 1) setFitBoundsPoints(allPts.map(p => [p.lat, p.lng]))
-    else setFitBoundsPoints(null)
-  }, [showForm, fromPoint, toPoint, connectingFrom, markers, connections])
+  }, [showForm, connectingFrom, markers, connections])
 
   const handleConfirmAlt = useCallback(async (altId, fare) => {
     if (!pendingConnect) return
@@ -644,7 +629,7 @@ export default function App() {
 
   return (
     <div className="app">
-      {!isFullscreen && <SearchBar onRoute={handleRoute} onFlyTo={(t) => setFlyTarget(t)} markers={markers} resetKey={searchResetKey} prefill={routePrefill} />}
+      {!isFullscreen && <SearchBar onFlyTo={(t) => setFlyTarget(t)} markers={markers} resetKey={searchResetKey} />}
 
       {/* Fullscreen toggle — hides UI elements only, never triggers browser fullscreen */}
       <button
@@ -700,16 +685,11 @@ export default function App() {
         connectingFrom={connectingFrom}
         onMarkerClick={handleMarkerClick}
         onMapClick={handleMapClick}
-        fromPoint={fromPoint}
-        toPoint={toPoint}
         userLocation={userLocation}
         flyTarget={flyTarget}
         addingMode={showForm}
         pendingLatLng={pendingLatLng}
-        activeStopIds={activeStopIds}
-        activeConnIds={activeConnIds}
         focusedSegment={focusedSegment}
-        fitBoundsPoints={fitBoundsPoints}
         addingWaypointMode={!!addingWaypoint}
         pendingWpLatLng={pendingWpLatLng}
         onWaypointClick={(fromId, toId) => setFocusedSegment({ fromId, toId })}
@@ -930,42 +910,6 @@ export default function App() {
         />
       )}
 
-      {fromPoint && toPoint && (
-        <DirectionPanel
-          fromPoint={fromPoint}
-          toPoint={toPoint}
-          markers={markers}
-          connections={connections}
-          onClose={() => {
-            setFromPoint(null); setToPoint(null)
-            setSearchResetKey(k => k + 1)
-            setActiveStopIds([]); setActiveConnIds([])
-            setFocusedSegment(null)
-            setRoutePrefill(null)
-          }}
-          onActiveRoute={(stopIds, connIds) => {
-            setActiveStopIds(stopIds)
-            setActiveConnIds(connIds)
-            setFocusedSegment(null)
-            // Fly map to the active route's bounding box
-            const pts = []
-            for (const id of connIds) {
-              const conn = connections.find(c => c.id === id)
-              if (!conn) continue
-              if (conn.geometry?.length) {
-                for (let i = 0; i < conn.geometry.length; i += 5) pts.push(conn.geometry[i])
-              } else {
-                const f = markers.find(m => m.id === conn.fromId)
-                const t = markers.find(m => m.id === conn.toId)
-                if (f) pts.push([f.lat, f.lng])
-                if (t) pts.push([t.lat, t.lng])
-              }
-            }
-            if (pts.length >= 2) setFitBoundsPoints(pts)
-          }}
-          onSegmentFocus={(fromId, toId, connId) => setFocusedSegment({ fromId, toId, connId })}
-        />
-      )}
 
       {!isFullscreen && selectedMarker && (
         <MarkerModal
@@ -1011,15 +955,7 @@ export default function App() {
             const fromMarker = markers.find(m => m.id === fromId)
             const toMarker   = markers.find(m => m.id === toId)
             setSelectedMarker(null)
-            if (fromMarker && toMarker) {
-              const fp = { lat: fromMarker.lat, lng: fromMarker.lng, name: fromMarker.name }
-              const tp = { lat: toMarker.lat,   lng: toMarker.lng,   name: toMarker.name   }
-              setFromPoint(fp)
-              setToPoint(tp)
-              setRoutePrefill({ from: fp, to: tp })
-            } else {
-              setFocusedSegment({ connId, fromId, toId })
-            }
+            setFocusedSegment({ connId, fromId, toId })
           }}
           onOpenProfile={(uid) => setProfileUserId(uid)}
         />

@@ -5,14 +5,11 @@ const path = require('path')
 const { Pool } = require('pg')
 require('dotenv').config({ path: path.join(__dirname, '../.env.local') })
 
-const PORT = 7790
-const AUTH = 'Basic ' + Buffer.from('659219458216645:Y-s8TVGEroo2HaFEPDjNGK70oSk').toString('base64')
-const CLOUD = 'dmpytrcpl'
+const PORT = 7791
 const DB_URL = process.env.DATABASE_URL.replace(':5432/', ':6543/')
 
 function toPublicId(url) {
-  const m = url.match(/\/upload\/(?:v\d+\/)?(.+?)(?:\.\w+)?$/)
-  return m ? m[1] : null
+  return null // ImageKit — no publicId needed, DB-only delete
 }
 
 function thumb(url) {
@@ -43,26 +40,7 @@ async function deleteImages(toDelete) {
     }
   }
   await pool.end()
-
-  const publicIds = toDelete.map(d => d.publicId).filter(Boolean)
-  let cloudDeleted = 0
-  for (let i = 0; i < publicIds.length; i += 100) {
-    const batch = publicIds.slice(i, i + 100)
-    await new Promise(resolve => {
-      const params = batch.map(id => `public_ids[]=${encodeURIComponent(id)}`).join('&')
-      const req = https.request({
-        hostname: 'api.cloudinary.com',
-        path: `/v1_1/${CLOUD}/resources/image/upload?${params}`,
-        method: 'DELETE',
-        headers: { Authorization: AUTH }
-      }, r => {
-        let d = ''; r.on('data', c => d += c)
-        r.on('end', () => { try { const j = JSON.parse(d); cloudDeleted += j.deleted ? Object.keys(j.deleted).length : 0 } catch {} resolve() })
-      })
-      req.on('error', resolve); req.end()
-    })
-  }
-  return { dbUpdated, cloudDeleted }
+  return { dbUpdated, cloudDeleted: dbUpdated }
 }
 
 const HTML = `<!DOCTYPE html>
@@ -82,13 +60,16 @@ h1{font-size:16px;font-weight:700;color:#f8fafc;flex-shrink:0}
 #delBtn:hover{background:#991b1b!important}
 #delBtn:disabled{background:#1e293b!important;color:#475569!important;border-color:#334155!important;cursor:not-allowed!important}
 #selcount{font-size:12px;color:#64748b;white-space:nowrap}
-#grid{padding:10px 14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px}
-.photo{position:relative;aspect-ratio:4/3;border-radius:6px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color .1s}
+.pager{display:flex;gap:4px;align-items:center;font-size:12px;color:#94a3b8}
+.pager button{padding:3px 10px;border-radius:5px;border:1px solid #334155;background:#1e293b;color:#e2e8f0;cursor:pointer;font-size:12px}
+.pager button:disabled{opacity:.4;cursor:not-allowed}
+#grid{padding:10px 14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.photo{position:relative;aspect-ratio:4/3;border-radius:6px;overflow:hidden;cursor:pointer;border:3px solid transparent;transition:border-color .1s}
 .photo.sel{border-color:#ef4444}
 .photo img{width:100%;height:100%;object-fit:cover;display:block;background:#1e293b}
 .photo .chk{position:absolute;top:4px;left:4px;width:17px;height:17px;border-radius:50%;background:rgba(0,0,0,.6);border:2px solid #475569;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff}
 .photo.sel .chk{background:#ef4444;border-color:#ef4444}
-.photo .label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:16px 4px 4px;font-size:9px;color:#cbd5e1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.photo .label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:16px 5px 5px;font-size:11px;color:#cbd5e1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #empty{text-align:center;color:#475569;padding:60px;font-size:14px}
 #toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#16a34a;color:#fff;padding:10px 20px;border-radius:24px;font-size:14px;font-weight:600;display:none;z-index:999;box-shadow:0 4px 16px rgba(0,0,0,.4)}
 #loading{text-align:center;padding:60px;color:#475569;font-size:14px}
@@ -98,10 +79,15 @@ h1{font-size:16px;font-weight:700;color:#f8fafc;flex-shrink:0}
   <h1>Sakayan Photo Review</h1>
   <div id="stats">Loading...</div>
   <div class="toolbar">
-    <button onclick="selAll()">Select All</button>
-    <button onclick="selNone()">Select None</button>
+    <button onclick="selAll()">Sel Page</button>
+    <button onclick="selNone()">Desel Page</button>
     <span id="selcount">0 selected</span>
     <button id="delBtn" disabled onclick="doDelete()">🗑 Delete Selected</button>
+  </div>
+  <div class="pager">
+    <button id="prevBtn" onclick="changePage(-1)" disabled>◀</button>
+    <span id="pageInfo"></span>
+    <button id="nextBtn" onclick="changePage(1)">▶</button>
   </div>
 </div>
 <div id="loading">Loading all photos...</div>
@@ -110,7 +96,9 @@ h1{font-size:16px;font-weight:700;color:#f8fafc;flex-shrink:0}
 <div id="toast"></div>
 
 <script>
-let allPhotos = [], selected = new Set()
+let allPhotos = [], selectedUrls = new Set()
+const PAGE_SIZE = 200
+let page = 0
 
 async function load() {
   const r = await fetch('/api/terminals')
@@ -118,8 +106,7 @@ async function load() {
   allPhotos = []
   for (const t of terminals) {
     for (const url of t.images) {
-      const pid = toPublicId(url)
-      allPhotos.push({ url, publicId: pid||'', terminalName: t.name, terminalId: t.id })
+      allPhotos.push({ url, publicId: null, terminalName: t.name, terminalId: t.id })
     }
   }
   document.getElementById('loading').style.display = 'none'
@@ -128,63 +115,78 @@ async function load() {
   render()
 }
 
+function pagePhotos() {
+  return allPhotos.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)
+}
+
 function render() {
-  const grid = document.getElementById('grid')
+  const photos = pagePhotos()
+  const totalPages = Math.ceil(allPhotos.length / PAGE_SIZE)
   document.getElementById('empty').style.display = allPhotos.length ? 'none' : 'block'
-  grid.innerHTML = allPhotos.map((p, i) => {
-    const sel = selected.has(i)
-    return \`<div class="photo \${sel?'sel':''}" data-i="\${i}" onclick="toggle(this)">
+  document.getElementById('pageInfo').textContent = 'Page ' + (page+1) + ' / ' + totalPages
+  document.getElementById('prevBtn').disabled = page === 0
+  document.getElementById('nextBtn').disabled = page >= totalPages - 1
+  const offset = page * PAGE_SIZE
+  document.getElementById('grid').innerHTML = photos.map((p, j) => {
+    const i = offset + j
+    const sel = selectedUrls.has(p.url)
+    return \`<div class="photo \${sel?'sel':''}" data-i="\${i}" onclick="toggle(this,'\${p.url.replace(/'/g,"\\\\'")}')">
       <div class="chk">\${sel?'✓':''}</div>
-      <img src="\${thumb(p.url)}" loading="lazy" onerror="this.style.background='#334155'">
+      <img src="\${thumb(p.url)}" onerror="this.style.background='#334155'">
       <div class="label">\${p.terminalName}</div>
     </div>\`
   }).join('')
+  window.scrollTo(0, 0)
   updateCount()
+}
+
+function changePage(dir) {
+  page = Math.max(0, Math.min(Math.ceil(allPhotos.length/PAGE_SIZE)-1, page+dir))
+  render()
 }
 
 function thumb(url) {
-  return url.includes('cloudinary.com') ? url.replace('/upload/','/upload/c_fill,w_160,h_120,q_auto,f_auto/') : url
-}
-function toPublicId(url) {
-  const m = url.match(/\\/upload\\/(?:v\\d+\\/)?(.+?)(?:\\.\\w+)?\$/)
-  return m ? m[1] : null
+  if (!url) return ''
+  if (url.includes('ik.imagekit.io')) return url + '?tr=w-280,h-210,fo-auto'
+  if (url.includes('cloudinary.com')) return url.replace('/upload/','/upload/c_fill,w_280,h_210,q_auto,f_auto/')
+  return url
 }
 
-function toggle(el) {
-  const i = +el.dataset.i
-  if (selected.has(i)) { selected.delete(i); el.classList.remove('sel'); el.querySelector('.chk').textContent='' }
-  else { selected.add(i); el.classList.add('sel'); el.querySelector('.chk').textContent='✓' }
+function toggle(el, url) {
+  if (selectedUrls.has(url)) { selectedUrls.delete(url); el.classList.remove('sel'); el.querySelector('.chk').textContent='' }
+  else { selectedUrls.add(url); el.classList.add('sel'); el.querySelector('.chk').textContent='✓' }
   updateCount()
 }
 function selAll() {
-  document.querySelectorAll('.photo').forEach(el => { selected.add(+el.dataset.i); el.classList.add('sel'); el.querySelector('.chk').textContent='✓' })
+  pagePhotos().forEach(p => selectedUrls.add(p.url))
+  document.querySelectorAll('.photo').forEach(el => { el.classList.add('sel'); el.querySelector('.chk').textContent='✓' })
   updateCount()
 }
 function selNone() {
-  selected.clear()
+  pagePhotos().forEach(p => selectedUrls.delete(p.url))
   document.querySelectorAll('.photo').forEach(el => { el.classList.remove('sel'); el.querySelector('.chk').textContent='' })
   updateCount()
 }
 function updateCount() {
-  document.getElementById('selcount').textContent = selected.size + ' selected'
-  document.getElementById('delBtn').disabled = selected.size === 0
+  document.getElementById('selcount').textContent = selectedUrls.size + ' selected'
+  document.getElementById('delBtn').disabled = selectedUrls.size === 0
 }
 
 async function doDelete() {
-  if (!selected.size) return
-  if (!confirm('Delete ' + selected.size + ' photo(s)? Cannot be undone.')) return
+  if (!selectedUrls.size) return
+  if (!confirm('Delete ' + selectedUrls.size + ' photo(s)? Cannot be undone.')) return
   const btn = document.getElementById('delBtn')
   btn.textContent = 'Deleting...'
   btn.disabled = true
-  const toDelete = [...selected].map(i => ({ url: allPhotos[i].url, publicId: allPhotos[i].publicId }))
+  const toDelete = [...selectedUrls].map(url => ({ url, publicId: null }))
   const r = await fetch('/api/delete', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(toDelete) })
   const res = await r.json()
-  const deletedUrls = new Set(toDelete.map(d => d.url))
-  allPhotos = allPhotos.filter(p => !deletedUrls.has(p.url))
-  selected.clear()
+  allPhotos = allPhotos.filter(p => !selectedUrls.has(p.url))
+  selectedUrls.clear()
   document.getElementById('stats').textContent = allPhotos.length + ' photos remaining'
-  toast('Deleted ' + (res.cloudDeleted||0) + ' photos')
+  toast('Deleted ' + (res.dbUpdated||0) + ' photos from DB')
   btn.textContent = '🗑 Delete Selected'
+  if (page >= Math.ceil(allPhotos.length/PAGE_SIZE)) page = Math.max(0, Math.ceil(allPhotos.length/PAGE_SIZE)-1)
   render()
 }
 
