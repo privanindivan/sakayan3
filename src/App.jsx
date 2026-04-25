@@ -296,60 +296,28 @@ export default function App() {
         setPendingConnect(snap)
         setConnectingFrom(null)
 
-        // Build perpendicular midpoint offsets to force OSRM into different corridors.
-        // Standard alternatives stay within ~40% of shortest path — inland jeepney routes
-        // are often 50–80% longer so they never appear. Forcing via-points overcomes this.
-        const midLat = (fromM.lat + marker.lat) / 2
-        const midLng = (fromM.lng + marker.lng) / 2
-        const dLat = marker.lat - fromM.lat
-        const dLng = marker.lng - fromM.lng
-        const len = Math.hypot(dLat, dLng) || 1
-        const pLat = -dLng / len
-        const pLng =  dLat / len
-        const latKm = 1 / 111
-        const lngKm = 1 / (111 * Math.cos(midLat * Math.PI / 180))
-        const viaOffsets = [1.5, 3.0, -1.5, -3.0]
-        const viaPoints = viaOffsets.map(km => ({
-          lat: midLat + pLat * km * latKm,
-          lng: midLng + pLng * km * lngKm,
-        }))
+        // Straight-line distance (metres) used to filter absurd detours
+        const toRad = d => d * Math.PI / 180
+        const straightM = (() => {
+          const R = 6371000
+          const dLat = toRad(marker.lat - fromM.lat)
+          const dLng = toRad(marker.lng - fromM.lng)
+          const a = Math.sin(dLat/2)**2 + Math.cos(toRad(fromM.lat)) * Math.cos(toRad(marker.lat)) * Math.sin(dLng/2)**2
+          return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+        })()
 
         const base = `https://router.project-osrm.org/route/v1/driving`
-        const qry  = `?overview=full&geometries=geojson`
-        const directUrl = `${base}/${fromM.lng},${fromM.lat};${marker.lng},${marker.lat}${qry}&alternatives=3`
-        const viaUrls   = viaPoints.map(v =>
-          `${base}/${fromM.lng},${fromM.lat};${v.lng},${v.lat};${marker.lng},${marker.lat}${qry}`
-        )
+        const qry  = `?overview=full&geometries=geojson&alternatives=2`
+        const url  = `${base}/${fromM.lng},${fromM.lat};${marker.lng},${marker.lat}${qry}`
 
-        Promise.all(
-          [fetch(directUrl), ...viaUrls.map(u => fetch(u))]
-            .map(p => p.then(r => r.json()).catch(() => ({ routes: [] })))
-        ).then(results => {
-          // Deduplicate: sample each route at 25%, 50%, 75% and treat as duplicate
-          // if the average sample distance vs any already-kept route is < ~700m
-          const sample = (coords, t) => coords[Math.floor(t * (coords.length - 1))]
-          const similar = (c1, c2) => {
-            const avg = [0.25, 0.5, 0.75].reduce((sum, t) => {
-              const [ax, ay] = sample(c1, t)
-              const [bx, by] = sample(c2, t)
-              return sum + Math.hypot(ax - bx, ay - by)
-            }, 0) / 3
-            return avg < 0.007  // ~700m average across 3 sample points
-          }
-          const seen = []
-          const unique = []
-          for (const data of results) {
-            for (const route of (data.routes || [])) {
-              const coords = route.geometry.coordinates
-              if (!seen.some(s => similar(s, coords))) {
-                seen.push(coords)
-                unique.push(route)
-              }
-            }
-          }
-          // Sort by distance ascending; cap at 4 options
-          unique.sort((a, b) => a.distance - b.distance)
-          const alternatives = unique.slice(0, 4).map((route, i) => ({
+        Promise.all([fetch(url).then(r => r.json()).catch(() => ({ routes: [] }))])
+        .then(results => {
+          const all = results.flatMap(d => d.routes || [])
+          // Reject routes that are more than 2.5× the straight-line distance (clear detours)
+          const sane = all.filter(r => r.distance <= straightM * 2.5)
+          const kept = sane.length ? sane : all.slice(0, 1) // fallback: keep shortest if all filtered
+          kept.sort((a, b) => a.distance - b.distance)
+          const alternatives = kept.slice(0, 2).map((route, i) => ({
             id: i,
             positions: route.geometry.coordinates.map(([lng, lat]) => [lat, lng]),
             color: ALT_COLORS[i % ALT_COLORS.length],
