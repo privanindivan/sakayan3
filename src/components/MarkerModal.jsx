@@ -70,6 +70,17 @@ export default function MarkerModal({
   const [type,     setType]     = useState(marker.type)
   const [details,  setDetails]  = useState(marker.details || '')
   const [sched,    setSched]    = useState(() => initSched(marker.schedule))
+  const svUrls = (() => {
+    const id = marker.streetview_pano_id
+    if (!id) return []
+    const base = `https://streetviewpixels-pa.googleapis.com/v1/thumbnail?cb_client=maps_sv.tactile&w=800&h=500&pitch=0&panoid=${encodeURIComponent(id)}`
+    const y = marker.streetview_yaw ?? 0
+    return [
+      `${base}&yaw=${y}`,
+      `${base}&yaw=${(y - 60 + 360) % 360}`,
+      `${base}&yaw=${(y + 60) % 360}`,
+    ]
+  })()
   const [images,   setImages]   = useState(marker.images)
   const fileInputRef = useRef(null)
 
@@ -249,7 +260,7 @@ export default function MarkerModal({
           <button className="modal-close" onClick={onClose} aria-label="Close">&#x2715;</button>
         </div>
         <div className="modal-scroll">
-        <ImageCarousel images={images} />
+        <ImageCarousel images={[...svUrls, ...(images || [])]} />
 
         <div className="modal-body">
           {editing ? (
