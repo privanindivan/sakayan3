@@ -70,6 +70,21 @@ export default function MarkerModal({
   const [type,     setType]     = useState(marker.type)
   const [details,  setDetails]  = useState(marker.details || '')
   const [sched,    setSched]    = useState(() => initSched(marker.schedule))
+  const [fullLoaded, setFullLoaded] = useState(!!(marker.images))
+
+  // Lazy-load full terminal data (images, details, schedule) if not in slim map payload
+  useEffect(() => {
+    if (marker.images !== undefined) return
+    fetch(`/api/terminals/${marker.id}`).then(r => r.json()).then(d => {
+      const t = d.terminal
+      if (!t) return
+      setImages(t.images || [])
+      setDetails(t.details || '')
+      setSched(initSched(t.schedule))
+      setFullLoaded(true)
+    })
+  }, [marker.id])
+
   const svUrls = (() => {
     const id = marker.streetview_pano_id
     if (!id) return []
@@ -81,7 +96,7 @@ export default function MarkerModal({
       `${base}&yaw=${(y + 60) % 360}`,
     ]
   })()
-  const [images,   setImages]   = useState(marker.images)
+  const [images,   setImages]   = useState(marker.images || [])
   const fileInputRef = useRef(null)
 
   // Comments state

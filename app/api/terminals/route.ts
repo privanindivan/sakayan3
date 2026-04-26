@@ -8,11 +8,16 @@ export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl
   const bbox = searchParams.get('bbox')
 
+  const slim = `t.id, t.name, t.lat, t.lng, t.type,
+    t.likes, t.dislikes, t.outdated_votes, t.created_by, t.created_at,
+    t.streetview_pano_id, t.streetview_yaw,
+    u.username as creator_name, v.vote_type as my_vote`
+
   let rows
   if (bbox) {
     const [minLat, minLng, maxLat, maxLng] = bbox.split(',').map(Number)
     rows = await sql.query(`
-      SELECT t.*, u.username as creator_name, v.vote_type as my_vote
+      SELECT ${slim}
       FROM terminals t
       LEFT JOIN users u ON t.created_by = u.id
       LEFT JOIN votes v ON v.entity_type='terminal' AND v.entity_id=t.id AND v.user_id=$1
@@ -21,7 +26,7 @@ export async function GET(req: NextRequest) {
     `, [userId, minLat, maxLat, minLng, maxLng])
   } else {
     rows = await sql.query(`
-      SELECT t.*, u.username as creator_name, v.vote_type as my_vote
+      SELECT ${slim}
       FROM terminals t
       LEFT JOIN users u ON t.created_by = u.id
       LEFT JOIN votes v ON v.entity_type='terminal' AND v.entity_id=t.id AND v.user_id=$1
@@ -30,7 +35,7 @@ export async function GET(req: NextRequest) {
     `, [userId])
   }
   return NextResponse.json({ terminals: rows }, {
-    headers: { 'Cache-Control': 'public, max-age=30, stale-while-revalidate=60' }
+    headers: { 'Cache-Control': 'public, max-age=60, stale-while-revalidate=120' }
   })
 }
 

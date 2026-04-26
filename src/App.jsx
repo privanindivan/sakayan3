@@ -157,15 +157,14 @@ export default function App() {
         lng: t.lng,
         name: t.name,
         type: t.type,
-        details: t.details || '',
-        schedule: t.schedule,
-        images: t.images || [],
         likes: t.likes || 0,
         dislikes: t.dislikes || 0,
         outdated_votes: t.outdated_votes || 0,
         created_by: t.created_by,
         creator_name: t.creator_name,
         my_vote: t.my_vote,
+        streetview_pano_id: t.streetview_pano_id || null,
+        streetview_yaw: t.streetview_yaw ?? null,
       })))
 
       // Map connections to sakayan2 format
